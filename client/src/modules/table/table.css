@@ -1,0 +1,9 @@
+.ol-popup{
+    position: absolute;
+    background-color: white;
+    filter: drop-shadow(0 8px 3px rgba(0, 0, 0, 0.4));
+    padding: 0;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+}

@@ -1,0 +1,121 @@
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 280px;
+  filter: drop-shadow(0 8px 3px rgba(0, 0, 0, 0.4));
+}
+
+.ol-popup:after,
+.ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+
+.ol-popup-closer:after {
+  content: "✖";
+}
+
+#popup {
+  background: #fff;
+  /* border: 1px solid #a3d8ae; */
+  border-radius: 10px;
+  min-width: 460px;
+}
+
+div#popup-content {
+  max-height: 350px;
+  overflow: auto;
+}
+
+#popup-content {
+  border-radius: 10px;
+}
+#popup p {
+  color: #3c3c3c;
+}
+#popup p {
+  width: 100%;
+  float: left;
+  margin-bottom: 5px !important;
+}
+
+#popup p > span:first-child {
+  font-weight: 600;
+}
+.highcharts-credits {
+  display: none;
+}
+#popup p .slabel {
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+.highcharts-container {
+  height: 300px !important;
+}
+#menuLayer{
+  position: absolute;
+  z-index: 9;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 10px 0 0 10px;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 30px;
+}
+
+.ol-zoom{
+  right: 0.5em !important;
+  left: auto !important;
+}
+#leftShow{
+  padding: 10px;
+  position: absolute;
+  top: 10%;
+  left: 26%;
+  z-index: 8;
+  border-radius: 3px;
+  background-color: aquamarine;
+}
+#rightShow{
+  padding: 10px;
+  position: absolute;
+  top: 10%;
+  margin: 10px;
+  z-index: 8;
+  border-radius: 3px;
+  background-color: aquamarine;
+}

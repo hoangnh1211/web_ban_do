@@ -1,0 +1,31 @@
+.contact{
+    padding-top: 30px;
+    min-height: 900px;
+}
+
+.contact .form{
+    padding: 20px;
+    background: #f3f2f2;
+}
+.contact .form input,.contact .form textarea{
+    width: 100%;
+}
+.contact .form .row{
+    margin-bottom: 10px !important;
+}
+
+.contact .form button{
+    text-align: center;
+    margin-left: 48%;
+    padding: 10px 20px;
+    background-color: rgb(40, 33, 141);
+    font-size: 20px;
+    color: #f3f2f2;
+}
+.contact textarea{
+    height: 250px;
+}
+.contact iframe{
+    width:100%;
+    height: 68%;
+}

@@ -1,6 +1,20 @@
 .home{
-    height: 2000px;
+    padding-right: 10%;
+    padding-left: 10%;    
+    padding-top: 50px;
+
+}
+.ind{
+    z-index: 10;
+    background-color: #fff;
 }
 .nav-item{
     text-align: center;
+}
+.image_home{
+    width: 100%;
+}
+.home p{
+    text-align: justify;
+    font-size: 20px;
 }

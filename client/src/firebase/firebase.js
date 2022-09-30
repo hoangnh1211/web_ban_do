@@ -55,6 +55,17 @@ export const getFirebaseItems = async () => {
     } catch (err) {
     }
   }
+
+  export const geturl = async (url1,url2) => {
+    try {
+      var storageRef = firebase.storage().ref();
+      //var pathReference = storage.ref(`files/${url}`);  
+      let url = await storageRef.child(`files/${url1}/${url2}`).getDownloadURL()
+      return url;
+    } catch (err) {
+    }
+  }
+
   export const updateFirebaseItem = async (item, file) => {
     try {
       const data = db.collection("todo").doc(item.id);

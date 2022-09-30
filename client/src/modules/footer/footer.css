@@ -1,0 +1,15 @@
+.footer{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    /* position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0; */
+    background-color: #1a73e8;
+}
+.footer p{
+    text-align: center;
+    color: #fff;
+    margin: 0px !important;
+    font-family: "Roboto Condensed","Helvetica" !important;
+}

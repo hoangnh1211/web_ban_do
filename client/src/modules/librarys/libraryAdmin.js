@@ -8,10 +8,14 @@ function Todo() {
   const [items, putItems] = React.useState([
     /* テストコード 開始 *  /* テストコード 終了 */
   ]);
-  useEffect(async () => {
-    let follow = await getFirebaseItems() || [];
-    console.log(follow);
-    putItems(follow)
+
+  useEffect( () => {
+    let follow  = getFirebaseItems().then(res => {
+      res.sort(function (a, b) {
+          return a.stt - b.stt;
+        });
+      putItems(res)
+  });
   }, [])
 
 
@@ -24,17 +28,22 @@ function Todo() {
   let listItems = items
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log("asd", e.target[0]?.value, e.target[1]?.value, e.target[2]?.files);
-    let name1 = e.target[0] ? e.target[0].value : ''
-    let des1 = e.target[1] ? e.target[1].value : ''
-    let file = e.target[2] ? e.target[2].files[0].name : ''
-    const file1 = e.target[2]?.files[0]
+    console.log( e.target);
+    console.log("asd", e.target[0]?.value, e.target[1]?.value, e.target[2]?.value,e.target[3]?.value);
+    let stt1 = e.target[0] ? e.target[0].value : 0
+    let name1 = e.target[1] ? e.target[1].value : ''
+    let des1 = e.target[2] ? e.target[2].value : ''
+    let file = e.target[3] ? e.target[3].files[0].name : ''
+    const file1 = e.target[3]?.files[0]
+    stt1 = parseInt(stt1)
     putItems([...items, {
+      stt:stt1,
       name: name1,
       description: des1,
       file: file
     }])
     await addFirebaseItem({
+      stt:stt1,
       name: name1,
       description: des1,
       file: file
@@ -43,20 +52,27 @@ function Todo() {
   const handleupdateSubmit = async (e) => {
     e.preventDefault()
     console.log("asd", e.target[0]?.value, e.target[1]?.value, e.target[2]?.files);
-    let name1 = e.target[0] ? e.target[0].value : ''
-    let des1 = e.target[1] ? e.target[1].value : ''
-    let file = e.target[2] ? (e.target[2].files.length !== 0) ? e.target[2].files[0].name : currentItem.file : currentItem.file
-    const file1 = e.target[2]?.files[0]
+    let stt1 = e.target[0] ? e.target[0].value : 0
+    let name1 = e.target[1] ? e.target[1].value : ''
+    let des1 = e.target[2] ? e.target[2].value : ''
+    let file = e.target[3] ? (e.target[3].files.length !== 0) ? e.target[3].files[0].name : currentItem.file : currentItem.file
+    const file1 = e.target[3]?.files[0]
+    
 
     await updateFirebaseItem({
+      stt:stt1,
       name: name1,
       description: des1,
       file: file,
       id: currentItem.id
     }, file1)
     await setStatus("")
-    let follow = await getFirebaseItems() || [];
-    putItems(follow)
+    let follow  = getFirebaseItems().then(res => {
+      res.sort(function (a, b) {
+          return a.stt - b.stt;
+        });
+      putItems(res)
+  });
   }
   const [currentItem, setCurrentItem] = useState("")
   const [status, setStatus] = useState("")
@@ -98,12 +114,16 @@ function Todo() {
     }
   }
   return (
-    <div className="panel">
+    <div className="panel ind">
       <div className="panel-heading">
         danh sach
       </div>
       <button type="button" class="btn btn-primary" onClick={add}>Add</button>
       {status === "add" && <form onSubmit={handleSubmit}>
+        <div class="form-group" >
+          <label for="stt">STT</label>
+          <input type="number" class="form-control" name="stt" placeholder="STT"  />
+        </div>
         <div class="form-group" >
           <label for="exampleInputEmail1">Name</label>
           <input type="text" class="form-control" placeholder="Name" />
@@ -120,6 +140,10 @@ function Todo() {
       </form>
       }
       {status === "edit" && currentItem && <form onSubmit={handleupdateSubmit}>
+        <div class="form-group" >
+          <label for="stt">STT</label>
+          <input type="number" class="form-control" name="stt" placeholder="STT" value={currentItem.stt} onChange={onChange} />
+        </div>
         <div class="form-group" >
           <label for="exampleInputEmail1">Name</label>
           <input type="text" class="form-control" name="name" placeholder="Name" value={currentItem.name} onChange={onChange} />
@@ -150,7 +174,7 @@ function Todo() {
           {listItems.map((item, index) => (
 
             <tr>
-              <th scope="row">{index}</th>
+              <th scope="row">{item.stt}</th>
               <td>{item.name}</td>
               <td>{item.description}</td>
               <td><i className="fa-solid fa-download" onClick={() => download(item.file)}></i> <i class="fa-solid fa-pen-to-square" onClick={() => edit(item)}></i><i class="fa-solid fa-trash-can" onClick={() => deleteTodo(item)}></i></td>

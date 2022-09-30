@@ -1,0 +1,90 @@
+.header{
+    /* height: 100px; */
+    /* background: url("../../image/DJI_0017.jpg"); */
+}
+.image_h{
+    display: block;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: 50% 50%;
+    object-position: 50% 50%;
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    left: 0;
+    height: 300px;
+}
+.header__inner{
+    display: flex;
+    position: relative;
+}
+.header__logo{
+    width: 200px;
+}
+.header__logo img{
+    width: 100%;
+}
+.header__slogan{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.header__text-1{
+    text-align: center !important;
+    font-size: 38px;
+    color: #f14342;
+    text-shadow: 2px 2px #FFF;
+}
+.menu_bar{
+    background-color: #0288d1;
+    padding-left: 10% ;
+    padding-right: 10%;
+}
+
+.menu_bar a{
+    /* font-size: 1px !important; */
+}
+.fixed-top{
+    padding-left: 10%;
+    padding-right: 10%;
+} 
+.navbar-collapse{
+    display: flex !important;
+    width: 100%;
+}
+.navbar{
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    background-color: #0288d1;
+}
+.nav-justified{
+    width: 100%;
+}
+.nav-justified li a{
+    color: #FFF !important;
+}
+.menu_bar .nav-justified .nav-link{
+    color: #fff;
+    font-size: 17px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0 15px;
+}
+.menu_bar .nav-item{
+    padding: 10px;
+    border: 1px solid #037cbd;
+}
+.menu_bar .nav-item:hover{
+    background-color: #0228d1 !important;
+}
+.nav-justified li a:hover{
+    text-decoration: none;
+}
+.active1{
+    background-color: #fff;
+    color: #0288d1;
+}
+.active1 .nav-link{
+    color: #0288d1 !important;
+}

@@ -1,0 +1,75 @@
+.introduce .title-section h2 {
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0);
+}
+.introduce .title-section{
+    text-align: center;
+}
+.introduce{
+    padding-top: 30px;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+.introduce .question .service-header {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-family: "Roboto Condensed","Helvetica" !important;
+    text-transform: uppercase;
+    text-align: center;
+    background: #004370;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: #FFF;
+    width: 100%;
+}
+.introduce #dLoaiBaoCao p {
+    color: #444444;
+    font-size: 16px;
+    display: flex;
+}
+.introduce .question #dLoaiBaoCao p {
+    line-height: 35px;
+    background: #ececec;
+    border: solid 1px #ffffff;
+    padding: 10px;
+    width: 100%;
+    margin: 0px;
+    font-size: 15px;
+}
+.introduce .question #dLoaiBaoCao p:hover,.introduce  .question #dLoaiBaoCao p.active {
+    color: rgba(243, 0, 0, 0.952); 
+    cursor: pointer;
+}
+.introduce .dm{
+   
+    margin-left: 20px;
+}
+.introduce img{
+    width: 100%;
+}
+.doitac img{
+    min-height: 120px;
+    object-fit: cover;
+}
+.doitac{
+    margin-bottom: 30px;
+}
+
+.doitac b:hover{
+    color: #004370;
+    cursor: pointer;
+}
+.abcd{
+    text-align: justify;
+}
+.ac1234{
+    text-align: center !important;
+}

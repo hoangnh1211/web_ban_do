@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+.menu_bar .nav-justified .nav-link{
+  padding: 10px 0px !important;
+}
+.menu_bar .nav-justified .nav-link{
+  font-weight : 500;
+}
+.nav-justified .nav-item {
+  text-align: center;
+}
+#dLoaiBaoCao p{
+  font-size: 20px !important;
+}
+@media (max-width: 1700px) {
+  .menu_bar,.fixed-top {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+  .mt .col-md-9 p{
+    font-size: 18px !important;
+  }
+  .menu_bar a{
+    font-size: 15px !important;
+  }
+  .menu_bar .nav-justified .nav-link{
+    padding: 10px 0px !important;
+    line-height: 10px !important;
+  }
+  #dLoaiBaoCao p{
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .menu_bar,.fixed-top {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+  .menu_bar a{
+    font-size: 14px !important;
+  }
+  .menu_bar .nav-justified .nav-link{
+    padding: 10px 0px !important;
+    line-height: 10px !important;
+  }
+}

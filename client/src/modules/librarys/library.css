@@ -1,0 +1,53 @@
+.panel .title-section h2 {
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0);
+}
+.panel .title-section{
+    text-align: center;
+}
+.panel{
+    padding-top: 30px;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+.panel .question .service-header {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-family: "Roboto Condensed","Helvetica" !important;
+    text-transform: uppercase;
+    text-align: center;
+    background: #004370;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    color: #FFF;
+    width: 100%;
+}
+.panel #dLoaiBaoCao p {
+    color: #444444;
+    font-size: 16px;
+    display: flex;
+}
+.panel .question #dLoaiBaoCao p {
+    line-height: 35px;
+    background: #ececec;
+    border: solid 1px #ffffff;
+    padding: 10px;
+    width: 100%;
+    margin: 0px;
+}
+.panel .question #dLoaiBaoCao p:hover,.panel  .question #dLoaiBaoCao p.active {
+    color: #ec0000; 
+    cursor: pointer;
+}
+.panel .dm{
+   
+    margin-left: 20px;
+}

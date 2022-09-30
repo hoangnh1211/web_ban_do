@@ -1,65 +1,73 @@
+import React, { useState, useEffect } from 'react';
+import { getFirebaseItems, download } from '../../firebase/firebase';
+import "./library.css"
 
-import React from 'react';
-import { useState } from "react";
-import { storage } from '../../firebase/firebase';
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { Axios } from 'axios';
 function Library() {
-    const [imgUrl, setImgUrl] = useState(null);
-    const [progresspercent, setProgresspercent] = useState(0);
-    const [fileD,setFileD] = useState("")
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     const file = e.target[0]?.files[0]
-    //     if (!file) return;
-    //     console.log(file);
-    //     const storageRef = ref(storage, `files/${file.name}`);
-    //     const uploadTask = uploadBytesResumable(storageRef, file);
-    //     uploadTask.on("state_changed",
-    //     (snapshot) => {
-    //         const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-            
-    //         setProgresspercent(progress);
-    //     },
-    //     (error) => {
-    //         console.log(error);
-    //         alert(error);
-    //     },
-    //     () => {
-    //         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //         setImgUrl(downloadURL)
-    //     });
-    //     }
-    //     );
-    // }
-    // const downFile = ()=>{
-    //     getDownloadURL(ref(storage, 'files/KetQuaCongViec (14).xls'))
-    // .then((url) => {
-    //     console.log(url);
-    //     // Axios.get(url).then(res=>{
-    //     //     console.log(res);
-    //     // })
-        
-    //     setFileD(url+"")
-    //     // setDem(dem+1)
-    // })
-    // .catch((error) => {
-    //     // Handle any errors
-    // });
-    // }
+    const [items, putItems] = React.useState([]);
+    const [check, setCheck] = React.useState([true,false,false,false]);
+    useEffect(() => {
+        let follow = getFirebaseItems().then(res => {
+            res.sort(function (a, b) {
+                return a.stt - b.stt;
+              });
+            putItems(res)
+        });
+    }, [])
+    const handleChang =(value)=>{
+        const check1 = [false,false,false,false]
+        check1[value] = true;
+        setCheck(check1)
+    }
     return (
-        <React.Fragment>
-            <p>Thư viện</p>
-            <div className="App">
-               {/*  <form className='form' onSubmit={handleSubmit}>
-                    <input type='file' />
-                    <button type='submit'>Upload</button>
-                </form>
-    <p > file1 </p> <button onClick={downFile}>ttai</button> */}
-                <iframe src={fileD} frameborder="0" style={{ overflow: "hidden", height: "85vh", width: "100%" }} height="100%" width="100%"></iframe>
-                </div>
+        <div className="panel ind ">
+            <div class="title-section">
+                <h2 class="switch-lang" e="Library">Thư viện tài liệu - báo cáo</h2>
+            </div>
+            <div className='row'>
+                <div id="question" class="col-md-3 col-sm-3">
+                    <div class="question">
+                        <div class="service-header">
+                            <i class="fa-solid fa-align-justify"></i>
+                            <span className='dm'>Danh mục</span>
+                        </div>
 
-        </React.Fragment>
+                        <div id="dLoaiBaoCao">
+                            <p className={check[0]?"active":""} onClick={()=>handleChang(0)}>Báo cáo</p>
+                            <p className={check[1]?"active":""} onClick={()=>handleChang(1)}>Tài liệu tham khảo</p>
+                            <p className={check[2]?"active":""} onClick={()=>handleChang(2)}>Tài liệu khác</p>  
+                            <p className={check[3]?"active":""} onClick={()=>handleChang(3)}>Thư viện ảnh</p>   
+                        </div>
+
+
+                    </div>
+                </div>
+                <table class="table table-striped col-md-9 col-sm-9">
+                    <thead>
+                        <tr>
+                            <th scope="col" className='col-1'>STT</th>
+                            <th scope="col" className='col-3'>Tên Tài Liệu</th>
+                            <th scope="col" className='col-6'>Mô Tả</th>
+                            <th scope="col" className='col-2'>Chi Tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map((item, index) => (
+
+                            <tr>
+                                <th scope="row" className='col-1'>{item.stt}</th>
+                                <td className='col-3'><b>{item.name}</b></td>
+                                <td className='col-6'>{item.description}</td>
+                                <td className='col-2'><i className="fa-solid fa-download" onClick={() => download(item.file)}></i> </td>
+                            </tr>
+                        ))}
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
     );
 }
 

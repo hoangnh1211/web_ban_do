@@ -14,9 +14,41 @@ import { useEffect } from 'react';
 
 function Router() {
     useEffect(() => {
-        axios.get("http://103.184.112.209:8080/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=quangninh%3Atram_khi_tuong&STYLES=&LAYERS=quangninh%3Atram_khi_tuong&exceptions=application%2Fvnd.ogc.se_inimage&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A3857&WIDTH=101&HEIGHT=101&BBOX=11907475.114171226%2C2377070.7361821467%2C11929310.967149042%2C2398906.589159962%20http://103.184.112.209:8080/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=quangninh%3Atram_thuy_van&STYLES=&LAYERS=quangninh%3Atram_thuy_van&exceptions=application%2Fvnd.ogc.se_inimage&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A3857&WIDTH=101&HEIGHT=101&BBOX=11907475.114171226%2C2377070.7361821467%2C11929310.967149042%2C2398906.589159962%20http://103.184.112.209:8080/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=quangninh%3ATram_hai_van&STYLES=&LAYERS=quangninh%3ATram_hai_van&exceptions=application%2Fvnd.ogc.se_inimage&INFO_FORMAT=application%2Fjson&FEATURE_COUNT=50&X=50&Y=50&SRS=EPSG%3A3857&WIDTH=101&HEIGHT=101&BBOX=11907475.114171226%2C2377070.7361821467%2C11929310.967149042%2C2398906.589159962")
-        .then(res=>{
-        });
+        axios.get('http://103.184.112.209:8080/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&STYLES=&LAYERS=quangninh%3Anen_bien_region&exceptions=application%2Fvnd.ogc.se_inimage&SRS=EPSG%3A3857&WIDTH=1319&HEIGHT=961&BBOX=11762839.612763718%2C2288538.2431681333%2C12048002.880860135%2C2496303.141303583')
+  .then(response => {
+    // console.log(response.data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+  axios.get('http://103.184.112.209:8080/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&STYLES=&LAYERS=quangninh%3Anenhc_qgia_region&exceptions=application%2Fvnd.ogc.se_inimage&SRS=EPSG%3A3857&WIDTH=1319&HEIGHT=961&BBOX=11762839.612763718%2C2288538.2431681333%2C12048002.880860135%2C2496303.141303583')
+  .then(response => {
+    // console.log(response.data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+  axios.get('http://103.184.112.209:8080/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&STYLES=&LAYERS=quangninh%3Adiaphantinh&exceptions=application%2Fvnd.ogc.se_inimage&SRS=EPSG%3A3857&WIDTH=1319&HEIGHT=961&BBOX=11762839.612763718%2C2288538.2431681333%2C12048002.880860135%2C2496303.141303583')
+  .then(response => {
+    // console.log(response.data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+  axios.get('http://103.184.112.209:8080/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&STYLES=&LAYERS=quangninh%3Adiaphanhuyen_vnc&exceptions=application%2Fvnd.ogc.se_inimage&SRS=EPSG%3A3857&WIDTH=1319&HEIGHT=961&BBOX=11762839.612763718%2C2288538.2431681333%2C12048002.880860135%2C2496303.141303583')
+  .then(response => {
+    // console.log(response.data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+  axios.get('http://103.184.112.209:8080/geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&STYLES=&LAYERS=quangninh%3Abien&exceptions=application%2Fvnd.ogc.se_inimage&SRS=EPSG%3A3857&WIDTH=1319&HEIGHT=961&BBOX=11762839.612763718%2C2288538.2431681333%2C12048002.880860135%2C2496303.141303583')
+  .then(response => {
+    // console.log(response.data);
+  })
+  .catch(error => {
+    console.log(error);
+  });
         }, [])
     return (
     <Switch>

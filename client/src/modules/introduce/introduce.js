@@ -30,7 +30,7 @@ function Introduce(props) {
 
                         <div id="dLoaiBaoCao">
                             <p className={check[0] ? "active" : ""} onClick={() => handleChang(0)}><b>Đề Tài</b></p>
-                            <p className={check[1] ? "active" : ""} onClick={() => handleChang(1)}><b>Cơ Quan Chủ Trì</b></p>
+                            {/* <p className={check[1] ? "active" : ""} onClick={() => handleChang(1)}><b>Cơ Quan Chủ Trì</b></p> */}
                             <p className={check[2] || check[3] || check[4] || check[5] ? "active" : ""} onClick={() => handleChang(2)}><b>Đối Tác</b></p>
                             <p className={check[3] ? "active" : "con"} onClick={() => handleChang(3)}>&emsp;&emsp;Moscow</p>
                             <p className={check[4] ? "active" : "con"} onClick={() => handleChang(4)}>&emsp;&emsp;Sankt-Peterburg</p>
@@ -43,7 +43,7 @@ function Introduce(props) {
                         <Service1 />
                     </div>
                 }
-                {check[1] &&
+                {/* {check[1] &&
                     <div class="col-md-9 col-sm-9 abcd">
                         <div className='ac1234'>
                             <p><b >Viện Nghiên cứu bảo vệ môi trường và sức khỏe cộng đồng (IEH)/Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam</b></p>
@@ -87,7 +87,7 @@ function Introduce(props) {
                         <img src='https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/7.jpg?alt=media&token=e8de8da6-23e3-4095-a944-75a0431f0f1a'></img>
                         <p>Ảnh 4/ Làm việc với các GS và chuyên gia Khoa "Địa chất & Môi trường" ĐH CHICAGO (Hoa Kỳ). Năm 2012.</p>
                     </div>
-                }
+                } */}
                 {check[2] &&
                     <div className="col-md-9 col-sm-9">
                         <div className='row doitac'>

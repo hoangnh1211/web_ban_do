@@ -30,7 +30,8 @@ function Contact() {
                     <button>Gửi</button>
                 </div>
                 <div className='col info'>
-                    <b>VIỆN NGHIÊN CỨU BẢO VỆ MÔI TRƯỜNG VÀ SỨC KHỎE CỘNG ĐỒNG</b>
+                    <p><b>Viện nghiên cứu bảo vệ môi trường và sức khỏe cộng đồng</b></p>
+                    <p><b>Research Institute for Environmental Protection and Public Health</b></p>
                     <p>Địa chỉ: <b>Số 49, ngõ 46 đường Xuân Đỉnh,, Phường Xuân Tảo, Quận Bắc Từ Liêm, Hà Nội</b></p>
                     <p>Viện Trưởng: <b>Nguyễn Khắc Bằng</b>&emsp;&emsp;&emsp;&emsp;&emsp; Điện thoại: <b>0973342010</b></p>
                     <p>E-mail: <b>bangnkist@gmail.com</b></p>

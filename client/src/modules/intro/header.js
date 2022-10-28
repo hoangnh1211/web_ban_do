@@ -62,7 +62,7 @@ function Header() {
                                 <Link className="nav-link" to="/moi-truong" onClick={()=>changS(5)}>MÔI TRƯỜNG</Link>
                             </li>
                             <li className={status[6]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/contact" onClick={()=>changS(6)}>LIÊN HỆ</Link>
+                                <Link className="nav-link" to="/contact" onClick={()=>changS(6)}>VIỆN IEH</Link>
                             </li>
                             
                         </ul>

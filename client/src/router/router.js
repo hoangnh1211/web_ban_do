@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch, Route} from "react-router-dom"
-import Contact from '../modules/contact/contact';
+import Contact1 from '../modules/contact1/contact1';
 import Home from "../modules/home/home";
 import Introduce from '../modules/introduce/introduce';
 import Library from '../modules/librarys/library';
@@ -68,7 +68,7 @@ function Router() {
             <Todo/>
         </Route>
         <Route  path="/contact" >
-            <Contact/>
+            <Contact1/>
         </Route>
         <Route  path="/moi-truong" >
         <Moitruong/>

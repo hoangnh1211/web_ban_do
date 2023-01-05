@@ -1,0 +1,317 @@
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  min-width: 280px;
+  filter: drop-shadow(0 8px 3px rgba(0, 0, 0, 0.4));
+}
+
+.ol-popup:after,
+.ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+
+.ol-popup-closer:after {
+  content: "✖";
+}
+
+#popup {
+  background: #fff;
+  /* border: 1px solid #a3d8ae; */
+  border-radius: 10px;
+  min-width: 460px;
+}
+
+div#popup-content {
+  max-height: 350px;
+  overflow: auto;
+}
+
+#popup-content {
+  border-radius: 10px;
+}
+#popup p {
+  color: #3c3c3c;
+}
+#popup p {
+  width: 100%;
+  float: left;
+  margin-bottom: 5px !important;
+}
+
+/* #popup p > span:first-child {
+  font-weight: 600;
+} */
+.highcharts-credits {
+  display: none;
+}
+#popup p .slabel {
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+.highcharts-container {
+  height: 300px !important;
+}
+#menuLayer{
+  position: absolute;
+  z-index: 9;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 15px;
+  background-color: #fff;
+  padding: 5px;
+  height: 100%;
+  border-right: 2px solid #ebebeb;
+}
+#menuLayer .dropdown{
+  max-width: 1000px;
+}
+.ol-zoom{
+  right: 0.5em !important;
+  left: auto !important;
+}
+#leftShow{
+  padding: 10px;
+  position: absolute;
+  top: 10%;
+  left: 26%;
+  z-index: 8;
+  border-radius: 3px;
+  background-color: aquamarine;
+}
+#rightShow{
+  padding: 10px;
+  position: absolute;
+  top: 10%;
+  margin: 10px;
+  z-index: 8;
+  border-radius: 3px;
+  background-color: aquamarine;
+}
+.imageData{
+  width: 100% !important;
+}
+
+#mount {
+  margin: 100px;  
+}
+
+.dropdown {
+  position: relative;
+  border-radius: 1px;
+  max-width: 300px;
+}
+
+.highlight{
+  color: #3c3c3c !important;
+  border-bottom:1px solid #ebebeb;
+  margin-bottom: 10px;
+}
+.highlight :hover{
+  color: red !important;
+}
+.flex{
+  margin-left: 20px;
+}
+.fa-caret-down{
+  margin-left: 5px;
+}
+.checkTrue{
+color: rgb(80, 98, 201);
+}
+.dropdown__list{
+  padding: 10px !important;
+  width: 100%;
+}
+#popup .nav-item p:hover{
+  color: #337ab7;
+  cursor: pointer;
+}
+#popup .nav-tabs .nav-link{
+  border: none !important;
+}
+.mn{
+  text-align: center;
+  font-size: 20px;
+}
+.img_a{
+  position: absolute;
+  bottom: -20%;
+  right: 0;
+  z-index: 10;
+  width: 10%;
+}
+.img_a1{
+  position: absolute;
+  top: 27%;
+  right: 0;
+  z-index: 10;
+  width: 30%;
+}
+.img_a2{
+  position: absolute;
+  bottom: -20%;
+  right: 60%;
+  z-index: 10;
+  width: 19%;
+}
+.img_a3{
+  position: absolute;
+  bottom: -20%;
+  right: 40%;
+  z-index: 10;
+  width: 19%;
+}
+.img_a4{
+  position: absolute;
+  bottom: -20%;
+  right: 20%;
+  z-index: 10;
+  width: 19%;
+}
+.img_a5{
+  position: absolute;
+  bottom: -20%;
+  right: 0;
+  z-index: 10;
+  width: 19%;
+}
+.cbd1{
+  padding: 0px !important;
+  
+}
+.cbd1 .nav-item{
+  border-bottom: 1px solid rgb(66, 66, 66) ;
+}
+.cbd1 .nav-link{
+  color: #337ab7;
+}
+.act1{
+  background-color: #fff;
+  border: 1px solid rgb(66, 66, 66);
+  border-bottom-color: transparent !important;
+}
+.act1 .nav-link{
+  color: #337ab7 !important;
+  cursor: default;
+  
+}
+
+#myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10000; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+} 
+#dlmt :hover{
+  color: red;
+}
+#dlmt .form-check-label{
+cursor: pointer;
+}

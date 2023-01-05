@@ -50,3 +50,85 @@ export const translateKT = (value) => {
     }
     return array[value] || ""
 }
+
+export const translateKK = (value) => {
+    console.log(value)
+    let array = {
+        stt: "STT",
+        vitri: "Vị trí quan trắc",
+        khuvuc: "Khu vực",
+        mahieu_1: "Mã hiệu",
+        tanso: "Tần suất quan trắc",
+        toadox: "Tọa độ X",
+        toadoy: "Tọa độ Y",
+    }
+    return array[value] || ""
+}
+
+export const translateNM = (value) => {
+    console.log(value)
+    let array = {
+        stt: "STT",
+        vitri: "Vị trí quan trắc",
+        khuvuc: "Khu vực",
+        mahieu_1: "Mã hiệu",
+        thongso: "Thông số",
+        tansuat: "Tần suất quan trắc",
+        x_1: "Tọa độ X",
+        y_1: "Tọa độ Y",
+    }
+    return array[value] || ""
+}
+export const translateNN = (value) => {
+    console.log(value)
+    let array = {
+        stt: "STT",
+        vitri: "Vị trí quan trắc",
+        mahieu_1: "Mã hiệu",
+        donvikhait: "Đơn vị khai thác",
+        x_1: "Tọa độ X",
+        y_1: "Tọa độ Y",
+    }
+    return array[value] || ""
+}
+export const translateNB = (value) => {
+    console.log(value)
+    let array = {
+        stt: "STT",
+        vitriquant: "Vị trí quan trắc",
+        khuvuc: "Khu vực",
+        thongso_qu: "Thông số",
+        mahieu_1: "Mã hiệu",
+        tansuat: "Tần suất quan trắc",
+        toadox_1: "Tọa độ X",
+        toadoy_1: "Tọa độ Y",
+    }
+    return array[value] || ""
+}
+export const translateTT = (value) => {
+    console.log(value)
+    let array = {
+        stt: "STT",
+        vitri: "Vị trí quan trắc",
+        khuvuc: "Khu vực",
+        loaihinh: "Loại hình",
+        mahieu_1: "Mã hiệu",
+        toadox_1: "Tọa độ X",
+        toadoy_1: "Tọa độ Y",
+        thongso: "Thông số"
+    }
+    return array[value] || ""
+}
+export const translateMTD = (value) => {
+    console.log(value)
+    let array = {
+        stt: "STT",
+        vitri: "Vị trí quan trắc",
+        phamvi: "Phạm vi",
+        thongso: "Thông số",
+        mahieu_1: "Mã hiệu",
+        toado_x_1: "Tọa độ X",
+        toado_y_1: "Tọa độ Y",
+    }
+    return array[value] || ""
+}

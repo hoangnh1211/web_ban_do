@@ -10,3 +10,35 @@
 .mt .al{
     text-align: center !important;
 }
+.mt{
+    display: none;
+}
+#bando:hover{
+    color: red !important;
+  }
+#bando .switch-lang{
+  cursor: pointer;
+}
+#bando:hover .fa-angle-double-left{
+    color: red !important;
+}
+#bando{
+    font-size: 15px;
+    font-weight: normal;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+    padding: 5px;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    margin-left: 70%;
+    margin-right: 10%;
+}
+#bando label{
+    margin: 0px;
+}
+#bando .fa-angle-double-left{
+    margin-left: 10px;
+    color: rgb(43, 215, 129);
+}

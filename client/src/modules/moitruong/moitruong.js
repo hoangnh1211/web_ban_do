@@ -1,5 +1,6 @@
 import React from 'react';
 import "./moituong.css"
+import Map_a from '../map1/map';
 
 
 function Moitruong() {
@@ -11,10 +12,21 @@ function Moitruong() {
         check1[value] = true;
         setCheck(check1)
     }
+    const changeShow = (name) => {
+        const mt = document.getElementById('mt');
+        const map_mt = document.getElementById('map_mt');
+        map_mt.style.display = "block"
+        mt.style.display = "none"
+    }
     return (
-        <div className="panel ind mt">
+        <div>
+            <Map_a/>
+        <div className="panel ind mt" id="mt">
             <div class="title-section">
                 <h2 class="switch-lang" e="Library">Dữ liệu môi trường nước mặt</h2>
+            </div>
+            <div class="title-section" id='bando' onClick={changeShow}>
+                <label class="switch-lang" e="Library">Bản Đồ <i class="fas fa-angle-double-left"></i></label>
             </div>
             <div className='row'>
                 <div id="question" class="col-md-3 col-sm-3">
@@ -236,6 +248,7 @@ function Moitruong() {
                     <img src='https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/files%2FBieuDo%2FThaiBinh4.PNG?alt=media&token=a18b41f5-18cd-4fcf-9fdc-3f4e4284d32d'></img>
                 </div>}
             </div>
+        </div>
         </div>
     );
 }

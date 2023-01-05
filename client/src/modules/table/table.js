@@ -1,6 +1,6 @@
 import React from 'react';
 import 'ol/ol.css';
-import { translateKT,translateHV,translateTV } from '../translate';
+import { translateKT,translateHV,translateTV,translateKK,translateNM,translateNN,translateNB,translateTT,translateMTD } from '../translate';
 import "../map/map.css"
 function Table(props) {
 
@@ -28,7 +28,48 @@ function Table(props) {
                         )
                     }
                 }
-                
+                if (props.title==="KK"){
+                    if (translateKK(item) && data[item]){
+                        return (
+                            <p><span >{ translateKK(item)}</span> : <span class="slabel">{data[item]}</span></p>
+                        )
+                    }
+                }
+                if (props.title==="NM"){
+                    if (translateNM(item) && data[item]){
+                        return (
+                            <p><span >{ translateNM(item)}</span> : <span class="slabel">{data[item]}</span></p>
+                        )
+                    }
+                }
+                if (props.title==="NN"){
+                    if (translateNN(item) && data[item]){
+                        return (
+                            <p><span>{ translateNN(item)}</span> : <span class="slabel">{data[item]}</span></p>
+                        )
+                    }
+                }
+                if (props.title==="NB"){
+                    if (translateNB(item) && data[item]){
+                        return (
+                            <p><span >{ translateNB(item)}</span> : <span class="slabel">{data[item]}</span></p>
+                        )
+                    }
+                }
+                if (props.title==="TT"){
+                    if (translateTT(item) && data[item]){
+                        return (
+                            <p><span >{ translateTT(item)}</span> : <span class="slabel">{data[item]}</span></p>
+                        )
+                    }
+                }
+                if (props.title==="MTD"){
+                    if (translateMTD(item) && data[item]){
+                        return (
+                            <p><span>{ translateMTD(item)}</span> : <span class="slabel">{data[item]}</span></p>
+                        )
+                    }
+                }
             })
         )
     }

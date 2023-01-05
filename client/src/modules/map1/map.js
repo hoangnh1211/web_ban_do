@@ -19,7 +19,11 @@ import { geturl } from '../../firebase/firebase';
 
 function Map_a() {
     const [map, setMap] = useState();
+<<<<<<< HEAD
     const [indexTable, setIndexTable] = useState([true,true, false, false, false, false, false, false]);
+=======
+    const [indexTable, setIndexTable] = useState([true,true, true, false, false, false, false, false]);
+>>>>>>> 8c9503a (update 2023-01-05)
     const mapElement = useRef();
     const mapRef = useRef();
     mapRef.current = map;
@@ -137,7 +141,11 @@ function Map_a() {
         })
     });
     const listDefaultLayer = [abc,dataTinh,data1, data2, data3, data4, data5, data6]
+<<<<<<< HEAD
     const [listLayer, setListLayer] = useState([abc,dataTinh])
+=======
+    const [listLayer, setListLayer] = useState([abc,dataTinh, data1])
+>>>>>>> 8c9503a (update 2023-01-05)
     const handleChangeLayer = (value) => {
         const list = []
         value.forEach((element, index) => {

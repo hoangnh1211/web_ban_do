@@ -24,7 +24,7 @@ function Contact() {
                         <div className='col-9'><input/> </div>
                     </div>
                     <div className='row'> 
-                        <div className='col-3'> Nội dung * </div>
+                        <div className='col-3'> 	Nội dung * </div>
                         <div className='col-9'><textarea/> </div>
                     </div>
                     <button>Gửi</button>

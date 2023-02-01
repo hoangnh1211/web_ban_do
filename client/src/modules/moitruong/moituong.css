@@ -22,30 +22,23 @@
 #bando:hover .fa-angle-double-left{
     color: red !important;
 }
-#bando {
-    cursor: pointer;
-}
 #bando{
     font-size: 15px;
     font-weight: normal;
     text-transform: uppercase;
     display: block;
     margin-bottom: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 5px;
     color: rgb(0, 0, 0);
     border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0);
     margin-left: 70%;
     margin-right: 10%;
-    background-color: #004370;
-    color: #FFFFFF;
-    font-weight: 900;
 }
 #bando label{
     margin: 0px;
 }
 #bando .fa-angle-double-left{
     margin-left: 10px;
+    color: rgb(43, 215, 129);
 }

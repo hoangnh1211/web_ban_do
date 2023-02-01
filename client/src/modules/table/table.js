@@ -1,6 +1,6 @@
 import React from 'react';
 import 'ol/ol.css';
-import { translateKT,translateHV,translateTV,translateKK,translateNM,translateNN,translateNB,translateTT,translateMTD,translateKQ } from '../translate';
+import { translateKT,translateHV,translateTV,translateKK,translateNM,translateNN,translateNB,translateTT,translateMTD } from '../translate';
 import "../map/map.css"
 function Table(props) {
 
@@ -67,13 +67,6 @@ function Table(props) {
                     if (translateMTD(item) && data[item]){
                         return (
                             <p><span>{ translateMTD(item)}</span> : <span class="slabel">{data[item]}</span></p>
-                        )
-                    }
-                }
-                if (props.title==="KQ"){
-                    if (translateKQ(item) && data[item]){
-                        return (
-                            <p><span>{ translateKQ(item)}</span> : <span class="slabel">{data[item]}</span></p>
                         )
                     }
                 }

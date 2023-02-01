@@ -6,9 +6,7 @@ import 'ol/ol.css';
 
 import TileWMS from 'ol/source/TileWMS';
 import ImageWMS from 'ol/source/ImageWMS';
-import VectorSource from 'ol/source/Vector';
 import ImageLayer from 'ol/layer/Image';
-import VectorLayer from 'ol/layer/Vector';
 import axios from 'axios';
 import Table from '../table/table';
 import { toStringHDMS } from 'ol/coordinate';
@@ -21,7 +19,7 @@ import { geturl } from '../../firebase/firebase';
 
 function Map_a() {
     const [map, setMap] = useState();
-    const [indexTable, setIndexTable] = useState([true, true, true, true, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, false, false, false, false, false, false, true, false, false, true,true,true]);
+    const [indexTable, setIndexTable] = useState([true, true, true, true, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, false, false, false, false, false, false, true, false, false, true]);
     const mapElement = useRef();
     const mapRef = useRef();
     mapRef.current = map;
@@ -31,32 +29,6 @@ function Map_a() {
         source: new OSM()
     });
     var format = 'image/png';
-    const data31 = new ImageLayer({
-        source: new ImageWMS({
-            ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
-            params: {
-                'FORMAT': format,
-                'VERSION': '1.1.1',
-                "STYLES": '',
-                "LAYERS": 'quangninh:huyen1',
-                "exceptions": 'application/vnd.ogc.se_inimage',
-            }
-        })
-    });
-    const data32 = new ImageLayer({
-        source: new ImageWMS({
-            ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
-            params: {
-                'FORMAT': format,
-                'VERSION': '1.1.1',
-                "STYLES": '',
-                "LAYERS": 'quangninh:tentinh',
-                "exceptions": 'application/vnd.ogc.se_inimage',
-            }
-        })
-    });
     const data30 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
@@ -423,6 +395,7 @@ function Map_a() {
         })
     });
     var source123 = data3.getSource();
+    console.log(source123);
         // var features = source123.getFeatures();
         // console.log(features);
     const data2 = new ImageLayer({
@@ -451,8 +424,8 @@ function Map_a() {
             }
         })
     });
-    const listDefaultLayer = [data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16, data17, data18, data19, data20, data21, data22, data23, data24, data25, data26, data27, data28, data29, data30, data31,data32]
-    const [listLayer, setListLayer] = useState([data1, data2, data3, data4, data13, data14, data15, data16, data17, data18, data19, data20, data27, data30,data31,data32])
+    const listDefaultLayer = [data1, data2, data3, data4, data5, data6, data7, data8, data9, data10, data11, data12, data13, data14, data15, data16, data17, data18, data19, data20, data21, data22, data23, data24, data25, data26, data27, data28, data29, data30]
+    const [listLayer, setListLayer] = useState([data1, data2, data3, data4, data13, data14, data15, data16, data17, data18, data19, data20, data27, data30])
     const handleChangeLayer = (value) => {
         const list = []
         value.forEach((element, index) => {

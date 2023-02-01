@@ -52,6 +52,7 @@ export const translateKT = (value) => {
 }
 
 export const translateKK = (value) => {
+    console.log(value)
     let array = {
         stt: "STT",
         vitri: "Vị trí quan trắc",
@@ -65,6 +66,7 @@ export const translateKK = (value) => {
 }
 
 export const translateNM = (value) => {
+    console.log(value)
     let array = {
         stt: "STT",
         vitri: "Vị trí quan trắc",
@@ -78,6 +80,7 @@ export const translateNM = (value) => {
     return array[value] || ""
 }
 export const translateNN = (value) => {
+    console.log(value)
     let array = {
         stt: "STT",
         vitri: "Vị trí quan trắc",
@@ -89,6 +92,7 @@ export const translateNN = (value) => {
     return array[value] || ""
 }
 export const translateNB = (value) => {
+    console.log(value)
     let array = {
         stt: "STT",
         vitriquant: "Vị trí quan trắc",
@@ -102,6 +106,7 @@ export const translateNB = (value) => {
     return array[value] || ""
 }
 export const translateTT = (value) => {
+    console.log(value)
     let array = {
         stt: "STT",
         vitri: "Vị trí quan trắc",
@@ -115,6 +120,7 @@ export const translateTT = (value) => {
     return array[value] || ""
 }
 export const translateMTD = (value) => {
+    console.log(value)
     let array = {
         stt: "STT",
         vitri: "Vị trí quan trắc",
@@ -126,24 +132,3 @@ export const translateMTD = (value) => {
     }
     return array[value] || ""
 }
-
-export const translateKQ = (value) => {
-    let array = {
-        stt: "STT",
-        vitri: "Vị trí",
-        mahieu: "Mã hiệu",
-        toadox: "Tọa độ X",
-        toadoy: "Tọa độ Y",
-        cd: "Cd (µg/l)",
-        pb: "Pb (µg/l)",
-        tongcr: "Tổng Cr (µg/l)",
-        as_: "As (µg/l)",
-        hg: "Hg (µg/l)",
-        cu: "Cu (µg/l)",
-        zn: "Zn (µg/l)",
-        clo: "Thuốc bảo vệ thực vật nhóm Clo Hữu cơ (µg/l)",
-        photpho: "Thuốc bảo vệ thực vật nhóm Phốt pho Hữu cơ (µg/l)",
-    }
-    return array[value] || ""
-}
-

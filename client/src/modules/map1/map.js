@@ -97,6 +97,7 @@ function Map_a() {
             }
         })
     });
+    
     var source123 = data3.getSource();
         // var features = source123.getFeatures();
         // console.log(features);

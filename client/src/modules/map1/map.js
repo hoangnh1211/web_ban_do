@@ -16,19 +16,35 @@ import "./map.css"
 import Chart from '../chart/chart';
 import MenuLayer from './menuLayer';
 import { geturl } from '../../firebase/firebase';
+import XYZ from 'ol/source/XYZ';
 
 function Map_a() {
     const [map, setMap] = useState();
-    const [indexTable, setIndexTable] = useState([true,true, false, false, false, false, false, false]);
+    const [indexTable, setIndexTable] = useState([true,false, true, false, false, false, false, false,false]);
     const mapElement = useRef();
     const mapRef = useRef();
     mapRef.current = map;
     const [dataMap, setDataMap] = useState({ data: [], urlI: "", title: "" });
 
     const abc = new TileLayer({
-        source: new OSM()
+        source: new XYZ({
+            url: 'http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}'
+          })
     });
     var format = 'image/png';
+    const data7 = new ImageLayer({
+        source: new ImageWMS({
+            ratio: 1,
+            url: 'http://103.184.112.209:8080/geoserver/wms',
+            params: {
+                'FORMAT': format,
+                'VERSION': '1.1.1',
+                "STYLES": '',
+                "LAYERS": 'quangninh:Ketquaquantrac2',
+                "exceptions": 'application/vnd.ogc.se_inimage',
+            }
+        })
+    });
     const data5 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
@@ -136,8 +152,8 @@ function Map_a() {
             }
         })
     });
-    const listDefaultLayer = [abc,dataTinh,data1, data2, data3, data4, data5, data6]
-    const [listLayer, setListLayer] = useState([abc,dataTinh])
+    const listDefaultLayer = [abc,dataTinh,data1, data2, data3, data4, data5, data6, data7]
+    const [listLayer, setListLayer] = useState([abc, data1])
     const handleChangeLayer = (value) => {
         const list = []
         value.forEach((element, index) => {
@@ -214,6 +230,7 @@ function Map_a() {
             var source4 = data4.get('visible') ? data4.getSource() : tileLayer.getSource();
             var source5 = data5.get('visible') ? data5.getSource() : tileLayer.getSource();
             var source6 = data6.get('visible') ? data6.getSource() : tileLayer.getSource();
+            var source7 = data7.get('visible') ? data7.getSource() : tileLayer.getSource();
             var url1 = source1.getFeatureInfoUrl(
                 evt.coordinate, viewResolution, view.getProjection(),
                 { 'INFO_FORMAT': 'application/json', 'FEATURE_COUNT': 50 });
@@ -232,6 +249,9 @@ function Map_a() {
             var url6 = source6.getFeatureInfoUrl(
                 evt.coordinate, viewResolution, view.getProjection(),
                 { 'INFO_FORMAT': 'application/json', 'FEATURE_COUNT': 50 });
+            var url7 = source7.getFeatureInfoUrl(
+                evt.coordinate, viewResolution, view.getProjection(),
+                { 'INFO_FORMAT': 'application/json', 'FEATURE_COUNT': 50 });
             // var url =  source.getUrl(
             //   );
             let title = ""
@@ -242,7 +262,6 @@ function Map_a() {
             if (url1) {
                 initialMap.getAllLayers().forEach((value,index)=>{
                     if (value.values_.source.params_){
-                        console.log(value.values_.source?.params_?.LAYERS)
                         if (value.values_.source?.params_?.LAYERS==="quangninh:KhongKhi") indexTT = 1
                     }
                     })
@@ -264,7 +283,6 @@ function Map_a() {
             if (url2) {
                 initialMap.getAllLayers().forEach((value,index)=>{
                     if (value.values_.source.params_){
-                        console.log(value.values_.source?.params_?.LAYERS)
                         if (value.values_.source?.params_?.LAYERS==="quangninh:nuocmat") indexTT = 2
                     }
                     })
@@ -286,7 +304,6 @@ function Map_a() {
             if (url3) {
                 initialMap.getAllLayers().forEach((value,index)=>{
                     if (value.values_.source.params_){
-                        console.log(value.values_.source?.params_?.LAYERS)
                         if (value.values_.source?.params_?.LAYERS==="quangninh:NuocNgam") indexTT = 3
                     }
                     })
@@ -308,7 +325,6 @@ function Map_a() {
             if (url4) {
                 initialMap.getAllLayers().forEach((value,index)=>{
                     if (value.values_.source.params_){
-                        console.log(value.values_.source?.params_?.LAYERS)
                         if (value.values_.source?.params_?.LAYERS==="quangninh:NuocBien") indexTT = 4
                     }
                     })
@@ -330,7 +346,6 @@ function Map_a() {
             if (url5) {
                 initialMap.getAllLayers().forEach((value,index)=>{
                     if (value.values_.source.params_){
-                        console.log(value.values_.source?.params_?.LAYERS)
                         if (value.values_.source?.params_?.LAYERS==="quangninh:TramTich") indexTT = 5
                     }
                     })
@@ -352,7 +367,6 @@ function Map_a() {
             if (url6) {
                 initialMap.getAllLayers().forEach((value,index)=>{
                     if (value.values_.source.params_){
-                        console.log(value.values_.source?.params_?.LAYERS)
                         if (value.values_.source?.params_?.LAYERS==="quangninh:MoiTruong_dat") indexTT = 6
                     }
                     })
@@ -366,6 +380,27 @@ function Map_a() {
                     }
                     if (data1.length !== 0) {
                         title = "MTD"
+                        data = data1;
+                        await setDataMap({ data: data1, url: urlI, title: title });
+                    }
+                }
+            }
+            if (url7) {
+                initialMap.getAllLayers().forEach((value,index)=>{
+                    if (value.values_.source.params_){
+                        if (value.values_.source?.params_?.LAYERS==="quangninh:Ketquaquantrac2") indexTT = 7
+                    }
+                    })
+                if (indexTT === 7){
+                    value1 = await axios.get(url7);
+                    let data1=""
+                    if (value1.data.numberReturned !== 0) {
+                        data1 = value1.data.features.map(value => {
+                            return value.properties
+                        });
+                    }
+                    if (data1.length !== 0) {
+                        title = "KQ"
                         data = data1;
                         await setDataMap({ data: data1, url: urlI, title: title });
                     }

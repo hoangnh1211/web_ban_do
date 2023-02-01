@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import "./map.css"
 function MenuLayer(props) {
-    const [checked, setChecked] = React.useState([true, true, true, true, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, false, false, false, false, false, false, true, false, false, true]);
+    const [checked, setChecked] = React.useState([true, true, true, true, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, false, false, false, false, false, false, true, false, false, true, true, true]);
     const [state, setState] = useState({
         activeND: true,
         activeDM: true,

@@ -92,11 +92,7 @@ function MenuLayer(props) {
                     </div>
                     {state.activeND && <ul className={"dropdown__list " + (state.activeND ? 'dropdown__list--active' : '')}>{renderOptions(listND)}</ul>}
                 </div>
-<<<<<<< HEAD
-                <b id="dlmt" onClick={changeShow}><label className="form-check-label" >Dữ liệu môi trường nước mặt (Để nguyên nội dung trong trang Web)</label></b>
-=======
                 <b id="dlmt" onClick={changeShow}><label className="form-check-label" >Dữ liệu quan trắc môi trường nước mặt</label></b>
->>>>>>> 8c9503a (update 2023-01-05)
             </div>
         </div>
     );

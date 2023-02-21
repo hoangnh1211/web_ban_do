@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import "./map.css"
 function MenuLayer(props) {
-    const [checked, setChecked] = React.useState([true,true, true, false, false, false, false, false]);
+    const [checked, setChecked] = React.useState([true,true, true, false, false, false, false, false, false]);
     const [state, setState] = useState({
         activeND: true,
         activeDM: true,
@@ -72,7 +72,8 @@ function MenuLayer(props) {
         { value: "Chất lượng nước dưới đất", check: 4 },
         { value: "Chất lượng nước biển", check: 5 },
         { value: "Chất lượng nước trầm tích", check: 6 },
-        { value: "Môi trường đất", check: 7 }]
+        { value: "Môi trường đất", check: 7 },
+        { value: "Dữ liệu quan trắc môi trường nước mặt ven biển năm 2021 TP. Hạ Long, H. Vân Đồn, H. Hải Hà", check: 8 }]
         const ref1 = React.useRef(null);
         const ref2 = React.useRef(null);
     return (
@@ -92,7 +93,7 @@ function MenuLayer(props) {
                     </div>
                     {state.activeND && <ul className={"dropdown__list " + (state.activeND ? 'dropdown__list--active' : '')}>{renderOptions(listND)}</ul>}
                 </div>
-                <b id="dlmt" onClick={changeShow}><label className="form-check-label" >Dữ liệu quan trắc môi trường nước mặt</label></b>
+                <b id="dlmt" onClick={changeShow}><label className="form-check-label" >Kết quả quan trắc</label></b>
             </div>
         </div>
     );

@@ -118,3 +118,8 @@
   #content img{
     cursor: pointer;
 }
+#content .col-3 p{
+  font-weight: bold;
+  text-align: center;
+}
+

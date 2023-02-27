@@ -69,7 +69,7 @@ function Library() {
 
             </div>}
             { check[3] &&
-            <Image/>
+            <Image handleChang={handleChang}/>
             }
         </div>
     );

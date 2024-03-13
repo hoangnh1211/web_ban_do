@@ -85,7 +85,7 @@ div#popup-content {
 .highcharts-container {
   height: 300px !important;
 }
-#menuLayer{
+/* #menuLayer{
   position: absolute;
   z-index: 9;
   padding: 0;
@@ -96,7 +96,7 @@ div#popup-content {
   padding: 5px;
   height: 100%;
   border-right: 2px solid #ebebeb;
-}
+} */
 #menuLayer .dropdown{
   max-width: 1000px;
 }

@@ -26,7 +26,7 @@ function Header() {
     return (
         <React.Fragment>
             <div className='header'>
-                <img className='image_h' src="https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/files%2Fheader%2Fpanner.jpg?alt=media&token=de2baef1-ad68-4414-b265-1aca3f134d2d"></img>
+                {/* <img className='image_h' src="https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/files%2Fheader%2Fpanner.jpg?alt=media&token=de2baef1-ad68-4414-b265-1aca3f134d2d"></img> */}
                 <div class="container">
                     <div class="header__inner">
                         <div class="header__slogan wow zoomIn animated">
@@ -47,6 +47,18 @@ function Header() {
                                 <Link className="nav-link" to="/" onClick={()=>changS(0)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
                             </li>
                             <li className={status[1]?"nav-item active1":"nav-item"} >
+                                <Link className="nav-link" to="/" onClick={()=>changS(1)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                            </li>
+                            <li className={status[2]?"nav-item active1":"nav-item"} >
+                                <Link className="nav-link" to="/" onClick={()=>changS(2)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                            </li>
+                            <li className={status[3]?"nav-item active1":"nav-item"} >
+                                <Link className="nav-link" to="/" onClick={()=>changS(3)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                            </li>
+                            <li className={status[4]?"nav-item active1":"nav-item"} >
+                                <Link className="nav-link" to="/" onClick={()=>changS(4)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                            </li>
+                            {/* <li className={status[1]?"nav-item active1":"nav-item"} >
                                 <Link className="nav-link" to="/gioi-thieu" onClick={()=>changS(1)}>GIỚI THIỆU</Link>
                             </li>
                             <li className={status[2]?"nav-item active1":"nav-item"} >
@@ -63,7 +75,7 @@ function Header() {
                             </li>
                             <li className={status[6]?"nav-item active1":"nav-item"} >
                                 <Link className="nav-link" to="/contact" onClick={()=>changS(6)}>VIỆN IEH</Link>
-                            </li>
+                            </li> */}
                             
                         </ul>
                     </div>

@@ -1,0 +1,45 @@
+.ol-popup{
+    position: absolute;
+    background-color: white;
+    filter: drop-shadow(0 8px 3px rgba(0, 0, 0, 0.4));
+    padding: 0;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+}
+
+#tbSolieu{
+    width: 320px;
+    position: absolute;
+    /* top: 225px; */
+    right: 0;
+    background: #fff;
+    height: calc(100vh - 50px);
+    z-index: 10;
+    height: 100%;
+    bottom: 0;
+}
+
+#tbSolieu .info {
+    padding: 10px;
+}
+
+#tbSolieu .hname, #tbSolieu .title {
+    color: #2155ce;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 7px;
+}
+
+#tbSolieu .info .slabel {
+    font-weight: 600;
+}
+
+.ol-popup .fright {
+    float: right;
+    text-align: right;
+    cursor: pointer;
+    font-style: italic;
+    text-decoration: underline;
+    font-size: 0.9em;
+}

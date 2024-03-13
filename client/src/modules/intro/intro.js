@@ -7,9 +7,9 @@ import Header from "./header";
 function Intro() {
     return (
         <React.Fragment>
-            <Header/>
+            {/* <Header/> */}
             <Router/>
-            <Footer/>
+            {/* <Footer/> */}
         </React.Fragment>
     );
 }

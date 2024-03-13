@@ -85,18 +85,21 @@ div#popup-content {
 .highcharts-container {
   height: 300px !important;
 }
-/* #menuLayer{
+#menuLayer{
   position: absolute;
+  margin: 10px;
   z-index: 9;
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 15px;
-  background-color: #fff;
+  background-color: #ffffffdb;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 5px;
   height: 100%;
   border-right: 2px solid #ebebeb;
-} */
+  width: 300px;
+}
 #menuLayer .dropdown{
   max-width: 1000px;
 }
@@ -309,9 +312,101 @@ color: rgb(80, 98, 201);
     width: 100%;
   }
 } 
-#dlmt :hover{
-  color: red;
+
+#bar4layer{
+  height: 36px;
+  border-bottom: 1px solid #ddd;
+  float: left;
+  width: 100%;
+  margin-left:10px;
+  height: 34px;
 }
-#dlmt .form-check-label{
-cursor: pointer;
+
+#bar4layer a{
+  display:flex;
+  float:left;
+  width: 90%;
+}
+#bar4layer a, #bar4ketqua {
+  min-width: 35px;
+  text-align: center;
+  padding: 2px;
+  color: #444;
+  text-decoration: none;
+}
+#txtSearchLayer{
+  z-index: 10;
+  width: 100%;
+  font-size: 0.75rem;
+  border: none;
+  padding-left: 8px;
+  background: aliceblue;
+  border-radius: 3px;
+  color: #021639;
+}
+
+#bar4layer #btnAddLayer {
+  padding-top: 4px;
+  cursor: pointer;
+  float:right;
+  position:relative
+}
+.icon-layer i{
+  font-size: 16px;
+  font-weight: bold;
+  color: #2155ce !important;
+  padding: 5px !important;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+.ol-zoom-in .ol-zoom-out{
+  display: none !important;
+}
+#toolRight {
+  right: 10px;
+  top: 80px;
+  position: absolute;
+  height: auto;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  background: none;
+}
+.toolgroup {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+#layerBases {
+  display: flex;
+  align-items: center;
+  height: 40px !important;
+}
+#layerBases > .dropdown-toggle {
+  height: inherit;
+}
+#toolRight a {
+  color: #021639;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: solid 1px #ccc;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+}
+#ulBaseMaps {
+  width: 315px;
+}
+.dropdown-menu.show {
+  display: block;
+}
+#ulBaseMaps li {
+  padding: 5px 10px;
+  cursor: pointer;
 }

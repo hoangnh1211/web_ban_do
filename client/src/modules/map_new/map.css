@@ -83,7 +83,7 @@ div#popup-content {
 }
 
 .highcharts-container {
-  height: 300px !important;
+  /* height: 300px !important; */
 }
 #menuLayer{
   position: absolute;

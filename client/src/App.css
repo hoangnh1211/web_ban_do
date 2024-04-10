@@ -37,7 +37,7 @@
   }
 }
 .menu_bar .nav-justified .nav-link{
-  padding: 10px 0px !important;
+  /* padding: 10px 0px !important; */
 }
 .menu_bar .nav-justified .nav-link{
   font-weight : 500;
@@ -50,8 +50,8 @@
 }
 @media (max-width: 1700px) {
   .menu_bar,.fixed-top {
-    padding-left: 5% !important;
-    padding-right: 5% !important;
+    padding-left: 20% !important;
+    padding-right: 20% !important;
   }
   .mt .col-md-9 p{
     font-size: 18px !important;
@@ -60,7 +60,7 @@
     font-size: 15px !important;
   }
   .menu_bar .nav-justified .nav-link{
-    padding: 10px 0px !important;
+    /* padding: 10px 0px !important; */
     line-height: 10px !important;
   }
   #dLoaiBaoCao p{
@@ -70,14 +70,14 @@
 
 @media (max-width: 1400px) {
   .menu_bar,.fixed-top {
-    padding-left: 5% !important;
-    padding-right: 5% !important;
+    padding-left: 20% !important;
+    padding-right: 20% !important;
   }
   .menu_bar a{
     font-size: 14px !important;
   }
   .menu_bar .nav-justified .nav-link{
-    padding: 10px 0px !important;
+    /* padding: 10px 0px !important; */
     line-height: 10px !important;
   }
 }

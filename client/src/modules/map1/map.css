@@ -60,7 +60,7 @@ div#popup-content {
 }
 
 #popup-content {
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 #popup p {
   color: #3c3c3c;
@@ -68,7 +68,7 @@ div#popup-content {
 #popup p {
   width: 100%;
   float: left;
-  margin-bottom: 5px !important;
+  /* margin-bottom: 5px !important; */
 }
 
 /* #popup p > span:first-child {
@@ -148,7 +148,7 @@ div#popup-content {
   margin-left: 20px;
 }
 .fa-caret-down{
-  margin-left: 5px;
+  /* margin-left: 5px; */
 }
 .checkTrue{
 color: rgb(80, 98, 201);
@@ -244,7 +244,7 @@ color: rgb(80, 98, 201);
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 10000; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  /* padding-top: 100px; */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -258,8 +258,8 @@ color: rgb(80, 98, 201);
 .modal-content {
   margin: auto;
   display: block;
-  width: 80%;
-  max-width: 700px;
+  /* width: 80%; */
+  /* max-width: 700px; */
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
@@ -286,7 +286,7 @@ color: rgb(80, 98, 201);
 }
 
 /* The Close Button */
-.close {
+/* .close {
   position: absolute;
   top: 15px;
   right: 35px;
@@ -294,7 +294,7 @@ color: rgb(80, 98, 201);
   font-size: 40px;
   font-weight: bold;
   transition: 0.3s;
-}
+} */
 
 .close:hover,
 .close:focus {
@@ -314,4 +314,9 @@ color: rgb(80, 98, 201);
 }
 #dlmt .form-check-label{
 cursor: pointer;
+font-size: 14px;
 }
+.form-check-label{
+  font-size: 14px;
+  font-family: 'Manrope, Roboto, Helvetica, Arial, sans-serif';
+  }

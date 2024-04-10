@@ -43,3 +43,11 @@
     text-decoration: underline;
     font-size: 0.9em;
 }
+
+.striped-table tbody tr:nth-of-type(odd) {
+    background-color: #e0edf9; /* Màu sắc cho các dòng lẻ */
+  }
+  
+  .striped-table tbody tr:nth-of-type(even) {
+    background-color: white; /* Màu sắc cho các dòng chẵn */
+  }

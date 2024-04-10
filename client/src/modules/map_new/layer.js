@@ -46,10 +46,10 @@ export const tuyenChuyenNuoc = new ImageLayer({
             "LAYERS": 'QuyHoachTL:TuyenChuyenNuoc',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
 });
 
-export const conTrinhNangCap = new ImageLayer({
+export const congTrinhNangCap = new ImageLayer({
     source: new ImageWMS({
         ratio: 1,
         url: urlConfig,
@@ -209,6 +209,122 @@ const googleterriar = new TileLayer({
       })
 });
 
-export const listLayer = [dapHoChuaLon, cong, tramBom, deSong, deBien, thuyDien, bungHoChua, congTrinhQuyHoach, conTrinhNangCap, tuyenChuyenNuoc, bungHoDuKien, heThongThuyLoiNangCap,googleterriar,googlesatellite, googlemap, nenhanhchinh, nendiahinh].reverse()
+export const danhMucQuyHoach = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'QuyHoachTL:DanhMucQuyHoach',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
+const heSotuoitiieu = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'QuyHoachTL:HeSoTuoiTieu',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
+export const ListLayer = [
+    {
+        id: 'nendiahinh',
+        layer: nendiahinh
+    },
+    {
+        id: 'nenhanhchinh',
+        layer: nenhanhchinh
+    },
+    {
+        id: 'googlemap',
+        layer: googlemap
+    },
+    {
+        id: 'googlesatellite',
+        layer: googlesatellite
+    },
+    {
+        id: 'googleterriar',
+        layer: googleterriar
+    },
+    {
+        id: 'heSotuoitiieu',
+        layer: heSotuoitiieu,
+    },
+    {
+        id: 'danhgiaquyhoach',
+        layer: danhMucQuyHoach,
+    },
+    {
+        id: 'heThongThuyLoiNangCap',
+        layer: heThongThuyLoiNangCap,
+    },
+    {
+        id: 'bungHoDuKien',
+        layer: bungHoDuKien,
+    },
+    {
+        id: 'songsuoi_vung',
+        layer: new ImageLayer({
+            source: new ImageWMS({
+                ratio: 1,
+                url: urlConfig,
+                params: {
+                    'FORMAT': format,
+                    'VERSION': '1.1.1',
+                    "STYLES": '',
+                    "LAYERS": 'QuyHoachTL:SongSuoi_polygon',
+                    "exceptions": 'application/vnd.ogc.se_inimage',
+                },
+            }),
+            visible: false,
+        }),
+    },
+    {
+        id: 'songsuoi_duong',
+        layer: new ImageLayer({
+            source: new ImageWMS({
+                ratio: 1,
+                url: urlConfig,
+                params: {
+                    'FORMAT': format,
+                    'VERSION': '1.1.1',
+                    "STYLES": '',
+                    "LAYERS": 'QuyHoachTL:SongSuoi_line',
+                    "exceptions": 'application/vnd.ogc.se_inimage',
+                },
+            }),
+            visible: false,
+        }),
+    },
+    {
+        id: 'tuyenChuyenNuoc',
+        layer: tuyenChuyenNuoc,
+    },
+    {
+        id: 'congTrinhNangCap',
+        layer: congTrinhNangCap,
+    },
+    {
+        id: 'congTrinhQuyHoach',
+        layer: congTrinhQuyHoach,
+    }
+];
+
+export const listLayer = ListLayer.map((data)=> {return data.layer})
 export const countLayer = listLayer.length
-export const listLayerData = [dapHoChuaLon, cong, tramBom, thuyDien,congTrinhQuyHoach, conTrinhNangCap, tuyenChuyenNuoc, heThongThuyLoiNangCap]
+export const listLayerData = [congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, danhMucQuyHoach, heSotuoitiieu]
+// export const listLayerData = [heSotuoitiieu,danhMucQuyHoach,dapHoChuaLon, cong, tramBom, thuyDien,congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, heThongThuyLoiNangCap]

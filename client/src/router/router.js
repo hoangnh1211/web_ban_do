@@ -18,7 +18,9 @@ function Router() {
     return (
     <Routes>
       <Route path="/" element={<MapNew/>} />
-      <Route path="/data" element={<Data/>} />
+      <Route path="/home" element={<Home/>} />
+      <Route path="/new-map" element={<MapNew/>} />
+      <Route path="/ho-chua" element={<Data/>} />
       <Route path="/import-data" element={<Import/>} />
       {/* Ví dụ cách cập nhật các Route khác
       <Route path="/thu-vien" element={<Library/>} />

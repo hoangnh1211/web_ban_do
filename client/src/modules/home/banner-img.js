@@ -7,6 +7,7 @@ function Banner_img(props){
       <div className={props.classimg}>
         <div className="container">
           <div className="agileits-banner-info ">
+            <img src={props.img} />
             <h3 className='wow flipInX animated'>{props.content}</h3>
           </div>
         </div>

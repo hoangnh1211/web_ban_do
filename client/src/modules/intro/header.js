@@ -25,63 +25,31 @@ function Header() {
     }, [])
     return (
         <React.Fragment>
-            <div className='header'>
-                {/* <img className='image_h' src="https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/files%2Fheader%2Fpanner.jpg?alt=media&token=de2baef1-ad68-4414-b265-1aca3f134d2d"></img> */}
-                <div class="container">
-                    <div class="header__inner">
-                        <div class="header__slogan wow zoomIn animated">
-                            <div>
-                                <b class="header__text-1">{"NÂNG CAO NĂNG LỰC QUAN TRẮC, GIÁM SÁT MÔI TRƯỜNG ".toUpperCase()}</b>
-                                <b class="header__text-1">{" VÀ SỨC KHỎE CỘNG ĐỒNG VEN BIỂN ĐÔNG BẮC BỘ".toUpperCase()}</b>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className='menu_bar'>
+            <nav className='menu_bar' style={{marginBottom: '5px'}}>
             <div className=''>
                 <nav id="navbar_top" className=" navbar navbar-expand-lg navbar-light">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="nav  nav-justified">
                             <li className={status[0]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/" onClick={()=>changS(0)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/" onClick={()=>changS(0)}>Trang chủ <span className="sr-only">(current)</span></Link>
                             </li>
                             <li className={status[1]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/" onClick={()=>changS(1)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/ho-chua" onClick={()=>changS(1)}>Hồ Chứa <span className="sr-only">(current)</span></Link>
                             </li>
                             <li className={status[2]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/" onClick={()=>changS(2)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                                <a className="nav-link" href="#"><span className="sr-only">(current)</span></a>
                             </li>
                             <li className={status[3]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/" onClick={()=>changS(3)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                                <a className="nav-link" href="#" ><span className="sr-only">(current)</span></a>
                             </li>
                             <li className={status[4]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/" onClick={()=>changS(4)}>TRANG CHỦ <span className="sr-only">(current)</span></Link>
+                                <a className="nav-link" href="#"><span className="sr-only">(current)</span></a>
                             </li>
-                            {/* <li className={status[1]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/gioi-thieu" onClick={()=>changS(1)}>GIỚI THIỆU</Link>
-                            </li>
-                            <li className={status[2]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/thu-vien" onClick={()=>changS(2)}>SẢN PHẨM CHÍNH</Link>
-                            </li>
-                            <li className={status[3]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/map" onClick={()=>changS(3)}>THỦY-HẢI VĂN</Link>
-                            </li>
-                            <li className=" nav-item">
-                                <a className="nav-link" href='https://iwarp.hts.vn/' target="_blank">DỰ BÁO KHÍ TƯỢNG</a>
-                            </li>
-                            <li className={status[5]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/moi-truong" onClick={()=>changS(5)}>MÔI TRƯỜNG</Link>
-                            </li>
-                            <li className={status[6]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/contact" onClick={()=>changS(6)}>VIỆN IEH</Link>
-                            </li> */}
-                            
                         </ul>
                     </div>
                 </nav>
             </div>
-            </div>
+            </nav>
         </React.Fragment>
     );
 }

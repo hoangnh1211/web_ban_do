@@ -37,9 +37,10 @@
     text-shadow: 2px 2px #FFF;
 }
 .menu_bar{
-    background-color: #0288d1;
+    background-color: #FFF;
     padding-left: 10% ;
     padding-right: 10%;
+    box-shadow: 0px 0px 13px #00000054;
 }
 
 .menu_bar a{
@@ -56,30 +57,45 @@
 .navbar{
     padding-top: 0px !important;
     padding-bottom: 0px !important;
-    background-color: #0288d1;
+    background-color: #ffffff;
 }
 .nav-justified{
     width: 100%;
 }
 .nav-justified li a{
-    color: #FFF !important;
+    /* color: #FFF !important; */
 }
 .menu_bar .nav-justified .nav-link{
-    color: #fff;
+    color: black;
     font-size: 17px;
     line-height: 30px;
     text-align: center;
-    padding: 0 15px;
+    font-weight: 500;
+    padding: 20px 4px;
 }
-.menu_bar .nav-item{
-    padding: 10px;
-    border: 1px solid #037cbd;
+.menu_bar .nav-item .nav-link::after {
+	content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: translatex(-100%);
+
+    /* border-bottom: 2px solid #1A76D1; */
+    transition: 0.3s;
+    z-index: -1;
+    transform-origin: bottom left;
 }
-.menu_bar .nav-item:hover{
-    background-color: #0228d1 !important;
+.menu_bar .nav-item .nav-link:hover{
+    color: #1A76D1 !important;
+    border-color:transparent;
+    /* transform: translatex(0); */
 }
+
 .nav-justified li a:hover{
     text-decoration: none;
+    color: #1A76D1 !important;
 }
 .active1{
     background-color: #fff;

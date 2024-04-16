@@ -37,10 +37,27 @@
     text-shadow: 2px 2px #FFF;
 }
 .menu_bar{
-    background-color: #FFF;
-    padding-left: 10% ;
-    padding-right: 10%;
+    background-color: #021639;
+    /* padding-left: 10% ; */
+    /* padding-right: 10%;   */
     box-shadow: 0px 0px 13px #00000054;
+}
+#navbar_top .text{
+    text-transform: uppercase;
+    color: #fff;
+    margin: auto;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    border-left: solid 2px;
+    padding-left: 5px;
+    font-weight: 600;
+    animation: slideInPadding 0.5s;
+}
+#navbar_top .text p{
+    text-align: left;
+    margin: 0px;
+    font-size: 14px;
 }
 
 .menu_bar a{
@@ -57,7 +74,6 @@
 .navbar{
     padding-top: 0px !important;
     padding-bottom: 0px !important;
-    background-color: #ffffff;
 }
 .nav-justified{
     width: 100%;

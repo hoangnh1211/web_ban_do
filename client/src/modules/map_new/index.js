@@ -4,6 +4,7 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import 'ol/ol.css';
 import * as olExtent from 'ol/extent';
+import * as olStyle from 'ol/style';
 
 import TileWMS from 'ol/source/TileWMS';
 import ImageWMS from 'ol/source/ImageWMS';
@@ -15,13 +16,14 @@ import "./map.css"
 import Chart from '../chart/chart';
 import MenuLayer from './menuLayer';
 import { geturl } from '../../firebase/firebase';
-import { listLayer, listLayerData } from './layer'
+import { listLayer, listLayerData, ListLayer, danhMucQuyHoach, styles } from './layer'
 import { fromLonLat, toLonLat } from 'ol/proj';
 import Info from './info';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
 import { transform } from 'ol/proj';
+import Header from '../intro/header';
 
 function MapNew() {
     const [map, setMap] = useState();
@@ -31,28 +33,67 @@ function MapNew() {
     const [showInfo, setShowInfo] = useState(false);
     const [getData, setGetData] = useState(false);
     const [danhmucVector, setDanhmucVector] = useState([]);
+    const [dataCheck, setDataCheck] = useState(false);
+    useEffect(()=>{
+        const vectorSource = danhMucQuyHoach.getSource();
+        
+        const handleFeatureChange = () => {
+            if (danhMucQuyHoach.getSource().getFeatures().length > 0 && getData === false){
+                if (!dataCheck){
+                    danhMucQuyHoach.setVisible(false);
+                }
+
+                setGetData(true)
+            }
+        };
+
+        vectorSource.on('change', handleFeatureChange);
+
+        // Xử lý lần đầu tiên khi component được render
+        handleFeatureChange();
+
+        // Cleanup: Bỏ lắng nghe sự kiện khi component unmount
+        return () => {
+            vectorSource.un('change', handleFeatureChange);
+        };
+    },[dataCheck])
+    useEffect(() => {
+        danhMucQuyHoach.getSource().refresh();
+        const source = danhMucQuyHoach.getSource();
+        if (source) {
+            source.refresh();
+        } else {
+            console.error('Cannot access source from danhMucQuyHoach layer.');
+        }
+    },[])
     useEffect(() => {
         const source = new VectorSource();
-        fetch('http://103.184.112.209:8080/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson')
-            .then(response => response.json())
-            .then(data => {
-                const features = new GeoJSON().readFeatures(data);
-                // const transformedFeatures = features.map(feature => {
-                //     const geometry = feature.getGeometry().clone();
-                //     feature.setGeometry(geometry);
-                //     return feature;
-                // });
-                source.addFeatures(features);
-                // setDanhmucVector(data.features)
-                setDanhmucVector(new VectorLayer({
-                    source: source,
-                    format: new GeoJSON(),
-                }))
-                setGetData(true)
-            })
-            .catch(error => {
-                console.error('Error fetching or parsing data:', error);
-            });
+        // fetch('http://103.184.112.209:8080/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         const features = new GeoJSON().readFeatures(data);
+        //         // const transformedFeatures = features.map(feature => {
+        //         //     const geometry = feature.getGeometry().clone();
+        //         //     feature.setGeometry(geometry);
+        //         //     return feature;
+        //         // });
+        //         source.addFeatures(features);
+        //         // setDanhmucVector(data.features)
+        //         setDanhmucVector(new VectorLayer({
+        //             source: source,
+        //             format: new GeoJSON(),
+        //         }))
+        //         // danhMucQuyHoach.setSource(source)
+        //         // danhMucQuyHoach.getSource().refresh();
+        //         // listLayer[ListLayer.findIndex((value) => value.id === 'danhgiaquyhoach')] = new VectorLayer({
+        //         //     source: source,
+        //         //     format: new GeoJSON(),
+        //         // })
+        //         setGetData(true)
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching or parsing data:', error);
+        //     });
         const container = document.getElementById('popup');
         const closer = document.getElementById('popup-closer');
         const overlay = new Overlay({
@@ -79,7 +120,22 @@ function MapNew() {
                 projection: 'EPSG:4326'
             }),
         });
+        // danhMucQuyHoach.setStyle(function(feature) {
+        //     // Lấy tỷ lệ hiện tại của bản đồ
+        //     const resolution = initialMap.getView().getZoom();
+        //     console.log(resolution)
 
+        //     // Tìm kiếm style phù hợp với tỷ lệ hiện tại
+        //     // for (let i = 0; i < styles.length; i++) {
+        //     //   const style = styles[i];
+        //     //   if (resolution >= style.minResolution && resolution <= (style.maxResolution || Infinity)) {
+        //     //     return style;
+        //     //   }
+        //     // }
+          
+        //     // // Trả về null nếu không có style nào được tìm thấy
+        //     // return null;
+        //   });
         // initialMap.on('pointermove', (e) => {
         //     const coords = fromLonLat(e.coordinate).map(c => c.toFixed(6)); // Định dạng tọa độ
         //     setCoordinate(coords);
@@ -113,19 +169,38 @@ function MapNew() {
                         }
                     }
                 }
+                if (source && source instanceof VectorSource) {
+                    var feature = initialMap.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                        return feature;
+                    });
+                
+                    // Kiểm tra nếu có feature được chọn
+                    if (feature) {
+                        // Xử lý feature tại đây
+                        // console.log(feature)
+                        overlay.setPosition(evt.coordinate);
+                        setDataMap({ data: [{ id: feature.getId(), properties: feature.getProperties()}] })
+                        break;
+                    } else {
+                        console.log('No feature selected at this location.');
+                    }
+                }
             }
         });
 
+
         setMap(initialMap);
+
         return () => initialMap.setTarget(undefined);
 
     }, []);
+
     const setInfo = (value) => {
         setShowInfo(value)
     }
-    const toggleLayersVisibility = (index) => {
-        const newVisibility = listLayer[index].getVisible();
-        listLayer[index].setVisible(!newVisibility);
+    const toggleLayersVisibility = (index, value) => {
+        // const newVisibility = listLayer[index].getVisible();
+        listLayer[index].setVisible(value);
     };
 
     const ShowLayersVisibility = (index) => {
@@ -142,7 +217,8 @@ function MapNew() {
         };
     };
     const handleSearch = async (layerIdToSearch) => {
-        let data = danhmucVector.getSource().getFeatures().find(feature => feature.id_ === layerIdToSearch);
+        let data = danhMucQuyHoach.getSource().getFeatures().find(feature => feature.id_ === layerIdToSearch);
+        // let data = danhmucVector.find(feature => feature.id_ === layerIdToSearch);
         const mapView = map.getView();
         // const center = olExtent.getCenter(data.values_.geometry.extent_);
         // mapView.setCenter(center);
@@ -150,10 +226,108 @@ function MapNew() {
             size: map.getSize(),
             padding: [10, 10, 10, 10] // Padding cho phần view
         });
+
+        const combinedStyle = function (feature, resolution) {
+            let style;
+            let width = null;
+            if (resolution <= 0.004) {
+                style = new olStyle.Style({
+                    fill: new olStyle.Fill({
+                        color: 'transparent',
+                        opacity: 0, // Độ trong suốt
+                    }),
+                    stroke: new olStyle.Stroke({
+                        color: '#ff0000',
+                        width: width ? width : 1,
+                        lineJoin: 'bevel',
+                    }),
+                });
+            }
+            else if (resolution > 0.004 && resolution <= 0.01) {
+                style = new olStyle.Style({
+                    fill: new olStyle.Fill({
+                        color: 'transparent',
+                        opacity: 0, // Độ trong suốt
+                    }),
+                    stroke: new olStyle.Stroke({
+                        color: '#ff0000',
+                        width: width ? width : 0.6,
+                        lineJoin: 'bevel',
+                    }),
+                });
+            }
+            else {
+                style = new olStyle.Style({
+                    fill: new olStyle.Fill({
+                        color: 'transparent',
+                        opacity: 0, // Độ trong suốt
+                    }),
+                    stroke: new olStyle.Stroke({
+                        color: '#ff0000',
+                        width: width ? width : 0.3,
+                        lineJoin: 'bevel',
+                    }),
+                });
+            }
+        
+            // Quy tắc 4: Nhãn văn bản
+            const text = new olStyle.Text({
+                font: '15px Arial',
+                text: feature.get('luuvuc'), // Thuộc tính được sử dụng cho nhãn
+                fill: new olStyle.Fill({ color: '#2f2b9f' }),
+                stroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
+                offsetX: 5,
+                offsetY: 0,
+                backgroundFill: new olStyle.Fill({ color: '#ffffff' }), // Màu nền
+                backgroundStroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
+            });
+        
+            style.setText(text);
+        
+            return style;
+        }
+
+        const combinedStyleHl = function (feature, resolution) {
+            let style;
+
+            style = new olStyle.Style({
+                fill: new olStyle.Fill({
+                    color: 'transparent',
+                    opacity: 0, // Độ trong suốt
+                }),
+                stroke: new olStyle.Stroke({
+                    color: '#ff0000',
+                    width: 3,
+                    lineJoin: 'bevel',
+                }),
+            });
+        
+            // Quy tắc 4: Nhãn văn bản
+            const text = new olStyle.Text({
+                font: '15px Arial',
+                text: feature.get('luuvuc'), // Thuộc tính được sử dụng cho nhãn
+                fill: new olStyle.Fill({ color: '#2f2b9f' }),
+                stroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
+                offsetX: 5,
+                offsetY: 0,
+                backgroundFill: new olStyle.Fill({ color: '#ffffff' }), // Màu nền
+                backgroundStroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
+            });
+        
+            style.setText(text);
+        
+            return style;
+        }
+        danhMucQuyHoach.getSource().getFeatures().forEach(value => {
+            value.setStyle(combinedStyle);
+        })
+    
+        data.setStyle(combinedStyleHl);
     };
     return (
         <div>
-            <MenuLayer getData={getData} handleSearch={handleSearch} toggleLayersVisibility={toggleLayersVisibility} ShowLayersVisibility={ShowLayersVisibility} HideLayersVisibility={HideLayersVisibility} />
+            <Header title ="Hệ thống thông tin quy hoạch thủy lợi trực tuyến"/>
+            <MenuLayer setDataCheck={setDataCheck} getData={getData} handleSearch={handleSearch} toggleLayersVisibility={toggleLayersVisibility} ShowLayersVisibility={ShowLayersVisibility} HideLayersVisibility={HideLayersVisibility} />
             <div style={{ height: '100vh', width: '100%' }} ref={mapElement} className="map-container"></div>
             <div id="popup" className="ol-popup">
                 <a href="#" id="popup-closer" className="ol-popup-closer"></a>

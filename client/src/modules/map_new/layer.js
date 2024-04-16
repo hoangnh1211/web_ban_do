@@ -3,6 +3,10 @@ import ImageWMS from 'ol/source/ImageWMS';
 import ImageLayer from 'ol/layer/Image';
 import XYZ from 'ol/source/XYZ';
 import TileLayer from 'ol/layer/Tile';
+import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
+import GeoJSON from 'ol/format/GeoJSON';
+import { Style, Fill, Stroke, Text } from 'ol/style';
 
 export const urlConfig = process.env.REACT_APP_SERVER_MAP;
 export const format = 'image/png';
@@ -178,50 +182,133 @@ export const dapHoChuaLon = new ImageLayer({
 const nendiahinh = new TileLayer({
     source: new XYZ({
         url: 'http://map.vbeta.net/gvWMS.ashx?t=_dem&x={x}&y={y}&z={z}'
-      }),
-      visible: false,
+    }),
+    visible: false,
 });
 
 const nenhanhchinh = new TileLayer({
     source: new XYZ({
         url: 'http://map.vbeta.net/gvWMS.ashx?x={x}&y={y}&z={z}'
-      }),
-      visible: false,
+    }),
+    visible: false,
 });
 
 const googlemap = new TileLayer({
     source: new XYZ({
         url: 'http://mt1.google.com/vt/lyrs=r&hl=en&x={x}&y={y}&z={z}'
-      }),
+    }),
     visible: false,
 });
 
 const googlesatellite = new TileLayer({
     source: new XYZ({
         url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
-      }),
-      visible: false,
+    }),
+    visible: false,
 });
 
 const googleterriar = new TileLayer({
     source: new XYZ({
         url: 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'
-      })
+    })
 });
 
-export const danhMucQuyHoach = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
-        url: urlConfig,
-        params: {
-            'FORMAT': format,
-            'VERSION': '1.1.1',
-            "STYLES": '',
-            "LAYERS": 'QuyHoachTL:DanhMucQuyHoach',
-            "exceptions": 'application/vnd.ogc.se_inimage',
-        },
+// export const danhMucQuyHoach = new ImageLayer({
+//     source: new ImageWMS({
+//         ratio: 1,
+//         url: urlConfig,
+//         params: {
+//             'FORMAT': format,
+//             'VERSION': '1.1.1',
+//             "STYLES": '',
+//             "LAYERS": 'QuyHoachTL:DanhMucQuyHoach',
+//             "exceptions": 'application/vnd.ogc.se_inimage',
+//         },
+//     }),
+//     visible: false,
+// })
+
+// Định nghĩa màu sắc và kích thước cho vùng
+const fill = new Fill({
+    color: 'transparent',
+    opacity: 0, // Độ trong suốt
+});
+
+// Định nghĩa màu và độ dày của đường viền
+const stroke = new Stroke({
+    color: '#ff0000',
+    width: 1,
+    lineJoin: 'bevel',
+});
+
+// Tạo các đối tượng style dựa trên các quy tắc từ XML
+export const combinedStyle = function (feature, resolution) {
+    let style;
+    let width = null;
+    if (resolution <= 0.004) {
+        style = new Style({
+            fill: new Fill({
+                color: 'transparent',
+                opacity: 0, // Độ trong suốt
+            }),
+            stroke: new Stroke({
+                color: '#ff0000',
+                width: width ? width : 1,
+                lineJoin: 'bevel',
+            }),
+        });
+    }
+    else if (resolution > 0.004 && resolution <= 0.01) {
+        style = new Style({
+            fill: new Fill({
+                color: 'transparent',
+                opacity: 0, // Độ trong suốt
+            }),
+            stroke: new Stroke({
+                color: '#ff0000',
+                width: width ? width : 0.6,
+                lineJoin: 'bevel',
+            }),
+        });
+    }
+    else {
+        style = new Style({
+            fill: new Fill({
+                color: 'transparent',
+                opacity: 0, // Độ trong suốt
+            }),
+            stroke: new Stroke({
+                color: '#ff0000',
+                width: width ? width : 0.3,
+                lineJoin: 'bevel',
+            }),
+        });
+    }
+
+    // Quy tắc 4: Nhãn văn bản
+    const text = new Text({
+        font: '15px Arial',
+        text: feature.get('luuvuc'), // Thuộc tính được sử dụng cho nhãn
+        fill: new Fill({ color: '#2f2b9f' }),
+        stroke: new Stroke({ color: '#808080', width: 0.5 }),
+        offsetX: 0,
+        offsetY: 0.5,
+        backgroundFill: new Fill({ color: '#ffffff' }), // Màu nền
+        backgroundStroke: new Stroke({ color: '#808080', width: 0.5 }),
+    });
+
+    style.setText(text);
+
+    return style;
+};
+
+export const danhMucQuyHoach = new VectorLayer({
+    
+    source: new VectorSource({
+        url: 'http://103.184.112.209:8080/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson',
+        format: new GeoJSON(),
     }),
-    visible: false,
+    style: combinedStyle,
 })
 
 const heSotuoitiieu = new ImageLayer({
@@ -324,7 +411,7 @@ export const ListLayer = [
     }
 ];
 
-export const listLayer = ListLayer.map((data)=> {return data.layer})
+export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
 export const listLayerData = [congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, danhMucQuyHoach, heSotuoitiieu]
 // export const listLayerData = [heSotuoitiieu,danhMucQuyHoach,dapHoChuaLon, cong, tramBom, thuyDien,congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, heThongThuyLoiNangCap]

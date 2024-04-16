@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import "./header.css"
-function Header() {
+import { nav_icon } from '../../image/images';
+function Header(props) {
     const [status,setStatus] = useState([false,false,false,false,false,false,false])
     const handleScroll = () => {
         if (window.scrollY > 200) {
@@ -24,11 +25,20 @@ function Header() {
         window.addEventListener('scroll', handleScroll);
     }, [])
     return (
-        <React.Fragment>
-            <nav className='menu_bar' style={{marginBottom: '5px'}}>
+        <React.Fragment style={{background: '#021639'}}>
+            <nav className='menu_bar container-fluid' >
             <div className=''>
                 <nav id="navbar_top" className=" navbar navbar-expand-lg navbar-light">
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="header-left d-flex">
+                            <Link to="/" class="logo" style={{display: 'flex', alignItems: 'center'}}>
+                                <img style={{height: '36px', padding: '3px' }} src={nav_icon}/>
+                            </Link>
+                            <div className="text">
+                                {/* <p><span>Bộ Nông nghiệp và Phát triển nông thôn</span><span>Cục Thủy lợi</span></p> */}
+                                <p>{props.title}</p>
+                            </div>
+                        </div>
+                    {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="nav  nav-justified">
                             <li className={status[0]?"nav-item active1":"nav-item"} >
                                 <Link className="nav-link" to="/" onClick={()=>changS(0)}>Trang chủ <span className="sr-only">(current)</span></Link>
@@ -46,7 +56,7 @@ function Header() {
                                 <a className="nav-link" href="#"><span className="sr-only">(current)</span></a>
                             </li>
                         </ul>
-                    </div>
+                    </div> */}
                 </nav>
             </div>
             </nav>

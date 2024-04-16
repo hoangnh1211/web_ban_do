@@ -50,8 +50,8 @@
 }
 @media (max-width: 1700px) {
   .menu_bar,.fixed-top {
-    padding-left: 20% !important;
-    padding-right: 20% !important;
+    /* padding-left: 20% !important; */
+    /* padding-right: 20% !important; */
   }
   .mt .col-md-9 p{
     font-size: 18px !important;
@@ -70,12 +70,12 @@
 
 @media (max-width: 1400px) {
   .menu_bar,.fixed-top {
-    padding-left: 20% !important;
-    padding-right: 20% !important;
+    /* padding-left: 20% !important; */
+    /* padding-right: 20% !important; */
   }
   .menu_bar a{
     font-size: 14px !important;
-  }
+  } 
   .menu_bar .nav-justified .nav-link{
     /* padding: 10px 0px !important; */
     line-height: 10px !important;

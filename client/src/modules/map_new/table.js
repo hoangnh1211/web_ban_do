@@ -13,8 +13,9 @@ const Table = React.memo((props) => {
                     return (
                         <tr key={item}>
                             <td style={{ padding: '0.25rem' }}>
-                                <p style={{ marginBottom: 0 }}>
-                                    <span className="slabel">{configText[layer][item]}</span> : <span>{data[item]} {configDonvi[layer][item]}</span>
+                            {configText[layer][item] === 'diadanh' }
+                                <p style={{ marginBottom: 0, fontSize: '14px' }}>
+                                    <span className="slabel">{configText[layer][item]}</span>: <span style={item === 'diadanh' ? { fontWeight:'bold'} : {}}>{data[item]} {configDonvi[layer][item]}</span>
                                 </p>
                             </td>
                         </tr>

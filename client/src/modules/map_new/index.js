@@ -238,7 +238,7 @@ function MapNew() {
                     }),
                     stroke: new olStyle.Stroke({
                         color: '#ff0000',
-                        width: width ? width : 1,
+                        width: width ? width : 0.5,
                         lineJoin: 'bevel',
                     }),
                 });
@@ -251,7 +251,7 @@ function MapNew() {
                     }),
                     stroke: new olStyle.Stroke({
                         color: '#ff0000',
-                        width: width ? width : 0.6,
+                        width: width ? width : 0.3,
                         lineJoin: 'bevel',
                     }),
                 });
@@ -264,7 +264,7 @@ function MapNew() {
                     }),
                     stroke: new olStyle.Stroke({
                         color: '#ff0000',
-                        width: width ? width : 0.3,
+                        width: width ? width : 0.15,
                         lineJoin: 'bevel',
                     }),
                 });

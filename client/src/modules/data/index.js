@@ -42,7 +42,6 @@ function Data() {
             return null;
         })
         .filter(index => index !== null);
-    console.log(Math.min(...data.map(data => Math.min(data.duong_phong_pha_hoai ? data.duong_phong_pha_hoai : 100000000, data.duong_han_che_cap_nuoc ? data.duong_han_che_cap_nuoc : 100000000, data.mnc ? data.mnc : 100000000, data.mnpl ? data.mnpl : 100000000, data.mnbt ? data.mnbt : 100000000, data.mngc ? data.mngc : 100000000, data.mn_now ? data.mn_now : 100000000))))
     const dataTest = {
         a: 0,
         d: 1,
@@ -74,6 +73,8 @@ function Data() {
             },
             legend: {
                 layout: 'horizontal', // Đặt layout thành horizontal
+                // symbolWidth: 10,
+                symbolHeight: 0,
                 align: 'center',
                 verticalAlign: 'bottom', // Đặt verticalAlign thành bottom
             },
@@ -86,33 +87,31 @@ function Data() {
             },
             series: [{
                 name: 'Đường phòng phá hoại',
-                data: data.map(data => parseFloat(data.duong_phong_pha_hoai)),
+                data: data.map(data => parseFloat(parseFloat(data.duong_phong_pha_hoai).toFixed(2))),
                 color: '#42b5eb'
             }, {
                 name: 'Đường hạn chế cấp nước',
-                data: data.map(data => parseFloat(data.duong_han_che_cap_nuoc)),
-                color: '#f23a3a',
-                dashStyle: 'dash'
+                data: data.map(data => parseFloat(parseFloat(data.duong_han_che_cap_nuoc).toFixed(2))),
+                color: '#9e0363',
             }, {
                 name: 'MNC (m)',
-                data: data.map(data => parseFloat(data.mnc)),
+                data: data.map(data => parseFloat(parseFloat(data.mnc).toFixed(2))),
                 color: '#f23a3a'
             }, {
                 name: 'MNPL (m)',
-                data: data.map(data => parseFloat(data.mnpl)),
+                data: data.map(data => parseFloat(parseFloat(data.mnpl).toFixed(2))),
                 color: '#1b6e3e',
-                dashStyle: 'dash'
             }, {
                 name: 'MNBT (m)',
-                data: data.map(data => parseFloat(data.mnbt)),
+                data: data.map(data => parseFloat(parseFloat(data.mnbt).toFixed(2))),
                 color: '#f58802'
             }, {
                 name: 'MNGC (m)',
-                data: data.map(data => parseFloat(data.mngc)),
+                data: data.map(data => parseFloat(parseFloat(data.mngc).toFixed(2))),
                 color: '#5a11ba'
             }, {
                 name: 'MN hiện tại (m)',
-                data: data.map(data => parseFloat(data.mn_now)),
+                data: data.map(data => parseFloat(parseFloat(data.mn_now).toFixed(2))),
                 color: '#020ab0'
             }],
             responsive: {
@@ -240,7 +239,7 @@ function Data() {
 
     return (
         <div>
-            <Header  title ="Hệ thống thông tin giám sát vận hành các công trình thủy lợi"/>
+            <Header title="Hệ thống thông tin giám sát vận hành các công trình thủy lợi" />
             <div className='row' style={{ marginLeft: '30px', marginRight: '30px' }}>
                 <div className='col-4'>
                     <h5>I. Hiện trạng hồ ngày: {dataNew && dataNew.date}</h5>
@@ -249,13 +248,13 @@ function Data() {
                         <li>Dung tích hiện tại: {dataNew && parseFloat(0.9178 * dataNew.mn_now * dataNew.mn_now - 59.88 * dataNew.mn_now + 984).toFixed(1)}(triệu m&#xb3;)</li>
                         <li>Dung tích hữu ích: {dataNew && parseFloat(0.9178 * dataNew.mn_now * dataNew.mn_now - 59.88 * dataNew.mn_now + 984 - 9.2,).toFixed(1)}(triệu m&#xb3;)</li>
                         <li onClick={() => setShowThongTinHo(true)} style={{ cursor: "pointer" }}>Thông số cơ bản của hồ Núi Cốc: </li>
-                        <li>Diện tích tích được tưới: 11900 ha</li>
+                        <li>Diện tích được tưới: 11900 ha</li>
                     </ul>
                     <h5>III. Thông tin chung</h5>
                     <ul>
-                        <li onClick={() => setShowThongSo(true)} style={{ cursor: "pointer" }}>1.Vị trí công trình và các thông số kỹ thuật hồ Núi Cốc</li>
-                        <li onClick={() => setShowNhiemVu(true)} style={{ cursor: "pointer" }}>2.Nhiệm vụ công trình</li>
-                        <li onClick={() => setShowQuyTrinhVanHanh(true)} style={{ cursor: "pointer" }}>3.Quy trình vận hành</li>
+                        <li onClick={() => setShowThongSo(true)} style={{ cursor: "pointer" }}>Vị trí công trình và các thông số kỹ thuật hồ Núi Cốc</li>
+                        <li onClick={() => setShowNhiemVu(true)} style={{ cursor: "pointer" }}>Nhiệm vụ công trình</li>
+                        <li onClick={() => setShowQuyTrinhVanHanh(true)} style={{ cursor: "pointer" }}>Quy trình vận hành</li>
                     </ul>
                 </div>
                 <div className='col-8'>
@@ -291,9 +290,6 @@ function Data() {
                             </div>
                         )}
                     </div>}
-                    <Button variant="primary" onClick={handleShow}>
-                        Add Data
-                    </Button>
                 </div>
                 {show &&
                     <Modal show={show} onHide={handleClose}>

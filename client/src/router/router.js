@@ -17,7 +17,7 @@ import Import from '../modules/data/import';
 function Router() {
     return (
     <Routes>
-      <Route path="/" element={<MapNew/>} />
+      <Route path="/" element={<Home/>} />
       <Route path="/home" element={<Home/>} />
       <Route path="/new-map" element={<MapNew/>} />
       <Route path="/ho-chua" element={<Data/>} />

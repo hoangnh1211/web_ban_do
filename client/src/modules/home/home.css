@@ -1,20 +1,44 @@
-.home{
+.home {
     padding-right: 10%;
-    padding-left: 10%;    
+    padding-left: 10%;
     padding-top: 50px;
 
 }
-.ind{
+.table-quy-hoach th,.table-quy-hoach td{
+    border: 1px solid #000000 !important;
+}
+
+.ind {
     z-index: 10;
     background-color: #fff;
 }
-.nav-item{
+
+.nav-item {
     text-align: center;
 }
-.image_home{
+
+.image_home {
     width: 100%;
 }
-.home p{
+
+.home p {
     text-align: justify;
     font-size: 20px;
+}
+
+.ml-13 {
+    margin-left: 6rem;
+}
+
+.mr-13 {
+    margin-right: 6rem;
+}
+@media (max-width: 600px) {
+    .ml-13 {
+        margin-left: 1rem; /* Điều chỉnh margin-left cho màn hình nhỏ */
+    }
+
+    .mr-13 {
+        margin-right: 1rem; /* Điều chỉnh margin-right cho màn hình nhỏ */
+    }
 }

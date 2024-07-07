@@ -9,13 +9,18 @@ import ImageLayer from 'ol/layer/Image';
 import { Map, View } from 'ol';
 import Overlay from 'ol/Overlay';
 import React, { useEffect } from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+const theme = createTheme();
+
 
 const history = createBrowserHistory();
 function App() {
    
     return (
         <Router history={history}>
+            <ThemeProvider theme={theme}>
             <Intro />
+            </ThemeProvider>
         </Router>
     );
 }

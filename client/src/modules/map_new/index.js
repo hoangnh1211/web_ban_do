@@ -326,7 +326,7 @@ function MapNew() {
     };
     return (
         <div>
-            <Header title ="Hệ thống thông tin quy hoạch thủy lợi trực tuyến"/>
+            {/* <Header title ="Hệ thống thông tin quy hoạch thủy lợi trực tuyến"/> */}
             <MenuLayer setDataCheck={setDataCheck} getData={getData} handleSearch={handleSearch} toggleLayersVisibility={toggleLayersVisibility} ShowLayersVisibility={ShowLayersVisibility} HideLayersVisibility={HideLayersVisibility} />
             <div style={{ height: '100vh', width: '100%' }} ref={mapElement} className="map-container"></div>
             <div id="popup" className="ol-popup">

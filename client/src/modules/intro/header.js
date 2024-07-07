@@ -1,67 +1,207 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
-import "./header.css"
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
 import { nav_icon } from '../../image/images';
-function Header(props) {
-    const [status,setStatus] = useState([false,false,false,false,false,false,false])
-    const handleScroll = () => {
-        if (window.scrollY > 200) {
-            document.getElementById('navbar_top').classList.add('fixed-top');
-            // add padding top to show content behind navbar
-            let navbar_height = document.querySelector('.navbar').offsetHeight;
-            document.body.style.paddingTop = navbar_height + "px"
-        } else {
-            document.getElementById('navbar_top').classList.remove('fixed-top');
-            // remove padding top from body
-            document.body.style.paddingTop = '0';
-        }
-    }
-    const changS = (value)=>{
-        let value1 = [false,false,false,false,false,false,false]
-        value1[value]=true;
-        setStatus(value1)
-    }
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-    }, [])
-    return (
-        <React.Fragment style={{background: '#021639'}}>
-            <nav className='menu_bar container-fluid' >
-            <div className=''>
-                <nav id="navbar_top" className=" navbar navbar-expand-lg navbar-light">
-                    <div class="header-left d-flex">
-                            <Link to="/" class="logo" style={{display: 'flex', alignItems: 'center'}}>
-                                <img style={{height: '36px', padding: '3px' }} src={nav_icon}/>
-                            </Link>
-                            <div className="text">
-                                {/* <p><span>Bộ Nông nghiệp và Phát triển nông thôn</span><span>Cục Thủy lợi</span></p> */}
-                                <p>{props.title}</p>
-                            </div>
-                        </div>
-                    {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="nav  nav-justified">
-                            <li className={status[0]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/" onClick={()=>changS(0)}>Trang chủ <span className="sr-only">(current)</span></Link>
-                            </li>
-                            <li className={status[1]?"nav-item active1":"nav-item"} >
-                                <Link className="nav-link" to="/ho-chua" onClick={()=>changS(1)}>Hồ Chứa <span className="sr-only">(current)</span></Link>
-                            </li>
-                            <li className={status[2]?"nav-item active1":"nav-item"} >
-                                <a className="nav-link" href="#"><span className="sr-only">(current)</span></a>
-                            </li>
-                            <li className={status[3]?"nav-item active1":"nav-item"} >
-                                <a className="nav-link" href="#" ><span className="sr-only">(current)</span></a>
-                            </li>
-                            <li className={status[4]?"nav-item active1":"nav-item"} >
-                                <a className="nav-link" href="#"><span className="sr-only">(current)</span></a>
-                            </li>
-                        </ul>
-                    </div> */}
-                </nav>
-            </div>
-            </nav>
-        </React.Fragment>
-    );
+import { Link } from "react-router-dom";
+
+const pages = [
+  {
+    to: '',
+    name: 'Trang chủ'
+  },
+  {
+    to: 'new-map',
+    name: 'Bản đồ'
+  },
+  {
+    to: 'data',
+    name: 'Dữ liệu quy hoạch'
+  },
+  {
+    to: '',
+    name: 'Đánh giá quy hoạch'
+  },
+  {
+    to: '',
+    name: 'Quy hoạch khác'
+  },
+  {
+    to: 'contract',
+    name: 'Liên hệ'
+  },
+];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+function Header() {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  return (
+    <div>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Avatar alt="Remy Sharp" src={nav_icon} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="#"
+              sx={{
+                mr: 3,
+                ml: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 700,
+                color: 'inherit',
+                textDecoration: 'none',
+                fontSize: '16px',
+                lineHeight: '21.8px'
+              }}
+            >
+              TRANG THÔNG TIN QUẢN LÝ QUY HOẠCH THỦY LỢI
+            </Typography>
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {pages.map(page => (
+                  <Link to={page.to}>
+                    <MenuItem key={page.to} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page.name}</Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+              </Menu>
+            </Box>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              sx={{
+                mr: 3,
+                ml: 2,
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontWeight: 700,
+                color: 'inherit',
+                textDecoration: 'none',
+                fontSize: '16px',
+                lineHeight: '21.8px',
+                textAlign: 'left'
+              }}
+            // sx={{
+            //   mr: 2,
+            //   display: { xs: 'none', md: 'flex' },
+            //   fontFamily: 'Noto Serif',
+            //   fontWeight: 700,
+            //   color: 'inherit',
+            //   textDecoration: 'none',
+            //   fontSize: '16px',
+            //   lineHeight: '21.8px'
+            // }}
+            >
+              TRANG THÔNG TIN QUẢN LÝ QUY HOẠCH THỦY LỢI
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Link to={page.to}>
+                <Button
+                  key={page.to}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page.name}
+                </Button>
+                </Link>
+              ))}
+            </Box>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </div>
+  );
 }
 
 export default Header;

@@ -1,5 +1,7 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import moment from 'moment'
 import Banner from './Banner';
 import "./home.css"
 import { useTheme } from '@mui/material/styles';
@@ -32,7 +34,27 @@ const CustomDot = styled('div')(({ theme, active }) => ({
 
 function Home() {
     const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
+    const [quyhoach, setQuyhoach] = useState([]);
+
+    const fetchData = (page) => {
+        axios.get(`${process.env.REACT_APP_SERVER}/api/quyhoach?page=${page}&per_page=10`)
+            .then(res => {
+                setQuyhoach(res.data.data.data)
+                setTotalPage(res.data.data.last_page)
+            });
+    };
+
+    useEffect(() => {
+        fetchData(1)
+    }, [])
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+        fetchData(value);
+    };
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -294,22 +316,22 @@ function Home() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
+                            {quyhoach.map((row) => (
                                 <TableRow
-                                    key={row.name}
+                                    key={row.stt}
                                     sx={{
                                         '&:last-child td, &:last-child th': { border: 0 },
-                                        backgroundColor: row.status === ' Còn hiệu lực' ? '#FFF2AB63' : 'inherit',
+                                        backgroundColor: row.tinh_trang_quy_hoach === 'Còn hiệu lực' ? '#FFF2AB63' : 'inherit',
                                     }}
                                 >
                                     <TableCell align="center" component="th" scope="row">
-                                        {row.name}
+                                        {row.stt}
                                     </TableCell>
-                                    <TableCell align="center">{row.calories}</TableCell>
-                                    <TableCell align="center">{row.fat}</TableCell>
-                                    <TableCell align="center">{row.carbs}</TableCell>
-                                    <TableCell align="center">{row.protein}</TableCell>
-                                    <TableCell align="center">{row.status}</TableCell>
+                                    <TableCell align="center">{row.ten_quy_hoach}</TableCell>
+                                    <TableCell align="center">{row.so_hieu_van_ban}</TableCell>
+                                    <TableCell align="center">{moment(row.ngay_ban_hanh).format('YYYY-MM-DD')}</TableCell>
+                                    <TableCell align="center">{row.co_quan_ban_hanh}</TableCell>
+                                    <TableCell align="center">{row.tinh_trang_quy_hoach}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -329,7 +351,10 @@ function Home() {
                             height: '40px',
                             fontSize: '20px'
                         },
-                    }} count={10} color="primary" />
+                    }} count={totalPage} color="primary" 
+                    page={currentPage} 
+                    onChange={handlePageChange}
+                    />
                 </Box>
             </div>
             <div class="mr-13 ml-13" style={{ marginTop: '70px' }}>

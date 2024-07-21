@@ -9,10 +9,10 @@ class Banner extends Component {
           <div id="carouselExampleInterval" class="carousel slide banner" data-ride="carousel">
           <div class="carousel-inner">
             <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_1} active={true} classimg="w3layouts-banner-top banner-1"></Banner_img>
-            <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_2} classimg="w3layouts-banner-top banner-2"></Banner_img>
+            {/* <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_2} classimg="w3layouts-banner-top banner-2"></Banner_img>
             <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_3} classimg="w3layouts-banner-top banner-3"></Banner_img>
             <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_4} classimg="w3layouts-banner-top banner-4"></Banner_img>
-            <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_5} classimg="w3layouts-banner-top banner-5"></Banner_img>
+            <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_5} classimg="w3layouts-banner-top banner-5"></Banner_img> */}
             {/* <div class="carousel-item active" data-interval="5000">
               <img src={banner_1} class="d-block w-100" alt="..."/>
             </div>

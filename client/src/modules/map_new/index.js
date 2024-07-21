@@ -116,10 +116,19 @@ function MapNew() {
             layers: listLayer,
             overlays: [overlay],
             view: new View({
-                center: [105.567, 21.144], zoom: 9.5,
+                // center: [105.567, 21.144], zoom: 9.5,
                 projection: 'EPSG:4326'
             }),
         });
+        initialMap.getView().fit( [
+            102.144585,
+            8.561212,
+            109.458946,
+            23.392437
+        ], {
+            size: initialMap.getSize(),
+        });
+       
         // danhMucQuyHoach.setStyle(function(feature) {
         //     // Lấy tỷ lệ hiện tại của bản đồ
         //     const resolution = initialMap.getView().getZoom();
@@ -161,8 +170,9 @@ function MapNew() {
 
                     // Sử dụng URL để gửi yêu cầu và lấy thông tin
                     if (url) {
+                        console.log(url)
                         let value = await axios.get(url);
-                        if (value.data.features.length > 0) {
+                        if (value.data.features?.length > 0) {
                             overlay.setPosition(evt.coordinate);
                             setDataMap({ data: value.data.features })
                             break;
@@ -224,8 +234,9 @@ function MapNew() {
         // mapView.setCenter(center);
         mapView.fit(data.values_.geometry.extent_, {
             size: map.getSize(),
-            padding: [10, 10, 10, 10] // Padding cho phần view
+            padding: [10, 10, 10, 10] 
         });
+        console.log(data.values_.geometry.extent_)
 
         const combinedStyle = function (feature, resolution) {
             let style;

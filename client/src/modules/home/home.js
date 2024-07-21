@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import { Box, Typography, List, ListItem, ListItemIcon, Card, CardContent, CardMedia,useMediaQuery } from '@mui/material';
+import { Box, Typography, List, ListItem, ListItemIcon, Card, CardContent, CardMedia, useMediaQuery } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
@@ -21,6 +21,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination'
 import { logo_1, logo_2, logo_3, logo_4, logo_5, test } from '../../image/images';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const CustomDot = styled('div')(({ theme, active }) => ({
@@ -37,8 +38,22 @@ function Home() {
     const [activeStep, setActiveStep] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
+    const [ketquaQuyhoach, setKetquaQuyhoach] = useState([]);
     const [quyhoach, setQuyhoach] = useState([]);
-
+    const [recordsPerPage, setRecordsPerPage] = useState(5);
+    const [totalTh, setTotalTh] = useState(0);
+    const [totalpageTh, setTotalpageTh] = useState(0);
+    const updateRecordsPerPage = (length = null) => {
+        const screenWidth = window.innerWidth;
+        let total = length ? length : totalTh;
+        if (screenWidth > 1800) {
+            setRecordsPerPage(5);
+            setTotalpageTh(Math.ceil(total / 5))
+        } else {
+            setRecordsPerPage(4);
+            setTotalpageTh(Math.ceil(total / 4))
+        }
+    };
     const fetchData = (page) => {
         axios.get(`${process.env.REACT_APP_SERVER}/api/quyhoach?page=${page}&per_page=10`)
             .then(res => {
@@ -49,6 +64,15 @@ function Home() {
 
     useEffect(() => {
         fetchData(1)
+        axios.get(`${process.env.REACT_APP_SERVER}/api/ketquaquyhoach`)
+            .then(res => {
+                setKetquaQuyhoach(res.data.data)
+                setTotalTh(res.data.data.length)
+                updateRecordsPerPage(res.data.data.length);
+            });
+        window.addEventListener('resize', updateRecordsPerPage);
+
+        return () => window.removeEventListener('resize', updateRecordsPerPage);
     }, [])
 
     const handlePageChange = (event, value) => {
@@ -56,6 +80,7 @@ function Home() {
         fetchData(value);
     };
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    const isbigScreen = useMediaQuery((theme) => theme.breakpoints.up('custom'));
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -66,18 +91,12 @@ function Home() {
 
     const renderDots = () => {
         const dots = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < totalpageTh; i++) {
             dots.push(<CustomDot key={i} active={i === activeStep} />);
         }
         return dots;
     };
-    const dataArray = Array.from({ length: 16 }, (_, index) => ({
-        name: `Quy hoạch PCTT và thủy lợi quốc gia${index + 1}`,
-        soluong: 1,
-        nhiemvu: `nhiemvu${index + 1}`,
-        dientich: 100,
-        nam: 2000
-    }));
+
     function createData(name, calories, fat, carbs, protein, status) {
         return { name, calories, fat, carbs, protein, status };
     }
@@ -87,307 +106,216 @@ function Home() {
         { id: 3, src: logo_3, alt: 'Logo 3' },
         { id: 4, src: logo_4, alt: 'Logo 4' },
         { id: 5, src: logo_5, alt: 'Logo 5' },
-      ];
-    const rows = [
-        createData(1, 'Quy hoạch phòng, chống thiên tai và thủy lợi thời kỳ 2021-2023, tầm nhìn đến năm 2050', '847/QĐ-TTg', '14/07/2023', 'Thủ tướng Chính phủ', ' Còn hiệu lực'),
-        createData(2, 'Quy hoạch phòng, chống thiên tai và thủy lợi thời kỳ 2021-2023, tầm nhìn đến năm 2050', '847/QĐ-TTg', '14/07/2023', 'Thủ tướng Chính phủ', ' Hết hiệu lực'),
-        createData(3, 'Quy hoạch phòng, chống thiên tai và thủy lợi thời kỳ 2021-2023, tầm nhìn đến năm 2050', '847/QĐ-TTg', '14/07/2023', 'Thủ tướng Chính phủ', ' Hết hiệu lực'),
-        createData(4, 'Quy hoạch phòng, chống thiên tai và thủy lợi thời kỳ 2021-2023, tầm nhìn đến năm 2050', '847/QĐ-TTg', '14/07/2023', 'Thủ tướng Chính phủ', ' Còn hiệu lực'),
-        createData(5, 'Quy hoạch phòng, chống thiên tai và thủy lợi thời kỳ 2021-2023, tầm nhìn đến năm 2050', '847/QĐ-TTg', '14/07/2023', 'Thủ tướng Chính phủ', ' Còn hiệu lực'),
     ];
 
     return (
         <div className=''>
             <Banner />
-            <div class="mr-13 ml-13">
-                <h2 class="text-center mt-5 mb-5" style={{ fontSize: "24px", color: "#070660", marginBottom: '30px' }}>KẾT QUẢ THỰC HIỆN QUY HOẠCH ĐẾN NĂM 2024</h2>
-                <Grid container spacing={5}>
-                    <Grid item xs={12} lg={3}>
-                        <Box
-                            sx={{
-                                border: '1px solid #000',
-                                borderRadius: '10px',
-                                padding: '16px',
-                                backgroundColor: '#fff',
-                                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                            }}
-                        >
-                            <Typography variant="h6" align="center" sx={{ color: '#0A086F', fontSize: '18px', fontWeight: 600, marginBottom: '16px' }}>
-                                {dataArray[activeStep * 4].name}
-                            </Typography>
-                            <List>
-                                <ListItem sx={{ paddingBottom: 0, paddingTop: 0 }}>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Số lượng CT QH:<span className='ml-2' style={{color:'black'}} >{`${dataArray[activeStep * 4].soluong} CT`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Nhiệm vụ QH:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4].nhiemvu}`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Diện tích tưới:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4].dientich} ha`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span className='mr-2' style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Năm thực hiện:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4].nam}`}</span></span>
-                                </ListItem>
-                            </List>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} lg={3}>
-                        <Box
-                            sx={{
-                                border: '1px solid #000',
-                                borderRadius: '10px',
-                                padding: '16px',
-                                backgroundColor: '#fff',
-                                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                            }}
-                        >
-                            <Typography variant="h6" align="center" sx={{ color: '#0A086F', fontSize: '18px', fontWeight: 600, marginBottom: '16px' }}>
-                                {dataArray[activeStep * 4 + 1].name}
-                            </Typography>
-                            <List>
-                                <ListItem sx={{ paddingBottom: 0, paddingTop: 0 }}>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Số lượng CT QH:<span className='ml-2' style={{color:'black'}} >{`${dataArray[activeStep * 4 + 1].soluong} CT`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Nhiệm vụ QH:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 1].nhiemvu}`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Diện tích tưới:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 1].dientich} ha`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span className='mr-2' style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Năm thực hiện:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 1].nam}`}</span></span>
-                                </ListItem>
-                            </List>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} lg={3}>
-                        <Box
-                            sx={{
-                                border: '1px solid #000',
-                                borderRadius: '10px',
-                                padding: '16px',
-                                backgroundColor: '#fff',
-                                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                            }}
-                        >
-                            <Typography variant="h6" align="center" sx={{ color: '#0A086F', fontSize: '18px', fontWeight: 600, marginBottom: '16px' }}>
-                                {dataArray[activeStep * 4 + 2].name}
-                            </Typography>
-                            <List>
-                                <ListItem sx={{ paddingBottom: 0, paddingTop: 0 }}>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Số lượng CT QH:<span className='ml-2' style={{color:'black'}} >{`${dataArray[activeStep * 4 + 2].soluong} CT`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Nhiệm vụ QH:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 2].nhiemvu}`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Diện tích tưới:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 2].dientich} ha`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span className='mr-2' style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Năm thực hiện:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 2].nam}`}</span></span>
-                                </ListItem>
-                            </List>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} lg={3}>
-                        <Box
-                            sx={{
-                                border: '1px solid #000',
-                                borderRadius: '10px',
-                                padding: '16px',
-                                backgroundColor: '#fff',
-                                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                            }}
-                        >
-                            <Typography variant="h6" align="center" sx={{ color: '#0A086F', fontSize: '18px', fontWeight: 600, marginBottom: '16px' }}>
-                                {dataArray[activeStep * 4 + 3].name}
-                            </Typography>
-                            <List>
-                                <ListItem sx={{ paddingBottom: 0, paddingTop: 0 }}>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Số lượng CT QH:<span className='ml-2' style={{color:'black'}} >{`${dataArray[activeStep * 4 + 3].soluong} CT`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Nhiệm vụ QH:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 3].nhiemvu}`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Diện tích tưới:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 3].dientich} ha`}</span></span>
-                                    
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemIcon sx={{ minWidth: '27px' }} >
-                                        <FiberManualRecordIcon sx={{ fontSize: 'small' }} />
-                                    </ListItemIcon>
-                                    <span className='mr-2' style={{ color: '#5552E3', fontSize: '16px', fontWeight: 400 }}>Năm thực hiện:<span className='ml-2' style={{color:'black'}}>{`${dataArray[activeStep * 4 + 3].nam}`}</span></span>
-                                </ListItem>
-                            </List>
-                        </Box>
-                    </Grid>
-                </Grid>
-                <div className='mr-1 ml-1 mt-4' style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', marginRight: 'auto', marginTop: 8 }}>
-                        {renderDots()}
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flexGrow: 1 }}>
-                        <Button sx={{ pd: 0 }} size="large" onClick={handleBack} disabled={activeStep === 0}>
-                            {theme.direction === 'rtl' ? (
-                                <ArrowCircleRightIcon sx={{ fontSize: 40 }} />
-                            ) : (
-                                <ArrowCircleLeftIcon sx={{ fontSize: 40 }} />
+            <div class="mr-7 ml-7">
+                <h2 class="text-center mt-5 mb-5" style={{fontWeight:800,lineHeight:'35px', fontSize: "24px", color: "#0B47A2", marginBottom: '30px' }}>KẾT QUẢ THỰC HIỆN QUY HOẠCH ĐẾN NĂM 2024</h2>
+                {!totalTh ? (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <CircularProgress size={80} thickness={5} />
+                    </Box>) : (
+                    <React.Fragment>
+                        <Grid container spacing={5} sx={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(5, 1fr)',
+                            [theme.breakpoints.down('custom')]: {
+                                gridTemplateColumns: 'repeat(4, 1fr)',
+                            },
+                            [theme.breakpoints.down('md')]: {
+                                gridTemplateColumns: 'repeat(2, 1fr)',
+                            },
+                            [theme.breakpoints.down('sm')]: {
+                                gridTemplateColumns: 'repeat(1, 1fr)',
+                            },
+                        }}>
+                            {Array.from({ length: recordsPerPage }, (_, index) => {
+                                if (activeStep * recordsPerPage + index < totalTh) {
+                                    return (<Grid item>
+                                        <Box
+                                            sx={{
+                                                border: '1px solid #000',
+                                                borderRadius: '10px',
+                                                padding: '16px 0px 0px 0px',
+                                                backgroundColor: '#fff',
+                                                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                                            }}
+                                        >
+                                            <Typography variant="h6" align="center" sx={{ color: '#0B47A2', fontSize: '18px', fontWeight: 600, marginBottom: '16px', lineHeight:'21px' }}>
+                                                {ketquaQuyhoach[activeStep * recordsPerPage + index]?.ten_hien_thi}
+                                            </Typography>
+                                            <List>
+                                                <ListItem sx={{ paddingBottom: 0, paddingTop: 0 }}>
+                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    </ListItemIcon>
+                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Số lượng CT QH:<span className='ml-2' style={{ color: 'black' }} >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].so_luong_ct_quy_hoach} CT`}</span></span>
+
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    </ListItemIcon>
+                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Nhiệm vụ QH:<span className='ml-2' style={{ color: 'black' }}>{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nhiem_vu_quy_hoach} ha`}</span></span>
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    </ListItemIcon>
+                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Số CT đã XD:<span className='ml-2' style={{ color: 'black' }}>{`${ketquaQuyhoach[activeStep * recordsPerPage + index].so_ct_da_xd} CT`}</span></span>
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    </ListItemIcon>
+                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Diện tích tưới:<span className='ml-2' style={{ color: 'black' }}>{`${ketquaQuyhoach[activeStep * recordsPerPage + index].dien_tich_tuoi} ha`}</span></span>
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    </ListItemIcon>
+                                                    <span className='mr-2' style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Năm thực hiện:<span className='ml-2' style={{ color: 'black' }}>{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nam_thuc_hien}`}</span></span>
+                                                </ListItem>
+                                            </List>
+                                        </Box>
+                                    </Grid>)
+                                }
+
+                            }
+
                             )}
-                        </Button>
-                        <Button size="large" onClick={handleNext} disabled={activeStep === 3}>
-                            {theme.direction === 'rtl' ? (
-                                <ArrowCircleLeftIcon sx={{ fontSize: 40 }} />
-                            ) : (
-                                <ArrowCircleRightIcon sx={{ fontSize: 40 }} />
-                            )}
-                        </Button>
-                    </div>
-                </div>
+                        </Grid>
+                        <div className='mr-1 ml-1 mt-4' style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', justifyContent: 'center', marginRight: 'auto', marginTop: 8 }}>
+                                {renderDots()}
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', flexGrow: 1 }}>
+                                <Button sx={{ pd: 0 }} size="large" onClick={handleBack} disabled={activeStep === 0}>
+                                    {theme.direction === 'rtl' ? (
+                                        <ArrowCircleRightIcon sx={{ fontSize: 40 }} />
+                                    ) : (
+                                        <ArrowCircleLeftIcon sx={{ fontSize: 40 }} />
+                                    )}
+                                </Button>
+                                <Button size="large" onClick={handleNext} disabled={activeStep === totalpageTh - 1}>
+                                    {theme.direction === 'rtl' ? (
+                                        <ArrowCircleLeftIcon sx={{ fontSize: 40 }} />
+                                    ) : (
+                                        <ArrowCircleRightIcon sx={{ fontSize: 40 }} />
+                                    )}
+                                </Button>
+                            </div>
+                        </div>
+                    </React.Fragment>)}
             </div>
             <div class="mr-13 ml-13">
-                <h2 class="text-center" style={{ fontSize: "24px", color: "#070660", marginBottom: '70px', marginTop: '100px' }}>KẾT QUẢ THỰC HIỆN QUY HOẠCH ĐẾN NĂM 2024</h2>
-                <TableContainer component={Paper}>
-                    <Table className='table-quy-hoach' sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="center" sx={{ fontWeight: 'bold', fontSize: '15px', lineHeight: '20px' }}>STT</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold', fontSize: '15px', lineHeight: '20px' }}>Tên Quy Hoạch</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold', fontSize: '15px', lineHeight: '20px' }}>Số hiệu văn bản</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold', fontSize: '15px', lineHeight: '20px' }}>Ngày ban hành</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold', fontSize: '15px', lineHeight: '20px' }}>Cơ quan ban hành</TableCell>
-                                <TableCell align="center" sx={{ fontWeight: 'bold', fontSize: '15px', lineHeight: '20px' }}>Trình trạng Quy Hoạch</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {quyhoach.map((row) => (
-                                <TableRow
-                                    key={row.stt}
-                                    sx={{
-                                        '&:last-child td, &:last-child th': { border: 0 },
-                                        backgroundColor: row.tinh_trang_quy_hoach === 'Còn hiệu lực' ? '#FFF2AB63' : 'inherit',
-                                    }}
-                                >
-                                    <TableCell align="center" component="th" scope="row">
-                                        {row.stt}
-                                    </TableCell>
-                                    <TableCell align="center">{row.ten_quy_hoach}</TableCell>
-                                    <TableCell align="center">{row.so_hieu_van_ban}</TableCell>
-                                    <TableCell align="center">{moment(row.ngay_ban_hanh).format('YYYY-MM-DD')}</TableCell>
-                                    <TableCell align="center">{row.co_quan_ban_hanh}</TableCell>
-                                    <TableCell align="center">{row.tinh_trang_quy_hoach}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                        padding: '16px',
-                        marginTop: '10px'
-                    }}
-                >
-                    <Pagination sx={{
-                        '& .MuiPaginationItem-root': {
-                            width: '40px',
-                            height: '40px',
-                            fontSize: '20px'
-                        },
-                    }} count={totalPage} color="primary" 
-                    page={currentPage} 
-                    onChange={handlePageChange}
-                    />
-                </Box>
+                <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', marginTop: '100px', lineHeight:'35px', fontWeight:800 }}>DANH MỤC CÁC QUY HOẠCH ĐƯỢC DUYỆT QUA TỪNG THỜI KỲ</h2>
+                {!quyhoach.length ? (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <CircularProgress size={80} thickness={5} />
+                    </Box>) : (
+                    <React.Fragment>
+                        <TableContainer component={Paper}>
+                            <Table className='table-quy-hoach' sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tên Quy Hoạch</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Số hiệu văn bản</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Ngày ban hành</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Cơ quan ban hành</TableCell>
+                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tình trạng Quy Hoạch</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {quyhoach.map((row) => (
+                                        <TableRow
+                                            key={row.stt}
+                                            sx={{
+                                                '&:last-child td, &:last-child th': { border: 0 },
+                                                backgroundColor: row.tinh_trang_quy_hoach === 'Còn hiệu lực' ? '#FFF2AB63' : 'inherit',
+                                            }}
+                                        >
+                                            <TableCell align="center" component="th" scope="row">
+                                                {row.stt}
+                                            </TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.ten_quy_hoach}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.so_hieu_van_ban}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{moment(row.ngay_ban_hanh).format('YYYY-MM-DD')}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.co_quan_ban_hanh}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.tinh_trang_quy_hoach}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                padding: '16px',
+                                marginTop: '10px'
+                            }}
+                        >
+                            <Pagination sx={{
+                                '& .MuiPaginationItem-root': {
+                                    width: '40px',
+                                    height: '40px',
+                                    fontSize: '20px'
+                                },
+                            }} count={totalPage} color="primary"
+                                page={currentPage}
+                                onChange={handlePageChange}
+                            />
+                        </Box>
+                    </React.Fragment>
+                )}
             </div>
             <div class="mr-13 ml-13" style={{ marginTop: '70px' }}>
-                <h2 class="text-center" style={{ fontSize: "24px", color: "#070660", marginBottom: '70px' }}>CÁC QUY HOẠCH ĐANG THỰC HIỆN</h2>
-                <Grid container spacing={5}>
+                <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', lineHeight:'35px', fontWeight:800 }}>CÁC QUY HOẠCH ĐANG THỰC HIỆN</h2>
+                <Grid container spacing={10}>
                     <Grid item xs={12} lg={6}>
-                        <Card sx={{ display: 'flex',flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
+                        <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
                             <CardMedia
                                 component="img"
-                                sx={{ width: isSmallScreen ? '100%' : 200, height: 200, borderRadius: '16px' }}
+                                sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 :200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}
                                 image={test} // Replace with your image URL
                                 alt="River Image"
                             />
                             <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '16px' }}>
-                                <CardContent sx={{ flex: '1 0 auto', padding:0, paddingBottom: '0px !important' }}>
-                                    <Typography component="div" variant="h6" sx={{ fontWeight: 'bold', marginBottom: '20px' }}>
+                                <CardContent sx={{ flex: '1 0 auto', padding: 0, paddingBottom: '0px !important' }}>
+                                    <Typography component="div" variant="h6" sx={{fontSize: '16px', fontWeight: 700, marginBottom: '20px', color:'#0B47A2' }}>
                                         Quy hoạch thủy lợi vùng Đồng bằng sông Hồng giai đoạn 2022 - 2030 và định hướng đến năm 2050
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ marginBottom: '8px' }}>
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Thời gian thực hiện: 2022 - 2024
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ marginBottom: '8px' }}>
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Kinh phí: 4.000.000.000 vnđ
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Đơn vị thực hiện: Viện Quy hoạch Thủy lợi
                                     </Typography>
@@ -396,33 +324,33 @@ function Home() {
                         </Card>
                     </Grid>
                     <Grid item xs={12} lg={6}>
-                        <Card sx={{ display: 'flex',flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
+                        <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
                             <CardMedia
                                 component="img"
-                                sx={{ width: isSmallScreen ? '100%' : 200, height: 200, borderRadius: '16px' }}
+                                sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 :200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}
                                 image={test} // Replace with your image URL
                                 alt="River Image"
                             />
                             <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '16px' }}>
-                                <CardContent sx={{ flex: '1 0 auto', padding:0, paddingBottom: '0px !important' }}>
-                                    <Typography component="div" variant="h6" sx={{ fontWeight: 'bold', marginBottom: '20px' }}>
+                                <CardContent sx={{ flex: '1 0 auto', padding: 0, paddingBottom: '0px !important' }}>
+                                    <Typography component="div" variant="h6" sx={{fontSize: '16px', fontWeight: 700, marginBottom: '20px', color:'#0B47A2' }}>
                                         Quy hoạch thủy lợi vùng Đồng bằng sông Hồng giai đoạn 2022 - 2030 và định hướng đến năm 2050
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ marginBottom: '8px' }}>
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Thời gian thực hiện: 2022 - 2024
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ marginBottom: '8px' }}>
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Kinh phí: 4.000.000.000 vnđ
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Đơn vị thực hiện: Viện Quy hoạch Thủy lợi
                                     </Typography>
@@ -431,33 +359,33 @@ function Home() {
                         </Card>
                     </Grid>
                     <Grid item xs={12} lg={6}>
-                        <Card sx={{ display: 'flex',flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
+                        <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
                             <CardMedia
                                 component="img"
-                                sx={{ width: isSmallScreen ? '100%' : 200, height: 200, borderRadius: '16px' }}
+                                sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 :200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}
                                 image={test} // Replace with your image URL
                                 alt="River Image"
                             />
                             <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '16px' }}>
-                                <CardContent sx={{ flex: '1 0 auto', padding:0, paddingBottom: '0px !important' }}>
-                                    <Typography component="div" variant="h6" sx={{ fontWeight: 'bold', marginBottom: '20px' }}>
+                                <CardContent sx={{ flex: '1 0 auto', padding: 0, paddingBottom: '0px !important' }}>
+                                    <Typography component="div" variant="h6" sx={{fontSize: '16px', fontWeight: 700, marginBottom: '20px', color:'#0B47A2' }}>
                                         Quy hoạch thủy lợi vùng Đồng bằng sông Hồng giai đoạn 2022 - 2030 và định hướng đến năm 2050
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ marginBottom: '8px' }}>
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Thời gian thực hiện: 2022 - 2024
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ marginBottom: '8px' }}>
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Kinh phí: 4.000.000.000 vnđ
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Đơn vị thực hiện: Viện Quy hoạch Thủy lợi
                                     </Typography>
@@ -466,33 +394,33 @@ function Home() {
                         </Card>
                     </Grid>
                     <Grid item xs={12} lg={6}>
-                        <Card sx={{ display: 'flex',flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
+                        <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
                             <CardMedia
                                 component="img"
-                                sx={{ width: isSmallScreen ? '100%' : 200, height: 200, borderRadius: '16px' }}
+                                sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 :200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}
                                 image={test} // Replace with your image URL
                                 alt="River Image"
                             />
                             <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '16px' }}>
-                                <CardContent sx={{ flex: '1 0 auto', padding:0, paddingBottom: '0px !important' }}>
-                                    <Typography component="div" variant="h6" sx={{ fontWeight: 'bold', marginBottom: '20px' }}>
+                                <CardContent sx={{ flex: '1 0 auto', padding: 0, paddingBottom: '0px !important' }}>
+                                    <Typography component="div" variant="h6" sx={{fontSize: '16px', fontWeight: 700, marginBottom: '20px', color:'#0B47A2' }}>
                                         Quy hoạch thủy lợi vùng Đồng bằng sông Hồng giai đoạn 2022 - 2030 và định hướng đến năm 2050
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ marginBottom: '8px' }}>
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Thời gian thực hiện: 2022 - 2024
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ marginBottom: '8px' }}>
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Kinh phí: 4.000.000.000 vnđ
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        <ListItemIcon sx={{ minWidth: '27px' }} >
-                                            <FiberManualRecordIcon sx={{ fontSize: 'small', }} />
+                                        <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
+                                            <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
                                         </ListItemIcon>
                                         Đơn vị thực hiện: Viện Quy hoạch Thủy lợi
                                     </Typography>

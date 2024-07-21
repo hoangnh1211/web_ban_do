@@ -43,7 +43,7 @@
     box-shadow: 0px 0px 13px #00000054;
 }
 #navbar_top .text{
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #fff;
     margin: auto;
     margin-left: 5px;

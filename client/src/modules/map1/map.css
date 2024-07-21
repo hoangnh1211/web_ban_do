@@ -314,9 +314,9 @@ color: rgb(80, 98, 201);
 }
 #dlmt .form-check-label{
 cursor: pointer;
-font-size: 14px;
+font-size: 16px;
 }
 .form-check-label{
-  font-size: 14px;
-  font-family: 'Manrope, Roboto, Helvetica, Arial, sans-serif';
+  font-size: 16px;
+  /* font-family: 'Manrope, Roboto, Helvetica, Arial, sans-serif'; */
   }

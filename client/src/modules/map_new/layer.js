@@ -106,7 +106,8 @@ export const thuyDien = new ImageLayer({
             "LAYERS": 'QuyHoachTL:thuydien',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: false,
 });
 
 export const deBien = new ImageLayer({
@@ -148,7 +149,8 @@ export const tramBom = new ImageLayer({
             "LAYERS": 'QuyHoachTL:trambom_ht',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: true,
 });
 
 export const cong = new ImageLayer({
@@ -162,7 +164,8 @@ export const cong = new ImageLayer({
             "LAYERS": 'QuyHoachTL:cong_qhqg',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: true,
 });
 
 export const dapHoChuaLon = new ImageLayer({
@@ -176,7 +179,8 @@ export const dapHoChuaLon = new ImageLayer({
             "LAYERS": 'QuyHoachTL:hodap_qhqg',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
-    })
+    }),
+    visible: true,
 });
 
 const nendiahinh = new TileLayer({
@@ -246,6 +250,7 @@ export const combinedStyle = function (feature, resolution) {
     let style;
     let width = null;
     if (resolution <= 0.004) {
+        console.log(1)
         style = new Style({
             fill: new Fill({
                 color: 'transparent',
@@ -259,6 +264,7 @@ export const combinedStyle = function (feature, resolution) {
         });
     }
     else if (resolution > 0.004 && resolution <= 0.01) {
+        console.log(2)
         style = new Style({
             fill: new Fill({
                 color: 'transparent',
@@ -272,6 +278,7 @@ export const combinedStyle = function (feature, resolution) {
         });
     }
     else {
+        console.log(3)
         style = new Style({
             fill: new Fill({
                 color: 'transparent',
@@ -305,6 +312,7 @@ export const combinedStyle = function (feature, resolution) {
 export const danhMucQuyHoach = new VectorLayer({
     
     source: new VectorSource({
+        // url: 'http://103.184.112.209:8080/geoserver/QuyHoachTL/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson',
         url: 'http://103.184.112.209:8080/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson',
         format: new GeoJSON(),
     }),
@@ -350,6 +358,22 @@ export const ListLayer = [
     {
         id: 'heSotuoitiieu',
         layer: heSotuoitiieu,
+    },
+    {
+        id: 'dapHoChuaLon',
+        layer: dapHoChuaLon,
+    },
+    {
+        id: 'cong',
+        layer: cong,
+    },
+    {
+        id: 'tramBom',
+        layer: tramBom,
+    },
+    {
+        id: 'thuyDien',
+        layer: thuyDien,
     },
     {
         id: 'danhgiaquyhoach',
@@ -413,5 +437,5 @@ export const ListLayer = [
 
 export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
-export const listLayerData = [congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, danhMucQuyHoach, heSotuoitiieu]
+export const listLayerData = [congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, danhMucQuyHoach,heThongThuyLoiNangCap,thuyDien,tramBom,cong,dapHoChuaLon, heSotuoitiieu]
 // export const listLayerData = [heSotuoitiieu,danhMucQuyHoach,dapHoChuaLon, cong, tramBom, thuyDien,congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, heThongThuyLoiNangCap]

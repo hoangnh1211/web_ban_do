@@ -12,38 +12,43 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { nav_icon } from '../../image/images';
-import { Link } from "react-router-dom";
+import { nav_icon, test } from '../../image/images';
+import { Link , useLocation} from "react-router-dom";
 
 const pages = [
   {
-    to: '',
+    to: '/',
     name: 'Trang chủ'
   },
   {
-    to: 'new-map',
+    to: '/new-map',
     name: 'Bản đồ'
   },
   {
-    to: 'data',
+    to: '/data',
     name: 'Dữ liệu quy hoạch'
   },
   {
-    to: '',
+    to: '/danh-gia-quy-hoach',
     name: 'Đánh giá quy hoạch'
   },
   {
-    to: '',
+    to: '/quy-hoach-khac',
     name: 'Quy hoạch khác'
   },
   {
-    to: 'contract',
+    to: '/contract',
     name: 'Liên hệ'
   },
 ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
+  const location = useLocation();
+
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -65,7 +70,7 @@ function Header() {
   return (
     <div>
       <AppBar position="static">
-        <Container maxWidth="xl">
+        <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
             <Avatar alt="Remy Sharp" src={nav_icon} />
             <Typography
@@ -87,7 +92,7 @@ function Header() {
               TRANG THÔNG TIN QUẢN LÝ QUY HOẠCH THỦY LỢI
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -106,20 +111,21 @@ function Header() {
                   horizontal: 'left',
                 }}
                 keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
+                // transformOrigin={{
+                //   vertical: 'top',
+                //   horizontal: 'left',
+                // }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
                   display: { xs: 'block', md: 'none' },
+                  justifyContent : { xs: 'flex-end', md: 'none' }
                 }}
               >
                 {pages.map(page => (
-                  <Link to={page.to}>
-                    <MenuItem key={page.to} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page.name}</Typography>
+                  <Link to={page.to} key={page.to}>
+                    <MenuItem key={page.to} onClick={handleCloseNavMenu} sx={{ textTransform: 'none' }}>
+                      <Typography textAlign="center" sx={{ textTransform: 'none' }}>{page.name}</Typography>
                     </MenuItem>
                   </Link>
                 ))}
@@ -154,13 +160,13 @@ function Header() {
             >
               TRANG THÔNG TIN QUẢN LÝ QUY HOẠCH THỦY LỢI
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } , justifyContent:'flex-end'}}>
               {pages.map((page) => (
                 <Link to={page.to}>
                 <Button
                   key={page.to}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, fontWeight: 700,marginRight:'20px', display: 'block' ,textTransform: 'none',color: isActive(page.to) ? '#0B47A2' : '#FFFFFF', }}
                 >
                   {page.name}
                 </Button>
@@ -168,10 +174,10 @@ function Header() {
               ))}
             </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0, marginLeft: '30px' }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src={test} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -183,10 +189,10 @@ function Header() {
                   horizontal: 'right',
                 }}
                 keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
+                // transformOrigin={{
+                //   vertical: 'top',
+                //   horizontal: 'right',
+                // }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >

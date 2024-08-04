@@ -9,6 +9,7 @@ import Map_a from '../modules/map/map';
 import Moitruong from '../modules/moitruong/moitruong';
 import Service1 from '../modules/service1/service1';
 import MapNew from '../modules/map_new';
+import QuyHoachKhac from '../modules/quyhoachkhac';
 import axios from 'axios';
 import { useEffect } from 'react';
 import Data from '../modules/data';
@@ -20,7 +21,7 @@ function Router() {
       <Route path="/" element={<Home/>} />
       <Route path="/home" element={<Home/>} />
       <Route path="/new-map" element={<MapNew/>} />
-      <Route path="/ho-chua" element={<Data/>} />
+      <Route path="/quy-hoach-khac" element={<QuyHoachKhac/>} />
       <Route path="/import-data" element={<Import/>} />
       {/* Ví dụ cách cập nhật các Route khác
       <Route path="/thu-vien" element={<Library/>} />

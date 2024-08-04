@@ -1,0 +1,24 @@
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    margin-top: 70px;
+  }
+  
+  .navbar {
+    border: 1px solid #9E9E9E;
+    border-radius: 20px;
+    flex: 0 0 20%;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: calc(100vh - 50px); /* Đảm bảo không vượt quá chiều cao của viewport trừ đi chiều cao của header */
+    height: 100%; /* Đảm bảo chiều cao đầy đủ trong flexbox */
+  }
+  
+  .content {
+    background-color: #f8f9fa; /* Màu nền cho content */
+    flex: 0 0 65%;
+    padding: 10px;
+    margin-top: 8px;
+    padding-left: 5%;
+  }

@@ -244,7 +244,7 @@ function Home() {
                                 <TableBody>
                                     {quyhoach.map((row) => (
                                         <TableRow
-                                            key={row.stt}
+                                            // key={row.stt}
                                             sx={{
                                                 '&:last-child td, &:last-child th': { border: 0 },
                                                 backgroundColor: row.tinh_trang_quy_hoach === 'Còn hiệu lực' ? '#FFF2AB63' : 'inherit',

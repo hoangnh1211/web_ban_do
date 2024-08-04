@@ -66,10 +66,9 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position={location.pathname !==  '/quy-hoach-khac' ? "static" : "fixed"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
             <Avatar alt="Remy Sharp" src={nav_icon} />

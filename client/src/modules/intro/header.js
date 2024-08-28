@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { nav_icon, test } from '../../image/images';
+import { nav_icon, test1 } from '../../image/images';
 import { Link , useLocation} from "react-router-dom";
 
 const pages = [
@@ -68,7 +68,7 @@ function Header() {
   };
   return (
     <div>
-      <AppBar position={location.pathname !==  '/quy-hoach-khac' ? "static" : "fixed"}>
+      <AppBar position={(location.pathname ==  '/quy-hoach-khac' || '/danh-gia-quy-hoach') ? "fixed" : "static"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
             <Avatar alt="Remy Sharp" src={nav_icon} />
@@ -176,7 +176,7 @@ function Header() {
             <Box sx={{ flexGrow: 0, marginLeft: '30px' }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src={test} />
+                  <Avatar alt="Remy Sharp" src={test1} />
                 </IconButton>
               </Tooltip>
               <Menu

@@ -14,6 +14,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import Data from '../modules/data';
 import Import from '../modules/data/import';
+import DanhGiaQuyHoach from '../modules/danhgiaquyhoachkhac';
 
 function Router() {
     return (
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/home" element={<Home/>} />
       <Route path="/new-map" element={<MapNew/>} />
       <Route path="/quy-hoach-khac" element={<QuyHoachKhac/>} />
+      <Route path="/danh-gia-quy-hoach" element={<DanhGiaQuyHoach/>} />
       <Route path="/import-data" element={<Import/>} />
       {/* Ví dụ cách cập nhật các Route khác
       <Route path="/thu-vien" element={<Library/>} />

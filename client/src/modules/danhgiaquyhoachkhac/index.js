@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 
-function QuyHoachKhac() {
+function DanhGiaQuyHoach() {
     const [tinh, setTinh] = useState([]);
     const [indexCheck, setIndexCheck] = useState(0);
     const [statusVung, setStatusVung] = useState({
@@ -125,8 +125,7 @@ function QuyHoachKhac() {
     return (
         <div className="main-content">
             <nav className="navbar">
-                <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>DANH MỤC DỮ LIỆU</p>
-                <p style={{ paddingLeft: '5px', paddingRight: '5px', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>A. Phương án thuỷ lợi trong quy hoạch tỉnh</p>
+                <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả  thực hiện quy hoạch 2024</p>
                 <div style={{ paddingLeft: '20px', paddingRight: '20px', width: '100%' }}>
                     <div onClick={() => changeStatus('trungdu')} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom:'5px' }}>I. Trung du và miền núi phía Bắc</p>
@@ -298,4 +297,4 @@ function QuyHoachKhac() {
     );
 }
 
-export default QuyHoachKhac;
+export default DanhGiaQuyHoach;

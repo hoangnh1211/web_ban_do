@@ -5,6 +5,9 @@
 
 }
 .table-quy-hoach th,.table-quy-hoach td{
+    border: 1px solid #3E75E0 !important;
+}
+.table-quy-hoach-khac th, .table-quy-hoach-khac td{
     border: 1px solid #000000 !important;
 }
 

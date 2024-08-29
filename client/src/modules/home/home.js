@@ -28,7 +28,7 @@ const CustomDot = styled('div')(({ theme, active }) => ({
     width: active ? 45 : 15,
     height: 10,
     borderRadius: 4,
-    backgroundColor: active ? 'blue' : '#DDE0E4',
+    background: active ? 'linear-gradient(90deg, #4596FF 0%, #21258F 100%)' : '#DDE0E4',
     transition: 'width 0.3s ease',
     marginRight: '15px'
 }));
@@ -101,11 +101,11 @@ function Home() {
         return { name, calories, fat, carbs, protein, status };
     }
     const logos = [
-        { id: 1, src: logo_1, alt: 'Logo 1' },
-        { id: 2, src: logo_2, alt: 'Logo 2' },
-        { id: 3, src: logo_3, alt: 'Logo 3' },
-        { id: 4, src: logo_4, alt: 'Logo 4' },
-        { id: 5, src: logo_5, alt: 'Logo 5' },
+        { id: 1, src: logo_1, alt: 'Logo 1', link:'https://iwrp.gov.vn/' },
+        { id: 2, src: logo_2, alt: 'Logo 2', link:'https://www.siwrp.org.vn/' },
+        { id: 3, src: logo_3, alt: 'Logo 3', link:'https://www.tlu.edu.vn/' },
+        { id: 4, src: logo_4, alt: 'Logo 4', link:'https://www.vawr.org.vn/' },
+        { id: 5, src: logo_5, alt: 'Logo 5', link:'http://www.siwrr.org.vn/' },
     ];
 
     return (
@@ -142,47 +142,51 @@ function Home() {
                                     return (<Grid item>
                                         <Box
                                             sx={{
-                                                border: '1px solid #000',
+                                                border: '1px solid #3A5BFF',
                                                 borderRadius: '10px',
+                                                cursor:'pointer',
                                                 padding: '16px 0px 0px 0px',
-                                                backgroundColor: '#fff',
+                                                background: "linear-gradient(180deg, rgba(195, 227, 251, 0.53) 0%, rgba(0, 148, 255, 0.53) 100%)",
                                                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                                                '&:hover': {
+                                                    border: '3px solid #3A5BFF',
+                                                },
                                             }}
                                         >
-                                            <Typography variant="h6" align="center" sx={{ color: '#0B47A2', fontSize: '18px', fontWeight: 600, marginBottom: '16px', lineHeight:'21px' }}>
+                                            <Typography variant="h6" align="center" sx={{ marginLeft:'5px', marginRight:'5px', color: '#081E8F', fontSize: '16px', fontWeight: 600, marginBottom: '16px', lineHeight:'21px' }}>
                                                 {ketquaQuyhoach[activeStep * recordsPerPage + index]?.ten_hien_thi}
                                             </Typography>
-                                            <List>
+                                            <List sx={{color: '#fff'}}>
                                                 <ListItem sx={{ paddingBottom: 0, paddingTop: 0 }}>
-                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color:"#fff" }} />
                                                     </ListItemIcon>
-                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Số lượng CT QH:<span className='ml-2' style={{ color: 'black' }} >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].so_luong_ct_quy_hoach} CT`}</span></span>
+                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Số lượng CT QH:<span className='ml-2'  >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].so_luong_ct_quy_hoach} CT`}</span></span>
 
                                                 </ListItem>
                                                 <ListItem>
-                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color:"#fff"}} />
                                                     </ListItemIcon>
-                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Nhiệm vụ QH:<span className='ml-2' style={{ color: 'black' }}>{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nhiem_vu_quy_hoach} ha`}</span></span>
+                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Nhiệm vụ QH:<span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nhiem_vu_quy_hoach} ha`}</span></span>
                                                 </ListItem>
                                                 <ListItem>
-                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color:"#fff"}} />
                                                     </ListItemIcon>
-                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Số CT đã XD:<span className='ml-2' style={{ color: 'black' }}>{`${ketquaQuyhoach[activeStep * recordsPerPage + index].so_ct_da_xd} CT`}</span></span>
+                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Số CT đã XD:<span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].so_ct_da_xd} CT`}</span></span>
                                                 </ListItem>
                                                 <ListItem>
-                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color:"#fff"}} />
                                                     </ListItemIcon>
-                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Diện tích tưới:<span className='ml-2' style={{ color: 'black' }}>{`${ketquaQuyhoach[activeStep * recordsPerPage + index].dien_tich_tuoi} ha`}</span></span>
+                                                    <span style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Diện tích tưới:<span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].dien_tich_tuoi} ha`}</span></span>
                                                 </ListItem>
                                                 <ListItem>
-                                                    <ListItemIcon sx={{ minWidth: '20px', paddingTop:'3px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', }} />
+                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
+                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color:"#fff"}} />
                                                     </ListItemIcon>
-                                                    <span className='mr-2' style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Năm thực hiện:<span className='ml-2' style={{ color: 'black' }}>{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nam_thuc_hien}`}</span></span>
+                                                    <span className='mr-2' style={{ lineHeight:'20px', fontSize: '16px', fontWeight: 400 }}>Năm thực hiện:<span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nam_thuc_hien}`}</span></span>
                                                 </ListItem>
                                             </List>
                                         </Box>
@@ -216,76 +220,7 @@ function Home() {
                         </div>
                     </React.Fragment>)}
             </div>
-            <div class="mr-13 ml-13">
-                <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', marginTop: '100px', lineHeight:'35px', fontWeight:800 }}>DANH MỤC CÁC QUY HOẠCH ĐƯỢC DUYỆT QUA TỪNG THỜI KỲ</h2>
-                {!quyhoach.length ? (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <CircularProgress size={80} thickness={5} />
-                    </Box>) : (
-                    <React.Fragment>
-                        <TableContainer component={Paper}>
-                            <Table className='table-quy-hoach' sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>
-                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tên Quy Hoạch</TableCell>
-                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Số hiệu văn bản</TableCell>
-                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Ngày ban hành</TableCell>
-                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Cơ quan ban hành</TableCell>
-                                        <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tình trạng Quy Hoạch</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {quyhoach.map((row) => (
-                                        <TableRow
-                                            // key={row.stt}
-                                            sx={{
-                                                '&:last-child td, &:last-child th': { border: 0 },
-                                                backgroundColor: row.tinh_trang_quy_hoach === 'Còn hiệu lực' ? '#FFF2AB63' : 'inherit',
-                                            }}
-                                        >
-                                            <TableCell align="center" component="th" scope="row">
-                                                {row.stt}
-                                            </TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.ten_quy_hoach}</TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.so_hieu_van_ban}</TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{moment(row.ngay_ban_hanh).format('YYYY-MM-DD')}</TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.co_quan_ban_hanh}</TableCell>
-                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.tinh_trang_quy_hoach}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'flex-end',
-                                padding: '16px',
-                                marginTop: '10px'
-                            }}
-                        >
-                            <Pagination sx={{
-                                '& .MuiPaginationItem-root': {
-                                    width: '40px',
-                                    height: '40px',
-                                    fontSize: '20px'
-                                },
-                            }} count={totalPage} color="primary"
-                                page={currentPage}
-                                onChange={handlePageChange}
-                            />
-                        </Box>
-                    </React.Fragment>
-                )}
-            </div>
-            <div class="mr-13 ml-13" style={{ marginTop: '70px' }}>
+            <div class="mr-13 ml-13" style={{ marginTop: '20px' }}>
                 <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', lineHeight:'35px', fontWeight:800 }}>CÁC QUY HOẠCH ĐANG THỰC HIỆN</h2>
                 <Grid container spacing={10}>
                     <Grid item xs={12} lg={6}>
@@ -446,6 +381,78 @@ function Home() {
                     }} count={10} color="primary" />
                 </Box>
             </div>
+            <div class="mr-13 ml-13">
+                <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', marginTop: '30px', lineHeight:'35px', fontWeight:800 }}>DANH MỤC CÁC QUY HOẠCH ĐƯỢC DUYỆT QUA TỪNG THỜI KỲ</h2>
+                {!quyhoach.length ? (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <CircularProgress size={80} thickness={5} />
+                    </Box>) : (
+                    <React.Fragment>
+                        <TableContainer component={Paper}>
+                            <Table className='table-quy-hoach' sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead sx={{background: '#3E75E0'}}>
+                                    <TableRow>
+                                        <TableCell align="center" sx={{ padding:'10px', color:'#fff', fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>
+                                        <TableCell align="center" sx={{ padding:'10px', color:'#fff', fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tên Quy Hoạch</TableCell>
+                                        <TableCell align="center" sx={{ padding:'10px', color:'#fff', fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Số hiệu văn bản</TableCell>
+                                        <TableCell align="center" sx={{ padding:'10px', color:'#fff', fontWeight: 800, fontSize: '16px', lineHeight: '35px', minWidth:'135px' }}>Ngày ban hành</TableCell>
+                                        <TableCell align="center" sx={{ padding:'10px', color:'#fff', fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Cơ quan ban hành</TableCell>
+                                        <TableCell align="center" sx={{ padding:'10px', color:'#fff', fontWeight: 800, fontSize: '16px', lineHeight: '35px', minWidth:'135px'  }}>Tình trạng QH</TableCell>
+                                        <TableCell align="center" sx={{ padding:'10px', color:'#fff', fontWeight: 800, fontSize: '16px', lineHeight: '35px', minWidth:'80px' }}>Ghi chú</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {quyhoach.map((row, index) => (
+                                        <TableRow
+                                            // key={row.stt}
+                                            sx={{
+                                                '&:last-child td, &:last-child th': { border: 0 },
+                                                backgroundColor: index%2 === 0 ? '#c2e2ff' : 'inherit',
+                                            }}
+                                        >
+                                            <TableCell align="center" component="th" scope="row">
+                                                {row.stt}
+                                            </TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.ten_quy_hoach}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.so_hieu_van_ban}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{moment(row.ngay_ban_hanh).format('YYYY-MM-DD')}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.co_quan_ban_hanh}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.tinh_trang_quy_hoach}</TableCell>
+                                            <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px', color: '#7A7676' }}>{row.ghi_chu}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'flex-end',
+                                padding: '16px',
+                                marginTop: '10px'
+                            }}
+                        >
+                            <Pagination sx={{
+                                '& .MuiPaginationItem-root': {
+                                    width: '40px',
+                                    height: '40px',
+                                    fontSize: '20px'
+                                },
+                            }} count={totalPage} color="primary"
+                                page={currentPage}
+                                onChange={handlePageChange}
+                            />
+                        </Box>
+                    </React.Fragment>
+                )}
+            </div>
+            
             <Box
                 sx={{
                     display: 'flex',
@@ -457,6 +464,7 @@ function Home() {
                 }}
             >
                 {logos.map((logo) => (
+                    <a href={logo.link} target="_blank" rel="noopener noreferrer">
                     <CardMedia
                         key={logo.id}
                         component="img"
@@ -464,6 +472,7 @@ function Home() {
                         alt={logo.alt}
                         sx={{ height: 100, width: 'auto', margin: '30px 40px' }} // Adjust width and margin as needed
                     />
+                    </a>
                 ))}
             </Box>
         </div>

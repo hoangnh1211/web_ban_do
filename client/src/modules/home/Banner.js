@@ -2,13 +2,13 @@ import React,{Component} from 'react';
 import './Banner.css';
 import '../../Animate.css'
 import Banner_img from './banner-img';
-import { banner_1, banner_2, banner_3,   banner_4, banner_5 } from '../../image/images';
+import { anhnen, banner_1, banner_2, banner_3,   banner_4, banner_5 } from '../../image/images';
 class Banner extends Component {
     render(){
         return(
           <div id="carouselExampleInterval" class="carousel slide banner" data-ride="carousel">
           <div class="carousel-inner">
-            <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_1} active={true} classimg="w3layouts-banner-top banner-1"></Banner_img>
+            <Banner_img content="QUY HOẠCH THỦY LỢI" img={anhnen} active={true} classimg="w3layouts-banner-top anhnen"></Banner_img>
             {/* <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_2} classimg="w3layouts-banner-top banner-2"></Banner_img>
             <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_3} classimg="w3layouts-banner-top banner-3"></Banner_img>
             <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_4} classimg="w3layouts-banner-top banner-4"></Banner_img>

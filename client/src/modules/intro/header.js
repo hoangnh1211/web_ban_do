@@ -71,15 +71,13 @@ function Header() {
       <AppBar position={(location.pathname ==  '/quy-hoach-khac' || '/danh-gia-quy-hoach') ? "fixed" : "static"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
-            <Avatar alt="Remy Sharp" src={nav_icon} />
+            <Avatar sx={{width:"70px", height:'50px'}} alt="Remy Sharp" src={nav_icon} />
             <Typography
               variant="h6"
               noWrap
               component="a"
               href="#"
               sx={{
-                mr: 3,
-                ml: 2,
                 display: { xs: 'none', md: 'flex' },
                 fontWeight: 700,
                 color: 'inherit',

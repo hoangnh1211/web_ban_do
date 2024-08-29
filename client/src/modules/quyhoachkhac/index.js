@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import moment from 'moment'
 
 function QuyHoachKhac() {
     const [tinh, setTinh] = useState([]);
@@ -208,6 +209,7 @@ function QuyHoachKhac() {
                 </div>
             </nav>
             <div className="content">
+                <p style={{ fontWeight: 700, fontSize: '16px' }}>{currentTinh?.ten_quy_hoach}</p>
                 <p style={{ fontWeight: 700, fontSize: '16px' }}>1. Phương án thủy lợi</p>
                 {!currentTinh ? (
                     <Box
@@ -232,7 +234,7 @@ function QuyHoachKhac() {
                     >
                         <CircularProgress size={80} thickness={5} />
                     </Box>) : ( currentCongtrinhUuTien &&
-                    <Table className='table-quy-hoach' sx={{ minWidth: 650 }} aria-label="simple table">
+                    <Table className='table-quy-hoach-khac' sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 {currentCongtrinhUuTienKey.stt && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>}
@@ -268,7 +270,7 @@ function QuyHoachKhac() {
                     >
                         <CircularProgress size={80} thickness={5} />
                     </Box>) : ( currentCongtrinhQuyHoach &&
-                    <Table className='table-quy-hoach' sx={{ minWidth: 650 }} aria-label="simple table">
+                    <Table className='table-quy-hoach-khac' sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 {currentCongtrinhQuyHoachKey.stt && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>}
@@ -293,6 +295,10 @@ function QuyHoachKhac() {
                             ))}
                         </TableBody>
                     </Table>)}
+                    <div style={{marginTop:'20px'}}>
+                        <i><p style={{textAlign:'right' , marginBottom:'5px'}}>Nguồn tài liệu: {currentTinh?.nguon_tai_lieu}</p></i>
+                        <i><p style={{textAlign:'right' , marginBottom:'5px'}}>Thời gian cập nhật: {moment(currentTinh?.ngay_update).format('YYYY-MM-DD')}</p></i>
+                    </div>
             </div>
         </div>
     );

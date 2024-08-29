@@ -11,5 +11,6 @@ import logo_2 from './logo_2.png'
 import logo_3 from './logo_3.png'
 import logo_4 from './logo_4.png'
 import logo_5 from './logo_5.jpg'
+import anhnen from './anhnen.png'
 
-export { banner_1, banner_2, banner_3, banner_4, banner_5, nav_icon, test1,test,logo_1,logo_2,logo_3,logo_4,logo_5}
+export { anhnen,banner_1, banner_2, banner_3, banner_4, banner_5, nav_icon, test1,test,logo_1,logo_2,logo_3,logo_4,logo_5}

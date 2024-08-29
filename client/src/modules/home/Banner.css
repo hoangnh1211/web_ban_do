@@ -116,6 +116,15 @@ background-size:cover;
 -ms-background-size:cover;
 height:600px;
 }
+.anhnen{
+  background:url("../../image/anhnen.png") no-repeat 0px 0px;
+  background-size:cover;
+  -webkit-background-size:cover;
+  -moz-background-size:cover;
+  -o-background-size:cover;
+  -ms-background-size:cover;
+  height:489px;
+  }
 .banner-2{
 background:url("../../image/2.jpg") no-repeat 0px 0px;
 background-size:cover;

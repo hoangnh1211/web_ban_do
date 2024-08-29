@@ -68,10 +68,10 @@ function Header() {
   };
   return (
     <div>
-      <AppBar position={(location.pathname ==  '/quy-hoach-khac' || '/danh-gia-quy-hoach') ? "fixed" : "static"}>
+      <AppBar position={(location.pathname ==  '/quy-hoach-khac' ||location.pathname ==   '/danh-gia-quy-hoach') ? "fixed" : "static"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
-            <Avatar sx={{width:"70px", height:'50px'}} alt="Remy Sharp" src={nav_icon} />
+            <Avatar sx={{width:"70px", height:'66px'}} alt="Remy Sharp" src={nav_icon} />
             <Typography
               variant="h6"
               noWrap

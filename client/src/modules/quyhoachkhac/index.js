@@ -9,10 +9,18 @@ import TableRow from '@mui/material/TableRow';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import moment from 'moment'
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import htmlDocx from 'html-docx-js/dist/html-docx';
+import 'jspdf-autotable';
+import html2pdf from 'html2pdf.js';
 
 function QuyHoachKhac() {
     const [tinh, setTinh] = useState([]);
+    const [vung, setVung] = useState([]);
     const [indexCheck, setIndexCheck] = useState(0);
+    const [indexCheckVung, setIndexCheckVung] = useState(-1);
+    const [navCheck, setNavCheck] = useState();
     const [statusVung, setStatusVung] = useState({
         trungdu: true,
         dongbang: true,
@@ -23,6 +31,7 @@ function QuyHoachKhac() {
         dongbangsong: true,
     });
     const [currentTinh, setCurrentTinh] = useState();
+    const [currentVung, setCurrentVung] = useState();
     const [loadingCongtrinhUuTien, setLoadingCongtrinhUuTien] = useState(false);
     const [loadingCongtrinhQuyHoach, setLoadingCongtrinhQuyHoach] = useState(false);
     const [currentCongtrinhUuTien, setCurrentCongtrinhUuTien] = useState([]);
@@ -40,6 +49,7 @@ function QuyHoachKhac() {
                 setTinh(data);
                 if (res.data.data.length > 0) {
                     setCurrentTinh(res.data.data[0]);
+                    setNavCheck(res.data.data[0].khu_vuc)
                     axios.get(`${process.env.REACT_APP_SERVER}/api/tinh/${res.data.data[0].id}/congtrinh?type=cong_trinh_uu_tien`)
                         .then(res => {
                             setCurrentCongtrinhUuTien(res.data.data)
@@ -76,10 +86,18 @@ function QuyHoachKhac() {
                         })
                 }
             });
+        axios.get(`${process.env.REACT_APP_SERVER}/api/quyhoachvung`)
+            .then(res => {
+                let data = res.data.data;
+                data[0].check = true;
+                setVung(data);
+            });
     }, [])
     const getTinh = (currenttinh, index) => {
         setCurrentTinh(currenttinh)
         setIndexCheck(index)
+        setIndexCheckVung(-1)
+        setNavCheck(currenttinh.khu_vuc)
         setLoadingCongtrinhQuyHoach(false)
         setLoadingCongtrinhUuTien(false)
         axios.get(`${process.env.REACT_APP_SERVER}/api/tinh/${currenttinh.id}/congtrinh?type=cong_trinh_uu_tien`)
@@ -117,189 +135,277 @@ function QuyHoachKhac() {
                 setCurrentCongtrinhQuyHoachKey(keyStatus)
             })
     }
-    const changeStatus = (key) =>{
-        console.log(key);
-        let st = {...statusVung};
+    const getVung = (currentvung, index) => {
+        setCurrentVung(currentvung)
+        setIndexCheckVung(index)
+        setIndexCheck(-1)
+        setNavCheck()
+    }
+    const changeStatus = (key) => {
+        let st = { ...statusVung };
         st[key] = !st[key];
         setStatusVung(st)
     }
+    let styleCheck = {
+        background: "#3E9CE0",
+        border: "0.4px solid #3E75E0",
+        width: '100%', display: 'flex', justifyContent: 'space-between',
+        padding: '7px 15px',
+        marginBottom: '10px',
+        borderRadius: '10px',
+    }
+    let styleNotCheck = {
+        width: '100%', display: 'flex', justifyContent: 'space-between',
+        padding: '7px 15px',
+        marginBottom: '10px',
+        borderRadius: '10px',
+    }
+    const downloadPDF = async () => {
+        const input = document.getElementById('contentToPrint');
+        const button = input.querySelector('button');
+
+        if (button) {
+            button.classList.add('hide-when-printing');
+        }
+        const options = {
+            margin: [10, 10],
+            filename: 'quyhoach.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().from(input).set(options).save();
+        if (button) {
+            button.classList.remove('hide-when-printing');
+        }
+
+    };
+    const downloadWord = async () => {
+        const input = document.getElementById('contentToPrint');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = input.innerHTML;
+        const button1 = tempDiv.querySelector('button');
+
+        if (button1) {
+            button1.remove();
+        }
+        const html = tempDiv.innerHTML;
+        // Convert HTML to a Word document
+        const converted = htmlDocx.asBlob(html);
+        const url = window.URL.createObjectURL(converted);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'quyhoach.docx';
+        link.click();
+    };
     return (
         <div className="main-content">
             <nav className="navbar">
                 <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>DANH MỤC DỮ LIỆU</p>
-                <p style={{ paddingLeft: '5px', paddingRight: '5px', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>A. Phương án thuỷ lợi trong quy hoạch tỉnh</p>
-                <div style={{ paddingLeft: '20px', paddingRight: '20px', width: '100%' }}>
-                    <div onClick={() => changeStatus('trungdu')} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom:'5px' }}>I. Trung du và miền núi phía Bắc</p>
-                        <i class={statusVung.trungdu ? 'fa-solid fa-caret-down':'fa-solid fa-caret-right' } style={{ marginTop: '4px' }}></i>
+                <p style={{ paddingLeft: '10px', paddingRight: '10px', marginBottom: '5px', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>  A. P/a Thuỷ lợi trong hoạch tỉnh</p>
+                <div style={{ width: '100%' }}>
+                    <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
+                        <i class={statusVung.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
-                    <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                        {statusVung.trungdu && tinh.map((value,index) => {
+                    <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                        {statusVung.trungdu && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Trung du và miền núi phía Bắc')
-                                return <li style={{color: index === indexCheck ? '#0759e8' : '#000000' }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
-                    <div onClick={() => changeStatus('dongbang')} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom:'5px' }}>   II. Đồng Bằng Bắc Bộ</p>
-                        <i class={statusVung.dongbang ? 'fa-solid fa-caret-down':'fa-solid fa-caret-right' } style={{ marginTop: '4px' }}></i>
+                    <div onClick={() => changeStatus('dongbang')} style={navCheck === 'Đồng Bằng Bắc Bộ' ? styleCheck : styleNotCheck}>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   II. Đồng Bằng Bắc Bộ</p>
+                        <i class={statusVung.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
-                    <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                        {statusVung.dongbang && tinh.map((value,index) => {
+                    <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                        {statusVung.dongbang && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Đồng Bằng Bắc Bộ')
-                                return <li style={{color: index === indexCheck ? '#0759e8' : '#000000' }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
-
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
                         })}
                     </ul>
-                    <div onClick={() => changeStatus('bactrunbo')} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom:'5px' }}>   III. Bắc Trung Bộ</p>
-                        <i class={statusVung.bactrunbo ? 'fa-solid fa-caret-down':'fa-solid fa-caret-right' } style={{ marginTop: '4px' }}></i>
+                    <div onClick={() => changeStatus('bactrunbo')} style={navCheck === 'Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   III. Bắc Trung Bộ</p>
+                        <i class={statusVung.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
-                    <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                        {statusVung.bactrunbo && tinh.map((value,index) => {
+                    <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                        {statusVung.bactrunbo && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Bắc Trung Bộ')
-                                return <li style={{color: index === indexCheck ? '#0759e8' : '#000000' }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
-                    <div onClick={() => changeStatus('namtrungbo')} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom:'5px' }}>  IV. Nam Trung Bộ</p>
-                        <i class={statusVung.namtrungbo ? 'fa-solid fa-caret-down':'fa-solid fa-caret-right' } style={{ marginTop: '4px' }}></i>
+                    <div onClick={() => changeStatus('namtrungbo')} style={navCheck === 'Nam Trung Bộ' ? styleCheck : styleNotCheck}>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ</p>
+                        <i class={statusVung.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
-                    <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                        {statusVung.namtrungbo && tinh.map((value,index) => {
+                    <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                        {statusVung.namtrungbo && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Nam Trung Bộ')
-                                return <li style={{color: index === indexCheck ? '#0759e8' : '#000000' }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
-                    <div onClick={() => changeStatus('taynguyen')} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom:'5px' }}>   V. Tây Nguyên</p>
-                        <i class={statusVung.taynguyen ? 'fa-solid fa-caret-down':'fa-solid fa-caret-right' } style={{ marginTop: '4px' }}></i>
+                    <div onClick={() => changeStatus('taynguyen')} style={navCheck === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Tây Nguyên</p>
+                        <i class={statusVung.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
-                    <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                        {statusVung.taynguyen && tinh.map((value,index) => {
+                    <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                        {statusVung.taynguyen && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Tây Nguyên')
-                                return <li style={{color: index === indexCheck ? '#0759e8' : '#000000' }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
-                    <div onClick={() => changeStatus('dongnambo')} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom:'5px' }}>   VI. Đông Nam Bộ</p>
-                        <i class={statusVung.dongnambo ? 'fa-solid fa-caret-down':'fa-solid fa-caret-right' } style={{ marginTop: '4px' }}></i>
+                    <div onClick={() => changeStatus('dongnambo')} style={navCheck === 'Đông Nam Bộ' ? styleCheck : styleNotCheck}>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đông Nam Bộ</p>
+                        <i class={statusVung.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
-                    <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                        {statusVung.dongnambo && tinh.map((value,index) => {
+                    <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                        {statusVung.dongnambo && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Đông Nam Bộ')
-                                return <li style={{color: index === indexCheck ? '#0759e8' : '#000000' }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
-                    <div onClick={() => changeStatus('dongbangsong')} style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom:'5px' }}>   VII. Đồng bằng sông Cửu Long</p>
-                        <i class={statusVung.dongbangsong ? 'fa-solid fa-caret-down':'fa-solid fa-caret-right' } style={{ marginTop: '4px' }}></i>
+                    <div onClick={() => changeStatus('dongbangsong')} style={navCheck === 'Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Đồng bằng sông Cửu Long</p>
+                        <i class={statusVung.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
-                    <ul style={{ listStyleType: 'none', paddingLeft: '20px' }}>
-                        {statusVung.dongbangsong && tinh.map((value,index) => {
+                    <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                        {statusVung.dongbangsong && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
-                                return <li style={{color: index === indexCheck ? '#0759e8' : '#000000' }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
                 </div>
+                <p style={{ paddingLeft: '10px', paddingRight: '10px', marginBottom: '5px', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>  B. P/a Thủy lợi trong quy hoạch Vùng</p>
+                <ul style={{ listStyleType: 'none', paddingLeft: '0px', width: '100%' }}>
+                    {vung.map((value, index) => {
+                        return <li style={index === indexCheckVung ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getVung(value, index)}>{value.ten_vung}</li>
+                    })}
+                </ul>
             </nav>
-            <div className="content">
-                <p style={{ fontWeight: 700, fontSize: '16px' }}>{currentTinh?.ten_quy_hoach}</p>
-                <p style={{ fontWeight: 700, fontSize: '16px' }}>1. Phương án thủy lợi</p>
-                {!currentTinh ? (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <CircularProgress size={80} thickness={5} />
-                    </Box>) : (
-                    <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentTinh?.phuong_an }} />
-                )}
-                <p style={{ fontWeight: 700, fontSize: '16px' }}>2. Danh mục các công trình ưu tiên đầu tư</p>
-                {!loadingCongtrinhUuTien ? (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <CircularProgress size={80} thickness={5} />
-                    </Box>) : ( currentCongtrinhUuTien &&
-                    <Table className='table-quy-hoach-khac' sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                {currentCongtrinhUuTienKey.stt && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>}
-                                {currentCongtrinhUuTienKey.ten_du_an && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tên dự án</TableCell>}
-                                {currentCongtrinhUuTienKey.hang_muc && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Hạng mục</TableCell>}
-                                {currentCongtrinhUuTienKey.dia_diem && <TableCell align="center" sx={{ fontWeight: 800  , fontSize: '16px', lineHeight: '35px' }}>Địa điểm</TableCell>}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {currentCongtrinhUuTien.map((row) => (
-                                <TableRow
-                                    // key={row.stt}
-                                    sx={{
-                                        '&:last-child td, &:last-child th': { border: 0 },
-                                    }}
-                                >
-                                    {currentCongtrinhUuTienKey.stt && <TableCell align="center" component="th" scope="row"> {row.stt}</TableCell>}
-                                    {currentCongtrinhUuTienKey.ten_du_an && <TableCell align="left" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.ten_du_an}</TableCell>}
-                                    {currentCongtrinhUuTienKey.hang_muc && <TableCell align="left" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.hang_muc}</TableCell>}
-                                    {currentCongtrinhUuTienKey.dia_diem && <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.dia_diem}</TableCell>}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>)}
-                <p style={{ fontWeight: 700, fontSize: '16px', marginTop: '20px' }}>3. Danh mục các công trình thuỷ lợi trong quy hoạch </p>
-                {!loadingCongtrinhQuyHoach ? (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <CircularProgress size={80} thickness={5} />
-                    </Box>) : ( currentCongtrinhQuyHoach &&
-                    <Table className='table-quy-hoach-khac' sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                {currentCongtrinhQuyHoachKey.stt && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>}
-                                {currentCongtrinhQuyHoachKey.ten_du_an && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tên dự án</TableCell>}
-                                {currentCongtrinhQuyHoachKey.hang_muc && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Hạng mục</TableCell>}
-                                {currentCongtrinhQuyHoachKey.dia_diem && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Địa điểm</TableCell>}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {currentCongtrinhQuyHoach.map((row) => (
-                                <TableRow
-                                    // key={row.stt}
-                                    sx={{
-                                        '&:last-child td, &:last-child th': { border: 0 },
-                                    }}
-                                >
-                                    {currentCongtrinhQuyHoachKey.stt && <TableCell align="center" component="th" scope="row"> {row.stt}</TableCell>}
-                                    {currentCongtrinhQuyHoachKey.ten_du_an && <TableCell align="left" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.ten_du_an}</TableCell>}
-                                    {currentCongtrinhQuyHoachKey.hang_muc && <TableCell align="left" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.hang_muc}</TableCell>}
-                                    {currentCongtrinhQuyHoachKey.dia_diem && <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.dia_diem}</TableCell>}
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>)}
-                    <div style={{marginTop:'20px'}}>
-                        <i><p style={{textAlign:'right' , marginBottom:'5px'}}>Nguồn tài liệu: {currentTinh?.nguon_tai_lieu}</p></i>
-                        <i><p style={{textAlign:'right' , marginBottom:'5px'}}>Thời gian cập nhật: {moment(currentTinh?.ngay_update).format('YYYY-MM-DD')}</p></i>
+            {indexCheck !== -1 &&
+                <div className="content" id="contentToPrint">
+                    <p style={{ fontWeight: 700, fontSize: '16px' }}>{currentTinh?.ten_quy_hoach}</p>
+                    <p style={{ fontWeight: 700, fontSize: '16px' }}>1. Phương án thủy lợi</p>
+                    {!currentTinh ? (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <CircularProgress size={80} thickness={5} />
+                        </Box>) : (
+                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentTinh?.phuong_an }} />
+                    )}
+                    <p style={{ fontWeight: 700, fontSize: '16px' }}>2. Danh mục các công trình ưu tiên đầu tư</p>
+                    {!loadingCongtrinhUuTien ? (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <CircularProgress size={80} thickness={5} />
+                        </Box>) : (currentCongtrinhUuTien &&
+                            <Table className='table-quy-hoach-khac' sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        {currentCongtrinhUuTienKey.stt && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>}
+                                        {currentCongtrinhUuTienKey.ten_du_an && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tên dự án</TableCell>}
+                                        {currentCongtrinhUuTienKey.hang_muc && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Hạng mục</TableCell>}
+                                        {currentCongtrinhUuTienKey.dia_diem && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Địa điểm</TableCell>}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {currentCongtrinhUuTien.map((row) => (
+                                        <TableRow
+                                            // key={row.stt}
+                                            sx={{
+                                                '&:last-child td, &:last-child th': { border: 0 },
+                                            }}
+                                        >
+                                            {currentCongtrinhUuTienKey.stt && <TableCell align="center" component="th" scope="row"> {row.stt}</TableCell>}
+                                            {currentCongtrinhUuTienKey.ten_du_an && <TableCell align="left" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.ten_du_an}</TableCell>}
+                                            {currentCongtrinhUuTienKey.hang_muc && <TableCell align="left" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.hang_muc}</TableCell>}
+                                            {currentCongtrinhUuTienKey.dia_diem && <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.dia_diem}</TableCell>}
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>)}
+                    <p style={{ fontWeight: 700, fontSize: '16px', marginTop: '20px' }}>3. Danh mục các công trình thuỷ lợi trong quy hoạch </p>
+                    {!loadingCongtrinhQuyHoach ? (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <CircularProgress size={80} thickness={5} />
+                        </Box>) : (currentCongtrinhQuyHoach &&
+                            <Table className='table-quy-hoach-khac' sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        {currentCongtrinhQuyHoachKey.stt && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>STT</TableCell>}
+                                        {currentCongtrinhQuyHoachKey.ten_du_an && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Tên dự án</TableCell>}
+                                        {currentCongtrinhQuyHoachKey.hang_muc && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Hạng mục</TableCell>}
+                                        {currentCongtrinhQuyHoachKey.dia_diem && <TableCell align="center" sx={{ fontWeight: 800, fontSize: '16px', lineHeight: '35px' }}>Địa điểm</TableCell>}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {currentCongtrinhQuyHoach.map((row) => (
+                                        <TableRow
+                                            // key={row.stt}
+                                            sx={{
+                                                '&:last-child td, &:last-child th': { border: 0 },
+                                            }}
+                                        >
+                                            {currentCongtrinhQuyHoachKey.stt && <TableCell align="center" component="th" scope="row"> {row.stt}</TableCell>}
+                                            {currentCongtrinhQuyHoachKey.ten_du_an && <TableCell align="left" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.ten_du_an}</TableCell>}
+                                            {currentCongtrinhQuyHoachKey.hang_muc && <TableCell align="left" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.hang_muc}</TableCell>}
+                                            {currentCongtrinhQuyHoachKey.dia_diem && <TableCell align="center" sx={{ fontWeight: 500, fontSize: '16px', lineHeight: '20px' }}>{row.dia_diem}</TableCell>}
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>)}
+                    <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+                        <div>
+                            <button id="download" style={{ marginRight: '20px' }} onClick={downloadPDF}>Download pdf</button>
+                            <button id="download" onClick={downloadWord}>Download word</button>
+                        </div>
+                        <div>
+                            <i><p style={{ textAlign: 'right', marginBottom: '5px' }}>Nguồn tài liệu: {currentTinh?.nguon_tai_lieu}</p></i>
+                            <i><p style={{ textAlign: 'right', marginBottom: '5px' }}>Thời gian cập nhật: {currentTinh && moment(currentTinh?.ngay_update).format('DD-MM-YYYY')}</p></i>
+                        </div>
                     </div>
-            </div>
+                </div>
+            }
+            {indexCheckVung !== -1 &&
+                <div className="content" id="contentToPrint">
+                    
+                    {!currentVung ? (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <CircularProgress size={80} thickness={5} />
+                        </Box>) : (
+                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentVung?.noi_dung }} />
+                    )}
+                </div>
+            }
         </div>
     );
 }

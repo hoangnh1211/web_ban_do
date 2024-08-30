@@ -238,7 +238,7 @@ function Home() {
                     {quyhoachThucHien && quyhoachThucHien?.length > 0 &&
                         quyhoachThucHien.map(quyhoach => {
                             return <Grid item xs={12} lg={6}>
-                                <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none' }}>
+                                <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none', '&:hover': { border: '3px solid #3A5BFF',} }}>
                                     <CardMedia
                                         component="img"
                                         sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 : 200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}

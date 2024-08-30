@@ -1,43 +1,165 @@
 import React from 'react';
 import "./contact.css"
+import TextField from '@mui/material/TextField';
 
 function Contact() {
     return (
-        <div className=' contact ind'>
-        <div className='container'>
-            <div className='row '>
-                <div className='col form'>
-                    <div className='row'> 
-                        <div className='col-3'> 	Họ tên *</div>
-                        <div className='col-9'><input/> </div>
-                    </div>
-                    <div className='row'> 
-                        <div className='col-3'>	Địa chỉ </div>
-                        <div className='col-9'><input/> </div>
-                    </div>
-                    <div className='row'> 
-                        <div className='col-3'>Điện thoại * </div>
-                        <div className='col-9'><input/> </div>
-                    </div>
-                    <div className='row'> 
-                        <div className='col-3'>	Email * </div>
-                        <div className='col-9'><input/> </div>
-                    </div>
-                    <div className='row'> 
-                        <div className='col-3'> Nội dung * </div>
-                        <div className='col-9'><textarea/> </div>
-                    </div>
-                    <button>Gửi</button>
+        <div class="mr-7 ml-7 contact" style={{ marginTop: '50px' }}>
+            <div style={{ padding: '10px 20px', border: "1px solid #CABBBB" }}>
+                <div className='d-flex justify-content-between' style={{ marginBottom: '30px' }}>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3984.5082529769556!2d105.8318663!3d21.037091!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aba02e709203%3A0x9c32bca396de42d8!2zQuG7mSBOw7RuZyBuZ2hp4buHcCB2w6AgUGjDoXQgdHJp4buDbiBOw7RuZyB0aMO0bg!5e1!3m2!1svi!2sjp!4v1724998763768!5m2!1svi!2sjp"
+                        width="48%"
+                        height="450"
+                        style={{ border: '0' }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    />
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2656.3388353179703!2d105.8546432!3d21.0318334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abc1a8c84755%3A0x9fa20ae794316719!2zVmnhu4duIFF1eSBob-G6oWNoIFRo4buneSBs4bujaQ!5e1!3m2!1svi!2sjp!4v1724998864424!5m2!1svi!2sjp"
+                        width="48%"
+                        height="450"
+                        style={{ border: '0' }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Google Maps Embed"
+                    />
                 </div>
-                <div className='col info'>
-                    <p><b>Viện nghiên cứu bảo vệ môi trường và sức khỏe cộng đồng</b></p>
-                    <p><b>Research Institute for Environmental Protection and Public Health</b></p>
-                    <p>Địa chỉ: <b>Số 49, ngõ 46 đường Xuân Đỉnh,, Phường Xuân Tảo, Quận Bắc Từ Liêm, Hà Nội</b></p>
-                    <p>Viện Trưởng: <b>Nguyễn Khắc Bằng</b>&emsp;&emsp;&emsp;&emsp;&emsp; Điện thoại: <b>0973342010</b></p>
-                    <p>E-mail: <b>bangnkist@gmail.com</b></p>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.0265498116987!2d105.79965001538565!3d21.07160179168918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aac317ed9109%3A0xc3ff488797bec2a5!2zNDkgTmcuIDQ2IMSQLiBYdcOibiDEkOG7iW5oLCBYdcOibiDEkOG7iW5oLCBUw6J5IEjhu5MsIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1655888002457!5m2!1svi!2s" ></iframe>
+                <div>
+                    <div className='row' style={{ fontSize: '17px', color: '#0B47A2', alignItems: 'center' }}>
+                        <div className='col' style={{ paddingLeft: '30px' }}>
+                            <p>Cơ quan chủ quản: <b>Cục Thủy Lợi - Bộ NN & PTNN</b></p>
+                        </div>
+                        <div className='col' style={{ paddingLeft: '50px' }}>
+                            <p>Đơn vị phát triển nội dung: <b>Phòng Khoa học Công nghệ và Môi trường</b></p>
+                            <p style={{ marginLeft: '200px' }}><b>-Viện Quy hoạch Thuỷ lợi</b></p>
+                        </div>
+                    </div>
+                    <div className='row' style={{ fontSize: '16px', color: '#0B47A2' }}>
+                        <div className='col' style={{ paddingLeft: '30px' }}>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-home" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>Số 2 Phố Ngọc Hà, Phường Ngọc Hà Quận</p><p> Ba Đình, Thành phố Hà Nội</p></div></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-phone" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>Điện thoại (84-24) 37335706</p></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-envelope" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>cucthuyloi@wrd.gov.vn</p></div>
+                        </div>
+                        <div className='col' style={{ paddingLeft: '30px' }}>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-home" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>162A Trần Quang Khải, P. Lý Thái Tổ, Q.</p><p> Hoàn Kiếm, TP. Hà Nội</p></div></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-phone" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>Điện thoại 0243 8256470 - 0243 8254081 - </p><p> Fax: 0243. 8252807</p></div></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-envelope" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>phongkhcn.qhtl@gmail.com</p></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div className='row mr-5 ml-5' style={{ marginTop: '50px', marginBottom: '50px' }}>
+                <div className='col' >
+                    <TextField
+                        label="Tên của bạn"
+                        variant="outlined"
+                        fullWidth
+                        sx={{
+                            maxWidth: '480px', marginBottom: '35px', '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#73ABFF', // Màu của viền
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#1564da', // Màu viền khi hover
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#1564da', // Màu viền khi focused
+                                },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: '#0B47A2', // Màu của nhãn (label)
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#0B47A2', // Màu của nhãn (label) khi focused
+                            },
+                        }}
+                    />
+
+                    <TextField
+                        label="Email của bạn"
+                        variant="outlined"
+                        type="Email của bạn"
+                        fullWidth
+                        sx={{
+                            maxWidth: '480px', marginBottom: '35px', '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#73ABFF', // Màu của viền
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#1564da', // Màu viền khi hover
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#1564da', // Màu viền khi focused
+                                },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: '#0B47A2', // Màu của nhãn (label)
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#0B47A2', // Màu của nhãn (label) khi focused
+                            },
+                        }}
+                    />
+                    <TextField
+                        label="Tiêu đề thư"
+                        variant="outlined"
+                        type="Tiêu đề thư"
+                        fullWidth
+                        sx={{
+                            maxWidth: '480px', '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#73ABFF', // Màu của viền
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#1564da', // Màu viền khi hover
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#1564da', // Màu viền khi focused
+                                },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: '#0B47A2', // Màu của nhãn (label)
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#0B47A2', // Màu của nhãn (label) khi focused
+                            },
+                        }}
+                    />
+                </div>
+                <div className='col' id="noidungthu" >
+                    <TextField
+                        label="Nội dung thư"
+                        variant="outlined"
+                        fullWidth
+                        fullHeight
+                        multiline
+                        sx={{
+                            height: '100%', '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: '#73ABFF', // Màu của viền
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: '#1564da', // Màu viền khi hover
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#1564da', // Màu viền khi focused
+                                },
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: '#0B47A2', // Màu của nhãn (label)
+                            },
+                            '& .MuiInputLabel-root.Mui-focused': {
+                                color: '#0B47A2', // Màu của nhãn (label) khi focused
+                            },
+                        }}
+                    />
+                </div>
+            </div>
+            <div className='row mr-5 ml-5 d-flex flex-direction-row-reverse' style={{ marginBottom: '50px', paddingRight: '15px' }}>
+                <button className='download'>Gửi thư </button>
             </div>
         </div>
     );

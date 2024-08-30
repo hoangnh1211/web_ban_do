@@ -320,3 +320,6 @@ font-size: 16px;
   font-size: 16px;
   /* font-family: 'Manrope, Roboto, Helvetica, Arial, sans-serif'; */
   }
+  .form-check-label:hover{
+    color: rgb(80, 98, 201);
+  }

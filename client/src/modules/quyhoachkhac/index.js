@@ -45,7 +45,6 @@ function QuyHoachKhac() {
         axios.get(`${process.env.REACT_APP_SERVER}/api/tinh`)
             .then(res => {
                 let data = res.data.data;
-                data[0].check = true;
                 setTinh(data);
                 if (res.data.data.length > 0) {
                     setCurrentTinh(res.data.data[0]);
@@ -89,7 +88,6 @@ function QuyHoachKhac() {
         axios.get(`${process.env.REACT_APP_SERVER}/api/quyhoachvung`)
             .then(res => {
                 let data = res.data.data;
-                data[0].check = true;
                 setVung(data);
             });
     }, [])
@@ -379,8 +377,8 @@ function QuyHoachKhac() {
                             </Table>)}
                     <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
                         <div>
-                            <button id="download" style={{ marginRight: '20px' }} onClick={downloadPDF}>Download pdf</button>
-                            <button id="download" onClick={downloadWord}>Download word</button>
+                            <button className="download" style={{ marginRight: '20px' }} onClick={downloadPDF}>Download pdf</button>
+                            <button className="download" onClick={downloadWord}>Download word</button>
                         </div>
                         <div>
                             <i><p style={{ textAlign: 'right', marginBottom: '5px' }}>Nguồn tài liệu: {currentTinh?.nguon_tai_lieu}</p></i>

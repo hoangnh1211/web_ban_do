@@ -23,16 +23,11 @@ function DanhGiaQuyHoach() {
         dongbangsong: true,
     });
     const [currentTinh, setCurrentTinh] = useState();
-    const [loadingCongtrinhUuTien, setLoadingCongtrinhUuTien] = useState(false);
-    const [loadingCongtrinhQuyHoach, setLoadingCongtrinhQuyHoach] = useState(false);
 
     useEffect(() => {
-        setLoadingCongtrinhQuyHoach(false)
-        setLoadingCongtrinhUuTien(false)
         axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach`)
             .then(res => {
                 let data = res.data.data;
-                data[0].check = true;
                 setTinh(data);
                 if (res.data.data.length > 0) {
                     setCurrentTinh(res.data.data[0]);
@@ -43,6 +38,7 @@ function DanhGiaQuyHoach() {
     const getTinh = (currenttinh, index) => {
         setCurrentTinh(currenttinh)
         setIndexCheck(index)
+        setNavCheck(currenttinh.khu_vuc)
     }
     const changeStatus = (key) =>{
         console.log(key);
@@ -148,7 +144,7 @@ function DanhGiaQuyHoach() {
                     </ul>
                 </div>
             </nav>
-            <div className="content">
+            <div className="content content1">
                 {!currentTinh ? (
                     <Box
                         sx={{

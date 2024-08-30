@@ -15,6 +15,8 @@ import { useEffect } from 'react';
 import Data from '../modules/data';
 import Import from '../modules/data/import';
 import DanhGiaQuyHoach from '../modules/danhgiaquyhoachkhac';
+import Contact from '../modules/contact/contact';
+import Dulieu from '../modules/dulieuquyhoach/dulieuquyhoach';
 
 function Router() {
     return (
@@ -24,6 +26,8 @@ function Router() {
       <Route path="/new-map" element={<MapNew/>} />
       <Route path="/quy-hoach-khac" element={<QuyHoachKhac/>} />
       <Route path="/danh-gia-quy-hoach" element={<DanhGiaQuyHoach/>} />
+      <Route path="/contact" element={<Contact/>} />
+      <Route path="/data" element={<Dulieu/>} />
       <Route path="/import-data" element={<Import/>} />
       {/* Ví dụ cách cập nhật các Route khác
       <Route path="/thu-vien" element={<Library/>} />

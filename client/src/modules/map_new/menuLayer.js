@@ -22,6 +22,7 @@ function MenuLayer(props) {
       { id: 8, objectid: 10, tenlv: "Sông Srêpôk" },
       { id: 6, objectid: 4, tenlv: "Sông Nhật Lệ" },
     ],
+    idCheck:null,
     value: {
       value: "Đánh giá quy hoạch",
       index: ListLayer.findIndex((value) => value.id === "danhgiaquyhoach"),
@@ -336,6 +337,7 @@ function MenuLayer(props) {
           className="form-check"
           onClick={() => {
             props.handleSearch(`DanhMucQuyHoach.${option.id}`);
+            setDataDanhMuc({...dataDanhMuc, idCheck:option.id})
           }}
           style={{
             paddingTop: "5px",
@@ -345,7 +347,7 @@ function MenuLayer(props) {
         >
           <label
             className={
-              option.check ? "form-check-label checkTrue" : "form-check-label"
+              option.id === dataDanhMuc.idCheck ? "form-check-label checkTrue" : "form-check-label"
             }
             id="a62"
           >

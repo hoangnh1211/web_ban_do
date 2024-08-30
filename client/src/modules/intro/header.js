@@ -37,7 +37,7 @@ const pages = [
     name: 'Quy hoạch khác'
   },
   {
-    to: '/contract',
+    to: '/contact',
     name: 'Liên hệ'
   },
 ];

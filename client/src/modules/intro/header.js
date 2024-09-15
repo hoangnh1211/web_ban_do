@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { nav_icon, test1 } from '../../image/images';
-import { Link , useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const pages = [
   {
@@ -68,10 +68,13 @@ function Header() {
   };
   return (
     <div>
-      <AppBar position={(location.pathname ==  '/quy-hoach-khac' ||location.pathname ==   '/danh-gia-quy-hoach') ? "fixed" : "static"}>
+      <AppBar position={(location.pathname == '/quy-hoach-khac' || location.pathname == '/danh-gia-quy-hoach') ? "fixed" : "static"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
-            <Avatar sx={{width:"70px", height:'66px'}} alt="Remy Sharp" src={nav_icon} />
+            <Avatar sx={{ width: "70px", height: '66px' }}
+              component="a"
+              href="http://admin.quyhoachthuyloi.vn/"
+              target="_blank" alt="Remy Sharp" src={nav_icon} />
             <Typography
               variant="h6"
               noWrap
@@ -89,7 +92,7 @@ function Header() {
               TRANG THÔNG TIN QUẢN LÝ QUY HOẠCH THỦY LỢI
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -116,7 +119,7 @@ function Header() {
                 onClose={handleCloseNavMenu}
                 sx={{
                   display: { xs: 'block', md: 'none' },
-                  justifyContent : { xs: 'flex-end', md: 'none' }
+                  justifyContent: { xs: 'flex-end', md: 'none' }
                 }}
               >
                 {pages.map(page => (
@@ -157,16 +160,16 @@ function Header() {
             >
               TRANG THÔNG TIN QUẢN LÝ QUY HOẠCH THỦY LỢI
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } , justifyContent:'flex-end'}}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
               {pages.map((page) => (
                 <Link to={page.to}>
-                <Button
-                  key={page.to}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, fontWeight: 700,marginRight:'20px', display: 'block' ,textTransform: 'none',color: isActive(page.to) ? '#0B47A2' : '#FFFFFF', }}
-                >
-                  {page.name}
-                </Button>
+                  <Button
+                    key={page.to}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, fontWeight: 700, marginRight: '20px', display: 'block', textTransform: 'none', color: isActive(page.to) ? '#0B47A2' : '#FFFFFF', }}
+                  >
+                    {page.name}
+                  </Button>
                 </Link>
               ))}
             </Box>
@@ -174,7 +177,9 @@ function Header() {
             <Box sx={{ flexGrow: 0, marginLeft: '30px' }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src={test1} />
+                  <Avatar alt="Remy Sharp" component="a"
+                    href="http://admin.quyhoachthuyloi.vn/"
+                    target="_blank" src={test1} />
                 </IconButton>
               </Tooltip>
               <Menu

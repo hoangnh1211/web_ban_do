@@ -7,9 +7,10 @@ import { Table as TableBootrap } from 'react-bootstrap';
 const Table = React.memo((props) => {
 
     const showContent = (key_table, data, layer) => {
+        const key_table1 = Object.keys(configText[layer])
         return (
-            key_table.map(item => {
-                if (layer && configText[layer] && configText[layer][item]) {
+            key_table1.map(item => {
+                if (layer && data[item] && configText[layer] && configText[layer][item]) {
                     return (
                         <tr key={item}>
                             <td style={{ padding: '0.25rem' }}>

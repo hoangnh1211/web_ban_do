@@ -10,6 +10,17 @@
 .table-quy-hoach-khac th, .table-quy-hoach-khac td{
     border: 1px solid #000000 !important;
 }
+.logo_button{
+    height: '52px';
+    border-radius: '20px';
+    padding-top:'19px';
+    padding-bottom:'19px';
+    color: rgba(8, 30, 143, 1);
+    font-size: 16px;
+    font-weight: 700;
+    background-color: linear-gradient(90deg, rgba(195, 227, 251, 0.53), rgba(255, 255, 255, 0.53));
+    border: 3px solid linear-gradient(90deg, rgba(142, 221, 255, 1), rgba(0, 122, 255, 1));
+}
 
 .ind {
     z-index: 10;

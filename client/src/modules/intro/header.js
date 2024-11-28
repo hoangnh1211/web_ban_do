@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import {useMediaQuery } from '@mui/material';
 import { nav_icon, test1 } from '../../image/images';
 import { Link, useLocation } from "react-router-dom";
 
@@ -19,6 +20,10 @@ const pages = [
   {
     to: '/',
     name: 'Trang chủ'
+  },
+  {
+    to: '/chien-luoc-thuy-loi',
+    name: 'Chiến Lược Thủy Lợi'
   },
   {
     to: '/new-map',
@@ -66,12 +71,13 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('xl'));
   return (
     <div>
-      <AppBar position={(location.pathname == '/quy-hoach-khac' || location.pathname == '/danh-gia-quy-hoach') ? "fixed" : "static"}>
+      <AppBar position={(location.pathname == '/quy-hoach-khac' || location.pathname == '/danh-gia-quy-hoach'|| location.pathname == '/chien-luoc-thuy-loi') ? "fixed" : "static"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
-            <Avatar sx={{ width: "70px", height: '66px' }}
+            <Avatar sx={{ width: "44px", height: '75px', marginRight:'10px' }}
               component="a"
               href="http://admin.quyhoachthuyloi.vn/"
               target="_blank" alt="Remy Sharp" src={nav_icon} />
@@ -81,7 +87,7 @@ function Header() {
               component="a"
               href="#"
               sx={{
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: 'none', maxwithnav1: 'flex'},
                 fontWeight: 700,
                 color: 'inherit',
                 textDecoration: 'none',

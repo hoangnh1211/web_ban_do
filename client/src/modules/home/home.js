@@ -11,17 +11,19 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { Box, Typography, List, ListItem, ListItemIcon, Card, CardContent, CardMedia, useMediaQuery } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+// import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination'
-import { logo_1, logo_2, logo_3, logo_4, logo_5, test } from '../../image/images';
+import { logo_1, logo_2, logo_3, logo_4, logo_5, logo_6, logo_7 } from '../../image/images';
 import CircularProgress from '@mui/material/CircularProgress';
+import Carousel from "react-material-ui-carousel";
+import { Grid, Paper } from "@mui/material";
 
 
 const CustomDot = styled('div')(({ theme, active }) => ({
@@ -45,6 +47,71 @@ function Home() {
     const [recordsPerPage, setRecordsPerPage] = useState(5);
     const [totalTh, setTotalTh] = useState(0);
     const [totalpageTh, setTotalpageTh] = useState(0);
+    const logoList = [
+        "https://via.placeholder.com/150?text=Logo+1",
+        "https://via.placeholder.com/150?text=Logo+2",
+        "https://via.placeholder.com/150?text=Logo+3",
+        "https://via.placeholder.com/150?text=Logo+4",
+        "https://via.placeholder.com/150?text=Logo+5",
+        "https://via.placeholder.com/150?text=Logo+6",
+        "https://via.placeholder.com/150?text=Logo+7",
+        "https://via.placeholder.com/150?text=Logo+8",
+    ];
+
+    function groupLogos(logos, groupSize) {
+        const grouped = [];
+        for (let i = 0; i < logos.length; i += groupSize) {
+            grouped.push(logos.slice(i, i + groupSize));
+        }
+        return grouped;
+    }
+
+    function LogoSlide({ group }) {
+        return (
+            <Paper
+                style={{
+                    padding: "10px",
+                    borderRadius: 0,
+                    boxShadow: '0px 0px 0px 0px'
+                }}
+            >
+                <Grid container spacing={2} justifyContent="center">
+                    {group.map((logo, index) => (
+                        <Box
+                            sx={{ height: 164, width: 212, margin: '15px 20px', textAlign: 'center' }}
+                        >
+                            <a href={logo.link} target="_blank" rel="noopener noreferrer" className='d-flex justify-content-center'>
+                                <CardMedia
+                                    key={logo.id}
+                                    component="img"
+                                    image={logo.src}
+                                    alt={logo.alt}
+                                    sx={{ height: 100, width: 'auto' }} // Adjust width and margin as needed
+                                />
+                            </a>
+                            <Box
+                                sx={{ marginTop: 2 }}
+                            >
+                                <a href={logo.link} target="_blank" >
+                                    <button
+                                        style={{
+                                            lineHeight: '15.96px',
+                                            height: 54,
+                                            width: 212,
+                                            background: 'linear-gradient(90deg, rgba(195, 227, 251, 0.53), rgba(255, 255, 255, 0.53))',
+                                            border: '3px solid rgba(142, 221, 255, 1)',
+                                            borderRadius: 20,
+
+                                        }}
+                                        className='logo_button'>{logo.text}</button>
+                                </a>
+                            </Box>
+                        </Box>
+                    ))}
+                </Grid>
+            </Paper>
+        );
+    }
     const updateRecordsPerPage = (length = null) => {
         const screenWidth = window.innerWidth;
         let total = length ? length : totalTh;
@@ -111,20 +178,22 @@ function Home() {
         return { name, calories, fat, carbs, protein, status };
     }
     const logos = [
-        { id: 1, src: logo_1, alt: 'Logo 1', link: 'https://iwrp.gov.vn/' },
-        { id: 2, src: logo_2, alt: 'Logo 2', link: 'https://www.siwrp.org.vn/' },
-        { id: 3, src: logo_3, alt: 'Logo 3', link: 'https://www.tlu.edu.vn/' },
-        { id: 4, src: logo_4, alt: 'Logo 4', link: 'https://www.vawr.org.vn/' },
-        { id: 5, src: logo_5, alt: 'Logo 5', link: 'http://www.siwrr.org.vn/' },
+        { id: 1, src: logo_1, alt: 'Logo 1', link: 'https://iwrp.gov.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI' },
+        { id: 2, src: logo_2, alt: 'Logo 2', link: 'https://www1.cucthuyloi.gov.vn/', text: 'CỤC THUỶ LỢI' },
+        { id: 3, src: logo_3, alt: 'Logo 3', link: 'https://mard.gov.vn/Pages/default.aspx/', text: 'BỘ NÔNG NGHIỆP VÀ PHÁT TRIỂN NÔNG THÔN' },
+        { id: 4, src: logo_4, alt: 'Logo 4', link: 'https://www.siwrp.org.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI MIỀN NAM' },
+        { id: 5, src: logo_5, alt: 'Logo 5', link: 'https://www.tlu.edu.vn/', text: 'TRƯỜNG ĐẠI HỌC THUỶ LỢI' },
+        { id: 6, src: logo_6, alt: 'Logo 6', link: 'https://vawr.org.vn/', text: 'VIỆN KHOA HỌC THUỶ LỢI VIỆT NAM' },
+        { id: 7, src: logo_7, alt: 'Logo 7', link: 'http://www.siwrr.org.vn/?gid=84&id=1191&page=1&lang=', text: 'VIỆN KHOA HỌC THUỶ LỢI MIỀN NAM' },
     ];
+    const groupedLogos = groupLogos(logos, 4); // Group logos into chunks of 4
 
-    console.log(quyhoachThucHien)
 
     return (
         <div className=''>
             <Banner />
             <div class="mr-7 ml-7">
-                <h2 class="text-center mt-5 mb-5" style={{ fontWeight: 800, lineHeight: '35px', fontSize: "24px", color: "#0B47A2", marginBottom: '30px' }}>KẾT QUẢ THỰC HIỆN QUY HOẠCH ĐẾN NĂM 2024</h2>
+                <h2 class="text-center mt-5 mb-5" style={{ fontWeight: 800, lineHeight: '35px', fontSize: "24px", color: "#0B47A2", marginBottom: '30px' }}>QUY HOẠCH ĐÃ ĐƯỢC PHÊ DUYỆT</h2>
                 {!totalTh ? (
                     <Box
                         sx={{
@@ -158,49 +227,32 @@ function Home() {
                                                 borderRadius: '10px',
                                                 cursor: 'pointer',
                                                 padding: '16px 0px 0px 0px',
-                                                background: "linear-gradient(180deg, rgba(195, 227, 251, 0.53) 0%, rgba(0, 148, 255, 0.53) 100%)",
+                                                background: "linear-gradient(180deg, #16B1FF 0%, #EBF9FF 100%)",
                                                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
                                                 '&:hover': {
-                                                    border: '3px solid #3A5BFF',
+                                                    '& img': {
+                                                        transform: 'scale(1.03)',
+                                                    },
+                                                    '& h6': {
+                                                        color: '#FF5733', // Màu khi hover
+                                                    },
                                                 },
+                                                paddingLeft: '6px',
+                                                paddingRight: '6px'
                                             }}
                                         >
-                                            <Typography variant="h6" align="center" sx={{ marginLeft: '5px', marginRight: '5px', color: '#081E8F', fontSize: '16px', fontWeight: 600, marginBottom: '16px', lineHeight: '21px' }}>
+                                            <CardMedia
+                                                component="img"
+                                                sx={{ width: '100%', height: 180, borderRadius: '20px', marginBottom: '15px', transition: 'transform 0.3s ease', }}
+                                                image={process.env.REACT_APP_SERVER + ketquaQuyhoach[activeStep * recordsPerPage + index]?.img} // Replace with your image URL
+                                                alt="River Image"
+                                            />
+                                            <Typography variant="h6" align="center" sx={{ marginLeft: '5px', marginRight: '5px', color: '#081E8F', fontSize: '16px', fontWeight: 600,lineHeight: '21px',transition: 'color 0.3s ease', }}>
                                                 {ketquaQuyhoach[activeStep * recordsPerPage + index]?.ten_hien_thi}
                                             </Typography>
-                                            <List sx={{ color: '#fff' }}>
-                                                <ListItem sx={{ paddingBottom: 0, paddingTop: 0 }}>
-                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color: "#fff" }} />
-                                                    </ListItemIcon>
-                                                    <span style={{ lineHeight: '20px', fontSize: '16px', fontWeight: 400 }}>Số lượng CT QH:<span className='ml-2'  >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].so_luong_ct_quy_hoach} CT`}</span></span>
-
-                                                </ListItem>
-                                                <ListItem>
-                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color: "#fff" }} />
-                                                    </ListItemIcon>
-                                                    <span style={{ lineHeight: '20px', fontSize: '16px', fontWeight: 400 }}>Nhiệm vụ QH:<span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nhiem_vu_quy_hoach} ha`}</span></span>
-                                                </ListItem>
-                                                <ListItem>
-                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color: "#fff" }} />
-                                                    </ListItemIcon>
-                                                    <span style={{ lineHeight: '20px', fontSize: '16px', fontWeight: 400 }}>Số CT đã XD:<span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].so_ct_da_xd} CT`}</span></span>
-                                                </ListItem>
-                                                <ListItem>
-                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color: "#fff" }} />
-                                                    </ListItemIcon>
-                                                    <span style={{ lineHeight: '20px', fontSize: '16px', fontWeight: 400 }}>Diện tích tưới:<span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].dien_tich_tuoi} ha`}</span></span>
-                                                </ListItem>
-                                                <ListItem>
-                                                    <ListItemIcon sx={{ minWidth: '20px' }} >
-                                                        <FiberManualRecordIcon sx={{ fontSize: '10px', color: "#fff" }} />
-                                                    </ListItemIcon>
-                                                    <span className='mr-2' style={{ lineHeight: '20px', fontSize: '16px', fontWeight: 400 }}>Năm thực hiện:<span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nam_thuc_hien}`}</span></span>
-                                                </ListItem>
-                                            </List>
+                                            <Typography sx={{ textAlign: 'right', marginBottom:'10px'}}>
+                                                <i><span className='mr-2' style={{ lineHeight: '20px', fontSize: '13px', fontWeight: 400, color: 'rgba(122, 118, 118, 1)'}}>QĐ số: <span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nam_thuc_hien}`}</span></span></i>
+                                            </Typography>
                                         </Box>
                                     </Grid>)
                                 }
@@ -238,11 +290,11 @@ function Home() {
                     {quyhoachThucHien && quyhoachThucHien?.length > 0 &&
                         quyhoachThucHien.map(quyhoach => {
                             return <Grid item xs={12} lg={6}>
-                                <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none', '&:hover': { border: '3px solid #3A5BFF',} }}>
+                                <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none', '&:hover': { border: '3px solid #3A5BFF', } }}>
                                     <CardMedia
                                         component="img"
                                         sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 : 200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}
-                                        image={process.env.REACT_APP_SERVER+quyhoach.img} // Replace with your image URL
+                                        image={process.env.REACT_APP_SERVER + quyhoach.img} // Replace with your image URL
                                         alt="River Image"
                                     />
                                     <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '16px' }}>
@@ -292,7 +344,7 @@ function Home() {
                     }} count={totalPageThucHien} color="primary" />
                 </Box>
             </div>
-            <div class="mr-13 ml-13">
+            {/* <div class="mr-13 ml-13">
                 <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', marginTop: '30px', lineHeight: '35px', fontWeight: 800 }}>DANH MỤC CÁC QUY HOẠCH ĐƯỢC DUYỆT QUA TỪNG THỜI KỲ</h2>
                 {!quyhoach.length ? (
                     <Box
@@ -362,30 +414,19 @@ function Home() {
                         </Box>
                     </React.Fragment>
                 )}
+            </div> */}
+            <div class="mr-13 ml-13" style={{ marginTop: '20px' }}>
+                <Carousel
+                    animation="slide"
+                    indicators={false} // Remove dots
+                    navButtonsAlwaysInvisible={true}
+                    interval={10000}
+                >
+                    {groupedLogos.map((group, index) => (
+                        <LogoSlide key={index} group={group} />
+                    ))}
+                </Carousel>
             </div>
-
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '16px',
-                    overflowX: 'auto',
-                    marginTop: '70px'
-                }}
-            >
-                {logos.map((logo) => (
-                    <a href={logo.link} target="_blank" rel="noopener noreferrer">
-                        <CardMedia
-                            key={logo.id}
-                            component="img"
-                            image={logo.src}
-                            alt={logo.alt}
-                            sx={{ height: 100, width: 'auto', margin: '30px 40px' }} // Adjust width and margin as needed
-                        />
-                    </a>
-                ))}
-            </Box>
         </div>
     );
 }

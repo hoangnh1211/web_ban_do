@@ -32,7 +32,7 @@ export const heThongThuyLoiNangCap = new ImageLayer({
             'FORMAT': format,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'QuyHoachTL:NangCap_HTTL',
+            "LAYERS": 'QuyHoachTL:NangCap_HTTL_V1',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
@@ -75,7 +75,7 @@ export const congTrinhQuyHoach = new ImageLayer({
             'FORMAT': format,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'QuyHoachTL:congtrinh_xaymoi',
+            "LAYERS": 'QuyHoachTL:CongTrinh_XayMoi_18.11',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     })
@@ -146,7 +146,7 @@ export const tramBom = new ImageLayer({
             'FORMAT': format,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'QuyHoachTL:trambom_ht',
+            "LAYERS": 'QuyHoachTL:trambom',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
@@ -161,7 +161,7 @@ export const cong = new ImageLayer({
             'FORMAT': format,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'QuyHoachTL:cong_qhqg',
+            "LAYERS": 'QuyHoachTL:cong',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
@@ -181,6 +181,36 @@ export const dapHoChuaLon = new ImageLayer({
         },
     }),
     visible: true,
+});
+
+export const heThongThuyLoi = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'QuyHoachTL:httl_vietnam_v1',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+});
+
+export const naoVetHeThongThayThe = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'QuyHoachTL:ht_kenhtruc_naovet_dbscl',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
 });
 
 const nendiahinh = new TileLayer({
@@ -368,6 +398,10 @@ export const ListLayer = [
         layer: cong,
     },
     {
+        id: 'heThongThuyLoi',
+        layer: heThongThuyLoi,
+    },
+    {
         id: 'tramBom',
         layer: tramBom,
     },
@@ -420,6 +454,10 @@ export const ListLayer = [
             }),
             visible: false,
         }),
+    },
+    {
+        id: 'naoVetHeThongThayThe',
+        layer: naoVetHeThongThayThe,
     },
     {
         id: 'tuyenChuyenNuoc',

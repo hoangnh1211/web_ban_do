@@ -21,6 +21,7 @@ const theme = createTheme({
         xxl: 1920,
         custom: 1800,
         maxwithnav: 1700,
+        maxwithnav1: 1500,
       },
     },
   });

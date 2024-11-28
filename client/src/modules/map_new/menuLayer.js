@@ -52,6 +52,10 @@ function MenuLayer(props) {
         value: "Trạm bơm hiện trạng", index: [ListLayer.findIndex((value) => value.id === "tramBom")], check: true,
         show: true,
       },
+      {
+        value: "Hệ thống thuỷ lợi", index: [ListLayer.findIndex((value) => value.id === "heThongThuyLoi")], check: false,
+        show: false,
+      },
     ],
     show: true,
     class: "fa-solid fa-caret-down",
@@ -87,7 +91,13 @@ function MenuLayer(props) {
         show: true,
       },
       {
-        value: "Nâng cấp: Hệ thống thuỷ lợi lớn",
+        value: "Nạo vét hệ thống kênh trục",
+        index: [ListLayer.findIndex((value) => value.id === "naoVetHeThongThayThe")],
+        check: false,
+        show: false,
+      },
+      {
+        value: "Nâng cấp: Hệ thống thuỷ lợi",
         index: [ListLayer.findIndex(
           (value) => value.id === "heThongThuyLoiNangCap"
         )],
@@ -180,13 +190,13 @@ function MenuLayer(props) {
     let check = (check1 !== null) ? check1 : !showCongTrinh;
     let data = [
       {
-        value: "Mức đảm bảo, hệ số tưới tiêu",
+        value: "Mức bảo đảm, hệ số tưới tiêu",
         index: [ListLayer.findIndex((value) => value.id === "heSotuoitiieu")],
         check: check,
         show: true,
       },
       {
-        value: "Công trình quy hoạch",
+        value: "Xây mới: Công trình",
         index: [
           ListLayer.findIndex((value) => value.id === "congTrinhQuyHoach"),
           ListLayer.findIndex((value) => value.id === "bungHoDuKien"),
@@ -201,13 +211,21 @@ function MenuLayer(props) {
         show: true,
       },
       {
-        value: "Tuyến chuyển nước",
+        value: "Xây mới: Tuyến chuyển nước",
         index: [ListLayer.findIndex((value) => value.id === "tuyenChuyenNuoc")],
         check: check,
         show: true,
       },
       {
-        value: "Hệ thống thuỷ lợi nâng cấp",
+        value: "Nạo vét hệ thống kênh trục",
+        index: [ListLayer.findIndex(
+          (value) => value.id === "naoVetHeThongThayThe"
+        )],
+        check: check,
+        show: true,
+      },
+      {
+        value: "Nâng cấp: Hệ thống thuỷ lợi",
         index: [ListLayer.findIndex(
           (value) => value.id === "heThongThuyLoiNangCap"
         )],
@@ -240,23 +258,27 @@ function MenuLayer(props) {
     let check = (check1 !== null) ? check1 : !showCongTrinhHienTrang;
     let data = [
       {
-        value: "Đập, hồ chứa lớn",
+        value: "Hồ đâp hiện trạng",
         index: [ListLayer.findIndex((value) => value.id === "dapHoChuaLon")],
         check: check,
-        show: false,
-      },
-      {
-        value: "Cống", index: [ListLayer.findIndex((value) => value.id === "cong")], check: check,
-        show: false,
-      },
-      {
-        value: "Trạm bơm", index: [ListLayer.findIndex((value) => value.id === "tramBom")], check: check,
         show: false,
       },
       {
         value: "Thuỷ điện", index: [ListLayer.findIndex((value) => value.id === "thuyDien")], check: check,
         show: false,
       },
+      {
+        value: "Cống hiện trạng", index: [ListLayer.findIndex((value) => value.id === "cong")], check: check,
+        show: false,
+      },
+      {
+        value: "Trạm bơm hiện trạng", index: [ListLayer.findIndex((value) => value.id === "tramBom")], check: check,
+        show: false,
+      },
+      {
+        value: "Hệ thống thuỷ lợi", index: [ListLayer.findIndex((value) => value.id === "heThongThuyLoi")], check: check,
+        show: false,
+      }
     ];
 
     setListCongTrinhHienTrang({

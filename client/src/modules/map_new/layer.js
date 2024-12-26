@@ -386,6 +386,14 @@ export const ListLayer = [
         layer: googleterriar
     },
     {
+        id: 'heThongThuyLoi',
+        layer: heThongThuyLoi,
+    },
+    {
+        id: 'heThongThuyLoiNangCap',
+        layer: heThongThuyLoiNangCap,
+    },
+    {
         id: 'heSotuoitiieu',
         layer: heSotuoitiieu,
     },
@@ -398,10 +406,6 @@ export const ListLayer = [
         layer: cong,
     },
     {
-        id: 'heThongThuyLoi',
-        layer: heThongThuyLoi,
-    },
-    {
         id: 'tramBom',
         layer: tramBom,
     },
@@ -412,10 +416,6 @@ export const ListLayer = [
     {
         id: 'danhgiaquyhoach',
         layer: danhMucQuyHoach,
-    },
-    {
-        id: 'heThongThuyLoiNangCap',
-        layer: heThongThuyLoiNangCap,
     },
     {
         id: 'bungHoDuKien',

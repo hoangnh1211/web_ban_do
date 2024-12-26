@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 import Banner from './Banner';
@@ -11,6 +11,7 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { Box, Typography, List, ListItem, ListItemIcon, Card, CardContent, CardMedia, useMediaQuery } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { Link } from "react-router-dom";
 // import Grid from '@mui/material/Grid';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -24,6 +25,7 @@ import { logo_1, logo_2, logo_3, logo_4, logo_5, logo_6, logo_7 } from '../../im
 import CircularProgress from '@mui/material/CircularProgress';
 import Carousel from "react-material-ui-carousel";
 import { Grid, Paper } from "@mui/material";
+import Test from './test';
 
 
 const CustomDot = styled('div')(({ theme, active }) => ({
@@ -47,6 +49,7 @@ function Home() {
     const [recordsPerPage, setRecordsPerPage] = useState(5);
     const [totalTh, setTotalTh] = useState(0);
     const [totalpageTh, setTotalpageTh] = useState(0);
+    const [startIndex, setStartIndex] = useState(0); // Chỉ số bắt đầu hiển thị
     const logoList = [
         "https://via.placeholder.com/150?text=Logo+1",
         "https://via.placeholder.com/150?text=Logo+2",
@@ -58,60 +61,6 @@ function Home() {
         "https://via.placeholder.com/150?text=Logo+8",
     ];
 
-    function groupLogos(logos, groupSize) {
-        const grouped = [];
-        for (let i = 0; i < logos.length; i += groupSize) {
-            grouped.push(logos.slice(i, i + groupSize));
-        }
-        return grouped;
-    }
-
-    function LogoSlide({ group }) {
-        return (
-            <Paper
-                style={{
-                    padding: "10px",
-                    borderRadius: 0,
-                    boxShadow: '0px 0px 0px 0px'
-                }}
-            >
-                <Grid container spacing={2} justifyContent="center">
-                    {group.map((logo, index) => (
-                        <Box
-                            sx={{ height: 164, width: 212, margin: '15px 20px', textAlign: 'center' }}
-                        >
-                            <a href={logo.link} target="_blank" rel="noopener noreferrer" className='d-flex justify-content-center'>
-                                <CardMedia
-                                    key={logo.id}
-                                    component="img"
-                                    image={logo.src}
-                                    alt={logo.alt}
-                                    sx={{ height: 100, width: 'auto' }} // Adjust width and margin as needed
-                                />
-                            </a>
-                            <Box
-                                sx={{ marginTop: 2 }}
-                            >
-                                <a href={logo.link} target="_blank" >
-                                    <button
-                                        style={{
-                                            lineHeight: '15.96px',
-                                            height: 54,
-                                            width: 212,
-                                            background: 'linear-gradient(90deg, rgba(195, 227, 251, 0.53), rgba(255, 255, 255, 0.53))',
-                                            border: '3px solid rgba(142, 221, 255, 1)',
-                                            borderRadius: 20,
-
-                                        }}
-                                        className='logo_button'>{logo.text}</button>
-                                </a>
-                            </Box>
-                        </Box>
-                    ))}
-                </Grid>
-            </Paper>
-        );
-    }
     const updateRecordsPerPage = (length = null) => {
         const screenWidth = window.innerWidth;
         let total = length ? length : totalTh;
@@ -152,10 +101,6 @@ function Home() {
         return () => window.removeEventListener('resize', updateRecordsPerPage);
     }, [])
 
-    const handlePageChange = (event, value) => {
-        setCurrentPage(value);
-        fetchData(value);
-    };
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const isbigScreen = useMediaQuery((theme) => theme.breakpoints.up('custom'));
     const handleNext = () => {
@@ -186,7 +131,6 @@ function Home() {
         { id: 6, src: logo_6, alt: 'Logo 6', link: 'https://vawr.org.vn/', text: 'VIỆN KHOA HỌC THUỶ LỢI VIỆT NAM' },
         { id: 7, src: logo_7, alt: 'Logo 7', link: 'http://www.siwrr.org.vn/?gid=84&id=1191&page=1&lang=', text: 'VIỆN KHOA HỌC THUỶ LỢI MIỀN NAM' },
     ];
-    const groupedLogos = groupLogos(logos, 4); // Group logos into chunks of 4
 
 
     return (
@@ -221,39 +165,41 @@ function Home() {
                             {Array.from({ length: recordsPerPage }, (_, index) => {
                                 if (activeStep * recordsPerPage + index < totalTh) {
                                     return (<Grid item>
-                                        <Box
-                                            sx={{
-                                                border: '1px solid #3A5BFF',
-                                                borderRadius: '10px',
-                                                cursor: 'pointer',
-                                                padding: '16px 0px 0px 0px',
-                                                background: "linear-gradient(180deg, #16B1FF 0%, #EBF9FF 100%)",
-                                                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                                                '&:hover': {
-                                                    '& img': {
-                                                        transform: 'scale(1.03)',
+                                        <Link to={'danh-gia-quy-hoach?id=' + ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoach[0]?.id} key={ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoach[0]?.id}>
+                                            <Box
+                                                sx={{
+                                                    border: '1px solid #3A5BFF',
+                                                    borderRadius: '10px',
+                                                    cursor: 'pointer',
+                                                    padding: '10px 0px 0px 0px',
+                                                    background: "linear-gradient(180deg, #16B1FF 0%, #EBF9FF 100%)",
+                                                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                                                    '&:hover': {
+                                                        '& img': {
+                                                            transform: 'scale(1.03)',
+                                                        },
+                                                        '& h6': {
+                                                            color: '#FF5733', // Màu khi hover
+                                                        },
                                                     },
-                                                    '& h6': {
-                                                        color: '#FF5733', // Màu khi hover
-                                                    },
-                                                },
-                                                paddingLeft: '6px',
-                                                paddingRight: '6px'
-                                            }}
-                                        >
-                                            <CardMedia
-                                                component="img"
-                                                sx={{ width: '100%', height: 180, borderRadius: '20px', marginBottom: '15px', transition: 'transform 0.3s ease', }}
-                                                image={process.env.REACT_APP_SERVER + ketquaQuyhoach[activeStep * recordsPerPage + index]?.img} // Replace with your image URL
-                                                alt="River Image"
-                                            />
-                                            <Typography variant="h6" align="center" sx={{ marginLeft: '5px', marginRight: '5px', color: '#081E8F', fontSize: '16px', fontWeight: 600,lineHeight: '21px',transition: 'color 0.3s ease', }}>
-                                                {ketquaQuyhoach[activeStep * recordsPerPage + index]?.ten_hien_thi}
-                                            </Typography>
-                                            <Typography sx={{ textAlign: 'right', marginBottom:'10px'}}>
-                                                <i><span className='mr-2' style={{ lineHeight: '20px', fontSize: '13px', fontWeight: 400, color: 'rgba(122, 118, 118, 1)'}}>QĐ số: <span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].nam_thuc_hien}`}</span></span></i>
-                                            </Typography>
-                                        </Box>
+                                                    paddingLeft: '6px',
+                                                    paddingRight: '6px'
+                                                }}
+                                            >
+                                                <CardMedia
+                                                    component="img"
+                                                    sx={{ width: '100%', height: 180, borderRadius: '20px', marginBottom: '15px', transition: 'transform 0.3s ease', }}
+                                                    image={process.env.REACT_APP_SERVER + ketquaQuyhoach[activeStep * recordsPerPage + index]?.img} // Replace with your image URL
+                                                    alt="River Image"
+                                                />
+                                                <Typography variant="h6" align="center" sx={{ marginLeft: '5px', marginRight: '5px', color: '#081E8F', fontSize: '16px', fontWeight: 600, lineHeight: '21px', transition: 'color 0.3s ease', }}>
+                                                    {ketquaQuyhoach[activeStep * recordsPerPage + index]?.ten_hien_thi}
+                                                </Typography>
+                                                <Typography sx={{ textAlign: 'right', marginBottom: '10px' }}>
+                                                    <i><span className='mr-2' style={{ lineHeight: '20px', fontSize: '13px', fontWeight: 400, color: 'rgba(122, 118, 118, 1)' }}>QĐ số: <span className='ml-2' >{`${ketquaQuyhoach[activeStep * recordsPerPage + index].quyet_dinh_so}`}</span></span></i>
+                                                </Typography>
+                                            </Box>
+                                        </Link>
                                     </Grid>)
                                 }
 
@@ -416,16 +362,8 @@ function Home() {
                 )}
             </div> */}
             <div class="mr-13 ml-13" style={{ marginTop: '20px' }}>
-                <Carousel
-                    animation="slide"
-                    indicators={false} // Remove dots
-                    navButtonsAlwaysInvisible={true}
-                    interval={10000}
-                >
-                    {groupedLogos.map((group, index) => (
-                        <LogoSlide key={index} group={group} />
-                    ))}
-                </Carousel>
+                <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '40px', lineHeight: '35px', fontWeight: 800 }}>LIÊN KẾT WEBSITE</h2>
+                <Test/>
             </div>
         </div>
     );

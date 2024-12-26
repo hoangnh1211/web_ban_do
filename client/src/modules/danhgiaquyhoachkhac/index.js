@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useLocation  } from 'react-router-dom';
 
 function DanhGiaQuyHoach() {
     const [tinh, setTinh] = useState([]);
@@ -23,6 +24,9 @@ function DanhGiaQuyHoach() {
         dongbangsong: true,
     });
     const [currentTinh, setCurrentTinh] = useState();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const id = queryParams.get('id'); // Lấy giá trị của 'id'
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach`)
@@ -30,8 +34,19 @@ function DanhGiaQuyHoach() {
                 let data = res.data.data;
                 setTinh(data);
                 if (res.data.data.length > 0) {
-                    setCurrentTinh(res.data.data[0]);
-                    setNavCheck(res.data.data[0].khu_vuc)
+                    const crurrent = data.find(value =>value.id === id)
+                    const index = data.findIndex(value =>value.id === id)
+                    console.log(index)
+                    if (index !== -1){
+                        setCurrentTinh(crurrent);
+                        setIndexCheck(index)
+                        setNavCheck(crurrent.khu_vuc)
+                    } else{
+                        setCurrentTinh(res.data.data[0]);
+                        setNavCheck(res.data.data[0].khu_vuc)
+                    }
+
+                    
                 }
             });
     }, [])
@@ -63,7 +78,7 @@ function DanhGiaQuyHoach() {
     return (
         <div className="main-content">
             <nav className="navbar">
-                <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả  thực hiện quy hoạch 2024</p>
+                <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả thực hiện quy hoạch 2024</p>
                 <div style={{ width: '100%' }}>
                     <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
@@ -138,6 +153,17 @@ function DanhGiaQuyHoach() {
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.dongbangsong && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                        })}
+                    </ul>
+                    <div onClick={() => changeStatus('toanquoc')} style={navCheck === 'Toàn quốc' ? styleCheck : styleNotCheck}>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VIII. Toàn quốc</p>
+                        <i class={statusVung.toanquoc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                    </div>
+                    <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                        {statusVung.toanquoc && tinh.map((value, index) => {
+                            if (value.khu_vuc === 'Toàn quốc')
                                 return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}

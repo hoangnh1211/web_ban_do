@@ -34,7 +34,7 @@ export const configText ={
         // nguon: 'nguon',
         // phanloai1: 'phanloai1',
     },
-    cong_qhqg: {
+    cong: {
         // id: 'STT',
         ten: 'Tên công trình',
         // X: 'Toạ độ X',
@@ -59,7 +59,7 @@ export const configText ={
         // ngaycapnha: 'ngaycapnha',
         // phanloai1: 'phanloai1',
     },
-    trambom_ht:{
+    trambom:{
         // FID: 'STT',
         ten: 'Tên công trình',
         madoituong: 'Mã đối tượng',
@@ -159,7 +159,7 @@ export const configText ={
         // ghichu: 'ghichu',
         // phanloai: 'phanloai',
     },
-    NangCap_HTTL: {
+    NangCap_HTTL_V1: {
         // id: 'id',
         // tt: 'STT',
         hethong: 'Hệ thống',
@@ -239,7 +239,7 @@ export const configDonvi ={
         // nguon: 'nguon',
         // phanloai1: 'phanloai1',
     },
-    cong_qhqg: {
+    cong: {
         // id: 'STT',
         // ten: 'Tên công trình',
         // X: 'Toạ độ X',
@@ -264,7 +264,7 @@ export const configDonvi ={
         // ngaycapnha: 'ngaycapnha',
         // phanloai1: 'phanloai1',
     },
-    trambom_ht:{
+    trambom:{
         // FID: 'STT',
         // ten: 'Tên công trình',
         // madoituong: 'Mã đối tượng',
@@ -362,7 +362,7 @@ export const configDonvi ={
         // ghichu: 'ghichu',
         // phanloai: 'phanloai',
     },
-    NangCap_HTTL: {
+    NangCap_HTTL_V1: {
         // id: 'id',
         // tt: 'STT',
         // hethong: 'Hệ thống',

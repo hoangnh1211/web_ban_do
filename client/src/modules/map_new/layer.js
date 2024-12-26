@@ -409,10 +409,10 @@ export const ListLayer = [
         id: 'tramBom',
         layer: tramBom,
     },
-    {
-        id: 'thuyDien',
-        layer: thuyDien,
-    },
+    // {
+    //     id: 'thuyDien',
+    //     layer: thuyDien,
+    // },
     {
         id: 'danhgiaquyhoach',
         layer: danhMucQuyHoach,
@@ -475,5 +475,7 @@ export const ListLayer = [
 
 export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
-export const listLayerData = [congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, danhMucQuyHoach,heThongThuyLoiNangCap,thuyDien,tramBom,cong,dapHoChuaLon, heSotuoitiieu]
+export const listLayerData = [congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, danhMucQuyHoach,heThongThuyLoiNangCap
+    // ,thuyDien
+    ,tramBom,cong,dapHoChuaLon, heSotuoitiieu]
 // export const listLayerData = [heSotuoitiieu,danhMucQuyHoach,dapHoChuaLon, cong, tramBom, thuyDien,congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, heThongThuyLoiNangCap]

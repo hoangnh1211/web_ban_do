@@ -40,10 +40,10 @@ function MenuLayer(props) {
         check: true,
         show: true,
       },
-      {
-        value: "Thuỷ điện", index: [ListLayer.findIndex((value) => value.id === "thuyDien")], check: false,
-        show: false,
-      },
+      // {
+      //   value: "Thuỷ điện", index: [ListLayer.findIndex((value) => value.id === "thuyDien")], check: false,
+      //   show: false,
+      // },
       {
         value: "Cống hiện trạng", index: [ListLayer.findIndex((value) => value.id === "cong")], check: true,
         show: true,
@@ -263,10 +263,10 @@ function MenuLayer(props) {
         check: check,
         show: false,
       },
-      {
-        value: "Thuỷ điện", index: [ListLayer.findIndex((value) => value.id === "thuyDien")], check: check,
-        show: false,
-      },
+      // {
+      //   value: "Thuỷ điện", index: [ListLayer.findIndex((value) => value.id === "thuyDien")], check: check,
+      //   show: false,
+      // },
       {
         value: "Cống hiện trạng", index: [ListLayer.findIndex((value) => value.id === "cong")], check: check,
         show: false,

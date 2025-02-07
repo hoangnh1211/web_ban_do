@@ -9,8 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function DanhGiaQuyHoach() {
+    const navigate = useNavigate();
     const [tinh, setTinh] = useState([]);
     const [indexCheck, setIndexCheck] = useState(0);
     const [navCheck, setNavCheck] = useState();
@@ -22,12 +24,12 @@ function DanhGiaQuyHoach() {
         taynguyen: true,
         dongnambo: true,
         dongbangsong: true,
+        toanquoc:true
     });
     const [currentTinh, setCurrentTinh] = useState();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const id = queryParams.get('id'); // Lấy giá trị của 'id'
-
+    let id = queryParams.get('id'); // Lấy giá trị của 'id'
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach`)
             .then(res => {
@@ -36,22 +38,27 @@ function DanhGiaQuyHoach() {
                 if (res.data.data.length > 0) {
                     const crurrent = data.find(value =>value.id === id)
                     const index = data.findIndex(value =>value.id === id)
-                    console.log(index)
                     if (index !== -1){
-                        setCurrentTinh(crurrent);
                         setIndexCheck(index)
                         setNavCheck(crurrent.khu_vuc)
                     } else{
-                        setCurrentTinh(res.data.data[0]);
                         setNavCheck(res.data.data[0].khu_vuc)
                     }
-
-                    
+                    id = id || res.data.data[0].id
+                    axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach/${id}`)
+                        .then(res => {
+                            setCurrentTinh(res.data.data[0]);
+                        });
                 }
             });
     }, [])
     const getTinh = (currenttinh, index) => {
-        setCurrentTinh(currenttinh)
+        axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach/${currenttinh.id}`)
+        .then(res => {
+            setCurrentTinh(res.data.data[0]);
+        });
+        navigate(`/danh-gia-quy-hoach?id=${currenttinh.id}`, { replace: true });
+        // setCurrentTinh(currenttinh)
         setIndexCheck(index)
         setNavCheck(currenttinh.khu_vuc)
     }

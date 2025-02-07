@@ -88,14 +88,14 @@ function Home() {
     };
 
     useEffect(() => {
-        fetchData(1)
-        fetchDataThucHien(1)
         axios.get(`${process.env.REACT_APP_SERVER}/api/ketquaquyhoach`)
             .then(res => {
                 setKetquaQuyhoach(res.data.data)
                 setTotalTh(res.data.data.length)
                 updateRecordsPerPage(res.data.data.length);
             });
+        fetchData(1)
+        fetchDataThucHien(1)
         window.addEventListener('resize', updateRecordsPerPage);
 
         return () => window.removeEventListener('resize', updateRecordsPerPage);
@@ -165,7 +165,7 @@ function Home() {
                             {Array.from({ length: recordsPerPage }, (_, index) => {
                                 if (activeStep * recordsPerPage + index < totalTh) {
                                     return (<Grid item>
-                                        <Link to={'danh-gia-quy-hoach?id=' + ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoach[0]?.id} key={ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoach[0]?.id}>
+                                        <Link to={'danh-gia-quy-hoach?id=' + ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoachone[0]?.id} key={ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoachone[0]?.id}>
                                             <Box
                                                 sx={{
                                                     border: '1px solid #3A5BFF',

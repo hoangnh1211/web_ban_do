@@ -44,11 +44,11 @@ function DanhGiaQuyHoach() {
                     } else{
                         setNavCheck(res.data.data[0].khu_vuc)
                     }
-                    id = id || res.data.data[0].id
+                    id = index !== -1 ? id : res.data.data[0].id
                     axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach/${id}`)
                         .then(res => {
                             setCurrentTinh(res.data.data[0]);
-                        });
+                        })
                 }
             });
     }, [])

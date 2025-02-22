@@ -4,7 +4,7 @@ function Banner_img(props){
 
   return(
     <div className={props.active ? "carousel-item active" : "carousel-item"}  data-interval="5000">
-      <img src={props.img} style={{width:'100%'}}></img>
+      <img src={props.img} style={{width:'100%'}} loading="lazy"></img>
       {/* <div className={props.classimg}>
           <div className="agileits-banner-info ">
             <h3 className='wow flipInX animated' style={{fontSize: '46px', fontWeight:800}}>QUY HOẠCH THỦY LỢI</h3>

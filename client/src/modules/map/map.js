@@ -628,11 +628,11 @@ function Map_a() {
         const ref3 = React.useRef(null);
     return (
         <div className='ind'>
-        <div id="myModal" ref={ref1} class="modal">
+        <div id="myModal" ref={ref1} className="modal">
 
-            <span class="close" ref={ref2} onClick={dong}>&times;</span>
+            <span className="close" ref={ref2} onClick={dong}>&times;</span>
 
-            <img class="modal-content" id="img01" ref={ref3}></img>
+            <img className="modal-content" id="img01" ref={ref3}></img>
 
             </div>
             <MenuLayer handleChangeLayer={handleChangeLayer}  handleChangeCheckYear={handleChangeCheckYear}/>
@@ -670,7 +670,7 @@ function Map_a() {
                 <a href="#" id="popup-closer" className="ol-popup-closer"></a>
                 <Table data={dataMap.data} title={dataMap.title} />
                 {dataMap.title === "HV" &&
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light cbd1">
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light cbd1">
                         <div className="navbar-collapse" id="navbarSupportedContent">
                             <ul className="nav nav-tabs nav-justified ">
                                 <li className= {stt[0]?" nav-item act1":" nav-item "} onClick={() => handleChangeImage(dataMap.data[0].ten_tram, "chieucaosong.PNG",0)}>

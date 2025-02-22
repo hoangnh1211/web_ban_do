@@ -383,15 +383,15 @@ function MenuLayer(props) {
   return (
     <div id="menuLayer">
       <ul className="">
-        <div class="nav-item " id="liLopBanDo">
+        <div className="nav-item " id="liLopBanDo">
           <p
-            class="nav-link active highlight"
+            className="nav-link active highlight"
             href="#tabLopBanDo"
             data-toggle="tab"
             aria-expanded="true"
           >
-            <span class="icon-layer" style={{fontSize: '18px'}}>
-              <i class="fas fa-layer-group"></i>Lớp bản đồ
+            <span className="icon-layer" style={{fontSize: '18px'}}>
+              <i className="fas fa-layer-group"></i>Lớp bản đồ
             </span>
           </p>
         </div>
@@ -399,7 +399,7 @@ function MenuLayer(props) {
       <div id="bar4layer">
         <a>
           <input type="text" id="txtSearchLayer" placeholder="Tìm lớp bản đồ" />
-          <i class="fas fa-search"></i>
+          <i className="fas fa-search"></i>
         </a>
 
         <div
@@ -410,7 +410,7 @@ function MenuLayer(props) {
           data-original-title="Thêm lớp"
         >
           <a>
-            <span class="icon-addtolist"></span>
+            <span className="icon-addtolist"></span>
           </a>
         </div>
       </div>
@@ -431,7 +431,7 @@ function MenuLayer(props) {
           >
             <b>
               <i
-                class={dataDanhMuc.class}
+                className={dataDanhMuc.class}
                 onClick={() => {
                   setDataDanhMuc({
                     ...dataDanhMuc,
@@ -442,7 +442,7 @@ function MenuLayer(props) {
                   });
                 }}
               ></i>
-              <span class="icon-layer">
+              <span className="icon-layer">
                 <input
                   style={{ marginLeft: "5px" }}
                   type="checkbox"
@@ -501,7 +501,7 @@ function MenuLayer(props) {
           <div className="dropdown__toggle dropdown__list-item">
             <b>
               <i
-                class={listBando.class}
+                className={listBando.class}
                 onClick={() => {
                   setListBando({
                     ...listBando,
@@ -512,7 +512,7 @@ function MenuLayer(props) {
                   });
                 }}
               ></i>
-              <span class="icon-layer">
+              <span className="icon-layer">
                 <input
                   style={{ marginLeft: "5px" }}
                   type="checkbox"
@@ -547,7 +547,7 @@ function MenuLayer(props) {
               <div className="dropdown__toggle dropdown__list-item">
                 <b>
                   <i
-                    class={listCongTrinhQuyHoach.class}
+                    className={listCongTrinhQuyHoach.class}
                     onClick={() => {
                       setListCongTrinhQuyHoach({
                         ...listCongTrinhQuyHoach,
@@ -558,7 +558,7 @@ function MenuLayer(props) {
                       });
                     }}
                   ></i>
-                  <span class="icon-layer">
+                  <span className="icon-layer">
                     <input
                       style={{ marginLeft: "5px" }}
                       type="checkbox"
@@ -596,10 +596,10 @@ function MenuLayer(props) {
               <div className="dropdown__toggle dropdown__list-item">
                 <b>
                   <i
-                    class={listCongTrinhHienTrang.class}
+                    className={listCongTrinhHienTrang.class}
                     onClick={() => { setListCongTrinhHienTrang({ ...listCongTrinhHienTrang, show: !listCongTrinhHienTrang.show, class: !listCongTrinhHienTrang.show ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right" }) }}
                   ></i>
-                  <span class="icon-layer"><input style={{ marginLeft: '5px' }} type="checkbox" value="" checked={showCongTrinhHienTrang} id='a61' onChange={() => showAllCongTrinhHienTran()} /></span>
+                  <span className="icon-layer"><input style={{ marginLeft: '5px' }} type="checkbox" value="" checked={showCongTrinhHienTrang} id='a61' onChange={() => showAllCongTrinhHienTran()} /></span>
                   <span
                     style={{
                       marginLeft: "5px",
@@ -620,7 +620,7 @@ function MenuLayer(props) {
               <div className="dropdown__toggle dropdown__list-item">
                 <b>
                   <i
-                    class={listThuyHe.class}
+                    className={listThuyHe.class}
                     onClick={() => {
                       setListThuyHe({
                         ...listThuyHe,
@@ -631,7 +631,7 @@ function MenuLayer(props) {
                       });
                     }}
                   ></i>
-                  <span class="icon-layer">
+                  <span className="icon-layer">
                     <input
                       style={{ marginLeft: "5px" }}
                       type="checkbox"

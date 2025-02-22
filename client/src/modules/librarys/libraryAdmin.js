@@ -118,50 +118,50 @@ function Todo() {
       <div className="panel-heading">
         danh sach
       </div>
-      <button type="button" class="btn btn-primary" onClick={add}>Add</button>
+      <button type="button" className="btn btn-primary" onClick={add}>Add</button>
       {status === "add" && <form onSubmit={handleSubmit}>
-        <div class="form-group" >
-          <label for="stt">STT</label>
-          <input type="number" class="form-control" name="stt" placeholder="STT"  />
+        <div className="form-group" >
+          <label htmlFor="stt">STT</label>
+          <input type="number" className="form-control" name="stt" placeholder="STT"  />
         </div>
-        <div class="form-group" >
-          <label for="exampleInputEmail1">Name</label>
-          <input type="text" class="form-control" placeholder="Name" />
+        <div className="form-group" >
+          <label htmlFor="exampleInputEmail1">Name</label>
+          <input type="text" className="form-control" placeholder="Name" />
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="text" class="form-control" placeholder="Description" />
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Password</label>
+          <input type="text" className="form-control" placeholder="Description" />
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlFile1">file input</label>
-          <input type="file" class="form-control-file" id="exampleFormControlFile1" />
+        <div className="form-group">
+          <label htmlFor="exampleFormControlFile1">file input</label>
+          <input type="file" className="form-control-file" id="exampleFormControlFile1" />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
       }
       {status === "edit" && currentItem && <form onSubmit={handleupdateSubmit}>
-        <div class="form-group" >
-          <label for="stt">STT</label>
-          <input type="number" class="form-control" name="stt" placeholder="STT" value={currentItem.stt} onChange={onChange} />
+        <div className="form-group" >
+          <label htmlFor="stt">STT</label>
+          <input type="number" className="form-control" name="stt" placeholder="STT" value={currentItem.stt} onChange={onChange} />
         </div>
-        <div class="form-group" >
-          <label for="exampleInputEmail1">Name</label>
-          <input type="text" class="form-control" name="name" placeholder="Name" value={currentItem.name} onChange={onChange} />
+        <div className="form-group" >
+          <label htmlFor="exampleInputEmail1">Name</label>
+          <input type="text" className="form-control" name="name" placeholder="Name" value={currentItem.name} onChange={onChange} />
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Description</label>
-          <input type="text" class="form-control" name="description" placeholder="Description" value={currentItem.description} onChange={onChange} />
+        <div className="form-group">
+          <label htmlFor="exampleInputPassword1">Description</label>
+          <input type="text" className="form-control" name="description" placeholder="Description" value={currentItem.description} onChange={onChange} />
         </div>
-        <div class="form-group">
-          <label for="exampleFormControlFile1">file input</label>
-          <input type="file" class="form-control-file" name="file" id="exampleFormControlFile1" />
+        <div className="form-group">
+          <label htmlFor="exampleFormControlFile1">file input</label>
+          <input type="file" className="form-control-file" name="file" id="exampleFormControlFile1" />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
       }
 
 
-      <table class="table table-striped">
+      <table className="table table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -177,7 +177,7 @@ function Todo() {
               <th scope="row">{item.stt}</th>
               <td>{item.name}</td>
               <td>{item.description}</td>
-              <td><i className="fa-solid fa-download" onClick={() => download(item.file)}></i> <i class="fa-solid fa-pen-to-square" onClick={() => edit(item)}></i><i class="fa-solid fa-trash-can" onClick={() => deleteTodo(item)}></i></td>
+              <td><i className="fa-solid fa-download" onClick={() => download(item.file)}></i> <i className="fa-solid fa-pen-to-square" onClick={() => edit(item)}></i><i className="fa-solid fa-trash-can" onClick={() => deleteTodo(item)}></i></td>
             </tr>
           ))}
 

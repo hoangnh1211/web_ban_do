@@ -351,16 +351,16 @@ function MapNew() {
             )}
             {showInfo && dataMap && <Info data={dataMap.data} setInfo={setInfo} />}
             <div id="toolRight">
-                <div class="toolgroup">
-                    <div class="UI-DROP show" id="layerBases" display="name" style={{ float: 'right', height: '34px', position: "relative" }}>
+                <div className="toolgroup">
+                    <div className="UI-DROP show" id="layerBases" display="name" style={{ float: 'right', height: '34px', position: "relative" }}>
 
-                        <div class="UI-DDL" data-toggle="dropdown" aria-expanded="true">
-                            <a class="" style={{ padding: '3px', color: "black" }}>
-                                <span style={{ fontSize: '27px' }} data-toggle="tooltip" data-placement="left" title="" aria-describedby="ui-id-1"><i class="fas fa-layer-group"></i></span>
+                        <div className="UI-DDL" data-toggle="dropdown" aria-expanded="true">
+                            <a className="" style={{ padding: '3px', color: "black" }}>
+                                <span style={{ fontSize: '27px' }} data-toggle="tooltip" data-placement="left" title="" aria-describedby="ui-id-1"><i className="fas fa-layer-group"></i></span>
                             </a>
                         </div>
 
-                        <ul class="dropdown-menu dropdown-menu-right" id="ulBaseMaps" x-placement="bottom-end" style={{ position: "absolute", transform: "translate3d(-275px, 40px, 0px)", top: '0px;', left: '0px', willChange: 'transform' }}>
+                        <ul className="dropdown-menu dropdown-menu-right" id="ulBaseMaps" x-placement="bottom-end" style={{ position: "absolute", transform: "translate3d(-275px, 40px, 0px)", top: '0px;', left: '0px', willChange: 'transform' }}>
                             <li value="TILEMAP" layerid="ae5b8" onClick={() => toggleLayersNenVisibility(0)}> <span>Bản đồ địa hình</span></li>
                             <li value="TILEMAP" layerid="ad4ec" onClick={() => toggleLayersNenVisibility(1)}> <span>Bản đồ nền hành chính</span></li>
                             <li value="GOOGLE" layerid="googlemap" onClick={() => toggleLayersNenVisibility(2)}> <span>Bản đồ Google Map</span></li>

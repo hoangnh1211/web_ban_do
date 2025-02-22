@@ -205,7 +205,7 @@ function QuyHoachKhac() {
                 <div style={{ width: '100%' }}>
                     <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
-                        <i class={statusVung.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.trungdu && tinh.map((value, index) => {
@@ -216,7 +216,7 @@ function QuyHoachKhac() {
                     </ul>
                     <div onClick={() => changeStatus('dongbang')} style={navCheck === 'Đồng Bằng Bắc Bộ' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   II. Đồng Bằng Bắc Bộ</p>
-                        <i class={statusVung.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.dongbang && tinh.map((value, index) => {
@@ -226,7 +226,7 @@ function QuyHoachKhac() {
                     </ul>
                     <div onClick={() => changeStatus('bactrunbo')} style={navCheck === 'Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   III. Bắc Trung Bộ</p>
-                        <i class={statusVung.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.bactrunbo && tinh.map((value, index) => {
@@ -237,7 +237,7 @@ function QuyHoachKhac() {
                     </ul>
                     <div onClick={() => changeStatus('namtrungbo')} style={navCheck === 'Nam Trung Bộ' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ</p>
-                        <i class={statusVung.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.namtrungbo && tinh.map((value, index) => {
@@ -248,7 +248,7 @@ function QuyHoachKhac() {
                     </ul>
                     <div onClick={() => changeStatus('taynguyen')} style={navCheck === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Tây Nguyên</p>
-                        <i class={statusVung.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.taynguyen && tinh.map((value, index) => {
@@ -259,7 +259,7 @@ function QuyHoachKhac() {
                     </ul>
                     <div onClick={() => changeStatus('dongnambo')} style={navCheck === 'Đông Nam Bộ' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đông Nam Bộ</p>
-                        <i class={statusVung.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.dongnambo && tinh.map((value, index) => {
@@ -270,7 +270,7 @@ function QuyHoachKhac() {
                     </ul>
                     <div onClick={() => changeStatus('dongbangsong')} style={navCheck === 'Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Đồng bằng sông Cửu Long</p>
-                        <i class={statusVung.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.dongbangsong && tinh.map((value, index) => {

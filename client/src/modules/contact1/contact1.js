@@ -6,7 +6,7 @@ function Contact1() {
         <div className='contact ind abcs'>
             <div className='container'>
                 <p><b>1/ Tên Viện</b></p>
-                    <div class="logo">
+                    <div className="logo">
                     <img src="https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/moi%2Flogo.jpg?alt=media&token=234fafb9-1136-43a1-a64b-4f099a43e7b8"></img>
                     <div>
                         <p>Viện nghiên cứu bảo vệ môi trường và sức khỏe cộng đồng</p> <p>Research Institute for Environmental Protection and Public Health</p>

@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 
 function Contact() {
     return (
-        <div class="mr-7 ml-7 contact" style={{ marginTop: '50px' }}>
+        <div className="mr-7 ml-7 contact" style={{ marginTop: '50px' }}>
             <div style={{ padding: '10px 20px', border: "1px solid #CABBBB" }}>
                 <div className='d-flex justify-content-between' style={{ marginBottom: '30px' }}>
                     <iframe
@@ -39,14 +39,14 @@ function Contact() {
                     </div>
                     <div className='row' style={{ fontSize: '16px', color: '#0B47A2' }}>
                         <div className='col' style={{ paddingLeft: '30px' }}>
-                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-home" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>Số 2 Phố Ngọc Hà, Phường Ngọc Hà Quận</p><p> Ba Đình, Thành phố Hà Nội</p></div></div>
-                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-phone" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>Điện thoại (84-24) 37335706</p></div>
-                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-envelope" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>cucthuyloi@wrd.gov.vn</p></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-home" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>Số 2 Phố Ngọc Hà, Phường Ngọc Hà Quận</p><p> Ba Đình, Thành phố Hà Nội</p></div></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-phone" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>Điện thoại (84-24) 37335706</p></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-envelope" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>cucthuyloi@wrd.gov.vn</p></div>
                         </div>
                         <div className='col' style={{ paddingLeft: '30px' }}>
-                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-home" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>162A Trần Quang Khải, P. Lý Thái Tổ, Q.</p><p> Hoàn Kiếm, TP. Hà Nội</p></div></div>
-                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-phone" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>Điện thoại 0243 8256470 - 0243 8254081 - </p><p> Fax: 0243. 8252807</p></div></div>
-                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i class="fas fa-envelope" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>phongkhcn.qhtl@gmail.com</p></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-home" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>162A Trần Quang Khải, P. Lý Thái Tổ, Q.</p><p> Hoàn Kiếm, TP. Hà Nội</p></div></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-phone" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>Điện thoại 0243 8256470 - 0243 8254081 - </p><p> Fax: 0243. 8252807</p></div></div>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-envelope" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>phongkhcn.qhtl@gmail.com</p></div>
                         </div>
                     </div>
                 </div>

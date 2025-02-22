@@ -58,10 +58,10 @@ function Image(props) {
     const image11 = ['https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/image%2FDienBienTocDoGioBien.jpg?alt=media&token=a590d567-6780-4721-aa7b-480de4a1cdf0']
     return (
         <div className="panel ind ">
-            <div class="title-section ">
-                <h2 class="switch-lang image123" e="Library">BẢN ĐỒ THỦY HẢI VĂN VEN BIỂN ĐÔNG BẮC BỘ (Thu phóng từ tỷ lệ 1/100.000)</h2>
-                <div class="title-section" id='bando' onClick={()=>props.handleChang(0)}>
-                    <label class="switch-lang" e="Library">Trở lại<i class="fas fa-angle-double-left"></i></label>
+            <div className="title-section ">
+                <h2 className="switch-lang image123" e="Library">BẢN ĐỒ THỦY HẢI VĂN VEN BIỂN ĐÔNG BẮC BỘ (Thu phóng từ tỷ lệ 1/100.000)</h2>
+                <div className="title-section" id='bando' onClick={()=>props.handleChang(0)}>
+                    <label className="switch-lang" e="Library">Trở lại<i className="fas fa-angle-double-left"></i></label>
                 </div>
             </div>
             <div id="content">
@@ -117,24 +117,24 @@ function Image(props) {
                 </div>
             </div>
             {modal?.status &&
-            <div id="myModal" class="modal1">
-                <span class="close" onClick={closeModal}>&times;</span>
-                <div class="slideshow-container">
-                    <div class="">
+            <div id="myModal" className="modal1">
+                <span className="close" onClick={closeModal}>&times;</span>
+                <div className="slideshow-container">
+                    <div className="">
                         <img className='modal-image' src={modal?.value[modal?.index]}></img>
                     </div>
 
                 {modal?.value.length>1 &&
                 <div>
-                <a class="prev" onClick={minusIndex}>&#10094;</a>
-                <a class="next" onClick={plusIndex}>&#10095;</a>
+                <a className="prev" onClick={minusIndex}>&#10094;</a>
+                <a className="next" onClick={plusIndex}>&#10095;</a>
                 </div>
                 }
                 </div>
             </div>
             }
-            <div class="title-section">
-                <h2 class="switch-lang image123" e="Library">HÌNH ẢNH HOẠT ĐỘNG HỢP TÁC QUỐC TẾ</h2>
+            <div className="title-section">
+                <h2 className="switch-lang image123" e="Library">HÌNH ẢNH HOẠT ĐỘNG HỢP TÁC QUỐC TẾ</h2>
             </div>
         </div>
     );

@@ -79,8 +79,8 @@ function MenuLayer(props) {
     return (
         <div id="menuLayer" className=' col-md-3 col-sm-3'>
             <div className='highlight'>
-                <a class="nav-link active "  data-toggle="tab" aria-expanded="true">
-                    <b><i class="fa-solid fa-layer-group"></i> <span>Lớp bản đồ</span></b>
+                <a className="nav-link active "  data-toggle="tab" aria-expanded="true">
+                    <b><i className="fa-solid fa-layer-group"></i> <span>Lớp bản đồ</span></b>
                 </a>
             </div>
             <div className="flex">
@@ -89,7 +89,7 @@ function MenuLayer(props) {
                         className="dropdown__toggle dropdown__list-item"
                     >
                        <b>Mạng điểm quan trắc môi trường Quảng Ninh (2020 – 2025)
-                        <i class="fa-solid fa-caret-down"></i></b>
+                        <i className="fa-solid fa-caret-down"></i></b>
                     </div>
                     {state.activeND && <ul className={"dropdown__list " + (state.activeND ? 'dropdown__list--active' : '')}>{renderOptions(listND)}</ul>}
                 </div>

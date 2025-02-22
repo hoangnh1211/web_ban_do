@@ -78,7 +78,7 @@ function ChienLuocThuyLoi() {
                 <div style={{ width: '100%', marginTop: "20px" }}>
                     <div onClick={() => changeStatus('quyetdinh')} style={navCheck === 'QUYẾT ĐỊNH' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. QUYẾT ĐỊNH</p>
-                        <i class={statusVung.quyetdinh ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.quyetdinh ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.quyetdinh && tinh.map((value, index) => {
@@ -89,7 +89,7 @@ function ChienLuocThuyLoi() {
                     </ul>
                     <div onClick={() => changeStatus('baocao')} style={navCheck === 'BÁO CÁO' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}> II. BÁO CÁO</p>
-                        <i class={statusVung.baocao ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                        <i className={statusVung.baocao ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.baocao && tinh.map((value, index) => {

@@ -22,9 +22,9 @@ function Introduce(props) {
     return (
         <div className="introduce ind ">
             <div className='row'>
-                <div id="question" class="col-md-3 col-sm-3">
-                    <div class="question">
-                        <div class="service-header">
+                <div id="question" className="col-md-3 col-sm-3">
+                    <div className="question">
+                        <div className="service-header">
                             <span ><b>GIỚI THIỆU</b></span>
                         </div>
 
@@ -39,7 +39,7 @@ function Introduce(props) {
                     </div>
                 </div>
                 {check[0] &&
-                    <div class="col-md-9 col-sm-9">
+                    <div className="col-md-9 col-sm-9">
                         <Service1 />
                     </div>
                 }
@@ -121,7 +121,7 @@ function Introduce(props) {
                 }
                 {
                     check[3] &&
-                    <div class="col-md-9 col-sm-9 abcd">
+                    <div className="col-md-9 col-sm-9 abcd">
                         <p><b>Học viện Kinh tế và Pháp luật Mosco </b>là một cơ sở đào tạo nghiên cứu khoa học lớn về kinh tế và luật pháp LB Nga, trong đó có lĩnh vực về kinh tế và luật pháp sinh thái môi trường. Học viện có 23 lĩnh vực nghiên cứu khoa học và các đơn vị thành viên chuyên về nghiên cứu khoa học:</p>
                         <ul>
                             <li>Trung tâm nghiên cứu ứng dụng CNTT trong quản lý kinh tế</li>
@@ -146,7 +146,7 @@ function Introduce(props) {
                 }
                 {
                     check[4] &&
-                    <div class="col-md-9 col-sm-9 abcd">
+                    <div className="col-md-9 col-sm-9 abcd">
                         <p><b>Đại học Khí tượng thủy văn quốc gia Sankt-Peterburg </b>là một cơ sở khoa học hàng đầu ở LB Nga trong lĩnh vực nghiên cứu ứng phó với biến đổi khí hậu và bảo vệ môi trường. Nhiều cán bộ giảng dạy và nghiên cứu khoa học của trường đã tham gia đào tạo và cùng các chuyên gia Việt Nam thực hiện một số dự án về khí tượng thủy văn, nguồn nước mang lại những hiệu quả thiết thực cho cả hai bên.</p>
                         <p>&emsp;Đại học Khí tượng thủy văn quốc gia Sankt-Peterburg có các cơ sở nghiên cứu khoa học chính là:</p>
                         <ul>
@@ -169,7 +169,7 @@ function Introduce(props) {
                     </div>
                 }
                 {check[5] &&
-                    <div class="col-md-9 col-sm-9 abcd">
+                    <div className="col-md-9 col-sm-9 abcd">
                         <p><b>Tổ hợp Khoa học - Sản xuất " Studia  Test " (S T) </b>có trụ sở ở thành phố Matxcova là một Tổ hợp Khoa học- Sản xuất- một khái niệm và danh từ khá phổ biến có từ thời Liên Xô cũ và cũng là đặc thù làm nên sức mạnh của nuóc Nga hiện nay. Đó là tên gọi những cơ sở quy mô lớn đủ nâng lực tổ chức và  liên két hoạt động nghiên cứu úng dụng KHCN với sản xuất kinh doanh. Tổ hợp ST có đội ngũ nghiên cứu khoa học đông đảo nhiều kinh nghiệm với nhiều GS, TS là cộng tác viên đến từ các trường ĐH và Viện nghiên cứu  của LB Nga và từ nuóc ngoài. Ba người lãnh đạo chủ chốt của Tổ hợp ST đều là ba nhà khoa học có kinh nghiệm. Đó là TS Tổng GĐ Roshchin D., Kỹ sư trưởng Vilenchik V. và Chủ tịch HĐ KH TS Gordeenko I. Tổ hợp ST hoạt động đa dạng trên nhiều lĩnh vực công nghệ cao. Tổ hợp ST có nhiều Trung tăm nghiên cứu và chuyển giao công nghệ về CNTT, Tự động hóa giám sát và bảo vệ môi truòng, Điện tử viễn thông, Năng lượng, Vật liệu mới. Một trong những lĩnh vực tạo nên uy tín của Tổ hợp ở nước Nga cũng như nuóc ngoài và làm cho Tổ hợp nhiều năm gắn bó với Việt Nam là ứng dụng công nghê tiên tiến trong giám sát môi truòng và bảo vệ môi trường. Chủ tịch HĐKH của Tổ hợp ST  TS Gordeenko I. đã nhiều lần dẫn đầu các đoàn kỹ sư; kỹ thuật viên của ST sang Việt Nam làm việc. Trong các năm từ 2013 đến 2015 nhóm gia của Tổ hợp ST do  Gordeenko dẫn đầu đã thực hiện nhiều công trình quan trọng về bảo vệ môi truòng ở Việt Nam như:</p>
                         <ul>
                             <li>Khảo sát phân tich ô nhiễm môi trường không khí và nước tại các cụm nhà máy phát thải lớn ở Bắc bộ Việt Nam.</li>

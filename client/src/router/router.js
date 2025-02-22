@@ -1,44 +1,35 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from "react-router-dom";
-import Contact1 from '../modules/contact1/contact1';
-import Home from "../modules/home/home";
-import Introduce from '../modules/introduce/introduce';
-import Library from '../modules/librarys/library';
-import Todo from '../modules/librarys/libraryAdmin';
-import Map_a from '../modules/map/map';
-import Moitruong from '../modules/moitruong/moitruong';
-import Service1 from '../modules/service1/service1';
-import MapNew from '../modules/map_new';
-import QuyHoachKhac from '../modules/quyhoachkhac';
-import axios from 'axios';
-import { useEffect } from 'react';
-import Data from '../modules/data';
-import Import from '../modules/data/import';
-import DanhGiaQuyHoach from '../modules/danhgiaquyhoachkhac';
-import ChienLuocThuyLoi from '../modules/chienluocthuyloi';
-import Contact from '../modules/contact/contact';
-import Dulieu from '../modules/dulieuquyhoach/dulieuquyhoach';
+
+// Sử dụng lazy loading để tối ưu tốc độ tải trang
+const Home = lazy(() => import("../modules/home/home"));
+const MapNew = lazy(() => import("../modules/map_new"));
+const QuyHoachKhac = lazy(() => import("../modules/quyhoachkhac"));
+const DanhGiaQuyHoach = lazy(() => import("../modules/danhgiaquyhoachkhac"));
+const ChienLuocThuyLoi = lazy(() => import("../modules/chienluocthuyloi"));
+const Contact = lazy(() => import("../modules/contact/contact"));
+const Dulieu = lazy(() => import("../modules/dulieuquyhoach/dulieuquyhoach"));
+const Import = lazy(() => import("../modules/data/import"));
+
+// Tạo component loading đơn giản
+const Loading = () => <div></div>;
 
 function Router() {
     return (
-    <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/home" element={<Home/>} />
-      <Route path="/new-map" element={<MapNew/>} />
-      <Route path="/quy-hoach-khac" element={<QuyHoachKhac/>} />
-      <Route path="/danh-gia-quy-hoach" element={<DanhGiaQuyHoach/>} />
-      <Route path="/chien-luoc-thuy-loi" element={<ChienLuocThuyLoi/>} />
-      <Route path="/contact" element={<Contact/>} />
-      <Route path="/data" element={<Dulieu/>} />
-      <Route path="/import-data" element={<Import/>} />
-      {/* Ví dụ cách cập nhật các Route khác
-      <Route path="/thu-vien" element={<Library/>} />
-      <Route path="/gioi-thieu" element={<Introduce/>} />
-      <Route path="/map" element={<Map_a/>} />
-      <Route path="/admin_hanh" element={<Todo/>} />
-      <Route path="/contact" element={<Contact1/>} />
-      <Route path="/moi-truong" element={<Moitruong/>} /> */}
-    </Routes>
+        <Suspense fallback={<Loading />}>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/new-map" element={<MapNew />} />
+                <Route path="/quy-hoach-khac" element={<QuyHoachKhac />} />
+                <Route path="/danh-gia-quy-hoach" element={<DanhGiaQuyHoach />} />
+                <Route path="/chien-luoc-thuy-loi" element={<ChienLuocThuyLoi />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/data" element={<Dulieu />} />
+                <Route path="/import-data" element={<Import />} />
+            </Routes>
+        </Suspense>
     );
 }
+
 export default Router;

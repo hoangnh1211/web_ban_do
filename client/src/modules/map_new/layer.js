@@ -343,7 +343,7 @@ export const danhMucQuyHoach = new VectorLayer({
     
     source: new VectorSource({
         // url: 'http://103.184.112.209:8080/geoserver/QuyHoachTL/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson',
-        url: 'http://103.184.112.209:8080/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson',
+        url: 'https://bando.quyhoachthuyloi.vn/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson',
         format: new GeoJSON(),
     }),
     style: combinedStyle,

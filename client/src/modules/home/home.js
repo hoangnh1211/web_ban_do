@@ -1,7 +1,6 @@
 
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import moment from 'moment'
 import Banner from './Banner';
 import "./home.css"
 import { useTheme } from '@mui/material/styles';
@@ -9,26 +8,18 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/system';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import { Box, Typography, List, ListItem, ListItemIcon, Card, CardContent, CardMedia, useMediaQuery } from '@mui/material';
+import { Box, Typography, ListItemIcon, Card, CardContent, CardMedia, useMediaQuery } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import { Link } from "react-router-dom";
 // import Grid from '@mui/material/Grid';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 // import Paper from '@mui/material/Paper';
 import Pagination from '@mui/material/Pagination'
-import { logo_1, logo_2, logo_3, logo_4, logo_5, logo_6, logo_7 } from '../../image/images';
 import CircularProgress from '@mui/material/CircularProgress';
-import Carousel from "react-material-ui-carousel";
-import { Grid, Paper } from "@mui/material";
+import { Grid } from "@mui/material";
 import Test from './test';
 
 
-const CustomDot = styled('div')(({ theme, active }) => ({
+const CustomDot = styled('div')(({ active }) => ({
     width: active ? 45 : 15,
     height: 10,
     borderRadius: 4,
@@ -50,16 +41,6 @@ function Home() {
     const [totalTh, setTotalTh] = useState(0);
     const [totalpageTh, setTotalpageTh] = useState(0);
     const [startIndex, setStartIndex] = useState(0); // Chỉ số bắt đầu hiển thị
-    const logoList = [
-        "https://via.placeholder.com/150?text=Logo+1",
-        "https://via.placeholder.com/150?text=Logo+2",
-        "https://via.placeholder.com/150?text=Logo+3",
-        "https://via.placeholder.com/150?text=Logo+4",
-        "https://via.placeholder.com/150?text=Logo+5",
-        "https://via.placeholder.com/150?text=Logo+6",
-        "https://via.placeholder.com/150?text=Logo+7",
-        "https://via.placeholder.com/150?text=Logo+8",
-    ];
 
     const updateRecordsPerPage = (length = null) => {
         const screenWidth = window.innerWidth;
@@ -119,25 +100,13 @@ function Home() {
         return dots;
     };
 
-    function createData(name, calories, fat, carbs, protein, status) {
-        return { name, calories, fat, carbs, protein, status };
-    }
-    const logos = [
-        { id: 1, src: logo_1, alt: 'Logo 1', link: 'https://iwrp.gov.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI' },
-        { id: 2, src: logo_2, alt: 'Logo 2', link: 'https://www1.cucthuyloi.gov.vn/', text: 'CỤC THUỶ LỢI' },
-        { id: 3, src: logo_3, alt: 'Logo 3', link: 'https://mard.gov.vn/Pages/default.aspx/', text: 'BỘ NÔNG NGHIỆP VÀ PHÁT TRIỂN NÔNG THÔN' },
-        { id: 4, src: logo_4, alt: 'Logo 4', link: 'https://www.siwrp.org.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI MIỀN NAM' },
-        { id: 5, src: logo_5, alt: 'Logo 5', link: 'https://www.tlu.edu.vn/', text: 'TRƯỜNG ĐẠI HỌC THUỶ LỢI' },
-        { id: 6, src: logo_6, alt: 'Logo 6', link: 'https://vawr.org.vn/', text: 'VIỆN KHOA HỌC THUỶ LỢI VIỆT NAM' },
-        { id: 7, src: logo_7, alt: 'Logo 7', link: 'http://www.siwrr.org.vn/?gid=84&id=1191&page=1&lang=', text: 'VIỆN KHOA HỌC THUỶ LỢI MIỀN NAM' },
-    ];
 
 
     return (
         <div className=''>
             <Banner />
-            <div class="mr-7 ml-7">
-                <h2 class="text-center mt-5 mb-5" style={{ fontWeight: 800, lineHeight: '35px', fontSize: "24px", color: "#0B47A2", marginBottom: '30px' }}>QUY HOẠCH ĐÃ ĐƯỢC PHÊ DUYỆT</h2>
+            <div className="mr-7 ml-7">
+                <h2 className="text-center mt-5 mb-5" style={{ fontWeight: 800, lineHeight: '35px', fontSize: "24px", color: "#0B47A2", marginBottom: '30px' }}>QUY HOẠCH ĐÃ ĐƯỢC PHÊ DUYỆT</h2>
                 {!totalTh ? (
                     <Box
                         sx={{
@@ -191,6 +160,7 @@ function Home() {
                                                     sx={{ width: '100%', height: 180, borderRadius: '20px', marginBottom: '15px', transition: 'transform 0.3s ease', }}
                                                     image={process.env.REACT_APP_SERVER + ketquaQuyhoach[activeStep * recordsPerPage + index]?.img} // Replace with your image URL
                                                     alt="River Image"
+                                                    loading="lazy"
                                                 />
                                                 <Typography variant="h6" align="center" sx={{ marginLeft: '5px', marginRight: '5px', color: '#081E8F', fontSize: '16px', fontWeight: 600, lineHeight: '21px', transition: 'color 0.3s ease', }}>
                                                     {ketquaQuyhoach[activeStep * recordsPerPage + index]?.ten_hien_thi}
@@ -230,8 +200,8 @@ function Home() {
                         </div>
                     </React.Fragment>)}
             </div>
-            <div class="mr-13 ml-13" style={{ marginTop: '20px' }}>
-                <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', lineHeight: '35px', fontWeight: 800 }}>CÁC QUY HOẠCH ĐANG THỰC HIỆN</h2>
+            <div className="mr-13 ml-13" style={{ marginTop: '20px' }}>
+                <h2 className="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', lineHeight: '35px', fontWeight: 800 }}>CÁC QUY HOẠCH ĐANG THỰC HIỆN</h2>
                 <Grid container spacing={10}>
                     {quyhoachThucHien && quyhoachThucHien?.length > 0 &&
                         quyhoachThucHien.map(quyhoach => {
@@ -242,6 +212,7 @@ function Home() {
                                         sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 : 200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}
                                         image={process.env.REACT_APP_SERVER + quyhoach.img} // Replace with your image URL
                                         alt="River Image"
+                                        loading="lazy"
                                     />
                                     <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '16px' }}>
                                         <CardContent sx={{ flex: '1 0 auto', padding: 0, paddingBottom: '0px !important' }}>
@@ -361,8 +332,8 @@ function Home() {
                     </React.Fragment>
                 )}
             </div> */}
-            <div class="mr-13 ml-13" style={{ marginTop: '20px' }}>
-                <h2 class="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '40px', lineHeight: '35px', fontWeight: 800 }}>LIÊN KẾT WEBSITE</h2>
+            <div className="mr-13 ml-13" style={{ marginTop: '20px' }}>
+                <h2 className="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '40px', lineHeight: '35px', fontWeight: 800 }}>LIÊN KẾT WEBSITE</h2>
                 <Test/>
             </div>
         </div>

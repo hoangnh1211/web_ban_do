@@ -13,7 +13,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import {useMediaQuery } from '@mui/material';
-import { nav_icon, test1 } from '../../image/images';
 import { Link, useLocation } from "react-router-dom";
 
 const pages = [
@@ -79,8 +78,8 @@ function Header() {
           <Toolbar disableGutters>
             <Avatar sx={{ width: "44px", height: '75px', marginRight:'10px' }}
               component="a"
-              href="http://admin.quyhoachthuyloi.vn/"
-              target="_blank" alt="Remy Sharp" src={nav_icon} />
+              href={process.env.REACT_APP_SERVER}
+              target="_blank" alt="Remy Sharp" src={"image/logo.svg"} />
             <Typography
               variant="h6"
               noWrap
@@ -184,8 +183,8 @@ function Header() {
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt="Remy Sharp" component="a"
-                    href="http://admin.quyhoachthuyloi.vn/"
-                    target="_blank" src={test1} />
+                    href={process.env.REACT_APP_SERVER}
+                    target="_blank" src="image/image.png" />
                 </IconButton>
               </Tooltip>
               <Menu

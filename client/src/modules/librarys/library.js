@@ -23,14 +23,14 @@ function Library() {
         <div>
             { check[0] &&
             <div className="panel ind ">
-                <div class="title-section">
-                    <h2 class="switch-lang" e="Library">Thư viện tài liệu - báo cáo</h2>
+                <div className="title-section">
+                    <h2 className="switch-lang" e="Library">Thư viện tài liệu - báo cáo</h2>
                 </div>
                 <div className='row'>
-                    <div id="question" class="col-md-3 col-sm-3">
-                        <div class="question">
-                            <div class="service-header">
-                                <i class="fa-solid fa-align-justify"></i>
+                    <div id="question" className="col-md-3 col-sm-3">
+                        <div className="question">
+                            <div className="service-header">
+                                <i className="fa-solid fa-align-justify"></i>
                                 <span className='dm'>Danh mục</span>
                             </div>
 
@@ -44,7 +44,7 @@ function Library() {
 
                         </div>
                     </div>
-                    <table class="table table-striped col-md-9 col-sm-9">
+                    <table className="table table-striped col-md-9 col-sm-9">
                         <thead>
                             <tr>
                                 <th scope="col" className='col-1'>STT</th>

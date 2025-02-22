@@ -81,8 +81,8 @@ function MenuLayer(props) {
     return (
         <div id="menuLayer" className=' col-md-3 col-sm-3'>
             <div className='highlight'>
-                <a class="nav-link active "  data-toggle="tab" aria-expanded="true">
-                    <b><i class="fa-solid fa-layer-group"></i> <span>Lớp bản đồ</span></b>
+                <a className="nav-link active "  data-toggle="tab" aria-expanded="true">
+                    <b><i className="fa-solid fa-layer-group"></i> <span>Lớp bản đồ</span></b>
                 </a>
             </div>
             <div className="flex">
@@ -95,7 +95,7 @@ function MenuLayer(props) {
                         className="dropdown__toggle dropdown__list-item"
                     >
                        <b> Nhiệt độ nước biển
-                        <i class="fa-solid fa-caret-down"></i></b>
+                        <i className="fa-solid fa-caret-down"></i></b>
                     </div>
                     {state.activeND && <ul className={"dropdown__list " + (state.activeND ? 'dropdown__list--active' : '')}>{renderOptions(listND)}</ul>}
                 </div>
@@ -104,7 +104,7 @@ function MenuLayer(props) {
                         className="dropdown__toggle dropdown__list-item"
                     >
                         <b>Độ muối nước biển
-                        <i class="fa-solid fa-caret-down"></i></b>
+                        <i className="fa-solid fa-caret-down"></i></b>
                     </div>
                     {state.activeDM && <ul className={"dropdown__list " + (state.activeDM ? 'dropdown__list--active' : '')}>{renderOptions(listDM)}</ul>}
                 </div>
@@ -117,7 +117,7 @@ function MenuLayer(props) {
                         className="dropdown__toggle dropdown__list-item"
                     >
                         <b>Đẳng trị mưa
-                        <i class="fa-solid fa-caret-down"></i></b>
+                        <i className="fa-solid fa-caret-down"></i></b>
                     </div>
                     {state.activeM && <ul className={"dropdown__list " + (state.activeM ? 'dropdown__list--active' : '')}>{renderOptions(listM)}</ul>}
                 </div>
@@ -126,7 +126,7 @@ function MenuLayer(props) {
                         className="dropdown__toggle dropdown__list-item"
                     >
                         <b>Hạn khí tượng (Theo chỉ số SPI)
-                        <i class="fa-solid fa-caret-down"></i></b>
+                        <i className="fa-solid fa-caret-down"></i></b>
                     </div>
                     {state.activeSPI && <ul className={"dropdown__list " + (state.activeSPI ? 'dropdown__list--active' : '')}>{renderOptions(listSPI)}</ul>}
                 </div>
@@ -139,7 +139,7 @@ function MenuLayer(props) {
                         className="dropdown__toggle dropdown__list-item"
                     >
                         <b>Bão và áp thấp nhiệt đới
-                        <i class="fa-solid fa-caret-down"></i></b>
+                        <i className="fa-solid fa-caret-down"></i></b>
                     </div>
                     <ul className={"dropdown__list " + (state.activeSPI ? 'dropdown__list--active' : '')}>
                     <div className="form-check">

@@ -4,16 +4,16 @@ import "./se.css"
 
 function Service1() {
     return (
-        <div id="services" class="section-cotent">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="service-item">
-                            <div class="service-header">
-                                <i class="fa fa-book"></i>
+        <div id="services" className="section-cotent">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-12 col-sm-12">
+                        <div className="service-item">
+                            <div className="service-header">
+                                <i className="fa fa-book"></i>
                                 <h3>Tổng quan đề tài</h3>
                             </div>
-                            <div class="service-description" >
+                            <div className="service-description" >
                                 <p>
                                     <b className='b_1'>Tên đề tài:</b>
                                     <b className='b_2'> Nghiên cứu xây dựng cơ sở khoa học, đề xuất các giải pháp kinh tế kỹ thuật nhằm
@@ -36,27 +36,27 @@ function Service1() {
                             </div>
                         </div>
 
-                        <div class="service-item">
-                            <div class="service-header">
-                                <i class="fa fa-cogs"></i>
+                        <div className="service-item">
+                            <div className="service-header">
+                                <i className="fa fa-cogs"></i>
                                 <h3>Mục tiêu đề tài</h3>
                                 <p className='p_1'> 1. Đưa ra cơ sở khoa học và các giải pháp kinh tế- kỹ thuật nhằm nâng cao năng lực quan trắc, giám sát môi trường và sức khỏe cộng đồng ven biển Đông Bắc bộ, thí điểm tại tỉnh Quảng Ninh</p>
                                 <p className='p_1'> 2. Xây dựng được cơ sở dữ liệu về thực trạng môi trường tác động đến sức khỏe cộng đồng ven biển Đông Bắc bộ, thí điểm tại tỉnh Quảng Ninh</p>
                                 <p className='p_1'> 3. Ứng dụng công nghệ GIS, công nghệ thông tin và viễn thám trong hoạt động nghiên cứu tác động của biến đổi khí hậu (BĐKH) đến môi truòng và sức khỏe cộng đồng.</p>
                                 <p className='p_1'> 4. Đào tạo nâng cao chuyên gia cho Việt Nam trong lĩnh vực bảo vệ môi trường (BVMT), ứng phó với BĐKH.</p>
                                 </div>
-                            <div class="service-description">
+                            <div className="service-description">
                                 <p >
 
                                 </p>
                             </div>
 
                         </div>
-                        <div class="service-item" >
-                            <div class="service-header">
-                                <i class="fa fa-globe" aria-hidden="true"></i><span><h3>Sản phẩm của đề tài</h3></span>
+                        <div className="service-item" >
+                            <div className="service-header">
+                                <i className="fa fa-globe" aria-hidden="true"></i><span><h3>Sản phẩm của đề tài</h3></span>
                             </div>
-                            <div class="service-description">
+                            <div className="service-description">
 
                                 <p className='p_1'>
                                     1. Báo cáo khoa học và bộ CSDL về thực trạng môi trường ven biển Đông Bắc bộ và tỉnh Quảng Ninh trong điều kiện BĐKH.</p>
@@ -73,39 +73,39 @@ function Service1() {
 
                             </div>
                         </div>
-                        <div class="service-item">
-                            <div class="service-header">
-                                <i class="fa fa-cogs"></i>
+                        <div className="service-item">
+                            <div className="service-header">
+                                <i className="fa fa-cogs"></i>
                                 <h3>Các cơ quan phối hợp</h3>
                             </div>
                             <div id="about">
-                                <div class="our-team row">
-                                    <div class="col">
-                                        <div class="team-member">
-                                            <div class="member-img">
+                                <div className="our-team row">
+                                    <div className="col">
+                                        <div className="team-member">
+                                            <div className="member-img">
                                                 <img src="https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/Logo%20IET%20-%20Mau%20chuan.jpg?alt=media&token=afe7affd-fdce-46d5-8776-b8254e495f92" />
                                             </div>
-                                            <div class="inner-content">
+                                            <div className="inner-content">
                                                 <p >Viện Công Nghệ môi trường Viện Hàn lâm khoa học và công nghệ Việt Nam</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="team-member">
-                                            <div class="member-img">
+                                    <div className="col">
+                                        <div className="team-member">
+                                            <div className="member-img">
                                                 <img src="https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/nd123.jpg?alt=media&token=2a21d066-825a-4195-8e4c-caeb84fc6c0f" />
                                             </div>
-                                            <div class="inner-content">
+                                            <div className="inner-content">
                                                 <p >Trường Đại học Y Dược Thái Bình</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="team-member">
-                                            <div class="member-img">
+                                    <div className="col">
+                                        <div className="team-member">
+                                            <div className="member-img">
                                                 <img src="https://firebasestorage.googleapis.com/v0/b/jlpt-80382.appspot.com/o/nd123.jpg?alt=media&token=2a21d066-825a-4195-8e4c-caeb84fc6c0f" />
                                             </div>
-                                            <div class="inner-content">
+                                            <div className="inner-content">
                                                 <p >Trường Đại học Hạ Long - Tỉnh Quảng Ninh</p>
                                             </div>
                                         </div>

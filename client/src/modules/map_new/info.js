@@ -22,8 +22,8 @@ function Info(props) {
                 let layer = value?.id.split(".")[0];
                 return (
                     <div id="tbSolieu">
-                         <p class="hname"><span>{value.properties.ten}</span><a href="#" id="popup-closer" className="ol-popup-closer" onClick={()=>{props.setInfo(false)}}></a> </p>
-                         <div class="info">
+                         <p className="hname"><span>{value.properties.ten}</span><a href="#" id="popup-closer" className="ol-popup-closer" onClick={()=>{props.setInfo(false)}}></a> </p>
+                         <div className="info">
                             {showContent(key_table, value.properties, layer)}
                         </div>
                     </div>

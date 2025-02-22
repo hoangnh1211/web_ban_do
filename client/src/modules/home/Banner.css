@@ -106,7 +106,7 @@ max-width: none;
 top: 10%;
 text-align: center;
 }
-
+/* 
 .banner-1{
 background:url("../../image/1.jpg") no-repeat 0px 0px;
 background-size:cover;
@@ -115,8 +115,8 @@ background-size:cover;
 -o-background-size:cover;
 -ms-background-size:cover;
 height:600px;
-}
-.anhnen{
+} */
+/* .anhnen{
   background:url("../../image/anhnen.png") no-repeat 0px 0px;
   background-size:cover;
   -webkit-background-size:cover;
@@ -124,8 +124,8 @@ height:600px;
   -o-background-size:cover;
   -ms-background-size:cover;
   height:489px;
-  }
-.banner-2{
+  } */
+/* .banner-2{
 background:url("../../image/2.jpg") no-repeat 0px 0px;
 background-size:cover;
 -webkit-background-size:cover;
@@ -160,7 +160,7 @@ background-size:cover;
 -o-background-size:cover;
 -ms-background-size:cover;
 height:600px;
-}
+} */
 .agileits-banner-info {
 margin-left: 20px;
 }

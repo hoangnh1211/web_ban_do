@@ -5,9 +5,10 @@ class Footer extends Component {
     render(){
         return(
             <div className='footer'>
-                <p>Cơ quan chủ quản: <b>Cục Thủy lợi - Bộ Nông nghiệp và Phát triển nông thôn</b></p>
-                <p>Địa chỉ: Số 2, Ngọc Hà, Ba Đình, Hà Nội. </p>
-                <p>Điện thoại: (84-24) 37335706      Fax: (84-24) 37335702</p>
+                <p>Cơ quan chủ quản: <b>Cục Quản lý và XDCTTL - Bộ Nông nghiệp và Môi trường</b></p>
+                <p>Địa chỉ: nhà C số 10 Tôn Thất Thuyết</p>
+                <p>Điện thoại: (84-4) 37338780      Fax: (84-4) 37335702</p>
+                <p>Email: admin@mae.gov.vn; webmaster@mae.gov.vn; portalmaster@mae.gov.vn;</p>
                 <p>Phát triển nội dung: <b>Viện Quy hoạch Thuỷ Lợi </b></p>
                 <p style={{
                         display: "flex",

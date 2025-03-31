@@ -48,7 +48,6 @@ const AutoScrollCarousel = ({ items, itemsPerPage = 4, autoScrollInterval = 5000
                                     image={logo.src}
                                     alt={logo.alt}
                                     sx={{ height: 100, width: 'auto' }}
-                                    loading="lazy" // Adjust width and margin as needed
                                 />
                             </a>
                             <Box
@@ -97,7 +96,7 @@ const AutoScrollCarousel = ({ items, itemsPerPage = 4, autoScrollInterval = 5000
 
 export default function Test() {
     const items = [
-        { id: 1, src: "logo_1.png", alt: 'Logo 1', link: 'https://iwrp.gov.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI' },
+        { id: 1, src: 'image/logo_1.png', alt: 'Logo 1', link: 'https://iwrp.gov.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI' },
         { id: 2, src: 'image/logo_2.png', alt: 'Logo 2', link: 'https://www1.cucthuyloi.gov.vn/', text: 'CỤC THUỶ LỢI' },
         { id: 3, src: 'image/logo_3.jpg', alt: 'Logo 3', link: 'https://mard.gov.vn/Pages/default.aspx/', text: 'BỘ NÔNG NGHIỆP VÀ PHÁT TRIỂN NÔNG THÔN' },
         { id: 4, src: 'image/logo_4.png', alt: 'Logo 4', link: 'https://www.siwrp.org.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI MIỀN NAM' },

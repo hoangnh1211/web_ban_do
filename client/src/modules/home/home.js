@@ -160,7 +160,6 @@ function Home() {
                                                     sx={{ width: '100%', height: 180, borderRadius: '20px', marginBottom: '15px', transition: 'transform 0.3s ease', }}
                                                     image={process.env.REACT_APP_SERVER + ketquaQuyhoach[activeStep * recordsPerPage + index]?.img} // Replace with your image URL
                                                     alt="River Image"
-                                                    loading="lazy"
                                                 />
                                                 <Typography variant="h6" align="center" sx={{ marginLeft: '5px', marginRight: '5px', color: '#081E8F', fontSize: '16px', fontWeight: 600, lineHeight: '21px', transition: 'color 0.3s ease', }}>
                                                     {ketquaQuyhoach[activeStep * recordsPerPage + index]?.ten_hien_thi}
@@ -212,7 +211,6 @@ function Home() {
                                         sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 : 200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}
                                         image={process.env.REACT_APP_SERVER + quyhoach.img} // Replace with your image URL
                                         alt="River Image"
-                                        loading="lazy"
                                     />
                                     <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '16px' }}>
                                         <CardContent sx={{ flex: '1 0 auto', padding: 0, paddingBottom: '0px !important' }}>

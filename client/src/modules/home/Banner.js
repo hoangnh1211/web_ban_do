@@ -7,7 +7,7 @@ class Banner extends Component {
         return(
           <div id="carouselExampleInterval" className="carousel slide banner" data-ride="carousel">
           <div className="carousel-inner">
-            <Banner_img content="QUY HOẠCH THỦY LỢI" img={`image/anhnen.png`} active={true} classimg="w3layouts-banner-top anhnen"></Banner_img>
+            <Banner_img content="QUY HOẠCH THỦY LỢI" img={`image/anhnen-min.png`} active={true} classimg="w3layouts-banner-top anhnen"></Banner_img>
             {/* <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_2} classimg="w3layouts-banner-top banner-2"></Banner_img>
             <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_3} classimg="w3layouts-banner-top banner-3"></Banner_img>
             <Banner_img content="QUY HOẠCH THỦY LỢI" img={banner_4} classimg="w3layouts-banner-top banner-4"></Banner_img>

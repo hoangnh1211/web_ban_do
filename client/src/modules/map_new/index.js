@@ -1,29 +1,17 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Map, View } from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
 import 'ol/ol.css';
-import * as olExtent from 'ol/extent';
 import * as olStyle from 'ol/style';
 
-import TileWMS from 'ol/source/TileWMS';
 import ImageWMS from 'ol/source/ImageWMS';
-import ImageLayer from 'ol/layer/Image';
 import axios from 'axios';
 import Table from './table';
 import Overlay from 'ol/Overlay';
 import "./map.css"
-import Chart from '../chart/chart';
 import MenuLayer from './menuLayer';
-import { geturl } from '../../firebase/firebase';
-import { listLayer, listLayerData, ListLayer, danhMucQuyHoach, styles } from './layer'
-import { fromLonLat, toLonLat } from 'ol/proj';
+import { listLayer, listLayerData, danhMucQuyHoach } from './layer'
 import Info from './info';
 import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
-import GeoJSON from 'ol/format/GeoJSON';
-import { transform } from 'ol/proj';
-import Header from '../intro/header';
 
 function MapNew() {
     const [map, setMap] = useState();
@@ -32,7 +20,6 @@ function MapNew() {
     const [dataMap, setDataMap] = useState(null);
     const [showInfo, setShowInfo] = useState(false);
     const [getData, setGetData] = useState(false);
-    const [danhmucVector, setDanhmucVector] = useState([]);
     const [dataCheck, setDataCheck] = useState(false);
     useEffect(()=>{
         const vectorSource = danhMucQuyHoach.getSource();
@@ -67,7 +54,6 @@ function MapNew() {
         }
     },[])
     useEffect(() => {
-        const source = new VectorSource();
         // fetch('http://103.184.112.209:8080/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson')
         //     .then(response => response.json())
         //     .then(data => {
@@ -298,7 +284,7 @@ function MapNew() {
             return style;
         }
 
-        const combinedStyleHl = function (feature, resolution) {
+        const combinedStyleHl = function (feature) {
             let style;
 
             style = new olStyle.Style({

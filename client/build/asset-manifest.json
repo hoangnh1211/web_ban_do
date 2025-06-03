@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3dc4a527.css",
+    "main.js": "/static/js/main.a208d44d.js",
+    "static/media/2.jpg": "/static/media/2.54174886058615bcc95b.jpg",
+    "static/media/4.jpg": "/static/media/4.b681de04c471fee73da2.jpg",
+    "static/media/vietnam.png": "/static/media/vietnam.119219f959f51b7788af.png",
+    "static/media/3.jpg": "/static/media/3.4de7132760c5c035293b.jpg",
+    "index.html": "/index.html",
+    "main.3dc4a527.css.map": "/static/css/main.3dc4a527.css.map",
+    "main.a208d44d.js.map": "/static/js/main.a208d44d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3dc4a527.css",
+    "static/js/main.a208d44d.js"
+  ]
+}

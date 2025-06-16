@@ -1,4 +1,4 @@
-import TileWMS from 'ol/source/TileWMS';
+/* eslint-disable no-undef */
 import ImageWMS from 'ol/source/ImageWMS';
 import ImageLayer from 'ol/layer/Image';
 import XYZ from 'ol/source/XYZ';
@@ -262,19 +262,6 @@ const googleterriar = new TileLayer({
 //     visible: false,
 // })
 
-// Định nghĩa màu sắc và kích thước cho vùng
-const fill = new Fill({
-    color: 'transparent',
-    opacity: 0, // Độ trong suốt
-});
-
-// Định nghĩa màu và độ dày của đường viền
-const stroke = new Stroke({
-    color: '#ff0000',
-    width: 1,
-    lineJoin: 'bevel',
-});
-
 // Tạo các đối tượng style dựa trên các quy tắc từ XML
 export const combinedStyle = function (feature, resolution) {
     let style;
@@ -364,6 +351,111 @@ const heSotuoitiieu = new ImageLayer({
     visible: false,
 })
 
+const CTQH_SongBa_V2 = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:CTQH_SongBa_V2',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
+const CTNC_SongBa_1 = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:CTNC_SongBa_1',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
+const naovettructieu_songba_v1 = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:naovettructieu_songba_v1',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
+const longho_dk_songba = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:longho_dk_songba',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: true,
+})
+
+const BoVung_SongBa_V2 = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:BoVung_SongBa_V2',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: true,
+})
+
+const BoVung_SongBa_V1 = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:BoVung_SongBa_V1',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: true,
+})
+
+const PhanVungTuoi_SongBa = new ImageLayer({
+    source: new ImageWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:PhanVungTuoi_SongBa',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
 export const ListLayer = [
     {
         id: 'nendiahinh',
@@ -394,6 +486,18 @@ export const ListLayer = [
         layer: heThongThuyLoiNangCap,
     },
     {
+        id: 'PhanVungTuoi_SongBa',
+        layer: PhanVungTuoi_SongBa,
+    },
+    {
+        id: 'BoVung_SongBa_V2',
+        layer: BoVung_SongBa_V2,
+    },
+    {
+        id: 'BoVung_SongBa_V1',
+        layer: BoVung_SongBa_V1,
+    },
+    {
         id: 'heSotuoitiieu',
         layer: heSotuoitiieu,
     },
@@ -420,6 +524,10 @@ export const ListLayer = [
     {
         id: 'bungHoDuKien',
         layer: bungHoDuKien,
+    },
+        {
+        id: 'longho_dk_songba',
+        layer: longho_dk_songba,
     },
     {
         id: 'songsuoi_vung',
@@ -464,18 +572,31 @@ export const ListLayer = [
         layer: tuyenChuyenNuoc,
     },
     {
+        id: 'naovettructieu_songba_v1',
+        layer: naovettructieu_songba_v1,
+    },
+    {
         id: 'congTrinhNangCap',
         layer: congTrinhNangCap,
     },
     {
+        id: 'CTNC_SongBa_1',
+        layer: CTNC_SongBa_1,
+    },
+    {
         id: 'congTrinhQuyHoach',
         layer: congTrinhQuyHoach,
-    }
+    },
+    {
+        id: 'CTQH_SongBa_V2',
+        layer: CTQH_SongBa_V2,
+    },
 ];
 
 export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
-export const listLayerData = [congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, danhMucQuyHoach,heThongThuyLoiNangCap
+console.log(CTNC_SongBa_1, CTQH_SongBa_V2)
+export const listLayerData = [CTQH_SongBa_V2, congTrinhQuyHoach, CTNC_SongBa_1, congTrinhNangCap, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach,heThongThuyLoiNangCap
     // ,thuyDien
     ,tramBom,cong,dapHoChuaLon, heSotuoitiieu]
 // export const listLayerData = [heSotuoitiieu,danhMucQuyHoach,dapHoChuaLon, cong, tramBom, thuyDien,congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, heThongThuyLoiNangCap]

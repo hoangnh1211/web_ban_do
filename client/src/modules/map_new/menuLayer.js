@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { countLayer, ListLayer } from "./layer";
+import { ListLayer } from "./layer";
 import "./map.css";
 import { Spinner } from "react-bootstrap";
 
@@ -31,7 +33,6 @@ function MenuLayer(props) {
     },
   });
 
-  const [showInfo, setShowInfo] = useState(false);
   const [listCongTrinhHienTrang, setListCongTrinhHienTrang] = useState({
     data: [
       {
@@ -126,6 +127,36 @@ function MenuLayer(props) {
     show: true,
     class: "fa-solid fa-caret-down",
   });
+  const [listSongBa, setListSongBa] = useState({
+    data: [
+      {
+        value: "Xây mới: Công trình",
+        index: [ListLayer.findIndex((value) => value.id === "CTQH_SongBa_V2")],
+        check: false,
+        show: false,
+      },
+      {
+        value: "Công trình nâng cấp",
+        index: [ListLayer.findIndex((value) => value.id === "CTNC_SongBa_1")],
+        check: false,
+        show: false,
+      },
+      {
+        value: "Nạo vét trục tiêu",
+        index: [ListLayer.findIndex((value) => value.id === "naovettructieu_songba_v1")],
+        check: false,
+        show: false,
+      },
+      {
+        value: "Phân vùng tưới",
+        index: [ListLayer.findIndex((value) => value.id === "PhanVungTuoi_SongBa")],
+        check: false,
+        show: false,
+      },
+    ],
+    show: true,
+    class: "fa-solid fa-caret-down",
+  });
   const [listBando, setListBando] = useState({
     show: true,
     class: "fa-solid fa-caret-down",
@@ -139,8 +170,56 @@ function MenuLayer(props) {
   };
   const [showBanDoQuyHoach, setShowBanDoQuyHoach] = useState(true);
   const [showThuyLoi, setShowThuyLoi] = useState(false);
+  const [showSongBa, setShowSongBa] = useState(false);
   const [showCongTrinhHienTrang, setShowCongTrinhHienTrang] = useState(true);
   const [showCongTrinh, setShowCongTrinh] = useState(true);
+  const showAllSongBa = (check1 = null) => {
+    let check = (check1 !== null) ? check1 : !showSongBa;
+    let data= [
+      {
+        value: "Xây mới: Công trình",
+        index: [ListLayer.findIndex((value) => value.id === "CTQH_SongBa_V2")],
+        check: check,
+        show: false,
+      },
+      {
+        value: "Công trình nâng cấp",
+        index: [ListLayer.findIndex((value) => value.id === "CTNC_SongBa_1")],
+        check: check,
+        show: false,
+      },
+      {
+        value: "Nạo vét trục tiêu",
+        index: [ListLayer.findIndex((value) => value.id === "naovettructieu_songba_v1")],
+        check: check,
+        show: false,
+      },
+      {
+        value: "Phân vùng tưới",
+        index: [ListLayer.findIndex((value) => value.id === "PhanVungTuoi_SongBa")],
+        check: check,
+        show: false,
+      },
+    ];
+
+    setListSongBa({
+      data: data,
+      show: true,
+      class: "fa-solid fa-caret-down",
+    });
+    data.map((value) => {
+      if (check) {
+        value.index.forEach(element => {
+          props.ShowLayersVisibility(element);
+        });
+      } else {
+        value.index.forEach(element => {
+          props.HideLayersVisibility(element);
+        });
+      }
+    });
+    setShowSongBa(!showSongBa);
+  }
   const showAllThuyloi = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showThuyLoi;
     let data = [
@@ -184,6 +263,8 @@ function MenuLayer(props) {
     setShowCongTrinhHienTrang(!showBanDoQuyHoach)
     setShowCongTrinh(!showBanDoQuyHoach)
     setShowBanDoQuyHoach(!showBanDoQuyHoach);
+    showAllSongBa(!showBanDoQuyHoach)
+    setShowSongBa(!showBanDoQuyHoach)
   };
   const showAllCongTrinh = (check1 = null) => {
 
@@ -240,17 +321,15 @@ function MenuLayer(props) {
       class: "fa-solid fa-caret-down",
     });
     data.map((value) => {
-      data.map((value) => {
-        if (check) {
-          value.index.forEach(element => {
-            props.ShowLayersVisibility(element);
-          });
-        } else {
-          value.index.forEach(element => {
-            props.HideLayersVisibility(element);
-          });
-        }
-      });
+      if (check) {
+        value.index.forEach(element => {
+          props.ShowLayersVisibility(element);
+        });
+      } else {
+        value.index.forEach(element => {
+          props.HideLayersVisibility(element);
+        });
+      }
     });
     setShowCongTrinh(!showCongTrinh);
   };
@@ -324,7 +403,7 @@ function MenuLayer(props) {
     });
   };
 
-  const renderDanhMuc = (data, callback) => {
+  const renderDanhMuc = (data) => {
     let value = data.data.sort((a, b) => a.objectid - b.objectid);
 
     value = [
@@ -353,7 +432,7 @@ function MenuLayer(props) {
       );
     }
 
-    return value.map((option, i) => {
+    return value.map((option) => {
       return (
         <div
           className="form-check"
@@ -448,7 +527,7 @@ function MenuLayer(props) {
                   type="checkbox"
                   value={dataDanhMuc.value.check}
                   id="a61"
-                  onChange={(e) => {
+                  onChange={() => {
                     let check = !dataDanhMuc.value.check;
                     dataDanhMuc.value.check = !dataDanhMuc.value.check;
                     props.setDataCheck(true);
@@ -664,6 +743,55 @@ function MenuLayer(props) {
               {listThuyHe.show && (
                 <ul className={"dropdown__list " + "dropdown__list--active"}>
                   {renderOptions(listThuyHe, setListThuyHe)}
+                </ul>
+              )}
+              <div className="dropdown__toggle dropdown__list-item">
+                <b>
+                  <i
+                    className={listSongBa.class}
+                    onClick={() => {
+                      setListSongBa({
+                        ...listSongBa,
+                        show: !listSongBa.show,
+                        class: !listSongBa.show
+                          ? "fa-solid fa-caret-down"
+                          : "fa-solid fa-caret-right",
+                      });
+                    }}
+                  ></i>
+                  <span className="icon-layer">
+                    <input
+                      style={{ marginLeft: "5px" }}
+                      type="checkbox"
+                      value=""
+                      checked={showThuyLoi}
+                      id="a61"
+                      onChange={() => showAllSongBa()}
+                    />
+                  </span>
+                  <span
+                    style={{
+                      marginLeft: "5px",
+                      fontSize: "16px",
+                      // fontFamily: "Manrope, Roboto, Helvetica, Arial, sans-serif",
+                    }}
+                    onClick={() => {
+                      setListSongBa({
+                        ...listSongBa,
+                        show: !listSongBa.show,
+                        class: !listSongBa.show
+                          ? "fa-solid fa-caret-down"
+                          : "fa-solid fa-caret-right",
+                      });
+                    }}
+                  >
+                    Quy hoạch sông Ba
+                  </span>
+                </b>
+              </div>
+              {listSongBa.show && (
+                <ul className={"dropdown__list " + "dropdown__list--active"}>
+                  {renderOptions(listSongBa, setListSongBa)}
                 </ul>
               )}
             </ul>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect, useRef } from 'react';
 import { Map, View } from 'ol';
 import 'ol/ol.css';

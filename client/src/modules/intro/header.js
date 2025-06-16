@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-key */
+/* eslint-disable no-undef */
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,8 +13,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import {useMediaQuery } from '@mui/material';
 import { Link, useLocation } from "react-router-dom";
 
 const pages = [
@@ -70,7 +70,6 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('xl'));
   return (
     <div>
       <AppBar position={(location.pathname == '/quy-hoach-khac' || location.pathname == '/danh-gia-quy-hoach'|| location.pathname == '/chien-luoc-thuy-loi') ? "fixed" : "static"}>

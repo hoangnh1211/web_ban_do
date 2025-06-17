@@ -764,7 +764,7 @@ function MenuLayer(props) {
                       style={{ marginLeft: "5px" }}
                       type="checkbox"
                       value=""
-                      checked={showThuyLoi}
+                      checked={showSongBa}
                       id="a61"
                       onChange={() => showAllSongBa()}
                     />

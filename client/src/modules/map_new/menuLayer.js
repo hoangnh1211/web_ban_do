@@ -142,6 +142,12 @@ function MenuLayer(props) {
         show: false,
       },
       {
+        value: "Tuyến chuyển nước",
+        index: [ListLayer.findIndex((value) => value.id === "tuyenchuyennuoc_SongBa")],
+        check: false,
+        show: false,
+      },
+      {
         value: "Nạo vét trục tiêu",
         index: [ListLayer.findIndex((value) => value.id === "naovettructieu_songba_v1")],
         check: false,
@@ -150,6 +156,36 @@ function MenuLayer(props) {
       {
         value: "Phân vùng tưới",
         index: [ListLayer.findIndex((value) => value.id === "PhanVungTuoi_SongBa")],
+        check: false,
+        show: false,
+      },
+    ],
+    show: true,
+    class: "fa-solid fa-caret-down",
+  });
+  const [listSongHuong, setListSongHuong] = useState({
+    data: [
+      {
+        value: "Xây mới: Công trình",
+        index: [ListLayer.findIndex((value) => value.id === "CTQH_songhuong")],
+        check: false,
+        show: false,
+      },
+      {
+        value: "Công trình nâng cấp",
+        index: [ListLayer.findIndex((value) => value.id === "CTNC_songhuong")],
+        check: false,
+        show: false,
+      },
+      {
+        value: "Tuyến chuyển nước",
+        index: [ListLayer.findIndex((value) => value.id === "TuyenChuyenNuoc_songhuong")],
+        check: false,
+        show: false,
+      },
+      {
+        value: "Phân vùng tưới",
+        index: [ListLayer.findIndex((value) => value.id === "phanvungtuoi_songhuong")],
         check: false,
         show: false,
       },
@@ -171,6 +207,7 @@ function MenuLayer(props) {
   const [showBanDoQuyHoach, setShowBanDoQuyHoach] = useState(true);
   const [showThuyLoi, setShowThuyLoi] = useState(false);
   const [showSongBa, setShowSongBa] = useState(false);
+  const [showSongHuong, setShowSongHuong] = useState(false);
   const [showCongTrinhHienTrang, setShowCongTrinhHienTrang] = useState(true);
   const [showCongTrinh, setShowCongTrinh] = useState(true);
   const showAllSongBa = (check1 = null) => {
@@ -185,6 +222,12 @@ function MenuLayer(props) {
       {
         value: "Công trình nâng cấp",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_SongBa_1")],
+        check: check,
+        show: false,
+      },
+      {
+        value: "Tuyến chuyển nước",
+        index: [ListLayer.findIndex((value) => value.id === "tuyenchuyennuoc_SongBa")],
         check: check,
         show: false,
       },
@@ -219,6 +262,54 @@ function MenuLayer(props) {
       }
     });
     setShowSongBa(!showSongBa);
+  }
+
+  const showAllSongHuong = (check1 = null) => {
+    let check = (check1 !== null) ? check1 : !showSongHuong;
+    let data= [
+      {
+        value: "Xây mới: Công trình",
+        index: [ListLayer.findIndex((value) => value.id === "CTQH_songhuong")],
+        check: check,
+        show: false,
+      },
+      {
+        value: "Công trình nâng cấp",
+        index: [ListLayer.findIndex((value) => value.id === "CTNC_songhuong")],
+        check: check,
+        show: false,
+      },
+      {
+        value: "Tuyến chuyển nước",
+        index: [ListLayer.findIndex((value) => value.id === "TuyenChuyenNuoc_songhuong")],
+        check: check,
+        show: false,
+      },
+      {
+        value: "Phân vùng tưới",
+        index: [ListLayer.findIndex((value) => value.id === "phanvungtuoi_songhuong")],
+        check: check,
+        show: false,
+      },
+    ];
+
+    setListSongHuong({
+      data: data,
+      show: true,
+      class: "fa-solid fa-caret-down",
+    });
+    data.map((value) => {
+      if (check) {
+        value.index.forEach(element => {
+          props.ShowLayersVisibility(element);
+        });
+      } else {
+        value.index.forEach(element => {
+          props.HideLayersVisibility(element);
+        });
+      }
+    });
+    setShowSongHuong(!showSongHuong);
   }
   const showAllThuyloi = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showThuyLoi;
@@ -265,6 +356,8 @@ function MenuLayer(props) {
     setShowBanDoQuyHoach(!showBanDoQuyHoach);
     showAllSongBa(!showBanDoQuyHoach)
     setShowSongBa(!showBanDoQuyHoach)
+    showAllSongHuong(!showBanDoQuyHoach)
+    setShowSongHuong(!showBanDoQuyHoach)
   };
   const showAllCongTrinh = (check1 = null) => {
 
@@ -792,6 +885,55 @@ function MenuLayer(props) {
               {listSongBa.show && (
                 <ul className={"dropdown__list " + "dropdown__list--active"}>
                   {renderOptions(listSongBa, setListSongBa)}
+                </ul>
+              )}
+              <div className="dropdown__toggle dropdown__list-item">
+                <b>
+                  <i
+                    className={listSongHuong.class}
+                    onClick={() => {
+                      setListSongHuong({
+                        ...listSongHuong,
+                        show: !listSongHuong.show,
+                        class: !listSongHuong.show
+                          ? "fa-solid fa-caret-down"
+                          : "fa-solid fa-caret-right",
+                      });
+                    }}
+                  ></i>
+                  <span className="icon-layer">
+                    <input
+                      style={{ marginLeft: "5px" }}
+                      type="checkbox"
+                      value=""
+                      checked={showSongHuong}
+                      id="a61"
+                      onChange={() => showAllSongHuong()}
+                    />
+                  </span>
+                  <span
+                    style={{
+                      marginLeft: "5px",
+                      fontSize: "16px",
+                      // fontFamily: "Manrope, Roboto, Helvetica, Arial, sans-serif",
+                    }}
+                    onClick={() => {
+                      setListSongHuong({
+                        ...listSongHuong,
+                        show: !listSongHuong.show,
+                        class: !listSongHuong.show
+                          ? "fa-solid fa-caret-down"
+                          : "fa-solid fa-caret-right",
+                      });
+                    }}
+                  >
+                    Quy hoạch sông Hương
+                  </span>
+                </b>
+              </div>
+              {listSongHuong.show && (
+                <ul className={"dropdown__list " + "dropdown__list--active"}>
+                  {renderOptions(listSongHuong, setListSongHuong)}
                 </ul>
               )}
             </ul>

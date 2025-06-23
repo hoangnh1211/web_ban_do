@@ -10,6 +10,7 @@ const ChienLuocThuyLoi = lazy(() => import("../modules/chienluocthuyloi"));
 const Contact = lazy(() => import("../modules/contact/contact"));
 const Dulieu = lazy(() => import("../modules/dulieuquyhoach/dulieuquyhoach"));
 const Import = lazy(() => import("../modules/data/import"));
+const MapNewTile = lazy(() => import("../modules/map_new/indexTile"));
 
 // Tạo component loading đơn giản
 const Loading = () => <div></div>;
@@ -21,6 +22,7 @@ function Router() {
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/new-map" element={<MapNew />} />
+                <Route path="/new-map-tile" element={<MapNewTile />} />
                 <Route path="/quy-hoach-khac" element={<QuyHoachKhac />} />
                 <Route path="/danh-gia-quy-hoach" element={<DanhGiaQuyHoach />} />
                 <Route path="/chien-luoc-thuy-loi" element={<ChienLuocThuyLoi />} />

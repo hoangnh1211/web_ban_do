@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
-import ImageWMS from 'ol/source/ImageWMS';
-import ImageLayer from 'ol/layer/Image';
 import XYZ from 'ol/source/XYZ';
 import TileLayer from 'ol/layer/Tile';
+import TileWMS from 'ol/source/TileWMS';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
@@ -10,9 +9,9 @@ import { Style, Fill, Stroke, Text } from 'ol/style';
 
 export const urlConfig = process.env.REACT_APP_SERVER_MAP;
 export const format = 'image/png';
-export const bungHoDuKien = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const bungHoDuKien = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -24,9 +23,9 @@ export const bungHoDuKien = new ImageLayer({
     })
 });
 
-export const heThongThuyLoiNangCap = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const heThongThuyLoiNangCap = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -39,9 +38,9 @@ export const heThongThuyLoiNangCap = new ImageLayer({
     visible: false,
 });
 
-export const tuyenChuyenNuoc = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const tuyenChuyenNuoc = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -53,9 +52,9 @@ export const tuyenChuyenNuoc = new ImageLayer({
     }),
 });
 
-export const congTrinhNangCap = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const congTrinhNangCap = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -67,9 +66,9 @@ export const congTrinhNangCap = new ImageLayer({
     })
 });
 
-export const congTrinhQuyHoach = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const congTrinhQuyHoach = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -81,9 +80,9 @@ export const congTrinhQuyHoach = new ImageLayer({
     })
 });
 
-export const bungHoChua = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const bungHoChua = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -95,9 +94,9 @@ export const bungHoChua = new ImageLayer({
     })
 });
 
-export const thuyDien = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const thuyDien = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -110,9 +109,9 @@ export const thuyDien = new ImageLayer({
     visible: false,
 });
 
-export const deBien = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const deBien = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -124,9 +123,9 @@ export const deBien = new ImageLayer({
     })
 });
 
-export const deSong = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const deSong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -138,9 +137,9 @@ export const deSong = new ImageLayer({
     })
 });
 
-export const tramBom = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const tramBom = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -153,9 +152,9 @@ export const tramBom = new ImageLayer({
     visible: true,
 });
 
-export const cong = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const cong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -168,9 +167,9 @@ export const cong = new ImageLayer({
     visible: true,
 });
 
-export const dapHoChuaLon = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const dapHoChuaLon = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -183,9 +182,9 @@ export const dapHoChuaLon = new ImageLayer({
     visible: true,
 });
 
-export const heThongThuyLoi = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const heThongThuyLoi = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -198,9 +197,9 @@ export const heThongThuyLoi = new ImageLayer({
     visible: false,
 });
 
-export const naoVetHeThongThayThe = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+export const naoVetHeThongThayThe = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -247,9 +246,9 @@ const googleterriar = new TileLayer({
     })
 });
 
-// export const danhMucQuyHoach = new ImageLayer({
-//     source: new ImageWMS({
-//         ratio: 1,
+// export const danhMucQuyHoach = new TileLayer({
+//     source: new TileWMS({
+//         ratio: 1,tileSize: 256,
 //         url: urlConfig,
 //         params: {
 //             'FORMAT': format,
@@ -336,9 +335,9 @@ export const danhMucQuyHoach = new VectorLayer({
     style: combinedStyle,
 })
 
-const heSotuoitiieu = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const heSotuoitiieu = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -351,9 +350,9 @@ const heSotuoitiieu = new ImageLayer({
     visible: false,
 })
 
-const CTQH_SongBa_V2 = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const CTQH_SongBa_V2 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -366,9 +365,9 @@ const CTQH_SongBa_V2 = new ImageLayer({
     visible: false,
 })
 
-const CTNC_SongBa_1 = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const CTNC_SongBa_1 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -381,9 +380,9 @@ const CTNC_SongBa_1 = new ImageLayer({
     visible: false,
 })
 
-const naovettructieu_songba_v1 = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const naovettructieu_songba_v1 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -396,9 +395,9 @@ const naovettructieu_songba_v1 = new ImageLayer({
     visible: false,
 })
 
-const longho_dk_songba = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const longho_dk_songba = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -411,9 +410,9 @@ const longho_dk_songba = new ImageLayer({
     visible: true,
 })
 
-const BoVung_SongBa_V2 = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const BoVung_SongBa_V2 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -426,9 +425,9 @@ const BoVung_SongBa_V2 = new ImageLayer({
     visible: true,
 })
 
-const BoVung_SongBa_V1 = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const BoVung_SongBa_V1 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -441,9 +440,9 @@ const BoVung_SongBa_V1 = new ImageLayer({
     visible: true,
 })
 
-const PhanVungTuoi_SongBa = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const PhanVungTuoi_SongBa = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -456,9 +455,9 @@ const PhanVungTuoi_SongBa = new ImageLayer({
     visible: false,
 })
 
-const tuyenchuyennuoc_SongBa = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const tuyenchuyennuoc_SongBa = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -471,9 +470,9 @@ const tuyenchuyennuoc_SongBa = new ImageLayer({
     visible: false,
 })
 
-const CTQH_songhuong = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const CTQH_songhuong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -486,9 +485,9 @@ const CTQH_songhuong = new ImageLayer({
     visible: false,
 })
 
-const CTNC_songhuong = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const CTNC_songhuong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -501,9 +500,9 @@ const CTNC_songhuong = new ImageLayer({
     visible: false,
 })
 
-const TuyenChuyenNuoc_songhuong = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const TuyenChuyenNuoc_songhuong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -516,9 +515,9 @@ const TuyenChuyenNuoc_songhuong = new ImageLayer({
     visible: false,
 })
 
-const phanvungtuoi_songhuong = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const phanvungtuoi_songhuong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -531,9 +530,9 @@ const phanvungtuoi_songhuong = new ImageLayer({
     visible: false,
 })
 
-const BoVung_SongHuong_1 = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const BoVung_SongHuong_1 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -546,9 +545,9 @@ const BoVung_SongHuong_1 = new ImageLayer({
     visible: true,
 })
 
-const BoVung_SongHuong_2 = new ImageLayer({
-    source: new ImageWMS({
-        ratio: 1,
+const BoVung_SongHuong_2 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,tileSize: 256,
         url: urlConfig,
         params: {
             'FORMAT': format,
@@ -648,9 +647,9 @@ export const ListLayer = [
     },
     {
         id: 'songsuoi_vung',
-        layer: new ImageLayer({
-            source: new ImageWMS({
-                ratio: 1,
+        layer: new TileLayer({
+            source: new TileWMS({
+                ratio: 1,tileSize: 256,
                 url: urlConfig,
                 params: {
                     'FORMAT': format,
@@ -665,9 +664,9 @@ export const ListLayer = [
     },
     {
         id: 'songsuoi_duong',
-        layer: new ImageLayer({
-            source: new ImageWMS({
-                ratio: 1,
+        layer: new TileLayer({
+            source: new TileWMS({
+                ratio: 1,tileSize: 256,
                 url: urlConfig,
                 params: {
                     'FORMAT': format,

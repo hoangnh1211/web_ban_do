@@ -841,55 +841,6 @@ function MenuLayer(props) {
               <div className="dropdown__toggle dropdown__list-item">
                 <b>
                   <i
-                    className={listSongBa.class}
-                    onClick={() => {
-                      setListSongBa({
-                        ...listSongBa,
-                        show: !listSongBa.show,
-                        class: !listSongBa.show
-                          ? "fa-solid fa-caret-down"
-                          : "fa-solid fa-caret-right",
-                      });
-                    }}
-                  ></i>
-                  <span className="icon-layer">
-                    <input
-                      style={{ marginLeft: "5px" }}
-                      type="checkbox"
-                      value=""
-                      checked={showSongBa}
-                      id="a61"
-                      onChange={() => showAllSongBa()}
-                    />
-                  </span>
-                  <span
-                    style={{
-                      marginLeft: "5px",
-                      fontSize: "16px",
-                      // fontFamily: "Manrope, Roboto, Helvetica, Arial, sans-serif",
-                    }}
-                    onClick={() => {
-                      setListSongBa({
-                        ...listSongBa,
-                        show: !listSongBa.show,
-                        class: !listSongBa.show
-                          ? "fa-solid fa-caret-down"
-                          : "fa-solid fa-caret-right",
-                      });
-                    }}
-                  >
-                    Quy hoạch sông Ba
-                  </span>
-                </b>
-              </div>
-              {listSongBa.show && (
-                <ul className={"dropdown__list " + "dropdown__list--active"}>
-                  {renderOptions(listSongBa, setListSongBa)}
-                </ul>
-              )}
-              <div className="dropdown__toggle dropdown__list-item">
-                <b>
-                  <i
                     className={listSongHuong.class}
                     onClick={() => {
                       setListSongHuong({
@@ -934,6 +885,55 @@ function MenuLayer(props) {
               {listSongHuong.show && (
                 <ul className={"dropdown__list " + "dropdown__list--active"}>
                   {renderOptions(listSongHuong, setListSongHuong)}
+                </ul>
+              )}
+              <div className="dropdown__toggle dropdown__list-item">
+                <b>
+                  <i
+                    className={listSongBa.class}
+                    onClick={() => {
+                      setListSongBa({
+                        ...listSongBa,
+                        show: !listSongBa.show,
+                        class: !listSongBa.show
+                          ? "fa-solid fa-caret-down"
+                          : "fa-solid fa-caret-right",
+                      });
+                    }}
+                  ></i>
+                  <span className="icon-layer">
+                    <input
+                      style={{ marginLeft: "5px" }}
+                      type="checkbox"
+                      value=""
+                      checked={showSongBa}
+                      id="a61"
+                      onChange={() => showAllSongBa()}
+                    />
+                  </span>
+                  <span
+                    style={{
+                      marginLeft: "5px",
+                      fontSize: "16px",
+                      // fontFamily: "Manrope, Roboto, Helvetica, Arial, sans-serif",
+                    }}
+                    onClick={() => {
+                      setListSongBa({
+                        ...listSongBa,
+                        show: !listSongBa.show,
+                        class: !listSongBa.show
+                          ? "fa-solid fa-caret-down"
+                          : "fa-solid fa-caret-right",
+                      });
+                    }}
+                  >
+                    Quy hoạch sông Ba
+                  </span>
+                </b>
+              </div>
+              {listSongBa.show && (
+                <ul className={"dropdown__list " + "dropdown__list--active"}>
+                  {renderOptions(listSongBa, setListSongBa)}
                 </ul>
               )}
             </ul>

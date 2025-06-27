@@ -21,7 +21,8 @@ export const bungHoDuKien = new ImageLayer({
             "LAYERS": 'QuyHoachTL:bungho_dk1',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: false,
 });
 
 export const heThongThuyLoiNangCap = new ImageLayer({
@@ -51,6 +52,7 @@ export const tuyenChuyenNuoc = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
+    visible: false,
 });
 
 export const congTrinhNangCap = new ImageLayer({
@@ -64,7 +66,8 @@ export const congTrinhNangCap = new ImageLayer({
             "LAYERS": 'QuyHoachTL:CongTrinh_nangcap',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: false,
 });
 
 export const congTrinhQuyHoach = new ImageLayer({
@@ -78,7 +81,8 @@ export const congTrinhQuyHoach = new ImageLayer({
             "LAYERS": 'QuyHoachTL:CongTrinh_XayMoi_18.11',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: false,
 });
 
 export const bungHoChua = new ImageLayer({
@@ -150,7 +154,7 @@ export const tramBom = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: true,
+    visible: false,
 });
 
 export const cong = new ImageLayer({
@@ -165,7 +169,7 @@ export const cong = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: true,
+    visible: false,
 });
 
 export const dapHoChuaLon = new ImageLayer({
@@ -180,7 +184,7 @@ export const dapHoChuaLon = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: true,
+    visible: false,
 });
 
 export const heThongThuyLoi = new ImageLayer({
@@ -483,7 +487,7 @@ const CTQH_songhuong = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const CTNC_songhuong = new ImageLayer({
@@ -498,7 +502,7 @@ const CTNC_songhuong = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const TuyenChuyenNuoc_songhuong = new ImageLayer({
@@ -513,7 +517,7 @@ const TuyenChuyenNuoc_songhuong = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const phanvungtuoi_songhuong = new ImageLayer({

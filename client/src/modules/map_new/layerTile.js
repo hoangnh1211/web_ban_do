@@ -7,7 +7,7 @@ import VectorLayer from 'ol/layer/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Style, Fill, Stroke, Text } from 'ol/style';
 
-export const urlConfig = process.env.REACT_APP_SERVER_MAP;
+export const urlConfig = process.env.REACT_APP_SERVER_MAP_CACHE;
 export const format = 'image/png';
 export const bungHoDuKien = new TileLayer({
     source: new TileWMS({

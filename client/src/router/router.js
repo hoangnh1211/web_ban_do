@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 // Sử dụng lazy loading để tối ưu tốc độ tải trang
 const Home = lazy(() => import("../modules/home/home"));
+const MapNew = lazy(() => import("../modules/map_new"));
 const QuyHoachKhac = lazy(() => import("../modules/quyhoachkhac"));
 const DanhGiaQuyHoach = lazy(() => import("../modules/danhgiaquyhoachkhac"));
 const ChienLuocThuyLoi = lazy(() => import("../modules/chienluocthuyloi"));
@@ -20,7 +21,8 @@ function Router() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/new-map" element={<MapNewTile />} />
+                <Route path="/new-map" element={<MapNew />} />
+                <Route path="/new-map-tile" element={<MapNewTile />} />
                 <Route path="/quy-hoach-khac" element={<QuyHoachKhac />} />
                 <Route path="/danh-gia-quy-hoach" element={<DanhGiaQuyHoach />} />
                 <Route path="/chien-luoc-thuy-loi" element={<ChienLuocThuyLoi />} />

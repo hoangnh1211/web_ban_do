@@ -11,24 +11,25 @@ export const urlConfig = process.env.REACT_APP_SERVER_MAP;
 export const format = 'image/png';
 export const bungHoDuKien = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:bungho_dk1',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: false,
 });
 
 export const heThongThuyLoiNangCap = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:NangCap_HTTL_V1',
@@ -40,52 +41,55 @@ export const heThongThuyLoiNangCap = new TileLayer({
 
 export const tuyenChuyenNuoc = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:TuyenChuyenNuoc',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
+    visible: false,
 });
 
 export const congTrinhNangCap = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:CongTrinh_nangcap',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: false,
 });
 
 export const congTrinhQuyHoach = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:CongTrinh_XayMoi_18.11',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
-    })
+    }),
+    visible: false,
 });
 
 export const bungHoChua = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:BungHo_V1',
@@ -96,10 +100,10 @@ export const bungHoChua = new TileLayer({
 
 export const thuyDien = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:thuydien',
@@ -111,10 +115,10 @@ export const thuyDien = new TileLayer({
 
 export const deBien = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:debien',
@@ -125,10 +129,10 @@ export const deBien = new TileLayer({
 
 export const deSong = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:desong_ht',
@@ -139,55 +143,55 @@ export const deSong = new TileLayer({
 
 export const tramBom = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:trambom',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: true,
+    visible: false,
 });
 
 export const cong = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:cong',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: true,
+    visible: false,
 });
 
 export const dapHoChuaLon = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:hodap_qhqg',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: true,
+    visible: false,
 });
 
 export const heThongThuyLoi = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:httl_vietnam_v1',
@@ -199,10 +203,10 @@ export const heThongThuyLoi = new TileLayer({
 
 export const naoVetHeThongThayThe = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:ht_kenhtruc_naovet_dbscl',
@@ -248,10 +252,10 @@ const googleterriar = new TileLayer({
 
 // export const danhMucQuyHoach = new TileLayer({
 //     source: new TileWMS({
-//         ratio: 1,tileSize: 256,
+//         ratio: 1,tileSize: 256,serverType: 'geoserver',
 //         url: urlConfig,
 //         params: {
-//             'FORMAT': format,
+//             'FORMAT': format,'TILED': true,
 //             'VERSION': '1.1.1',
 //             "STYLES": '',
 //             "LAYERS": 'QuyHoachTL:DanhMucQuyHoach',
@@ -337,10 +341,10 @@ export const danhMucQuyHoach = new VectorLayer({
 
 const heSotuoitiieu = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'QuyHoachTL:HeSoTuoiTieu',
@@ -352,10 +356,10 @@ const heSotuoitiieu = new TileLayer({
 
 const CTQH_SongBa_V2 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:CTQH_SongBa_V2',
@@ -367,10 +371,10 @@ const CTQH_SongBa_V2 = new TileLayer({
 
 const CTNC_SongBa_1 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:CTNC_SongBa_1',
@@ -382,10 +386,10 @@ const CTNC_SongBa_1 = new TileLayer({
 
 const naovettructieu_songba_v1 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:naovettructieu_songba_v1',
@@ -397,10 +401,10 @@ const naovettructieu_songba_v1 = new TileLayer({
 
 const longho_dk_songba = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:longho_dk_songba',
@@ -412,10 +416,10 @@ const longho_dk_songba = new TileLayer({
 
 const BoVung_SongBa_V2 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:BoVung_SongBa_V2',
@@ -427,10 +431,10 @@ const BoVung_SongBa_V2 = new TileLayer({
 
 const BoVung_SongBa_V1 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:BoVung_SongBa_V1',
@@ -442,10 +446,10 @@ const BoVung_SongBa_V1 = new TileLayer({
 
 const PhanVungTuoi_SongBa = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:PhanVungTuoi_SongBa',
@@ -457,10 +461,10 @@ const PhanVungTuoi_SongBa = new TileLayer({
 
 const tuyenchuyennuoc_SongBa = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:tuyenchuyennuoc_SongBa',
@@ -472,55 +476,55 @@ const tuyenchuyennuoc_SongBa = new TileLayer({
 
 const CTQH_songhuong = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:CTQH_songhuong',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const CTNC_songhuong = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:CTNC_songhuong',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const TuyenChuyenNuoc_songhuong = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:TuyenChuyenNuoc_songhuong',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const phanvungtuoi_songhuong = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:phanvungtuoi_songhuong',
@@ -532,10 +536,10 @@ const phanvungtuoi_songhuong = new TileLayer({
 
 const BoVung_SongHuong_1 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:BoVung_SongHuong_1',
@@ -547,10 +551,10 @@ const BoVung_SongHuong_1 = new TileLayer({
 
 const BoVung_SongHuong_2 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,tileSize: 256,
+        ratio: 1,tileSize: 256,serverType: 'geoserver',
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format,'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'songba:BoVung_SongHuong_2',
@@ -649,10 +653,10 @@ export const ListLayer = [
         id: 'songsuoi_vung',
         layer: new TileLayer({
             source: new TileWMS({
-                ratio: 1,tileSize: 256,
+                ratio: 1,tileSize: 256,serverType: 'geoserver',
                 url: urlConfig,
                 params: {
-                    'FORMAT': format,
+                    'FORMAT': format,'TILED': true,
                     'VERSION': '1.1.1',
                     "STYLES": '',
                     "LAYERS": 'QuyHoachTL:SongSuoi_polygon',
@@ -666,10 +670,10 @@ export const ListLayer = [
         id: 'songsuoi_duong',
         layer: new TileLayer({
             source: new TileWMS({
-                ratio: 1,tileSize: 256,
+                ratio: 1,tileSize: 256,serverType: 'geoserver',
                 url: urlConfig,
                 params: {
-                    'FORMAT': format,
+                    'FORMAT': format,'TILED': true,
                     'VERSION': '1.1.1',
                     "STYLES": '',
                     "LAYERS": 'QuyHoachTL:SongSuoi_line',

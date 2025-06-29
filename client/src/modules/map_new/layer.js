@@ -22,7 +22,7 @@ export const bungHoDuKien = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const heThongThuyLoiNangCap = new ImageLayer({
@@ -52,7 +52,7 @@ export const tuyenChuyenNuoc = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const congTrinhNangCap = new ImageLayer({
@@ -67,7 +67,7 @@ export const congTrinhNangCap = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const congTrinhQuyHoach = new ImageLayer({
@@ -82,7 +82,7 @@ export const congTrinhQuyHoach = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const bungHoChua = new ImageLayer({
@@ -154,7 +154,7 @@ export const tramBom = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const cong = new ImageLayer({
@@ -169,7 +169,7 @@ export const cong = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const dapHoChuaLon = new ImageLayer({
@@ -184,7 +184,7 @@ export const dapHoChuaLon = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 });
 
 export const heThongThuyLoi = new ImageLayer({
@@ -214,7 +214,7 @@ export const naoVetHeThongThayThe = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 });
 
 const nendiahinh = new TileLayer({
@@ -367,7 +367,7 @@ const CTQH_SongBa_V2 = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const CTNC_SongBa_1 = new ImageLayer({
@@ -382,7 +382,7 @@ const CTNC_SongBa_1 = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const naovettructieu_songba_v1 = new ImageLayer({
@@ -397,7 +397,7 @@ const naovettructieu_songba_v1 = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const longho_dk_songba = new ImageLayer({
@@ -472,7 +472,7 @@ const tuyenchuyennuoc_SongBa = new ImageLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const CTQH_songhuong = new ImageLayer({

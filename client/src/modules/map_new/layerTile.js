@@ -21,7 +21,7 @@ export const bungHoDuKien = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const heThongThuyLoiNangCap = new TileLayer({
@@ -51,7 +51,7 @@ export const tuyenChuyenNuoc = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const congTrinhNangCap = new TileLayer({
@@ -66,7 +66,7 @@ export const congTrinhNangCap = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const congTrinhQuyHoach = new TileLayer({
@@ -81,7 +81,7 @@ export const congTrinhQuyHoach = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const bungHoChua = new TileLayer({
@@ -153,7 +153,7 @@ export const tramBom = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const cong = new TileLayer({
@@ -168,7 +168,7 @@ export const cong = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: false,
+    visible: true,
 });
 
 export const dapHoChuaLon = new TileLayer({
@@ -183,7 +183,7 @@ export const dapHoChuaLon = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 });
 
 export const heThongThuyLoi = new TileLayer({
@@ -213,7 +213,7 @@ export const naoVetHeThongThayThe = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 });
 
 const nendiahinh = new TileLayer({
@@ -366,7 +366,7 @@ const CTQH_SongBa_V2 = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const CTNC_SongBa_1 = new TileLayer({
@@ -381,7 +381,7 @@ const CTNC_SongBa_1 = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const naovettructieu_songba_v1 = new TileLayer({
@@ -396,7 +396,7 @@ const naovettructieu_songba_v1 = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const longho_dk_songba = new TileLayer({
@@ -471,7 +471,7 @@ const tuyenchuyennuoc_SongBa = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const CTQH_songhuong = new TileLayer({
@@ -649,40 +649,40 @@ export const ListLayer = [
         id: 'longho_dk_songba',
         layer: longho_dk_songba,
     },
-    {
-        id: 'songsuoi_vung',
-        layer: new TileLayer({
-            source: new TileWMS({
-                ratio: 1,tileSize: 256,serverType: 'geoserver',
-                url: urlConfig,
-                params: {
-                    'FORMAT': format,'TILED': true,
-                    'VERSION': '1.1.1',
-                    "STYLES": '',
-                    "LAYERS": 'QuyHoachTL:SongSuoi_polygon',
-                    "exceptions": 'application/vnd.ogc.se_inimage',
-                },
-            }),
-            visible: false,
-        }),
-    },
-    {
-        id: 'songsuoi_duong',
-        layer: new TileLayer({
-            source: new TileWMS({
-                ratio: 1,tileSize: 256,serverType: 'geoserver',
-                url: urlConfig,
-                params: {
-                    'FORMAT': format,'TILED': true,
-                    'VERSION': '1.1.1',
-                    "STYLES": '',
-                    "LAYERS": 'QuyHoachTL:SongSuoi_line',
-                    "exceptions": 'application/vnd.ogc.se_inimage',
-                },
-            }),
-            visible: false,
-        }),
-    },
+    // {
+    //     id: 'songsuoi_vung',
+    //     layer: new TileLayer({
+    //         source: new TileWMS({
+    //             ratio: 1,tileSize: 256,serverType: 'geoserver',
+    //             url: urlConfig,
+    //             params: {
+    //                 'FORMAT': format,'TILED': true,
+    //                 'VERSION': '1.1.1',
+    //                 "STYLES": '',
+    //                 "LAYERS": 'QuyHoachTL:SongSuoi_polygon',
+    //                 "exceptions": 'application/vnd.ogc.se_inimage',
+    //             },
+    //         }),
+    //         visible: false,
+    //     }),
+    // },
+    // {
+    //     id: 'songsuoi_duong',
+    //     layer: new TileLayer({
+    //         source: new TileWMS({
+    //             ratio: 1,tileSize: 256,serverType: 'geoserver',
+    //             url: urlConfig,
+    //             params: {
+    //                 'FORMAT': format,'TILED': true,
+    //                 'VERSION': '1.1.1',
+    //                 "STYLES": '',
+    //                 "LAYERS": 'QuyHoachTL:SongSuoi_line',
+    //                 "exceptions": 'application/vnd.ogc.se_inimage',
+    //             },
+    //         }),
+    //         visible: false,
+    //     }),
+    // },
     {
         id: 'naoVetHeThongThayThe',
         layer: naoVetHeThongThayThe,

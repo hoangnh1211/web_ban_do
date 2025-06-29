@@ -56,32 +56,6 @@ function MapNew() {
         }
     },[])
     useEffect(() => {
-        // fetch('http://103.184.112.209:8080/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=QuyHoachTL%3ADanhMucQuyHoach&maxFeatures=50&outputFormat=application%2Fjson')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         const features = new GeoJSON().readFeatures(data);
-        //         // const transformedFeatures = features.map(feature => {
-        //         //     const geometry = feature.getGeometry().clone();
-        //         //     feature.setGeometry(geometry);
-        //         //     return feature;
-        //         // });
-        //         source.addFeatures(features);
-        //         // setDanhmucVector(data.features)
-        //         setDanhmucVector(new VectorLayer({
-        //             source: source,
-        //             format: new GeoJSON(),
-        //         }))
-        //         // danhMucQuyHoach.setSource(source)
-        //         // danhMucQuyHoach.getSource().refresh();
-        //         // listLayer[ListLayer.findIndex((value) => value.id === 'danhgiaquyhoach')] = new VectorLayer({
-        //         //     source: source,
-        //         //     format: new GeoJSON(),
-        //         // })
-        //         setGetData(true)
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching or parsing data:', error);
-        //     });
         const container = document.getElementById('popup');
         const closer = document.getElementById('popup-closer');
         const overlay = new Overlay({
@@ -117,26 +91,7 @@ function MapNew() {
             size: initialMap.getSize(),
         });
        
-        // danhMucQuyHoach.setStyle(function(feature) {
-        //     // Lấy tỷ lệ hiện tại của bản đồ
-        //     const resolution = initialMap.getView().getZoom();
-        //     console.log(resolution)
-
-        //     // Tìm kiếm style phù hợp với tỷ lệ hiện tại
-        //     // for (let i = 0; i < styles.length; i++) {
-        //     //   const style = styles[i];
-        //     //   if (resolution >= style.minResolution && resolution <= (style.maxResolution || Infinity)) {
-        //     //     return style;
-        //     //   }
-        //     // }
-          
-        //     // // Trả về null nếu không có style nào được tìm thấy
-        //     // return null;
-        //   });
-        // initialMap.on('pointermove', (e) => {
-        //     const coords = fromLonLat(e.coordinate).map(c => c.toFixed(6)); // Định dạng tọa độ
-        //     setCoordinate(coords);
-        // });
+        
         initialMap.on('pointermove', (e) => {
             // const coords = toLonLat(e.coordinate).map(c => c.toFixed(6)); // Chuyển đổi tọa độ sang EPSG:4326 và định dạng
             setCoordinate(e.coordinate.map(c => c.toFixed(4)));
@@ -198,7 +153,8 @@ function MapNew() {
     }
     const toggleLayersVisibility = (index, value) => {
         // const newVisibility = listLayer[index].getVisible();
-        listLayer[index].setVisible(value);
+        console.log(listLayer,listLayer[index], index)
+        // listLayer[index].setVisible(value);
     };
 
     const ShowLayersVisibility = (index) => {

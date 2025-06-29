@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { ListLayer } from "./layer";
+import { ListLayer } from "./layerTile";
 import "./map.css";
 import { Spinner } from "react-bootstrap";
 
@@ -38,7 +38,7 @@ function MenuLayer(props) {
       {
         value: "Hồ đâp hiện trạng",
         index: [ListLayer.findIndex((value) => value.id === "dapHoChuaLon")],
-        check: false,
+        check: true,
         show: true,
       },
       // {
@@ -46,11 +46,11 @@ function MenuLayer(props) {
       //   show: false,
       // },
       {
-        value: "Cống hiện trạng", index: [ListLayer.findIndex((value) => value.id === "cong")], check: false,
+        value: "Cống hiện trạng", index: [ListLayer.findIndex((value) => value.id === "cong")], check: true,
         show: true,
       },
       {
-        value: "Trạm bơm hiện trạng", index: [ListLayer.findIndex((value) => value.id === "tramBom")], check: false,
+        value: "Trạm bơm hiện trạng", index: [ListLayer.findIndex((value) => value.id === "tramBom")], check: true,
         show: true,
       },
       {
@@ -58,7 +58,7 @@ function MenuLayer(props) {
         show: false,
       },
     ],
-    show: false,
+    show: true,
     class: "fa-solid fa-caret-down",
   });
 
@@ -76,25 +76,25 @@ function MenuLayer(props) {
           ListLayer.findIndex((value) => value.id === "congTrinhQuyHoach"),
           ListLayer.findIndex((value) => value.id === "bungHoDuKien"),
         ],
-        check: false,
+        check: true,
         show: true,
       },
       {
         value: "Công trình nâng cấp",
         index: [ListLayer.findIndex((value) => value.id === "congTrinhNangCap")],
-        check: false,
+        check: true,
         show: true,
       },
       {
         value: "Xây mới: Tuyến chuyển nước",
         index: [ListLayer.findIndex((value) => value.id === "tuyenChuyenNuoc")],
-        check: false,
+        check: true,
         show: true,
       },
       {
         value: "Nạo vét hệ thống kênh trục",
         index: [ListLayer.findIndex((value) => value.id === "naoVetHeThongThayThe")],
-        check: false,
+        check: true,
         show: false,
       },
       {
@@ -106,7 +106,7 @@ function MenuLayer(props) {
         show: true,
       },
     ],
-    show: false,
+    show: true,
     class: "fa-solid fa-caret-down",
   });
   const [listSongBa, setListSongBa] = useState({
@@ -117,25 +117,25 @@ function MenuLayer(props) {
           ListLayer.findIndex((value) => value.id === "CTQH_SongBa_V2"),
           ListLayer.findIndex((value) => value.id === "longho_dk_songba")
         ],
-        check: false,
+        check: true,
         show: false,
       },
       {
         value: "Công trình nâng cấp",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_SongBa_1")],
-        check: false,
+        check: true,
         show: false,
       },
       {
         value: "Tuyến chuyển nước",
         index: [ListLayer.findIndex((value) => value.id === "tuyenchuyennuoc_SongBa")],
-        check: false,
+        check: true,
         show: false,
       },
       {
         value: "Nạo vét trục tiêu",
         index: [ListLayer.findIndex((value) => value.id === "naovettructieu_songba_v1")],
-        check: false,
+        check: true,
         show: false,
       },
       {
@@ -186,16 +186,16 @@ function MenuLayer(props) {
     class: "fa-solid fa-caret-down",
   });
   const [listQuyHoachQuocGia, setListQuyHoachQuocGia] = useState({
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
   const [listQuyHoachSongHuong, setListQuyHoachSongHuong] = useState({
     show: true,
     class: "fa-solid fa-caret-down",
   });
   const [listQuyHoachSongBa, setListQuyHoachSongBa] = useState({
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
   const handleChangeCheck = (callback, data, i, check) => {
     data.data[i].check = !check;
@@ -205,13 +205,13 @@ function MenuLayer(props) {
     });
   };
   const [showBanDoQuyHoach, setShowBanDoQuyHoach] = useState(true);
-  const [showQuyHoachQuocGia, setShowQuyHoachQuocGia] = useState(false);
+  const [showQuyHoachQuocGia, setShowQuyHoachQuocGia] = useState(true);
   const [showQuyHoachSongHuong, setShowQuyHoachSongHuong] = useState(true);
-  const [showQuyHoachSongBa, setShowQuyHoachSongBa] = useState(false);
-  const [showSongBa, setShowSongBa] = useState(false);
+  const [showQuyHoachSongBa, setShowQuyHoachSongBa] = useState(true);
+  const [showSongBa, setShowSongBa] = useState(true);
   const [showSongHuong, setShowSongHuong] = useState(true);
-  const [showCongTrinhHienTrang, setShowCongTrinhHienTrang] = useState(false);
-  const [showCongTrinh, setShowCongTrinh] = useState(false);
+  const [showCongTrinhHienTrang, setShowCongTrinhHienTrang] = useState(true);
+  const [showCongTrinh, setShowCongTrinh] = useState(true);
   const showAllSongBa = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showSongBa;
     let data = [

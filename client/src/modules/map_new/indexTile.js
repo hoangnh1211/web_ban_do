@@ -152,9 +152,7 @@ function MapNew() {
         setShowInfo(value)
     }
     const toggleLayersVisibility = (index, value) => {
-        // const newVisibility = listLayer[index].getVisible();
-        console.log(listLayer,listLayer[index], index)
-        // listLayer[index].setVisible(value);
+        listLayer[index].setVisible(value);
     };
 
     const ShowLayersVisibility = (index) => {

@@ -81,6 +81,7 @@ function MapNew() {
                 // center: [105.567, 21.144], zoom: 9.5,
                 projection: 'EPSG:4326'
             }),
+            pixelRatio: 1,
         });
         initialMap.getView().fit( [
             102.144585,

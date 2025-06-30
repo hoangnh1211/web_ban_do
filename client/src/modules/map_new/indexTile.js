@@ -14,6 +14,7 @@ import MenuLayer from './menuLayer';
 import { listLayer, listLayerData, danhMucQuyHoach } from './layerTile'
 import Info from './info';
 import VectorSource from 'ol/source/Vector';
+import TileWMS from 'ol/source/TileWMS';
 
 function MapNew() {
     const [map, setMap] = useState();
@@ -106,12 +107,11 @@ function MapNew() {
             for (const layer of listLayerData) {
                 // Ví dụ này giả định rằng bạn đang làm việc với layer WMS
                 let source = layer.get('visible') ? layer.getSource() : null;
-                if (source && source instanceof ImageWMS) {
+                if (source && source instanceof TileWMS) {
                     let url = source.getFeatureInfoUrl(
                         evt.coordinate, viewResolution, viewProjection,
                         { 'INFO_FORMAT': 'application/json' } // Hoặc định dạng bạn cần
                     );
-
                     // Sử dụng URL để gửi yêu cầu và lấy thông tin
                     if (url) {
                         console.log(url)

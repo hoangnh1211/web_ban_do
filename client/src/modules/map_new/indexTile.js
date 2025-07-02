@@ -4,7 +4,6 @@ import { Map, View } from 'ol';
 import 'ol/ol.css';
 import * as olStyle from 'ol/style';
 
-import ImageWMS from 'ol/source/ImageWMS';
 import axios from 'axios';
 import Table from './table';
 import Overlay from 'ol/Overlay';

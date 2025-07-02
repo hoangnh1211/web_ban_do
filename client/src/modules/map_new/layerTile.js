@@ -564,6 +564,51 @@ const BoVung_SongHuong_2 = new TileLayer({
     visible: true,
 })
 
+const sudungdat_vn = new TileLayer({
+    source: new TileWMS({
+        ratio: 1, tileSize: 256, serverType: 'geoserver', tilePixelRatio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format, 'TILED': true,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'QuyHoachTL:sudungdat_vn',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: true,
+})
+
+const ctht_songba = new TileLayer({
+    source: new TileWMS({
+        ratio: 1, tileSize: 256, serverType: 'geoserver', tilePixelRatio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format, 'TILED': true,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:ctht_songba',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
+const ctht_songhuong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1, tileSize: 256, serverType: 'geoserver', tilePixelRatio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format, 'TILED': true,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:ctht_songhuong',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
 export const ListLayer = [
     {
         id: 'nendiahinh',
@@ -584,6 +629,10 @@ export const ListLayer = [
     {
         id: 'googleterriar',
         layer: googleterriar
+    },
+    {
+        id: 'sudungdat_vn',
+        layer: sudungdat_vn,
     },
     {
         id: 'heThongThuyLoi',
@@ -702,6 +751,14 @@ export const ListLayer = [
     {
         id: 'TuyenChuyenNuoc_songhuong',
         layer: TuyenChuyenNuoc_songhuong,
+    },
+    {
+        id: 'ctht_songba',
+        layer: ctht_songba,
+    },
+    {
+        id: 'ctht_songhuong',
+        layer: ctht_songhuong,
     },
     {
         id: 'congTrinhNangCap',

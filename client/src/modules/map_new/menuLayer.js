@@ -61,6 +61,18 @@ function MenuLayer(props) {
     show: true,
     class: "fa-solid fa-caret-down",
   });
+  const [listDuLieuNen, setListDuLieuNen] = useState({
+    data: [
+      {
+        value: "Sử dụng đất",
+        index: [ListLayer.findIndex((value) => value.id === "sudungdat_vn")],
+        check: false,
+        show: true,
+      },
+    ],
+    show: false,
+    class: "fa-solid fa-caret-right",
+  });
 
   const [listCongTrinhQuyHoach, setListCongTrinhQuyHoach] = useState({
     data: [
@@ -237,6 +249,7 @@ function MenuLayer(props) {
   const [showSongHuongHienTrang, setShowSongHuongHienTrang] = useState(false);
   const [showSongBaHienTrang, setShowSongBaHienTrang] = useState(false);
   const [showCongTrinhHienTrang, setShowCongTrinhHienTrang] = useState(true);
+  const [showDuLieuNen, setShowDuLieuNen] = useState(false);
   const [showCongTrinh, setShowCongTrinh] = useState(true);
   const showAllSongBa = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showSongBa;
@@ -339,6 +352,35 @@ function MenuLayer(props) {
     });
     setShowSongHuong(!showSongHuong);
   }
+  const showAllDuLieuNen = (check1 = null) => {
+    let check = (check1 !== null) ? check1 : !showSongHuong;
+    let data = [
+      {
+        value: "Sử dụng đất",
+        index: [ListLayer.findIndex((value) => value.id === "sudungdat_vn")],
+        check: check,
+        show: true,
+      },
+    ];
+
+    setListDuLieuNen({
+      data: data,
+      show: true,
+      class: "fa-solid fa-caret-down",
+    });
+    data.map((value) => {
+      if (check) {
+        value.index.forEach(element => {
+          props.ShowLayersVisibility(element);
+        });
+      } else {
+        value.index.forEach(element => {
+          props.HideLayersVisibility(element);
+        });
+      }
+    });
+    setShowDuLieuNen(!showDuLieuNen);
+  }
   const showAllSongHuongHienTrang = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showSongHuongHienTrang;
     let data = [
@@ -398,7 +440,7 @@ function MenuLayer(props) {
     });
     setShowSongBaHienTrang(!showSongBaHienTrang);
   }
-  
+
   const showAllBando = () => {
     showAllQuyHoachQuocGia(!showBanDoQuyHoach)
     showAllQuyHoachSongHuong(!showBanDoQuyHoach)
@@ -1183,15 +1225,52 @@ function MenuLayer(props) {
               </div>
               <div className="dropdown__toggle dropdown__list-item">
                 <b>
+                  <i
+                    className={listDuLieuNen.class}
+                    onClick={() => {
+                      setListDuLieuNen({
+                        ...listDuLieuNen,
+                        show: !listDuLieuNen.show,
+                        class: !listDuLieuNen.show
+                          ? "fa-solid fa-caret-down"
+                          : "fa-solid fa-caret-right",
+                      });
+                    }}
+                  ></i>
+                  <span className="icon-layer">
+                    <input
+                      style={{ marginLeft: "5px" }}
+                      type="checkbox"
+                      value=""
+                      checked={showDuLieuNen}
+                      id="a61"
+                      onChange={() => showAllDuLieuNen(!showDuLieuNen)}
+                    />
+                  </span>
                   <span
                     style={{
                       marginLeft: "5px",
                       fontSize: "16px",
+                      // fontFamily: "Manrope, Roboto, Helvetica, Arial, sans-serif",
+                    }}
+                    onClick={() => {
+                      setListDuLieuNen({
+                        ...listDuLieuNen,
+                        show: !listDuLieuNen.show,
+                        class: !listDuLieuNen.show
+                          ? "fa-solid fa-caret-down"
+                          : "fa-solid fa-caret-right",
+                      });
                     }}
                   >
-                    Sử dụng đất
+                    Dữ liệu nền
                   </span>
                 </b>
+                {listDuLieuNen.show && (
+                  <ul className={"dropdown__list " + "dropdown__list--active"}>
+                    {renderOptions(listDuLieuNen, setListDuLieuNen)}
+                  </ul>
+                )}
               </div>
 
             </ul>

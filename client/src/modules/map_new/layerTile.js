@@ -576,7 +576,7 @@ const sudungdat_vn = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: true,
+    visible: false,
 })
 
 const ctht_songba = new TileLayer({

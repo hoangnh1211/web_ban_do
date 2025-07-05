@@ -353,7 +353,7 @@ function MenuLayer(props) {
     setShowSongHuong(!showSongHuong);
   }
   const showAllDuLieuNen = (check1 = null) => {
-    let check = (check1 !== null) ? check1 : !showSongHuong;
+    let check = (check1 !== null) ? check1 : !showDuLieuNen;
     let data = [
       {
         value: "Sử dụng đất",
@@ -379,7 +379,7 @@ function MenuLayer(props) {
         });
       }
     });
-    setShowDuLieuNen(!showDuLieuNen);
+    setShowDuLieuNen(check);
   }
   const showAllSongHuongHienTrang = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showSongHuongHienTrang;
@@ -445,6 +445,7 @@ function MenuLayer(props) {
     showAllQuyHoachQuocGia(!showBanDoQuyHoach)
     showAllQuyHoachSongHuong(!showBanDoQuyHoach)
     showAllQuyHoachSongBa(!showBanDoQuyHoach)
+    showAllDuLieuNen(!showBanDoQuyHoach)
     setShowBanDoQuyHoach(!showBanDoQuyHoach);
     setListBando({
       show: true,

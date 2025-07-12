@@ -389,8 +389,8 @@ function Dulieu() {
                     {activeIndex === 'Tra cứu' && statusDuLieu === 'Danh mục công trình xây mới' &&
                         <div style={{ padding: '10px'}}>
                             <h5>Danh mục công trình xây mới</h5>
-                            <div>
-                                <Grid container spacing={2}>
+                            <div style={{ borderTop: '2px solid #3E75E0', paddingTop: '10px'}}>
+                                <Grid container spacing={1} >
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <TextField
                                             label="Tên công trình"
@@ -587,8 +587,8 @@ function Dulieu() {
                     {activeIndex === 'Tra cứu' && statusDuLieu === 'Danh mục công trình nâng cấp' &&
                         <div style={{ padding: '10px'}}>
                             <h5>Danh mục công trình nâng cấp</h5>
-                            <div>
-                                <Grid container spacing={2}>
+                            <div style={{ borderTop: '2px solid #3E75E0', paddingTop:'10px'}}>
+                                <Grid container spacing={1}>
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <TextField
                                             label="Tên công trình"

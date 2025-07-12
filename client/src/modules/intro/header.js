@@ -72,7 +72,7 @@ function Header() {
   };
   return (
     <div>
-      <AppBar position={(location.pathname == '/quy-hoach-khac' || location.pathname == '/danh-gia-quy-hoach'|| location.pathname == '/chien-luoc-thuy-loi') ? "fixed" : "static"}>
+      <AppBar position={(location.pathname == '/quy-hoach-khac'|| location.pathname == '/du-lieu-quy-hoach' || location.pathname == '/danh-gia-quy-hoach'|| location.pathname == '/chien-luoc-thuy-loi') ? "fixed" : "static"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
             <Avatar sx={{ width: "44px", height: '75px', marginRight:'10px' }}

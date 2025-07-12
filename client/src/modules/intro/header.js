@@ -29,7 +29,7 @@ const pages = [
     name: 'Bản đồ'
   },
   {
-    to: '/data',
+    to: '/du-lieu-quy-hoach',
     name: 'Dữ liệu quy hoạch'
   },
   {

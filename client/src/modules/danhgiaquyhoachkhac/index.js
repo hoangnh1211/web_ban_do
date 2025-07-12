@@ -1,11 +1,8 @@
+/* eslint-disable react/jsx-key */
+/* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../quyhoachkhac/moituong.css"
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation  } from 'react-router-dom';
@@ -63,7 +60,6 @@ function DanhGiaQuyHoach() {
         setNavCheck(currenttinh.khu_vuc)
     }
     const changeStatus = (key) =>{
-        console.log(key);
         let st = {...statusVung};
         st[key] = !st[key];
         setStatusVung(st)

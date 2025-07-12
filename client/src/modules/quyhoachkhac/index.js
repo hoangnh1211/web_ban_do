@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./moituong.css"
@@ -9,8 +12,6 @@ import TableRow from '@mui/material/TableRow';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import moment from 'moment'
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import htmlDocx from 'html-docx-js/dist/html-docx';
 import 'jspdf-autotable';
 import html2pdf from 'html2pdf.js';

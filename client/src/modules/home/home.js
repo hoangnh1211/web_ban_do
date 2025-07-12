@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-key */
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';

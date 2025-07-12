@@ -369,7 +369,7 @@ function Dulieu() {
                 </div>
                 <div  style={{ width: '80vw'}}>
                     {activeIndex === 'Danh mục' &&
-                        <div>
+                        <div  style={{ width: '70vw'}}>
                             {!currentDanhMuc ? (
                                 <Box
                                     sx={{

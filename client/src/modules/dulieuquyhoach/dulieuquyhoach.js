@@ -557,7 +557,7 @@ function Dulieu() {
                                                             {data.du_lieu_xay_moi.map(value =>
                                                                 <TableCell
                                                                     align="center"
-                                                                    sx={{borderRight: '1px solid #ddd', padding:'3px', flex: 1, minWidth: value.field_data === 'ten_quy_hoach' ? 300 : value.field_data === 'ten_cong_trinh' ? 150 : 100, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
+                                                                    sx={{borderRight: '1px solid #ddd', padding:'3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
                                                                 >
                                                                     {row[value.field_data]}
                                                                 </TableCell>
@@ -754,7 +754,7 @@ function Dulieu() {
                                                             {data.du_lieu_nang_cap.map(value =>
                                                                 <TableCell
                                                                     align="center"
-                                                                    sx={{borderRight: '1px solid #ddd', padding: '3px', flex: 1, minWidth: value.field_data === 'ten_quy_hoach' ? 300 : value.field_data === 'ten_cong_trinh' ? 150 : 100, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
+                                                                    sx={{borderRight: '1px solid #ddd', padding: '3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
                                                                 >
                                                                     {row[value.field_data]}
                                                                 </TableCell>

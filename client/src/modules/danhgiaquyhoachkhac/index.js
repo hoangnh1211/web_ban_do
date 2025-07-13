@@ -80,7 +80,7 @@ function DanhGiaQuyHoach() {
     }
     return (
         <div className="main-content">
-            <nav className="navbar">
+            <nav className="navbar pb-4">
                 <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả thực hiện quy hoạch 2024</p>
                 <div style={{ width: '100%' }}>
                     <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
@@ -172,6 +172,8 @@ function DanhGiaQuyHoach() {
                         })}
                     </ul>
                 </div>
+                <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả thực hiện quy hoạch 2025</p>
+                <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả thực hiện quy hoạch 2021 - 2025</p>
             </nav>
             <div className="content content1">
                 {!currentTinh ? (

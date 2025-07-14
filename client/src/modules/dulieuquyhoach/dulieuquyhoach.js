@@ -541,7 +541,7 @@ function Dulieu() {
                                                 <TableHead sx={{ background: '#3E75E0' }}>
                                                     <TableRow>
                                                         {data.du_lieu_xay_moi.map(value =>
-                                                            <TableCell  align="center" sx={{borderRight: '1px solid #ddd', padding: '3px', color: '#fff', fontWeight: 800, fontSize: '14px' }}>
+                                                            <TableCell  align="center" sx={{borderRight: '1px solid #ddd',  padding:'6px 3px', color: '#fff', fontWeight: 800, fontSize: '14px' }}>
                                                                 {value.title}
                                                             </TableCell>
                                                         )}
@@ -557,7 +557,7 @@ function Dulieu() {
                                                             {data.du_lieu_xay_moi.map(value =>
                                                                 <TableCell
                                                                     align="center"
-                                                                    sx={{borderRight: '1px solid #ddd', padding:'3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
+                                                                    sx={{borderRight: '1px solid #ddd', padding:'6px 3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
                                                                 >
                                                                     {row[value.field_data]}
                                                                 </TableCell>
@@ -738,7 +738,7 @@ function Dulieu() {
                                                 <TableHead sx={{ background: '#3E75E0' }}>
                                                     <TableRow>
                                                         {data.du_lieu_nang_cap.map(value =>
-                                                            <TableCell align="center" sx={{borderRight: '1px solid #ddd',  padding: '3px', color: '#fff', fontWeight: 800, fontSize: '14px' }}>
+                                                            <TableCell align="center" sx={{borderRight: '1px solid #ddd',   padding:'6px 3px', color: '#fff', fontWeight: 800, fontSize: '14px' }}>
                                                                 {value.title}
                                                             </TableCell>
                                                         )}
@@ -754,7 +754,7 @@ function Dulieu() {
                                                             {data.du_lieu_nang_cap.map(value =>
                                                                 <TableCell
                                                                     align="center"
-                                                                    sx={{borderRight: '1px solid #ddd', padding: '3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
+                                                                    sx={{borderRight: '1px solid #ddd',  padding:'6px 3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
                                                                 >
                                                                     {row[value.field_data]}
                                                                 </TableCell>

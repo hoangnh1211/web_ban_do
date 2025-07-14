@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../quyhoachkhac/moituong.css"
-import { Button, CircularProgress, Box, TextField, Grid, Pagination, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Button, Select, MenuItem, CircularProgress, Box, TextField, Grid, Pagination, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -92,6 +92,7 @@ function Dulieu() {
         dien_tich_tuoi_sau_nang_cap_to: '',
         giai_doan_dau_tu: '',
         page: '',
+        per_page: 10,
     })
     const [searchDuLieuXayMoi, setSearchDuLieuXayMoi] = useState({
         ten_cong_trinh: '',
@@ -105,6 +106,7 @@ function Dulieu() {
         dien_tich_tuoi_ha_to: '',
         giai_doan_dau_tu: '',
         page: '',
+        per_page: 10,
     })
     const [indexCheck, setIndexCheck] = useState(0);
     const [navCheck, setNavCheck] = useState();
@@ -114,13 +116,13 @@ function Dulieu() {
         width: '100%', display: 'flex', justifyContent: 'space-between',
         padding: '7px 15px',
         marginBottom: '10px',
-        borderRadius:'10px',
+        borderRadius: '10px',
     }
     let styleNotCheck = {
         width: '100%', display: 'flex', justifyContent: 'space-between',
         padding: '7px 15px',
         marginBottom: '0px',
-        borderRadius:'10px',
+        borderRadius: '10px',
     }
     const [statusVung, setStatusVung] = useState({
         trungdu: true,
@@ -217,6 +219,17 @@ function Dulieu() {
             page: value,
         });
     };
+    const handleRowsPerPageChange = async (event, value) => {
+        setSearchDuLieuNangCap((prevData) => ({
+            ...prevData,
+            per_page: value.props.value,
+        }));
+        getDuLieuNangCap({
+            ...searchDuLieuNangCap,
+            per_page: value.props.value,
+            page: 1,
+        });
+    };
     const handlePageChangeXayMoi = async (event, value) => {
         setSearchDuLieuXayMoi((prevData) => ({
             ...prevData,
@@ -227,10 +240,21 @@ function Dulieu() {
             page: value,
         });
     };
+    const handleRowsPerPageChangeXayMoi = async (event, value) => {
+        setSearchDuLieuXayMoi((prevData) => ({
+            ...prevData,
+            per_page: value.props.value,
+        }));
+        getDuLieuXayMoi({
+            ...searchDuLieuXayMoi,
+            per_page: value.props.value,
+            page: '1',
+        });
+    };
     const navItems = ["Danh mục", "Tra cứu"];
     return (
         <div className="main-content" style={{ minHeight: '60vh' }}>
-            <div style={{ display: 'flex', marginTop:'5px' }}>
+            <div style={{ display: 'flex', marginTop: '5px' }}>
                 <div style={{ width: '20vw', borderBottom: '1px solid #dee2e6', borderRight: '1px solid #dee2e6' }}>
                     {navItems.map((item, index) => (
                         <Button
@@ -246,15 +270,15 @@ function Dulieu() {
                                 '&:hover': {
                                     backgroundColor: '#dee2e6',
                                 },
-                                fontWeight:700
+                                fontWeight: 700
                             }}
                         >
                             {item}
                         </Button>
                     ))}
                     {(activeIndex === 'Danh mục') &&
-                        <nav className='navbar1' style={{ borderTop: '1px solid #dee2e6',paddingLeft: '10px'}}>
-                            <p style={{marginTop:'10px',  width: '100%', textAlign: 'center',fontWeight: 700 }}>Danh mục quy hoạch</p>
+                        <nav className='navbar1' style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
+                            <p style={{ marginTop: '10px', width: '100%', textAlign: 'center', fontWeight: 700 }}>Danh mục quy hoạch</p>
                             <div style={{ width: '100%' }}>
                                 <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
                                     <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
@@ -263,7 +287,7 @@ function Dulieu() {
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {statusVung.trungdu && listDanhMuc.map((value, index) => {
                                         if (value.khu_vuc === 'Trung du và miền núi phía Bắc')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
 
                                     })}
                                 </ul>
@@ -274,7 +298,7 @@ function Dulieu() {
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {statusVung.dongbang && listDanhMuc.map((value, index) => {
                                         if (value.khu_vuc === 'Đồng Bằng Bắc Bộ')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
 
                                     })}
                                 </ul>
@@ -285,7 +309,7 @@ function Dulieu() {
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {statusVung.bactrunbo && listDanhMuc.map((value, index) => {
                                         if (value.khu_vuc === 'Bắc Trung Bộ')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
 
                                     })}
                                 </ul>
@@ -296,7 +320,7 @@ function Dulieu() {
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {statusVung.namtrungbo && listDanhMuc.map((value, index) => {
                                         if (value.khu_vuc === 'Nam Trung Bộ')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
 
                                     })}
                                 </ul>
@@ -307,7 +331,7 @@ function Dulieu() {
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {statusVung.taynguyen && listDanhMuc.map((value, index) => {
                                         if (value.khu_vuc === 'Tây Nguyên')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
 
                                     })}
                                 </ul>
@@ -318,7 +342,7 @@ function Dulieu() {
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {statusVung.dongnambo && listDanhMuc.map((value, index) => {
                                         if (value.khu_vuc === 'Đông Nam Bộ')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
 
                                     })}
                                 </ul>
@@ -329,7 +353,7 @@ function Dulieu() {
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {statusVung.dongbangsong && listDanhMuc.map((value, index) => {
                                         if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
 
                                     })}
                                 </ul>
@@ -340,7 +364,7 @@ function Dulieu() {
                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                     {statusVung.toanquoc && listDanhMuc.map((value, index) => {
                                         if (value.khu_vuc === 'Toàn quốc')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius:'10px' } : {borderBottom:'0.3px solid #e3e3e3', borderWidth: "0.5px"}} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
 
                                     })}
                                 </ul>
@@ -348,8 +372,8 @@ function Dulieu() {
                         </nav>
                     }
                     {(activeIndex === 'Tra cứu' &&
-                        <nav  style={{borderTop: '1px solid #dee2e6', paddingLeft: '10px'}}>
-                            <p style={{marginTop:'10px', width: '100%', textAlign: 'center', fontWeight: 700 }}>Tra cứu dữ liệu</p>
+                        <nav style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
+                            <p style={{ marginTop: '10px', width: '100%', textAlign: 'center', fontWeight: 700 }}>Tra cứu dữ liệu</p>
                             <div style={{ width: '100%' }}>
                                 <div onClick={() => {
                                     setCurrentDuLieu([]);
@@ -367,9 +391,9 @@ function Dulieu() {
                         </nav>
                     )}
                 </div>
-                <div  style={{ width: '80vw'}}>
+                <div style={{ width: '80vw' }}>
                     {activeIndex === 'Danh mục' &&
-                        <div  style={{ width: '70vw'}}>
+                        <div style={{ width: '70vw' }}>
                             {!currentDanhMuc ? (
                                 <Box
                                     sx={{
@@ -380,16 +404,16 @@ function Dulieu() {
                                 >
                                     <CircularProgress size={80} thickness={5} />
                                 </Box>) : (
-                                    <div className="content content1">
-                                <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentDanhMuc?.noi_dung }} />
+                                <div className="content content1">
+                                    <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentDanhMuc?.noi_dung }} />
                                 </div>
                             )}
                         </div>
                     }
                     {activeIndex === 'Tra cứu' && statusDuLieu === 'Danh mục công trình xây mới' &&
-                        <div style={{ padding: '10px'}}>
+                        <div style={{ padding: '10px' }}>
                             <h5>Danh mục công trình xây mới</h5>
-                            <div style={{ borderTop: '2px solid #3E75E0', paddingTop: '10px'}}>
+                            <div style={{ borderTop: '2px solid #3E75E0', paddingTop: '10px' }}>
                                 <Grid container spacing={1} >
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <TextField
@@ -449,31 +473,31 @@ function Dulieu() {
                                     </Grid>
                                     <Grid item xs={12} sm={2.9} lg={1.4}>
                                         <TextField
-                                        label="Ftưới từ"
-                                        variant="outlined"
-                                        fullWidth
-                                        size='small'
-                                        name="dien_tich_tuoi_ha_from"
-                                        value={searchDuLieuXayMoi.dien_tich_tuoi_ha_from}
-                                        onChange={handleChangeXayMoi}
+                                            label="Ftưới từ"
+                                            variant="outlined"
+                                            fullWidth
+                                            size='small'
+                                            name="dien_tich_tuoi_ha_from"
+                                            value={searchDuLieuXayMoi.dien_tich_tuoi_ha_from}
+                                            onChange={handleChangeXayMoi}
                                         />
                                     </Grid>
 
                                     <Grid item xs={12} sm={0.2} container alignItems="center" justifyContent="center">
                                         <Box component="span" sx={{ fontSize: '1.5rem' }}>
-                                        ~
+                                            ~
                                         </Box>
                                     </Grid>
 
                                     <Grid item sm={2.9} lg={1.4}>
                                         <TextField
-                                        label="Ftưới đến"
-                                        variant="outlined"
-                                        fullWidth
-                                        size='small'
-                                        name="dien_tich_tuoi_ha_to"
-                                        value={searchDuLieuXayMoi.dien_tich_tuoi_ha_to}
-                                        onChange={handleChangeXayMoi}
+                                            label="Ftưới đến"
+                                            variant="outlined"
+                                            fullWidth
+                                            size='small'
+                                            name="dien_tich_tuoi_ha_to"
+                                            value={searchDuLieuXayMoi.dien_tich_tuoi_ha_to}
+                                            onChange={handleChangeXayMoi}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
@@ -525,7 +549,7 @@ function Dulieu() {
                                     <CircularProgress size={80} thickness={5} />
                                 </Box>) : (
                                 <React.Fragment>
-                                    
+
                                     {loading ? (
                                         <Box
                                             sx={{
@@ -536,12 +560,12 @@ function Dulieu() {
                                         >
                                             <CircularProgress size={80} thickness={5} />
                                         </Box>) : (
-                                        <TableContainer component={Paper} sx={{ overflowX: 'auto', marginTop:'10px' }}>
+                                        <TableContainer component={Paper} sx={{ overflowX: 'auto', marginTop: '10px' }}>
                                             <Table sx={{ tableLayout: 'auto', minWidth: 650 }} aria-label="simple table">
                                                 <TableHead sx={{ background: '#3E75E0' }}>
                                                     <TableRow>
                                                         {data.du_lieu_xay_moi.map(value =>
-                                                            <TableCell  align="center" sx={{borderRight: '1px solid #ddd',  padding:'6px 3px', color: '#fff', fontWeight: 800, fontSize: '14px' }}>
+                                                            <TableCell align="center" sx={{ borderRight: '1px solid #ddd', padding: '6px 3px', color: '#fff', fontWeight: 800, fontSize: '14px' }}>
                                                                 {value.title}
                                                             </TableCell>
                                                         )}
@@ -557,7 +581,7 @@ function Dulieu() {
                                                             {data.du_lieu_xay_moi.map(value =>
                                                                 <TableCell
                                                                     align="center"
-                                                                    sx={{borderRight: '1px solid #ddd', padding:'6px 3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
+                                                                    sx={{ borderRight: '1px solid #ddd', padding: '6px 3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
                                                                 >
                                                                     {row[value.field_data]}
                                                                 </TableCell>
@@ -572,9 +596,24 @@ function Dulieu() {
                                         sx={{
                                             display: 'flex',
                                             justifyContent: 'flex-end',
-                                            marginTop:'10px'
+                                            marginTop: '10px'
                                         }}
                                     >
+                                        <Select
+                                            labelId="rows-per-page-label"
+                                            value={searchDuLieuXayMoi.per_page}
+                                            label="Hiển thị"
+                                            onChange={handleRowsPerPageChangeXayMoi}
+                                            sx={{
+                                                height: '35px',
+                                                fontSize: '14px',
+                                                padding: '0 8px',
+                                            }}
+                                        >
+                                            <MenuItem value={10}>10</MenuItem>
+                                            <MenuItem value={15}>15</MenuItem>
+                                            <MenuItem value={20}>20</MenuItem>
+                                        </Select>
                                         <Pagination count={currentDuLieu.last_page} color="primary"
                                             page={currentDuLieu.current_page}
                                             onChange={handlePageChangeXayMoi}
@@ -585,9 +624,9 @@ function Dulieu() {
                         </div>
                     }
                     {activeIndex === 'Tra cứu' && statusDuLieu === 'Danh mục công trình nâng cấp' &&
-                        <div style={{ padding: '10px'}}>
+                        <div style={{ padding: '10px' }}>
                             <h5>Danh mục công trình nâng cấp</h5>
-                            <div style={{ borderTop: '2px solid #3E75E0', paddingTop:'10px'}}>
+                            <div style={{ borderTop: '2px solid #3E75E0', paddingTop: '10px' }}>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <TextField
@@ -647,31 +686,31 @@ function Dulieu() {
                                     </Grid>
                                     <Grid item xs={12} sm={2.9} lg={1.7}>
                                         <TextField
-                                        label="Fưới sau NC từ"
-                                        variant="outlined"
-                                        fullWidth
-                                        size='small'
-                                        name="dien_tich_tuoi_sau_nang_cap_from"
-                                        value={searchDuLieuNangCap.dien_tich_tuoi_sau_nang_cap_from}
-                                        onChange={handleChange}
+                                            label="Fưới sau NC từ"
+                                            variant="outlined"
+                                            fullWidth
+                                            size='small'
+                                            name="dien_tich_tuoi_sau_nang_cap_from"
+                                            value={searchDuLieuNangCap.dien_tich_tuoi_sau_nang_cap_from}
+                                            onChange={handleChange}
                                         />
                                     </Grid>
 
                                     <Grid item xs={12} sm={0.2} container alignItems="center" justifyContent="center">
                                         <Box component="span" sx={{ fontSize: '1.5rem' }}>
-                                        ~
+                                            ~
                                         </Box>
                                     </Grid>
 
                                     <Grid item sm={2.9} lg={1.7}>
                                         <TextField
-                                        label="Fưới sau NC đến"
-                                        variant="outlined"
-                                        fullWidth
-                                        size='small'
-                                        name="dien_tich_tuoi_sau_nang_cap_to"
-                                        value={searchDuLieuNangCap.dien_tich_tuoi_sau_nang_cap_to}
-                                        onChange={handleChange}
+                                            label="Fưới sau NC đến"
+                                            variant="outlined"
+                                            fullWidth
+                                            size='small'
+                                            name="dien_tich_tuoi_sau_nang_cap_to"
+                                            value={searchDuLieuNangCap.dien_tich_tuoi_sau_nang_cap_to}
+                                            onChange={handleChange}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
@@ -738,7 +777,7 @@ function Dulieu() {
                                                 <TableHead sx={{ background: '#3E75E0' }}>
                                                     <TableRow>
                                                         {data.du_lieu_nang_cap.map(value =>
-                                                            <TableCell align="center" sx={{borderRight: '1px solid #ddd',   padding:'6px 3px', color: '#fff', fontWeight: 800, fontSize: '14px' }}>
+                                                            <TableCell align="center" sx={{ borderRight: '1px solid #ddd', padding: '6px 3px', color: '#fff', fontWeight: 800, fontSize: '14px' }}>
                                                                 {value.title}
                                                             </TableCell>
                                                         )}
@@ -754,7 +793,7 @@ function Dulieu() {
                                                             {data.du_lieu_nang_cap.map(value =>
                                                                 <TableCell
                                                                     align="center"
-                                                                    sx={{borderRight: '1px solid #ddd',  padding:'6px 3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
+                                                                    sx={{ borderRight: '1px solid #ddd', padding: '6px 3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
                                                                 >
                                                                     {row[value.field_data]}
                                                                 </TableCell>
@@ -772,7 +811,22 @@ function Dulieu() {
                                             marginTop: '10px'
                                         }}
                                     >
-                                        <Pagination  count={currentDuLieu.last_page} color="primary"
+                                        <Select
+                                            labelId="rows-per-page-label"
+                                            value={searchDuLieuNangCap.per_page}
+                                            label="Hiển thị"
+                                            onChange={handleRowsPerPageChange}
+                                            sx={{
+                                                height: '35px',
+                                                fontSize: '14px',
+                                                padding: '0 8px',
+                                            }}
+                                        >
+                                            <MenuItem value={10}>10</MenuItem>
+                                            <MenuItem value={15}>15</MenuItem>
+                                            <MenuItem value={20}>20</MenuItem>
+                                        </Select>
+                                        <Pagination count={currentDuLieu.last_page} color="primary"
                                             page={currentDuLieu.current_page}
                                             onChange={handlePageChange}
                                         />

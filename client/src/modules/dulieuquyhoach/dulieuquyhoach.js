@@ -92,7 +92,7 @@ function Dulieu() {
         dien_tich_tuoi_sau_nang_cap_to: '',
         giai_doan_dau_tu: '',
         page: '',
-        per_page: 10,
+        per_page: 15,
     })
     const [searchDuLieuXayMoi, setSearchDuLieuXayMoi] = useState({
         ten_cong_trinh: '',
@@ -106,7 +106,7 @@ function Dulieu() {
         dien_tich_tuoi_ha_to: '',
         giai_doan_dau_tu: '',
         page: '',
-        per_page: 10,
+        per_page: 15,
     })
     const [indexCheck, setIndexCheck] = useState(0);
     const [navCheck, setNavCheck] = useState();

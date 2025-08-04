@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../quyhoachkhac/moituong.css"
-import { Button, Select, MenuItem, CircularProgress, Box, TextField, Grid, Pagination, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { FormControl, InputLabel, Button, Select, MenuItem, CircularProgress, Box, TextField, Grid, Pagination, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -439,37 +439,93 @@ function Dulieu() {
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Tỉnh"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="tinh"
-                                            value={searchDuLieuXayMoi.tinh}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="tinh">Tỉnh</InputLabel>
+                                            <Select
+                                                labelId="tinh"
+                                                id="tinh"
+                                                value={searchDuLieuXayMoi.tinh}
+                                                label="Tỉnh"
+                                                name="tinh"
+                                                size="small"
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="Bắc Giang">Bắc Giang</MenuItem>
+                                                <MenuItem value="Thái Nguyên">Thái Nguyên</MenuItem>
+                                                <MenuItem value="Hòa Bình">Hòa Bình</MenuItem>
+                                                <MenuItem value="Lai Châu">Lai Châu</MenuItem>
+                                                <MenuItem value="Sơn La">Sơn La</MenuItem>
+                                                <MenuItem value="Quảng Ninh">Quảng Ninh</MenuItem>
+                                                <MenuItem value="Nghệ An">Nghệ An</MenuItem>
+                                                <MenuItem value="Hà Tĩnh">Hà Tĩnh</MenuItem>
+                                                <MenuItem value="Quảng Bình">Quảng Bình</MenuItem>
+                                                <MenuItem value="Quảng Trị">Quảng Trị</MenuItem>
+                                                <MenuItem value="Thừa Thiên Huế">Thừa Thiên Huế</MenuItem>
+                                                <MenuItem value="Quảng Nam">Quảng Nam</MenuItem>
+                                                <MenuItem value="Quảng Ngãi">Quảng Ngãi</MenuItem>
+                                                <MenuItem value="Khánh Hòa">Khánh Hòa</MenuItem>
+                                                <MenuItem value="Bình Thuận">Bình Thuận</MenuItem>
+                                                <MenuItem value="Phú Yên">Phú Yên</MenuItem>
+                                                <MenuItem value="Gia Lai">Gia Lai</MenuItem>
+                                                <MenuItem value="Đắk Lắk">Đắk Lắk</MenuItem>
+                                                <MenuItem value="Đắk Nông">Đắk Nông</MenuItem>
+                                                <MenuItem value="Lâm Đồng">Lâm Đồng</MenuItem>
+                                                <MenuItem value="Kon Tum">Kon Tum</MenuItem>
+                                                <MenuItem value="Liên tỉnh">Liên tỉnh</MenuItem>
+                                                <MenuItem value="Đồng Nai">Đồng Nai</MenuItem>
+                                                <MenuItem value="Hà Nội">Hà Nội</MenuItem>
+                                                <MenuItem value="Hưng Yên">Hưng Yên</MenuItem>
+                                                <MenuItem value="Thanh Hóa">Thanh Hóa</MenuItem>
+                                                <MenuItem value="Long An">Long An</MenuItem>
+                                                <MenuItem value="Bến Tre">Bến Tre</MenuItem>
+                                                <MenuItem value="Sóc Trăng">Sóc Trăng</MenuItem>
+                                                <MenuItem value="Tiền Giang">Tiền Giang</MenuItem>
+                                                <MenuItem value="An Giang">An Giang</MenuItem>
+                                                <MenuItem value="Đồng Tháp">Đồng Tháp</MenuItem>
+                                                <MenuItem value="Cần Thơ">Cần Thơ</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Tên quy hoạch"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="ten_quy_hoach"
-                                            value={searchDuLieuXayMoi.ten_quy_hoach}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="ten_quy_hoach">Tên quy hoạch</InputLabel>
+                                            <Select
+                                                labelId="ten_quy_hoach"
+                                                id="ten_quy_hoach"
+                                                value={searchDuLieuXayMoi.ten_quy_hoach}
+                                                label="ten_quy_hoach"
+                                                name='ten_quy_hoach'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="Quy hoạch PCTT & TL">Quy hoạch PCTT & TL</MenuItem>
+                                                <MenuItem value="QHTLLV Sông Hương - Ô Lâu">QHTLLV Sông Hương - Ô Lâu</MenuItem>
+                                                <MenuItem value="QHTLLV sông Ba">QHTLLV sông Ba</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Loại công trình"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="loai_cong_trinh"
-                                            value={searchDuLieuXayMoi.loai_cong_trinh}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="loai_cong_trinh">Loại công trình</InputLabel>
+                                            <Select
+                                                labelId="loai_cong_trinh"
+                                                id="loai_cong_trinh"
+                                                value={searchDuLieuXayMoi.loai_cong_trinh}
+                                                label="loai_cong_trinh"
+                                                name='loai_cong_trinh'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="Hồ chứa">Hồ chứa</MenuItem>
+                                                <MenuItem value="Đập dâng">Đập dâng</MenuItem>
+                                                <MenuItem value="Trạm bơm">Trạm bơm</MenuItem>
+                                                <MenuItem value="Cống">Cống</MenuItem>
+                                                <MenuItem value="HTTL">HTTL</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={2.9} lg={1.4}>
                                         <TextField
@@ -501,15 +557,25 @@ function Dulieu() {
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="GĐ đầu tư"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="giai_doan_dau_tu"
-                                            value={searchDuLieuXayMoi.giai_doan_dau_tu}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="giai_doan_dau_tu">GĐ đầu tư</InputLabel>
+                                            <Select
+                                                labelId="giai_doan_dau_tu"
+                                                id="giai_doan_dau_tu"
+                                                value={searchDuLieuXayMoi.giai_doan_dau_tu}
+                                                label="giai_doan_dau_tu"
+                                                name='giai_doan_dau_tu'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="Giai đoạn trước năm 2030">Giai đoạn trước năm 2030</MenuItem>
+                                                <MenuItem value="Giai đoạn sau năm 2030">Giai đoạn sau năm 2030</MenuItem>
+                                                <MenuItem value="Giai đoạn 2021 - 2050">Giai đoạn 2021 - 2050</MenuItem>
+                                                <MenuItem value="Giai đoạn 2021 - 2030">Giai đoạn 2021 - 2030</MenuItem>
+                                                <MenuItem value=""></MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                 </Grid>
                                 <div className='d-flex justify-content-center mt-2'>
@@ -652,37 +718,71 @@ function Dulieu() {
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Tỉnh"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="tinh"
-                                            value={searchDuLieuNangCap.tinh}
-                                            onChange={handleChange}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="tinh">Tỉnh</InputLabel>
+                                            <Select
+                                                labelId="tinh"
+                                                id="tinh"
+                                                value={searchDuLieuNangCap.tinh}
+                                                label="tinh"
+                                                name='tinh'
+                                                size='small'
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="Hà Tĩnh">Hà Tĩnh</MenuItem>
+                                                <MenuItem value="Nghệ An">Nghệ An</MenuItem>
+                                                <MenuItem value="Quảng Bình">Quảng Bình</MenuItem>
+                                                <MenuItem value="Quảng Trị">Quảng Trị</MenuItem>
+                                                <MenuItem value="Thừa Thiên Huế">Thừa Thiên Huế</MenuItem>
+                                                <MenuItem value="Khánh Hòa">Khánh Hòa</MenuItem>
+                                                <MenuItem value="Quảng Ngãi">Quảng Ngãi</MenuItem>
+                                                <MenuItem value="Phú Yên">Phú Yên</MenuItem>
+                                                <MenuItem value="Bình Định">Bình Định</MenuItem>
+                                                <MenuItem value="Quảng Nam">Quảng Nam</MenuItem>
+                                                <MenuItem value="Gia Lai">Gia Lai</MenuItem>
+                                                <MenuItem value="Đắk Lắk">Đắk Lắk</MenuItem>
+                                                <MenuItem value="Hà Nội">Hà Nội</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Quy hoạch"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="ten_quy_hoach"
-                                            value={searchDuLieuNangCap.ten_quy_hoach}
-                                            onChange={handleChange}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="ten_quy_hoach">Tên Quy hoạch</InputLabel>
+                                            <Select
+                                                labelId="ten_quy_hoach"
+                                                id="ten_quy_hoach"
+                                                value={searchDuLieuNangCap.ten_quy_hoach}
+                                                label="ten_quy_hoach"
+                                                name='ten_quy_hoach'
+                                                size='small'
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="Quy hoạch PCTT & TL">Quy hoạch PCTT & TL</MenuItem>
+                                                <MenuItem value=" QHTLLV Sông Hương - Ô Lâu"> QHTLLV Sông Hương - Ô Lâu</MenuItem>
+                                                <MenuItem value="Điều chỉnh QHTLLV sông Ba">Điều chỉnh QHTLLV sông Ba</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Loại công trình"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="loai_cong_trinh"
-                                            value={searchDuLieuNangCap.loai_cong_trinh}
-                                            onChange={handleChange}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="loai_cong_trinh">Loại công trình</InputLabel>
+                                            <Select
+                                                labelId="loai_cong_trinh"
+                                                id="loai_cong_trinh"
+                                                value={searchDuLieuNangCap.loai_cong_trinh}
+                                                label="loai_cong_trinh"
+                                                name='loai_cong_trinh'
+                                                size='small'
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="Hồ chứa">Hồ chứa</MenuItem>
+                                                <MenuItem value="Đập dâng">Đập dâng</MenuItem>
+                                                <MenuItem value="Trạm bơm">Trạm bơm</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={2.9} lg={1.7}>
                                         <TextField
@@ -714,15 +814,23 @@ function Dulieu() {
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="GĐ đầu tư"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="giai_doan_dau_tu"
-                                            value={searchDuLieuNangCap.giai_doan_dau_tu}
-                                            onChange={handleChange}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="giai_doan_dau_tu">GĐ đầu tư</InputLabel>
+                                            <Select
+                                                labelId="giai_doan_dau_tu"
+                                                id="giai_doan_dau_tu"
+                                                value={searchDuLieuNangCap.giai_doan_dau_tu}
+                                                label="giai_doan_dau_tu"
+                                                name='giai_doan_dau_tu'
+                                                size='small'
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="2021 - 2030">2021 - 2030</MenuItem>
+                                                <MenuItem value="Giai đoạn sau 2030">Giai đoạn sau 2030</MenuItem>
+                                                <MenuItem value="Giai đoạn trước 2030">Giai đoạn trước 2030</MenuItem>
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                 </Grid>
                                 <div className='d-flex justify-content-center mt-2'>

@@ -10,7 +10,7 @@ function Intro() {
         <React.Fragment>
             {(location.pathname !== '/new-map-noheader') &&  <Header/>}
             <Router/>
-            {(location.pathname !== '/new-map' && location.pathname !==  '/quy-hoach-khac') &&  <Footer/>}
+            {(location.pathname !== '/new-map-noheader' && location.pathname !== '/new-map' && location.pathname !==  '/quy-hoach-khac') &&  <Footer/>}
         </React.Fragment>
     );
 }

@@ -21,6 +21,7 @@ function Router() {
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/new-map" element={<MapNewTile />} />
+                <Route path="/new-map-noheader" element={<MapNewTile />} />
                 {/* <Route path="/new-map-tile" element={<MapNewTile />} /> */}
                 <Route path="/quy-hoach-khac" element={<QuyHoachKhac />} />
                 <Route path="/danh-gia-quy-hoach" element={<DanhGiaQuyHoach />} />

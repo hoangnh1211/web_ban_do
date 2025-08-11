@@ -8,7 +8,7 @@ function Intro() {
     const location = useLocation();
     return (
         <React.Fragment>
-            <Header/>
+            {(location.pathname !== '/new-map-noheader') &&  <Header/>}
             <Router/>
             {(location.pathname !== '/new-map' && location.pathname !==  '/quy-hoach-khac') &&  <Footer/>}
         </React.Fragment>

@@ -35,7 +35,7 @@ function Map_a() {
     const data7 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
@@ -48,7 +48,7 @@ function Map_a() {
     const data5 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
@@ -61,7 +61,7 @@ function Map_a() {
     const data6 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
@@ -74,7 +74,7 @@ function Map_a() {
     const data4 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
@@ -87,7 +87,7 @@ function Map_a() {
     const data3 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
@@ -103,7 +103,7 @@ function Map_a() {
     const data2 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
@@ -116,7 +116,7 @@ function Map_a() {
     const data1 = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
@@ -129,7 +129,7 @@ function Map_a() {
     const dataTinh = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
@@ -142,7 +142,7 @@ function Map_a() {
     const ggmap = new ImageLayer({
         source: new ImageWMS({
             ratio: 1,
-            url: 'http://103.184.112.209:8080/geoserver/wms',
+            url: 'https://bando.quyhoachthuyloi.vn/geoserver/wms',
             params: {
                 'FORMAT': format,
                 'VERSION': '1.1.1',

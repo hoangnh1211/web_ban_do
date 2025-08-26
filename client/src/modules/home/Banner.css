@@ -109,7 +109,7 @@
 	text-align: center;
 }
 .banner-1{
-	background:url("/img/1.jpg") no-repeat 0px 0px;
+	/* background:url("/img/1.jpg") no-repeat 0px 0px; */
 	background-size:cover;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
@@ -118,7 +118,7 @@
 	min-height:800px;
 }
 .banner-2{
-	background:url("/img/2.jpg") no-repeat 0px 0px;
+	/* background:url("/img/2.jpg") no-repeat 0px 0px; */
 	background-size:cover;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
@@ -126,7 +126,7 @@
 	-ms-background-size:cover;
 	min-height:800px;
 }.banner-3{
-	background:url("/img/3.jpg") no-repeat 0px 0px;
+	/* background:url("/img/3.jpg") no-repeat 0px 0px; */
 	background-size:cover;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;

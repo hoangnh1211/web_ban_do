@@ -20,9 +20,9 @@ function Header() {
         value1[value]=true;
         setStatus(value1)
     }
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-    }, [])
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll);
+    // }, [])
     return (
         <React.Fragment>
             <div className='header'>

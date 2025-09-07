@@ -55,8 +55,8 @@ function Header() {
                             <li className={status[3]?"nav-item active1":"nav-item"} >
                                 <Link className="nav-link" to="/map" onClick={()=>changS(3)}>THỦY-HẢI VĂN</Link>
                             </li>
-                            <li className=" nav-item">
-                                <a className="nav-link" href='https://iwarp.hts.vn/' target="_blank">DỰ BÁO KHÍ TƯỢNG</a>
+                            <li className={status[4]?"nav-item active1":"nav-item"}>
+                                <Link className="nav-link" to="dubao" onClick={()=>changS(4)}>DỰ BÁO KHÍ TƯỢNG</Link>
                             </li>
                             <li className={status[5]?"nav-item active1":"nav-item"} >
                                 <Link className="nav-link" to="/moi-truong" onClick={()=>changS(5)}>MÔI TRƯỜNG</Link>

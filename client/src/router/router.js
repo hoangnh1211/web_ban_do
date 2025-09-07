@@ -11,6 +11,7 @@ import Moitruong from '../modules/moitruong/moitruong';
 import Service1 from '../modules/service1/service1';
 import axios from 'axios';
 import { useEffect } from 'react';
+import Dubao from '../modules/librarys/dubao';
 
 
 function Router() {
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/thu-vien" element={<Library />} />
       <Route path="/gioi-thieu" element={<Introduce />} />
       <Route path="/map" element={<Map_a />} />
+      <Route path="/dubao" element={<Dubao />} />
       <Route path="/admin_hanh" element={<Todo />} />
       <Route path="/contact" element={<Contact1 />} />
       <Route path="/moi-truong" element={<Moitruong />} />

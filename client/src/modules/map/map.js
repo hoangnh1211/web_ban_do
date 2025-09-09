@@ -39,7 +39,7 @@ function Map_a() {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
                 "STYLES": '',
-                "LAYERS": 'quangninh:diaphanhuyen_vnc',
+                "LAYERS": 'quangninh:huyen1',
                 "exceptions": 'application/vnd.ogc.se_inimage',
             }
         })
@@ -404,7 +404,7 @@ function Map_a() {
                 'FORMAT': format,
                 'VERSION': '1.1.1',
                 "STYLES": '',
-                "LAYERS": 'quangninh:huyen1',
+                "LAYERS": 'quangninh:diaphanhuyen_vnc',
                 "exceptions": 'application/vnd.ogc.se_inimage',
             }
         })

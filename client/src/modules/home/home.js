@@ -102,11 +102,10 @@ function Home() {
         return dots;
     };
 
-
-
     return (
         <div className=''>
-            <Banner />
+            {!isSmallScreen && <Banner />}
+            
             <div className="mr-7 ml-7">
                 <h2 className="text-center mt-5 mb-5" style={{ fontWeight: 800, lineHeight: '35px', fontSize: "24px", color: "#0B47A2", marginBottom: '30px' }}>QUY HOẠCH ĐÃ ĐƯỢC PHÊ DUYỆT</h2>
                 {!totalTh ? (

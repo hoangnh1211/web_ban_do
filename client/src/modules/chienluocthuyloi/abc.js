@@ -73,16 +73,18 @@ function ChienLuocThuyLoi() {
     const [navOpen, setNavOpen] = useState(true);
 
     const toggleNav = () => setNavOpen(!navOpen);
+    console.log(navOpen)
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     return (
-        <div className="main-content">{isSmallScreen &&
-            <div style={{zIndex:"100", padding:"10px"}}>
-                
-                    <i className="fas fa-bars"  onClick={toggleNav} ></i>
-            </div>}
+        <div className="main-content">
+            <div>
+                <span style={{ fontWeight: 600 }}>Danh mục</span>
+                {isSmallScreen &&
+                    <i className="fas fa-map" onClick={toggleNav} ></i>}
+            </div>
             {navOpen &&
                 <>
-                    <nav className={`navbar ${navOpen ? 'open' : ''}`} style={isSmallScreen ? {} :{ height : '100%'}}>
+                    <nav className={`navbar ${navOpen ? 'open' : ''}`}>
                         <div style={{ width: '100%', marginTop: "20px" }}>
                             <div onClick={() => changeStatus('quyetdinh')} style={navCheck === 'QUYẾT ĐỊNH' ? styleCheck : styleNotCheck}>
                                 <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. QUYẾT ĐỊNH</p>

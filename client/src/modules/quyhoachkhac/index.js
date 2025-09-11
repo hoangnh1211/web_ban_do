@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable react/jsx-key */
+import { useMediaQuery } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./moituong.css"
@@ -198,8 +199,19 @@ function QuyHoachKhac() {
         link.download = 'quyhoach.docx';
         link.click();
     };
+    const [navOpen, setNavOpen] = useState(true);
+    
+        const toggleNav = () => setNavOpen(!navOpen);
+        const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     return (
         <div className="main-content">
+            {isSmallScreen &&
+            <div style={{zIndex:"100", padding:"10px"}}>
+                
+                    <i className="fas fa-bars"  onClick={toggleNav} ></i>
+            </div>}
+            {navOpen &&
+                <>
             <nav className="navbar">
                 <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>DANH MỤC DỮ LIỆU</p>
                 <p style={{ paddingLeft: '10px', paddingRight: '10px', marginBottom: '5px', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>  A. P/a Thuỷ lợi trong hoạch tỉnh</p>
@@ -288,6 +300,7 @@ function QuyHoachKhac() {
                     })}
                 </ul>
             </nav>
+            </>}
             {indexCheck !== -1 &&
                 <div className="content" id="contentToPrint">
                     <p style={{ fontWeight: 700, fontSize: '16px' }}>{currentTinh?.ten_quy_hoach}</p>

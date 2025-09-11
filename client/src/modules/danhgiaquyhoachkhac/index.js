@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useLocation  } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '@mui/material';
 
 function DanhGiaQuyHoach() {
     const navigate = useNavigate();
@@ -78,10 +79,20 @@ function DanhGiaQuyHoach() {
         marginBottom: '0px',
         borderRadius:'10px',
     }
+    const [navOpen, setNavOpen] = useState(true);
+    
+        const toggleNav = () => setNavOpen(!navOpen);
+        const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     return (
-        <div className="main-content">
+        <div className="main-content">{isSmallScreen &&
+            <div style={{zIndex:"100", padding:"10px"}}>
+                
+                    <i className="fas fa-bars"  onClick={toggleNav} ></i>
+            </div>}
+            {navOpen &&
+                <>
             <nav className="navbar pb-4">
-                <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả thực hiện quy hoạch 2024</p>
+                <p style={{ width: '100%', textAlign: 'center', paddingLeft:"10px", marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả thực hiện quy hoạch 2024</p>
                 <div style={{ width: '100%' }}>
                     <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
@@ -175,6 +186,7 @@ function DanhGiaQuyHoach() {
                 <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả thực hiện quy hoạch 2025</p>
                 <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>Đánh giá kết quả thực hiện quy hoạch 2021 - 2025</p>
             </nav>
+            </>}
             <div className="content content1">
                 {!currentTinh ? (
                     <Box

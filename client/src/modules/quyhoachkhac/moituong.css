@@ -1,3 +1,44 @@
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+      margin-top: 70px;
+  }
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    position: sticky;
+    top: 70px;        
+    z-index: 5;
+  }
+  .navbar {
+    position: absolute;
+    background: #fff;
+  }
+  .navbar.open {
+    max-height: 60vh;    
+  }
+}
+
+.navbar {
+  min-width: 240px;
+  max-width: 320px;
+  padding: 8px 12px;
+  border-right: 1px solid #eee;
+  overflow-y: auto;
+}
+.content {
+  flex: 1;
+  overflow: auto;
+}
+
+.nav-toggle {
+  display: none;
+}
+
 .main-content {
   display: flex;
   flex: 1;
@@ -51,9 +92,6 @@
   padding-right: 10px;
   overflow-y: auto;
   max-height: calc(100vh - 50px);
-  /* Đảm bảo không vượt quá chiều cao của viewport trừ đi chiều cao của header */
-  height: 100%;
-  /* Đảm bảo chiều cao đầy đủ trong flexbox */
 }
 
 .navbar::-webkit-scrollbar {

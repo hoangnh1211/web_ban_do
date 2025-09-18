@@ -14,6 +14,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useLocation } from "react-router-dom";
+import { useMediaQuery } from '@mui/material';
 
 const pages = [
   {
@@ -70,12 +71,13 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+      const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
     <div>
       <AppBar position={(location.pathname == '/quy-hoach-khac'|| location.pathname == '/du-lieu-quy-hoach' || location.pathname == '/danh-gia-quy-hoach'|| location.pathname == '/chien-luoc-thuy-loi') ? "fixed" : "static"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
-            <Avatar sx={{ width: "44px", height: '75px', marginRight:'10px' }}
+            <Avatar sx={{ width: isSmallScreen ?"30px" : "44px", height: isSmallScreen ?"50px" :'75px', marginRight:'10px' }}
               component="a"
               href={process.env.REACT_APP_SERVER}
               target="_blank" alt="Remy Sharp" src={"image/logo.svg"} />

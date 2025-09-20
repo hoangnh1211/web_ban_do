@@ -53,6 +53,14 @@
   border-radius: 10px;
   min-width: 460px;
 }
+@media (max-width: 768px) {
+#popup {
+  background: #fff;
+  /* border: 1px solid #a3d8ae; */
+  border-radius: 10px;
+  min-width: 300px;
+}
+}
 
 div#popup-content {
   max-height: 350px;

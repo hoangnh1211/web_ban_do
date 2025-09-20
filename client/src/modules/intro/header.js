@@ -91,7 +91,7 @@ function Header() {
                 fontWeight: 700,
                 color: 'inherit',
                 textDecoration: 'none',
-                fontSize: '16px',
+                fontSize: isSmallScreen ? '12px' : '16px',
                 lineHeight: '21.8px'
               }}
             >
@@ -149,22 +149,12 @@ function Header() {
                 fontWeight: 700,
                 color: 'inherit',
                 textDecoration: 'none',
-                fontSize: '16px',
+                fontSize: '14px',
                 lineHeight: '21.8px',
-                textAlign: 'left'
+                textAlign: 'center'
               }}
-            // sx={{
-            //   mr: 2,
-            //   display: { xs: 'none', md: 'flex' },
-            //   fontFamily: 'Noto Serif',
-            //   fontWeight: 700,
-            //   color: 'inherit',
-            //   textDecoration: 'none',
-            //   fontSize: '16px',
-            //   lineHeight: '21.8px'
-            // }}
             >
-              TRANG THÔNG TIN QUẢN LÝ QUY HOẠCH THỦY LỢI
+              TRANG THÔNG TIN QUẢN LÝ <br/> QUY HOẠCH THỦY LỢI
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
               {pages.map((page) => (

@@ -35,8 +35,8 @@ function Contact() {
                         title="Google Maps Embed"
                     />
                             <p>Đơn vị phát triển nội dung: <b>Phòng Khoa học Công nghệ và Môi trường</b></p>
-                            <p style={{ marginLeft: '200px' }}><b>-Viện Quy hoạch Thuỷ lợi</b></p>
-                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-home" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>162A Trần Quang Khải, P. Lý Thái Tổ, Q.</p><p> Hoàn Kiếm, TP. Hà Nội</p></div></div>
+                            <p className='vien'><b>-Viện Quy hoạch Thuỷ lợi</b></p>
+                            <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-home" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>162A Trần Quang Khải, P. Lý Thái Tổ, Q.Hoàn Kiếm, TP. Hà Nội</p></div></div>
                             <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-phone" style={{ fontSize: '30px', marginRight: '30px' }}></i><div><p>Điện thoại 0243 8256470 - 0243 8254081 - </p><p> Fax: 0243. 8252807</p></div></div>
                             <div className='d-flex align-items-center' style={{ marginBottom: '15px' }}><i className="fas fa-envelope" style={{ fontSize: '30px', marginRight: '30px' }}></i><p>phongkhcn.qhtl@gmail.com</p></div>
                         </div>

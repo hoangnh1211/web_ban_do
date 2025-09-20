@@ -105,9 +105,12 @@ function Home() {
     return (
         <div className=''>
             {!isSmallScreen && <Banner />}
-            
+
             <div className="mr-7 ml-7">
-                <h2 className="text-center mt-5 mb-5" style={{ fontWeight: 800, lineHeight: '35px', fontSize: "24px", color: "#0B47A2", marginBottom: '30px' }}>QUY HOẠCH ĐÃ ĐƯỢC PHÊ DUYỆT</h2>
+                {isSmallScreen ?
+                    <h4 className="text-center mt-1 mb-1" style={{ fontWeight: 800, lineHeight: '35px', fontSize: "16px", color: "#0B47A2", marginBottom: '30px' }}>QUY HOẠCH ĐÃ ĐƯỢC PHÊ DUYỆT</h4> :
+                    <h2 className="text-center mt-5 mb-5" style={{ fontWeight: 800, lineHeight: '35px', fontSize: "24px", color: "#0B47A2", marginBottom: '30px' }}>QUY HOẠCH ĐÃ ĐƯỢC PHÊ DUYỆT</h2>
+                }
                 {!totalTh ? (
                     <Box
                         sx={{
@@ -201,7 +204,11 @@ function Home() {
                     </React.Fragment>)}
             </div>
             <div className="mr-13 ml-13" style={{ marginTop: '20px' }}>
-                <h2 className="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', lineHeight: '35px', fontWeight: 800 }}>CÁC QUY HOẠCH ĐANG THỰC HIỆN</h2>
+                {isSmallScreen ?
+                    <h4 className="text-center" style={{ fontSize: "16px", color: "#0B47A2", marginBottom: '20px', lineHeight: '35px', fontWeight: 800 }}>CÁC QUY HOẠCH ĐANG THỰC HIỆN</h4> :
+                    <h2 className="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '70px', lineHeight: '35px', fontWeight: 800 }}>CÁC QUY HOẠCH ĐANG THỰC HIỆN</h2>
+                }
+
                 <Grid container spacing={10}>
                     {quyhoachThucHien && quyhoachThucHien?.length > 0 &&
                         quyhoachThucHien.map(quyhoach => {
@@ -332,8 +339,12 @@ function Home() {
                 )}
             </div> */}
             <div className="mr-13 ml-13" style={{ marginTop: '20px' }}>
-                <h2 className="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '40px', lineHeight: '35px', fontWeight: 800 }}>LIÊN KẾT WEBSITE</h2>
-                <Test/>
+                {
+                    isSmallScreen ?
+                        <h4 className="text-center" style={{ fontSize: "16px", color: "#0B47A2", marginBottom: '15px', lineHeight: '35px', fontWeight: 800 }}>LIÊN KẾT WEBSITE</h4>
+                        : <h2 className="text-center" style={{ fontSize: "24px", color: "#0B47A2", marginBottom: '40px', lineHeight: '35px', fontWeight: 800 }}>LIÊN KẾT WEBSITE</h2>
+                }
+                <Test />
             </div>
         </div>
     );

@@ -6,6 +6,8 @@ import "../quyhoachkhac/moituong.css"
 import { FormControl, InputLabel, Button, Select, MenuItem, CircularProgress, Box, TextField, Grid, Pagination, Paper, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '@mui/material';
+import zIndex from '@mui/material/styles/zIndex';
 
 const data = {
     du_lieu_nang_cap: [
@@ -252,10 +254,20 @@ function Dulieu() {
         });
     };
     const navItems = ["Danh mục", "Tra cứu"];
+    const [navOpen, setNavOpen] = useState(true);
+        
+    const toggleNav = () => setNavOpen(!navOpen);
+    const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     return (
         <div className="main-content" style={{ minHeight: '60vh' }}>
-            <div style={{ display: 'flex', marginTop: '5px' }}>
-                <div style={{ width: '20vw', borderBottom: '1px solid #dee2e6', borderRight: '1px solid #dee2e6' }}>
+            <div style={{ display: isSmallScreen? 'contents' : 'flex', marginTop: '5px' }}>
+                {isSmallScreen &&
+                <div style={{zIndex:"100", padding:"10px", width:'30px'}}>
+                    <i className="fas fa-bars"  onClick={toggleNav} ></i>
+                </div>}
+                {navOpen &&
+                <div style={{zIndex:90, background:'#fff', position: isSmallScreen? 'absolute' : 'flex',width: isSmallScreen ? '60vw' :'20vw', borderBottom: '1px solid #dee2e6', borderRight: '1px solid #dee2e6' }}>
+                    <div style={{marginLeft:isSmallScreen ? '30px' : '10px'}}>
                     {navItems.map((item, index) => (
                         <Button
                             key={index}
@@ -276,6 +288,7 @@ function Dulieu() {
                             {item}
                         </Button>
                     ))}
+                    </div>
                     {(activeIndex === 'Danh mục') &&
                         <nav className='navbar1' style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
                             <p style={{ marginTop: '10px', width: '100%', textAlign: 'center', fontWeight: 700 }}>Danh mục quy hoạch</p>
@@ -391,9 +404,10 @@ function Dulieu() {
                         </nav>
                     )}
                 </div>
-                <div style={{ width: '80vw' }}>
+                }
+                <div style={{ width: isSmallScreen ? '100vw':'80vw' }}>
                     {activeIndex === 'Danh mục' &&
-                        <div style={{ width: '70vw' }}>
+                        <div style={{ width: isSmallScreen ? '100vw':'70vw' }}>
                             {!currentDanhMuc ? (
                                 <Box
                                     sx={{

@@ -30,13 +30,17 @@ const pages = [
     name: 'Bản đồ'
   },
   {
-    to: '/du-lieu-quy-hoach',
-    name: 'Dữ liệu quy hoạch'
+    to: '/ke-hoach',
+    name: 'Kế Hoạch'
   },
   {
-    to: '/danh-gia-quy-hoach',
-    name: 'Đánh giá quy hoạch'
+    to: '/du-lieu-quy-hoach',
+    name: 'Quy hoạch'
   },
+  // {
+  //   to: '/danh-gia-quy-hoach',
+  //   name: 'Đánh giá quy hoạch'
+  // },
   {
     to: '/quy-hoach-khac',
     name: 'Quy hoạch khác'

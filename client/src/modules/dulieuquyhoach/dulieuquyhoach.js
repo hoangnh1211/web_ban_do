@@ -7,7 +7,6 @@ import { FormControl, InputLabel, Button, Select, MenuItem, CircularProgress, Bo
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
-import zIndex from '@mui/material/styles/zIndex';
 
 const data = {
     du_lieu_nang_cap: [
@@ -110,8 +109,10 @@ function Dulieu() {
         page: '',
         per_page: 15,
     })
+    const [indexCheckDanhMuc, setIndexCheckDanhMuc] = useState(-1);
     const [indexCheck, setIndexCheck] = useState(0);
     const [navCheck, setNavCheck] = useState();
+    const [navCheckDanhmuc, setNavCheckDanhmuc] = useState();
     let styleCheck = {
         background: "#3E9CE0",
         border: "0.4px solid #3E75E0",
@@ -126,6 +127,7 @@ function Dulieu() {
         marginBottom: '0px',
         borderRadius: '10px',
     }
+
     const [statusVung, setStatusVung] = useState({
         trungdu: true,
         dongbang: true,
@@ -136,13 +138,62 @@ function Dulieu() {
         dongbangsong: true,
         toanquoc: true
     });
+    const [statusVung1, setStatusVung1] = useState({
+        trungdu: true,
+        dongbang: true,
+        bactrunbo: true,
+        namtrungbo: true,
+        taynguyen: true,
+        dongnambo: true,
+        dongbangsong: true,
+        toanquoc: true
+    });
+    const [tinh, setTinh] = useState([]);
+    const [currentTinh, setCurrentTinh] = useState();
     const [statusDuLieu, setStatusDuLieu] = useState('Danh mục công trình xây mới');
+    const [danhmuc, setDanhmuc] = useState(false);
+    const [danhgia, setDanhgia] = useState(false);
     const handleNavItemClick = (index) => {
         setActiveIndex(index);
     };
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let id = queryParams.get('id'); // Lấy giá trị của 'id'
+    const [currentCategory, setCurrentCategory] = useState('danh mục');
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach`)
+            .then(res => {
+                let data = res.data.data;
+                setTinh(data);
+                if (res.data.data.length > 0) {
+                    const crurrent = data.find(value => value.id === id)
+                    const index = data.findIndex(value => value.id === id)
+                    if (index !== -1) {
+                        setIndexCheck(index)
+                        setNavCheck(crurrent.khu_vuc)
+                        axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach/${id}`)
+                        .then(res => {
+                            setCurrentTinh(res.data.data[0]);
+                        })
+                        setDanhgia(true)
+                        setCurrentCategory('đánh giá')
+                    }
+                }
+            });
+    }, [])
+    const getTinh = (currenttinh, index) => {
+        setCurrentCategory('đánh giá')
+        axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach/${currenttinh.id}`)
+            .then(res => {
+                setCurrentTinh(res.data.data[0]);
+            });
+        navigate(`/du-lieu-quy-hoach?id=${currenttinh.id}`, { replace: true });
+        // setCurrentTinh(currenttinh)
+        setIndexCheck(index)
+        setNavCheck(currenttinh.khu_vuc)
+        setIndexCheckDanhMuc(-1)
+        setNavCheckDanhmuc()
+    }
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc`)
             .then(res => {
@@ -151,28 +202,41 @@ function Dulieu() {
                 const crurrent = data.find(value => value.id === id)
                 const index = data.findIndex(value => value.id === id)
                 if (index !== -1) {
-                    setIndexCheck(index)
-                    setNavCheck(crurrent.khu_vuc)
-                } else {
-                    setNavCheck(res.data.data[0].khu_vuc)
+                    setIndexCheckDanhMuc(index)
+                    setNavCheckDanhmuc(crurrent.khu_vuc)
+                    axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc/${id}`)
+                        .then(res => {
+                            setCurrentDanhMuc(res.data.data[0]);
+                        })
+                    setDanhmuc(true)
+                    setCurrentCategory('danh mục')
                 }
-                id = index !== -1 ? id : res.data.data[0].id
-                axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc/${id}`)
-                    .then(res => {
-                        setCurrentDanhMuc(res.data.data[0]);
-                    })
+                if (!id){
+                    setIndexCheckDanhMuc(0)
+                    setNavCheckDanhmuc(res.data.data[0].khu_vuc)
+                    axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc/${res.data.data[0].id}`)
+                        .then(res => {
+                            setCurrentDanhMuc(res.data.data[0]);
+                        })
+                    setCurrentCategory('danh mục')
+                    setDanhmuc(true)
+                }
+
             });
         getDuLieuXayMoi();
     }, [])
 
     const getDanhMuc = (currentDanhMuc, index) => {
+        setCurrentCategory('danh mục')
         axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc/${currentDanhMuc.id}`)
             .then(res => {
                 setCurrentDanhMuc(res.data.data[0]);
             });
         navigate(`/du-lieu-quy-hoach?id=${currentDanhMuc.id}`, { replace: true });
-        setIndexCheck(index)
-        setNavCheck(currentDanhMuc.khu_vuc)
+        setIndexCheckDanhMuc(index)
+        setNavCheckDanhmuc(currentDanhMuc.khu_vuc)
+        setIndexCheck(-1)
+        setNavCheck()
     }
     const getDuLieuNangCap = (params = searchDuLieuNangCap) => {
         axios.get(`${process.env.REACT_APP_SERVER}/api/dulieunangcap`, {
@@ -192,10 +256,10 @@ function Dulieu() {
                 setLoading(false)
             });
     }
-    const changeStatus = (key) => {
-        let st = { ...statusVung };
+    const changeStatus1 = (key) => {
+        let st = { ...statusVung1 };
         st[key] = !st[key];
-        setStatusVung(st)
+        setStatusVung1(st)
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -242,6 +306,11 @@ function Dulieu() {
             page: value,
         });
     };
+    const changeStatus = (key) => {
+        let st = { ...statusVung };
+        st[key] = !st[key];
+        setStatusVung(st)
+    }
     const handleRowsPerPageChangeXayMoi = async (event, value) => {
         setSearchDuLieuXayMoi((prevData) => ({
             ...prevData,
@@ -255,173 +324,303 @@ function Dulieu() {
     };
     const navItems = ["Danh mục", "Tra cứu"];
     const [navOpen, setNavOpen] = useState(true);
-        
+
     const toggleNav = () => setNavOpen(!navOpen);
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     return (
         <div className="main-content" style={{ minHeight: '60vh' }}>
-            <div style={{ display: isSmallScreen? 'contents' : 'flex', marginTop: '5px' }}>
+            <div style={{ display: isSmallScreen ? 'contents' : 'flex', marginTop: '5px' }}>
                 {isSmallScreen &&
-                <div style={{zIndex:"100", padding:"10px", width:'30px'}}>
-                    <i className="fas fa-bars"  onClick={toggleNav} ></i>
-                </div>}
+                    <div style={{ zIndex: "100", padding: "10px", width: '30px' }}>
+                        <i className="fas fa-bars" onClick={toggleNav} ></i>
+                    </div>}
                 {navOpen &&
-                <div style={{zIndex:90, background:'#fff', position: isSmallScreen? 'absolute' : 'flex',width: isSmallScreen ? '60vw' :'20vw', borderBottom: '1px solid #dee2e6', borderRight: '1px solid #dee2e6' }}>
-                    <div style={{marginLeft:isSmallScreen ? '30px' : '10px'}}>
-                    {navItems.map((item, index) => (
-                        <Button
-                            key={index}
-                            color="inherit"
-                            onClick={() => handleNavItemClick(item)} // Gọi hàm khi click vào một item
-                            sx={{
-                                color: activeIndex === item ? 'rgb(88, 162, 237)' : '',
-                                borderTop: activeIndex === item ? '1px solid #dee2e6' : '', // Thêm border-top khi active
-                                borderRight: activeIndex === item ? '1px solid #dee2e6' : '', // Thêm border-right khi active
-                                borderLeft: activeIndex === item ? '1px solid #dee2e6' : '', // Thêm border-left khi active
-                                borderRadius: activeIndex === item ? '5px' : '',
-                                '&:hover': {
-                                    backgroundColor: '#dee2e6',
-                                },
-                                fontWeight: 700
-                            }}
-                        >
-                            {item}
-                        </Button>
-                    ))}
-                    </div>
-                    {(activeIndex === 'Danh mục') &&
-                        <nav className='navbar1' style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
-                            <p style={{ marginTop: '10px', width: '100%', textAlign: 'center', fontWeight: 700 }}>Danh mục quy hoạch</p>
-                            <div style={{ width: '100%' }}>
-                                <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
-                                    <i className={statusVung.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                </div>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {statusVung.trungdu && listDanhMuc.map((value, index) => {
-                                        if (value.khu_vuc === 'Trung du và miền núi phía Bắc')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                    })}
-                                </ul>
-                                <div onClick={() => changeStatus('dongbang')} style={navCheck === 'Đồng Bằng Bắc Bộ' ? styleCheck : styleNotCheck}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   II. Đồng Bằng Bắc Bộ</p>
-                                    <i className={statusVung.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                </div>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {statusVung.dongbang && listDanhMuc.map((value, index) => {
-                                        if (value.khu_vuc === 'Đồng Bằng Bắc Bộ')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                    })}
-                                </ul>
-                                <div onClick={() => changeStatus('bactrunbo')} style={navCheck === 'Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   III. Bắc Trung Bộ</p>
-                                    <i className={statusVung.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                </div>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {statusVung.bactrunbo && listDanhMuc.map((value, index) => {
-                                        if (value.khu_vuc === 'Bắc Trung Bộ')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                    })}
-                                </ul>
-                                <div onClick={() => changeStatus('namtrungbo')} style={navCheck === 'Nam Trung Bộ' ? styleCheck : styleNotCheck}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ</p>
-                                    <i className={statusVung.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                </div>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {statusVung.namtrungbo && listDanhMuc.map((value, index) => {
-                                        if (value.khu_vuc === 'Nam Trung Bộ')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                    })}
-                                </ul>
-                                <div onClick={() => changeStatus('taynguyen')} style={navCheck === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Tây Nguyên</p>
-                                    <i className={statusVung.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                </div>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {statusVung.taynguyen && listDanhMuc.map((value, index) => {
-                                        if (value.khu_vuc === 'Tây Nguyên')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                    })}
-                                </ul>
-                                <div onClick={() => changeStatus('dongnambo')} style={navCheck === 'Đông Nam Bộ' ? styleCheck : styleNotCheck}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đông Nam Bộ</p>
-                                    <i className={statusVung.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                </div>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {statusVung.dongnambo && listDanhMuc.map((value, index) => {
-                                        if (value.khu_vuc === 'Đông Nam Bộ')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                    })}
-                                </ul>
-                                <div onClick={() => changeStatus('dongbangsong')} style={navCheck === 'Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Đồng bằng sông Cửu Long</p>
-                                    <i className={statusVung.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                </div>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {statusVung.dongbangsong && listDanhMuc.map((value, index) => {
-                                        if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                    })}
-                                </ul>
-                                <div onClick={() => changeStatus('toanquoc')} style={navCheck === 'Toàn quốc' ? styleCheck : styleNotCheck}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VIII. Toàn quốc</p>
-                                    <i className={statusVung.toanquoc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                </div>
-                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                    {statusVung.toanquoc && listDanhMuc.map((value, index) => {
-                                        if (value.khu_vuc === 'Toàn quốc')
-                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                    })}
-                                </ul>
-                            </div>
-                        </nav>
-                    }
-                    {(activeIndex === 'Tra cứu' &&
-                        <nav style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
-                            <p style={{ marginTop: '10px', width: '100%', textAlign: 'center', fontWeight: 700 }}>Tra cứu dữ liệu</p>
-                            <div style={{ width: '100%' }}>
-                                <div onClick={() => {
-                                    setCurrentDuLieu([]);
-                                    setStatusDuLieu('Danh mục công trình xây mới');
-                                    getDuLieuXayMoi();
-                                }}
-                                    style={statusDuLieu === 'Danh mục công trình xây mới' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}
-                                >
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. Danh mục công trình xây mới</p>
-                                </div>
-                                <div onClick={() => { setCurrentDuLieu([]); setStatusDuLieu('Danh mục công trình nâng cấp'); getDuLieuNangCap(); }} style={statusDuLieu === 'Danh mục công trình nâng cấp' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}>
-                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>II. Danh mục công trình nâng cấp</p>
-                                </div>
-                            </div>
-                        </nav>
-                    )}
-                </div>
-                }
-                <div style={{ width: isSmallScreen ? '100vw':'80vw' }}>
-                    {activeIndex === 'Danh mục' &&
-                        <div style={{ width: isSmallScreen ? '100vw':'70vw' }}>
-                            {!currentDanhMuc ? (
-                                <Box
+                    <div style={{ zIndex: 90, background: '#fff', position: isSmallScreen ? 'absolute' : 'flex', width: isSmallScreen ? '60vw' : '20vw', borderBottom: '1px solid #dee2e6', borderRight: '1px solid #dee2e6' }}>
+                        <div style={{ marginLeft: isSmallScreen ? '30px' : '10px' }}>
+                            {navItems.map((item, index) => (
+                                <Button
+                                    key={index}
+                                    color="inherit"
+                                    onClick={() => handleNavItemClick(item)} // Gọi hàm khi click vào một item
                                     sx={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
+                                        color: activeIndex === item ? 'rgb(88, 162, 237)' : '',
+                                        borderTop: activeIndex === item ? '1px solid #dee2e6' : '', // Thêm border-top khi active
+                                        borderRight: activeIndex === item ? '1px solid #dee2e6' : '', // Thêm border-right khi active
+                                        borderLeft: activeIndex === item ? '1px solid #dee2e6' : '', // Thêm border-left khi active
+                                        borderRadius: activeIndex === item ? '5px' : '',
+                                        '&:hover': {
+                                            backgroundColor: '#dee2e6',
+                                        },
+                                        fontWeight: 700
                                     }}
                                 >
-                                    <CircularProgress size={80} thickness={5} />
-                                </Box>) : (
-                                <div className="content content1">
-                                    <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentDanhMuc?.noi_dung }} />
+                                    {item}
+                                </Button>
+                            ))}
+                        </div>
+                        {(activeIndex === 'Danh mục') &&
+                            <nav className='navbar1' style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
+                                <div onClick={() => setDanhmuc(!danhmuc)} style={{
+                                    width: '100%', display: 'flex', justifyContent: 'space-between',
+                                    padding: '7px 10px 7px 0px',
+                                    borderRadius: '10px',
+                                }}>
+                                    <p style={{ marginBottom: 0, width: '100%', textAlign: 'left', fontWeight: 700 }}>A. Danh mục quy hoạch</p>
+                                    <i className={danhmuc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                                 </div>
-                            )}
+                                {danhmuc &&
+                                    <div style={{ width: '100%' }}>
+                                        <div onClick={() => changeStatus1('trungdu')} style={navCheckDanhmuc === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
+                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
+                                            <i className={statusVung1.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                            {statusVung1.trungdu && listDanhMuc.map((value, index) => {
+                                                if (value.khu_vuc === 'Trung du và miền núi phía Bắc')
+                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+
+                                            })}
+                                        </ul>
+                                        <div onClick={() => changeStatus1('dongbang')} style={navCheckDanhmuc === 'Đồng Bằng Bắc Bộ' ? styleCheck : styleNotCheck}>
+                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   II. Đồng Bằng Bắc Bộ</p>
+                                            <i className={statusVung1.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                            {statusVung1.dongbang && listDanhMuc.map((value, index) => {
+                                                if (value.khu_vuc === 'Đồng Bằng Bắc Bộ')
+                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+
+                                            })}
+                                        </ul>
+                                        <div onClick={() => changeStatus1('bactrunbo')} style={navCheckDanhmuc === 'Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
+                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   III. Bắc Trung Bộ</p>
+                                            <i className={statusVung1.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                            {statusVung1.bactrunbo && listDanhMuc.map((value, index) => {
+                                                if (value.khu_vuc === 'Bắc Trung Bộ')
+                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+
+                                            })}
+                                        </ul>
+                                        <div onClick={() => changeStatus1('namtrungbo')} style={navCheckDanhmuc === 'Nam Trung Bộ' ? styleCheck : styleNotCheck}>
+                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ</p>
+                                            <i className={statusVung1.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                            {statusVung1.namtrungbo && listDanhMuc.map((value, index) => {
+                                                if (value.khu_vuc === 'Nam Trung Bộ')
+                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+
+                                            })}
+                                        </ul>
+                                        <div onClick={() => changeStatus1('taynguyen')} style={navCheckDanhmuc === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
+                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Tây Nguyên</p>
+                                            <i className={statusVung1.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                            {statusVung1.taynguyen && listDanhMuc.map((value, index) => {
+                                                if (value.khu_vuc === 'Tây Nguyên')
+                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+
+                                            })}
+                                        </ul>
+                                        <div onClick={() => changeStatus1('dongnambo')} style={navCheckDanhmuc === 'Đông Nam Bộ' ? styleCheck : styleNotCheck}>
+                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đông Nam Bộ</p>
+                                            <i className={statusVung1.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                            {statusVung1.dongnambo && listDanhMuc.map((value, index) => {
+                                                if (value.khu_vuc === 'Đông Nam Bộ')
+                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+
+                                            })}
+                                        </ul>
+                                        <div onClick={() => changeStatus1('dongbangsong')} style={navCheckDanhmuc === 'Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
+                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Đồng bằng sông Cửu Long</p>
+                                            <i className={statusVung1.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                            {statusVung1.dongbangsong && listDanhMuc.map((value, index) => {
+                                                if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
+                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+
+                                            })}
+                                        </ul>
+                                        <div onClick={() => changeStatus1('toanquoc')} style={navCheckDanhmuc === 'Toàn quốc' ? styleCheck : styleNotCheck}>
+                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VIII. Toàn quốc</p>
+                                            <i className={statusVung1.toanquoc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                            {statusVung1.toanquoc && listDanhMuc.map((value, index) => {
+                                                if (value.khu_vuc === 'Toàn quốc')
+                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+
+                                            })}
+                                        </ul>
+                                    </div>
+                                }
+                                <div onClick={() => setDanhgia(!danhgia)} style={{
+                                    width: '100%', display: 'flex', justifyContent: 'space-between',
+                                    padding: '7px 10px 7px 0px',
+                                    borderRadius: '10px',
+                                }}>
+                                    <p style={{ marginBottom: 0, width: '100%', textAlign: 'left', fontWeight: 700 }}>B. Đánh giá kết quả thực hiện quy hoạch </p>
+                                    <i className={danhgia ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                </div>
+                                {danhgia &&
+                                    <div>
+                                        <p style={{ width: '100%', textAlign: 'left', paddingLeft: "10px", marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>B1. Năm 2024</p>
+                                        <div style={{ width: '100%' }}>
+                                            <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
+                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
+                                                <i className={statusVung.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                            </div>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                {statusVung.trungdu && tinh.map((value, index) => {
+                                                    if (value.khu_vuc === 'Trung du và miền núi phía Bắc')
+                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                                                })}
+                                            </ul>
+                                            <div onClick={() => changeStatus('dongbang')} style={navCheck === 'Đồng Bằng Bắc Bộ' ? styleCheck : styleNotCheck}>
+                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   II. Đồng Bằng Bắc Bộ</p>
+                                                <i className={statusVung.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                            </div>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                {statusVung.dongbang && tinh.map((value, index) => {
+                                                    if (value.khu_vuc === 'Đồng Bằng Bắc Bộ')
+                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                                                })}
+                                            </ul>
+                                            <div onClick={() => changeStatus('bactrunbo')} style={navCheck === 'Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
+                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   III. Bắc Trung Bộ</p>
+                                                <i className={statusVung.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                            </div>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                {statusVung.bactrunbo && tinh.map((value, index) => {
+                                                    if (value.khu_vuc === 'Bắc Trung Bộ')
+                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                                                })}
+                                            </ul>
+                                            <div onClick={() => changeStatus('namtrungbo')} style={navCheck === 'Nam Trung Bộ' ? styleCheck : styleNotCheck}>
+                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ</p>
+                                                <i className={statusVung.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                            </div>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                {statusVung.namtrungbo && tinh.map((value, index) => {
+                                                    if (value.khu_vuc === 'Nam Trung Bộ')
+                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                                                })}
+                                            </ul>
+                                            <div onClick={() => changeStatus('taynguyen')} style={navCheck === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
+                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Tây Nguyên</p>
+                                                <i className={statusVung.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                            </div>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                {statusVung.taynguyen && tinh.map((value, index) => {
+                                                    if (value.khu_vuc === 'Tây Nguyên')
+                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                                                })}
+                                            </ul>
+                                            <div onClick={() => changeStatus('dongnambo')} style={navCheck === 'Đông Nam Bộ' ? styleCheck : styleNotCheck}>
+                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đông Nam Bộ</p>
+                                                <i className={statusVung.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                            </div>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                {statusVung.dongnambo && tinh.map((value, index) => {
+                                                    if (value.khu_vuc === 'Đông Nam Bộ')
+                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                                                })}
+                                            </ul>
+                                            <div onClick={() => changeStatus('dongbangsong')} style={navCheck === 'Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
+                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Đồng bằng sông Cửu Long</p>
+                                                <i className={statusVung.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                            </div>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                {statusVung.dongbangsong && tinh.map((value, index) => {
+                                                    if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
+                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                                                })}
+                                            </ul>
+                                            <div onClick={() => changeStatus('toanquoc')} style={navCheck === 'Toàn quốc' ? styleCheck : styleNotCheck}>
+                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VIII. Toàn quốc</p>
+                                                <i className={statusVung.toanquoc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                            </div>
+                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                {statusVung.toanquoc && tinh.map((value, index) => {
+                                                    if (value.khu_vuc === 'Toàn quốc')
+                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+
+                                                })}
+                                            </ul>
+                                        </div>
+                                        <p style={{ width: '100%', textAlign: 'left', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>B2. Năm 2025</p>
+                                        <p style={{ width: '100%', textAlign: 'left', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>B3. Giai đoạn 2021 - 2025</p>
+                                    </div>
+                                }
+                            </nav>
+                        }
+                        {(activeIndex === 'Tra cứu' &&
+                            <nav style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
+                                <p style={{ marginTop: '10px', width: '100%', textAlign: 'center', fontWeight: 700 }}>Tra cứu dữ liệu</p>
+                                <div style={{ width: '100%' }}>
+                                    <div onClick={() => {
+                                        setCurrentDuLieu([]);
+                                        setStatusDuLieu('Danh mục công trình xây mới');
+                                        getDuLieuXayMoi();
+                                    }}
+                                        style={statusDuLieu === 'Danh mục công trình xây mới' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}
+                                    >
+                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. Danh mục công trình xây mới</p>
+                                    </div>
+                                    <div onClick={() => { setCurrentDuLieu([]); setStatusDuLieu('Danh mục công trình nâng cấp'); getDuLieuNangCap(); }} style={statusDuLieu === 'Danh mục công trình nâng cấp' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}>
+                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>II. Danh mục công trình nâng cấp</p>
+                                    </div>
+                                </div>
+                            </nav>
+                        )}
+                    </div>
+                }
+                <div style={{ width: isSmallScreen ? '100vw' : '80vw' }}>
+                    {activeIndex === 'Danh mục' &&
+                        <div style={{ width: isSmallScreen ? '100vw' : '70vw' }}>
+                            {currentCategory === 'danh mục' ?
+                                !currentDanhMuc ? (
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <CircularProgress size={80} thickness={5} />
+                                    </Box>) : (
+                                    <div className="content content1">
+                                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentDanhMuc?.noi_dung }} />
+                                    </div>
+                                ) :
+                                !currentTinh ? (
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <CircularProgress size={80} thickness={5} />
+                                    </Box>) : (
+                                    <div className="content content1">
+                                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentTinh?.noi_dung }} />
+                                    </div>
+                                )
+                            }
                         </div>
                     }
                     {activeIndex === 'Tra cứu' && statusDuLieu === 'Danh mục công trình xây mới' &&

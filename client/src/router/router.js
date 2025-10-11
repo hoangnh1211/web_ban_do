@@ -8,6 +8,7 @@ const DanhGiaQuyHoach = lazy(() => import("../modules/danhgiaquyhoachkhac"));
 const ChienLuocThuyLoi = lazy(() => import("../modules/chienluocthuyloi"));
 const Contact = lazy(() => import("../modules/contact/contact"));
 const Dulieu = lazy(() => import("../modules/dulieuquyhoach/dulieuquyhoach"));
+const Kehoach = lazy(() => import("../modules/kehoach/kehoach"));
 const Import = lazy(() => import("../modules/data/import"));
 const MapNewTile = lazy(() => import("../modules/map_new/indexTile"));
 
@@ -28,6 +29,7 @@ function Router() {
                 <Route path="/chien-luoc-thuy-loi" element={<ChienLuocThuyLoi />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/du-lieu-quy-hoach" element={<Dulieu />} />
+                <Route path="/ke-hoach" element={<Kehoach />} />
                 <Route path="/import-data" element={<Import />} />
             </Routes>
         </Suspense>

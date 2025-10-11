@@ -22,16 +22,12 @@ const pages = [
     name: 'Trang chủ'
   },
   {
-    to: '/chien-luoc-thuy-loi',
-    name: 'Chiến Lược Thủy Lợi'
-  },
-  {
     to: '/new-map',
     name: 'Bản đồ'
   },
   {
     to: '/ke-hoach',
-    name: 'Kế Hoạch'
+    name: 'Kế hoạch'
   },
   {
     to: '/du-lieu-quy-hoach',
@@ -44,6 +40,10 @@ const pages = [
   {
     to: '/quy-hoach-khac',
     name: 'Quy hoạch khác'
+  },
+  {
+    to: '/chien-luoc-thuy-loi',
+    name: 'Chiến Lược'
   },
   {
     to: '/contact',
@@ -78,7 +78,7 @@ function Header() {
       const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
     <div>
-      <AppBar position={(location.pathname == '/quy-hoach-khac'|| location.pathname == '/du-lieu-quy-hoach' || location.pathname == '/danh-gia-quy-hoach'|| location.pathname == '/chien-luoc-thuy-loi') ? "fixed" : "static"}>
+      <AppBar position={(location.pathname == '/quy-hoach-khac'|| location.pathname == '/du-lieu-quy-hoach' || location.pathname == '/danh-gia-quy-hoach'|| location.pathname == '/chien-luoc-thuy-loi'|| location.pathname == '/ke-hoach') ? "fixed" : "static"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
             <Avatar sx={{ width: isSmallScreen ?"30px" : "44px", height: isSmallScreen ?"50px" :'75px', marginRight:'10px' }}

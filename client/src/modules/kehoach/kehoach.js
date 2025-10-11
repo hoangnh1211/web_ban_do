@@ -73,11 +73,11 @@ const data = {
     ]
 };
 
-function Dulieu() {
+function Kehoach() {
     const navigate = useNavigate();
-    const [activeIndex, setActiveIndex] = useState('Danh mục');
-    const [listDanhMuc, setListDanhMuc] = useState([]);
-    const [currentDanhMuc, setCurrentDanhMuc] = useState();
+    const [activeIndex, setActiveIndex] = useState('Kế hoạch');
+    const [listKeHoach, setListKeHoach] = useState([]);
+    const [currentKeHoach, setCurrentKeHoach] = useState();
     const [loading, setLoading] = useState(false);
     const [currentDuLieu, setCurrentDuLieu] = useState([]);
     const [searchDuLieuNangCap, setSearchDuLieuNangCap] = useState({
@@ -109,10 +109,7 @@ function Dulieu() {
         page: '',
         per_page: 15,
     })
-    const [indexCheckDanhMuc, setIndexCheckDanhMuc] = useState(-1);
-    const [indexCheck, setIndexCheck] = useState(0);
-    const [navCheck, setNavCheck] = useState();
-    const [navCheckDanhmuc, setNavCheckDanhmuc] = useState();
+    const [indexCheckKeHoach, setIndexCheckKeHoach] = useState(-1);
     let styleCheck = {
         background: "#3E9CE0",
         border: "0.4px solid #3E75E0",
@@ -150,8 +147,8 @@ function Dulieu() {
     });
     const [tinh, setTinh] = useState([]);
     const [currentTinh, setCurrentTinh] = useState();
-    const [statusDuLieu, setStatusDuLieu] = useState('Danh mục công trình xây mới');
-    const [danhmuc, setDanhmuc] = useState(false);
+    const [statusDuLieu, setStatusDuLieu] = useState('Kế hoạch công trình xây mới');
+    const [kehoach, setKehoach] = useState(false);
     const [danhgia, setDanhgia] = useState(false);
     const handleNavItemClick = (index) => {
         setActiveIndex(index);
@@ -159,7 +156,7 @@ function Dulieu() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     let id = queryParams.get('id'); // Lấy giá trị của 'id'
-    const [currentCategory, setCurrentCategory] = useState('danh mục');
+    const [currentCategory, setCurrentCategory] = useState('kế hoạch');
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach`)
             .then(res => {
@@ -169,12 +166,10 @@ function Dulieu() {
                     const crurrent = data.find(value => value.id === id)
                     const index = data.findIndex(value => value.id === id)
                     if (index !== -1) {
-                        setIndexCheck(index)
-                        setNavCheck(crurrent.khu_vuc)
                         axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach/${id}`)
-                        .then(res => {
-                            setCurrentTinh(res.data.data[0]);
-                        })
+                            .then(res => {
+                                setCurrentTinh(res.data.data[0]);
+                            })
                         setDanhgia(true)
                         setCurrentCategory('đánh giá')
                     }
@@ -188,55 +183,46 @@ function Dulieu() {
                 setCurrentTinh(res.data.data[0]);
             });
         navigate(`/du-lieu-quy-hoach?id=${currenttinh.id}`, { replace: true });
-        // setCurrentTinh(currenttinh)
-        setIndexCheck(index)
-        setNavCheck(currenttinh.khu_vuc)
-        setIndexCheckDanhMuc(-1)
-        setNavCheckDanhmuc()
+        setIndexCheckKeHoach(-1)
     }
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc`)
+        axios.get(`${process.env.REACT_APP_SERVER}/api/kehoach`)
             .then(res => {
                 let data = res.data.data;
-                setListDanhMuc(data);
+                setListKeHoach(data);
                 const crurrent = data.find(value => value.id === id)
                 const index = data.findIndex(value => value.id === id)
                 if (index !== -1) {
-                    setIndexCheckDanhMuc(index)
-                    setNavCheckDanhmuc(crurrent.khu_vuc)
-                    axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc/${id}`)
+                    setIndexCheckKeHoach(index)
+                    axios.get(`${process.env.REACT_APP_SERVER}/api/kehoach/${id}`)
                         .then(res => {
-                            setCurrentDanhMuc(res.data.data[0]);
+                            setCurrentKeHoach(res.data.data[0]);
                         })
-                    setDanhmuc(true)
-                    setCurrentCategory('danh mục')
+                    setKehoach(true)
+                    setCurrentCategory('kế hoạch')
                 }
-                if (!id){
-                    setIndexCheckDanhMuc(0)
-                    setNavCheckDanhmuc(res.data.data[0].khu_vuc)
-                    axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc/${res.data.data[0].id}`)
+                if (!id) {
+                    setIndexCheckKeHoach(0)
+                    axios.get(`${process.env.REACT_APP_SERVER}/api/kehoach/${res.data.data[0].id}`)
                         .then(res => {
-                            setCurrentDanhMuc(res.data.data[0]);
+                            setCurrentKeHoach(res.data.data[0]);
                         })
-                    setCurrentCategory('danh mục')
-                    setDanhmuc(true)
+                    setCurrentCategory('kế hoạch')
+                    setKehoach(true)
                 }
 
             });
         getDuLieuXayMoi();
     }, [])
 
-    const getDanhMuc = (currentDanhMuc, index) => {
-        setCurrentCategory('danh mục')
-        axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc/${currentDanhMuc.id}`)
+    const getKeHoach = (currentKeHoach, index) => {
+        setCurrentCategory('kế hoạch')
+        axios.get(`${process.env.REACT_APP_SERVER}/api/kehoach/${currentKeHoach.id}`)
             .then(res => {
-                setCurrentDanhMuc(res.data.data[0]);
+                setCurrentKeHoach(res.data.data[0]);
             });
-        navigate(`/du-lieu-quy-hoach?id=${currentDanhMuc.id}`, { replace: true });
-        setIndexCheckDanhMuc(index)
-        setNavCheckDanhmuc(currentDanhMuc.khu_vuc)
-        setIndexCheck(-1)
-        setNavCheck()
+        navigate(`/du-lieu-quy-hoach?id=${currentKeHoach.id}`, { replace: true });
+        setIndexCheckKeHoach(index)
     }
     const getDuLieuNangCap = (params = searchDuLieuNangCap) => {
         axios.get(`${process.env.REACT_APP_SERVER}/api/dulieunangcap`, {
@@ -322,11 +308,12 @@ function Dulieu() {
             page: '1',
         });
     };
-    const navItems = ["Danh mục", "Tra cứu"];
+    const navItems = ["Kế hoạch", "Tra cứu"];
     const [navOpen, setNavOpen] = useState(true);
 
     const toggleNav = () => setNavOpen(!navOpen);
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    console.log(listKeHoach)
     return (
         <div className="main-content" style={{ minHeight: '60vh' }}>
             <div style={{ display: isSmallScreen ? 'contents' : 'flex', marginTop: '5px' }}>
@@ -358,106 +345,24 @@ function Dulieu() {
                                 </Button>
                             ))}
                         </div>
-                        {(activeIndex === 'Danh mục') &&
+                        {(activeIndex === 'Kế hoạch') &&
                             <nav className='navbar1' style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
-                                <div onClick={() => setDanhmuc(!danhmuc)} style={{
+                                <div onClick={() => setKehoach(!kehoach)} style={{
                                     width: '100%', display: 'flex', justifyContent: 'space-between',
                                     padding: '7px 10px 7px 0px',
                                     borderRadius: '10px',
                                 }}>
-                                    <p style={{ marginBottom: 0, width: '100%', textAlign: 'left', fontWeight: 700 }}>A. Danh mục quy hoạch</p>
-                                    <i className={danhmuc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                    <p style={{ marginBottom: 0, width: '100%', textAlign: 'left', fontWeight: 700 }}>A. Kế hoạch ngành</p>
+                                    <i className={kehoach ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                                 </div>
-                                {danhmuc &&
+                                {kehoach &&
                                     <div style={{ width: '100%' }}>
-                                        <div onClick={() => changeStatus1('trungdu')} style={navCheckDanhmuc === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
-                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
-                                            <i className={statusVung1.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                        </div>
-                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                            {statusVung1.trungdu && listDanhMuc.map((value, index) => {
-                                                if (value.khu_vuc === 'Trung du và miền núi phía Bắc')
-                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
+                                        {
+                                            listKeHoach.map((value, index) => {
+                                                if (value.loai_ke_hoach === 'Kế hoạch ngành')
+                                                    return <div style={index === indexCheckKeHoach ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getKeHoach(value, index)}>{value.stt}. {value.ten_ke_hoach}</div>
 
                                             })}
-                                        </ul>
-                                        <div onClick={() => changeStatus1('dongbang')} style={navCheckDanhmuc === 'Đồng Bằng Bắc Bộ' ? styleCheck : styleNotCheck}>
-                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   II. Đồng Bằng Bắc Bộ</p>
-                                            <i className={statusVung1.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                        </div>
-                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                            {statusVung1.dongbang && listDanhMuc.map((value, index) => {
-                                                if (value.khu_vuc === 'Đồng Bằng Bắc Bộ')
-                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                            })}
-                                        </ul>
-                                        <div onClick={() => changeStatus1('bactrunbo')} style={navCheckDanhmuc === 'Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
-                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   III. Bắc Trung Bộ</p>
-                                            <i className={statusVung1.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                        </div>
-                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                            {statusVung1.bactrunbo && listDanhMuc.map((value, index) => {
-                                                if (value.khu_vuc === 'Bắc Trung Bộ')
-                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                            })}
-                                        </ul>
-                                        <div onClick={() => changeStatus1('namtrungbo')} style={navCheckDanhmuc === 'Nam Trung Bộ' ? styleCheck : styleNotCheck}>
-                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ</p>
-                                            <i className={statusVung1.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                        </div>
-                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                            {statusVung1.namtrungbo && listDanhMuc.map((value, index) => {
-                                                if (value.khu_vuc === 'Nam Trung Bộ')
-                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                            })}
-                                        </ul>
-                                        <div onClick={() => changeStatus1('taynguyen')} style={navCheckDanhmuc === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
-                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Tây Nguyên</p>
-                                            <i className={statusVung1.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                        </div>
-                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                            {statusVung1.taynguyen && listDanhMuc.map((value, index) => {
-                                                if (value.khu_vuc === 'Tây Nguyên')
-                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                            })}
-                                        </ul>
-                                        <div onClick={() => changeStatus1('dongnambo')} style={navCheckDanhmuc === 'Đông Nam Bộ' ? styleCheck : styleNotCheck}>
-                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đông Nam Bộ</p>
-                                            <i className={statusVung1.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                        </div>
-                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                            {statusVung1.dongnambo && listDanhMuc.map((value, index) => {
-                                                if (value.khu_vuc === 'Đông Nam Bộ')
-                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                            })}
-                                        </ul>
-                                        <div onClick={() => changeStatus1('dongbangsong')} style={navCheckDanhmuc === 'Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
-                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Đồng bằng sông Cửu Long</p>
-                                            <i className={statusVung1.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                        </div>
-                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                            {statusVung1.dongbangsong && listDanhMuc.map((value, index) => {
-                                                if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
-                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                            })}
-                                        </ul>
-                                        <div onClick={() => changeStatus1('toanquoc')} style={navCheckDanhmuc === 'Toàn quốc' ? styleCheck : styleNotCheck}>
-                                            <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VIII. Toàn quốc</p>
-                                            <i className={statusVung1.toanquoc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                        </div>
-                                        <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                            {statusVung1.toanquoc && listDanhMuc.map((value, index) => {
-                                                if (value.khu_vuc === 'Toàn quốc')
-                                                    return <li style={index === indexCheckDanhMuc ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getDanhMuc(value, index)}>{value.stt}. {value.ten_danh_muc}</li>
-
-                                            })}
-                                        </ul>
                                     </div>
                                 }
                                 <div onClick={() => setDanhgia(!danhgia)} style={{
@@ -465,134 +370,47 @@ function Dulieu() {
                                     padding: '7px 10px 7px 0px',
                                     borderRadius: '10px',
                                 }}>
-                                    <p style={{ marginBottom: 0, width: '100%', textAlign: 'left', fontWeight: 700 }}>B. Đánh giá kết quả thực hiện quy hoạch </p>
+                                    <p style={{ marginBottom: 0, width: '100%', textAlign: 'left', fontWeight: 700 }}>B. Kế hoạch đầu tư công </p>
                                     <i className={danhgia ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                                 </div>
                                 {danhgia &&
-                                    <div>
-                                        <p style={{ width: '100%', textAlign: 'left', paddingLeft: "10px", marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>B1. Năm 2024</p>
-                                        <div style={{ width: '100%' }}>
-                                            <div onClick={() => changeStatus('trungdu')} style={navCheck === 'Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
-                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
-                                                <i className={statusVung.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                            </div>
-                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                                {statusVung.trungdu && tinh.map((value, index) => {
-                                                    if (value.khu_vuc === 'Trung du và miền núi phía Bắc')
-                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                    <div style={{ width: '100%' }}>
+                                        {
+                                            listKeHoach.map((value, index) => {
+                                                if (value.loai_ke_hoach === 'Kế hoạch đầu tư công')
+                                                    return <div style={index === indexCheckKeHoach ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getKeHoach(value, index)}>{value.stt}. {value.ten_ke_hoach}</div>
 
-                                                })}
-                                            </ul>
-                                            <div onClick={() => changeStatus('dongbang')} style={navCheck === 'Đồng Bằng Bắc Bộ' ? styleCheck : styleNotCheck}>
-                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   II. Đồng Bằng Bắc Bộ</p>
-                                                <i className={statusVung.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                            </div>
-                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                                {statusVung.dongbang && tinh.map((value, index) => {
-                                                    if (value.khu_vuc === 'Đồng Bằng Bắc Bộ')
-                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
-
-                                                })}
-                                            </ul>
-                                            <div onClick={() => changeStatus('bactrunbo')} style={navCheck === 'Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
-                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   III. Bắc Trung Bộ</p>
-                                                <i className={statusVung.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                            </div>
-                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                                {statusVung.bactrunbo && tinh.map((value, index) => {
-                                                    if (value.khu_vuc === 'Bắc Trung Bộ')
-                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
-
-                                                })}
-                                            </ul>
-                                            <div onClick={() => changeStatus('namtrungbo')} style={navCheck === 'Nam Trung Bộ' ? styleCheck : styleNotCheck}>
-                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ</p>
-                                                <i className={statusVung.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                            </div>
-                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                                {statusVung.namtrungbo && tinh.map((value, index) => {
-                                                    if (value.khu_vuc === 'Nam Trung Bộ')
-                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
-
-                                                })}
-                                            </ul>
-                                            <div onClick={() => changeStatus('taynguyen')} style={navCheck === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
-                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Tây Nguyên</p>
-                                                <i className={statusVung.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                            </div>
-                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                                {statusVung.taynguyen && tinh.map((value, index) => {
-                                                    if (value.khu_vuc === 'Tây Nguyên')
-                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
-
-                                                })}
-                                            </ul>
-                                            <div onClick={() => changeStatus('dongnambo')} style={navCheck === 'Đông Nam Bộ' ? styleCheck : styleNotCheck}>
-                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đông Nam Bộ</p>
-                                                <i className={statusVung.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                            </div>
-                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                                {statusVung.dongnambo && tinh.map((value, index) => {
-                                                    if (value.khu_vuc === 'Đông Nam Bộ')
-                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
-
-                                                })}
-                                            </ul>
-                                            <div onClick={() => changeStatus('dongbangsong')} style={navCheck === 'Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
-                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Đồng bằng sông Cửu Long</p>
-                                                <i className={statusVung.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                            </div>
-                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                                {statusVung.dongbangsong && tinh.map((value, index) => {
-                                                    if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
-                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
-
-                                                })}
-                                            </ul>
-                                            <div onClick={() => changeStatus('toanquoc')} style={navCheck === 'Toàn quốc' ? styleCheck : styleNotCheck}>
-                                                <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VIII. Toàn quốc</p>
-                                                <i className={statusVung.toanquoc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
-                                            </div>
-                                            <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
-                                                {statusVung.toanquoc && tinh.map((value, index) => {
-                                                    if (value.khu_vuc === 'Toàn quốc')
-                                                        return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
-
-                                                })}
-                                            </ul>
-                                        </div>
-                                        <p style={{ width: '100%', textAlign: 'left', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>B2. Năm 2025</p>
-                                        <p style={{ width: '100%', textAlign: 'left', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>B3. Giai đoạn 2021 - 2025</p>
+                                            })}
                                     </div>
                                 }
                             </nav>
                         }
-                        {(activeIndex === 'Tra cứu' &&
+                        {/* {(activeIndex === 'Tra cứu' &&
                             <nav style={{ borderTop: '1px solid #dee2e6', paddingLeft: '10px' }}>
                                 <p style={{ marginTop: '10px', width: '100%', textAlign: 'center', fontWeight: 700 }}>Tra cứu dữ liệu</p>
                                 <div style={{ width: '100%' }}>
                                     <div onClick={() => {
                                         setCurrentDuLieu([]);
-                                        setStatusDuLieu('Danh mục công trình xây mới');
+                                        setStatusDuLieu('Kế hoạch công trình xây mới');
                                         getDuLieuXayMoi();
                                     }}
-                                        style={statusDuLieu === 'Danh mục công trình xây mới' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}
+                                        style={statusDuLieu === 'Kế hoạch công trình xây mới' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}
                                     >
-                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. Danh mục công trình xây mới</p>
+                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. Kế hoạch công trình xây mới</p>
                                     </div>
-                                    <div onClick={() => { setCurrentDuLieu([]); setStatusDuLieu('Danh mục công trình nâng cấp'); getDuLieuNangCap(); }} style={statusDuLieu === 'Danh mục công trình nâng cấp' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}>
-                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>II. Danh mục công trình nâng cấp</p>
+                                    <div onClick={() => { setCurrentDuLieu([]); setStatusDuLieu('Kế hoạch công trình nâng cấp'); getDuLieuNangCap(); }} style={statusDuLieu === 'Kế hoạch công trình nâng cấp' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}>
+                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>II. Kế hoạch công trình nâng cấp</p>
                                     </div>
                                 </div>
                             </nav>
-                        )}
+                        )} */}
                     </div>
                 }
                 <div style={{ width: isSmallScreen ? '100vw' : '80vw' }}>
-                    {activeIndex === 'Danh mục' &&
+                    {activeIndex === 'Kế hoạch' &&
                         <div style={{ width: isSmallScreen ? '100vw' : '70vw' }}>
-                            {currentCategory === 'danh mục' ?
-                                !currentDanhMuc ? (
+                            {currentCategory === 'kế hoạch' ?
+                                !currentKeHoach ? (
                                     <Box
                                         sx={{
                                             display: 'flex',
@@ -603,7 +421,7 @@ function Dulieu() {
                                         <CircularProgress size={80} thickness={5} />
                                     </Box>) : (
                                     <div className="content content1">
-                                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentDanhMuc?.noi_dung }} />
+                                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentKeHoach?.noi_dung }} />
                                     </div>
                                 ) :
                                 !currentTinh ? (
@@ -623,29 +441,33 @@ function Dulieu() {
                             }
                         </div>
                     }
-                    {activeIndex === 'Tra cứu' && statusDuLieu === 'Danh mục công trình xây mới' &&
+                    {/* {activeIndex === 'Tra cứu' && statusDuLieu === 'Kế hoạch công trình xây mới' &&
                         <div style={{ padding: '10px' }}>
-                            <h5>Danh mục công trình xây mới</h5>
+                            <h5>Kế hoạch công trình xây mới</h5>
                             <div style={{ borderTop: '2px solid #3E75E0', paddingTop: '10px' }}>
                                 <Grid container spacing={1} >
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControl fullWidth size="small">
-                                            <InputLabel id="ten_quy_hoach">Tên quy hoạch</InputLabel>
-                                            <Select
-                                                labelId="ten_quy_hoach"
-                                                id="ten_quy_hoach"
-                                                value={searchDuLieuXayMoi.ten_quy_hoach}
-                                                label="ten_quy_hoach"
-                                                name='ten_quy_hoach'
-                                                size='small'
-                                                onChange={handleChangeXayMoi}
-                                            >
-                                                <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Quy hoạch PCTT & TL">Quy hoạch PCTT & TL</MenuItem>
-                                                <MenuItem value="QHTLLV Sông Hương - Ô Lâu">QHTLLV Sông Hương - Ô Lâu</MenuItem>
-                                                <MenuItem value="QHTLLV sông Ba">QHTLLV sông Ba</MenuItem>
-                                            </Select>
-                                        </FormControl>
+                                        <TextField
+                                            label="Tên công trình"
+                                            size="small"
+                                            variant="outlined"
+                                            fullWidth
+                                            name="ten_cong_trinh"
+                                            value={searchDuLieuXayMoi.ten_cong_trinh}
+                                            onChange={handleChangeXayMoi}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <TextField
+                                            label="Mã định danh (NC)"
+                                            size="small"
+                                            variant="outlined"
+                                            fullWidth
+                                            name="ma_dinh_danh"
+                                            value={searchDuLieuXayMoi.ma_dinh_danh}
+                                            onChange={handleChangeXayMoi}
+                                        />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <FormControl fullWidth size="small">
@@ -698,22 +520,20 @@ function Dulieu() {
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <FormControl fullWidth size="small">
-                                            <InputLabel id="giai_doan_dau_tu">GĐ đầu tư</InputLabel>
+                                            <InputLabel id="ten_quy_hoach">Tên quy hoạch</InputLabel>
                                             <Select
-                                                labelId="giai_doan_dau_tu"
-                                                id="giai_doan_dau_tu"
-                                                value={searchDuLieuXayMoi.giai_doan_dau_tu}
-                                                label="giai_doan_dau_tu"
-                                                name='giai_doan_dau_tu'
+                                                labelId="ten_quy_hoach"
+                                                id="ten_quy_hoach"
+                                                value={searchDuLieuXayMoi.ten_quy_hoach}
+                                                label="ten_quy_hoach"
+                                                name='ten_quy_hoach'
                                                 size='small'
                                                 onChange={handleChangeXayMoi}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Giai đoạn trước năm 2030">Giai đoạn trước năm 2030</MenuItem>
-                                                <MenuItem value="Giai đoạn sau năm 2030">Giai đoạn sau năm 2030</MenuItem>
-                                                <MenuItem value="Giai đoạn 2021 - 2050">Giai đoạn 2021 - 2050</MenuItem>
-                                                <MenuItem value="Giai đoạn 2021 - 2030">Giai đoạn 2021 - 2030</MenuItem>
-                                                <MenuItem value=""></MenuItem>
+                                                <MenuItem value="Quy hoạch PCTT & TL">Quy hoạch PCTT & TL</MenuItem>
+                                                <MenuItem value="QHTLLV Sông Hương - Ô Lâu">QHTLLV Sông Hương - Ô Lâu</MenuItem>
+                                                <MenuItem value="QHTLLV sông Ba">QHTLLV sông Ba</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -738,29 +558,6 @@ function Dulieu() {
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Tên công trình"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="ten_cong_trinh"
-                                            value={searchDuLieuXayMoi.ten_cong_trinh}
-                                            onChange={handleChangeXayMoi}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Mã định danh (NC)"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="ma_dinh_danh"
-                                            value={searchDuLieuXayMoi.ma_dinh_danh}
-                                            onChange={handleChangeXayMoi}
-                                        />
-                                    </Grid>
-                                    
                                     <Grid item xs={12} sm={2.9} lg={1.4}>
                                         <TextField
                                             label="Ftưới từ"
@@ -790,7 +587,27 @@ function Dulieu() {
                                             onChange={handleChangeXayMoi}
                                         />
                                     </Grid>
-                                    
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="giai_doan_dau_tu">GĐ đầu tư</InputLabel>
+                                            <Select
+                                                labelId="giai_doan_dau_tu"
+                                                id="giai_doan_dau_tu"
+                                                value={searchDuLieuXayMoi.giai_doan_dau_tu}
+                                                label="giai_doan_dau_tu"
+                                                name='giai_doan_dau_tu'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="Giai đoạn trước năm 2030">Giai đoạn trước năm 2030</MenuItem>
+                                                <MenuItem value="Giai đoạn sau năm 2030">Giai đoạn sau năm 2030</MenuItem>
+                                                <MenuItem value="Giai đoạn 2021 - 2050">Giai đoạn 2021 - 2050</MenuItem>
+                                                <MenuItem value="Giai đoạn 2021 - 2030">Giai đoạn 2021 - 2030</MenuItem>
+                                                <MenuItem value=""></MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
                                 </Grid>
                                 <div className='d-flex justify-content-center mt-2'>
                                     <Button
@@ -902,30 +719,34 @@ function Dulieu() {
                                 </React.Fragment>
                             )}
                         </div>
-                    }
-                    {activeIndex === 'Tra cứu' && statusDuLieu === 'Danh mục công trình nâng cấp' &&
+                    } */}
+                    {/* {activeIndex === 'Tra cứu' && statusDuLieu === 'Kế hoạch công trình nâng cấp' &&
                         <div style={{ padding: '10px' }}>
-                            <h5>Danh mục công trình nâng cấp</h5>
+                            <h5>Kế hoạch công trình nâng cấp</h5>
                             <div style={{ borderTop: '2px solid #3E75E0', paddingTop: '10px' }}>
                                 <Grid container spacing={1}>
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControl fullWidth size="small">
-                                            <InputLabel id="ten_quy_hoach">Tên Quy hoạch</InputLabel>
-                                            <Select
-                                                labelId="ten_quy_hoach"
-                                                id="ten_quy_hoach"
-                                                value={searchDuLieuNangCap.ten_quy_hoach}
-                                                label="ten_quy_hoach"
-                                                name='ten_quy_hoach'
-                                                size='small'
-                                                onChange={handleChange}
-                                            >
-                                                <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Quy hoạch PCTT & TL">Quy hoạch PCTT & TL</MenuItem>
-                                                <MenuItem value=" QHTLLV Sông Hương - Ô Lâu"> QHTLLV Sông Hương - Ô Lâu</MenuItem>
-                                                <MenuItem value="Điều chỉnh QHTLLV sông Ba">Điều chỉnh QHTLLV sông Ba</MenuItem>
-                                            </Select>
-                                        </FormControl>
+                                        <TextField
+                                            label="Tên công trình"
+                                            size="small"
+                                            variant="outlined"
+                                            fullWidth
+                                            name="ten_cong_trinh"
+                                            value={searchDuLieuNangCap.ten_cong_trinh}
+                                            onChange={handleChange}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <TextField
+                                            label="Mã định danh"
+                                            size="small"
+                                            variant="outlined"
+                                            fullWidth
+                                            name="ma_dinh_danh"
+                                            value={searchDuLieuNangCap.ma_dinh_danh}
+                                            onChange={handleChange}
+                                        />
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <FormControl fullWidth size="small">
@@ -956,22 +777,22 @@ function Dulieu() {
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                                                        <Grid item xs={12} sm={6} lg={3}>
+                                    <Grid item xs={12} sm={6} lg={3}>
                                         <FormControl fullWidth size="small">
-                                            <InputLabel id="giai_doan_dau_tu">GĐ đầu tư</InputLabel>
+                                            <InputLabel id="ten_quy_hoach">Tên Quy hoạch</InputLabel>
                                             <Select
-                                                labelId="giai_doan_dau_tu"
-                                                id="giai_doan_dau_tu"
-                                                value={searchDuLieuNangCap.giai_doan_dau_tu}
-                                                label="giai_doan_dau_tu"
-                                                name='giai_doan_dau_tu'
+                                                labelId="ten_quy_hoach"
+                                                id="ten_quy_hoach"
+                                                value={searchDuLieuNangCap.ten_quy_hoach}
+                                                label="ten_quy_hoach"
+                                                name='ten_quy_hoach'
                                                 size='small'
                                                 onChange={handleChange}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="2021 - 2030">2021 - 2030</MenuItem>
-                                                <MenuItem value="Giai đoạn sau 2030">Giai đoạn sau 2030</MenuItem>
-                                                <MenuItem value="Giai đoạn trước 2030">Giai đoạn trước 2030</MenuItem>
+                                                <MenuItem value="Quy hoạch PCTT & TL">Quy hoạch PCTT & TL</MenuItem>
+                                                <MenuItem value=" QHTLLV Sông Hương - Ô Lâu"> QHTLLV Sông Hương - Ô Lâu</MenuItem>
+                                                <MenuItem value="Điều chỉnh QHTLLV sông Ba">Điều chỉnh QHTLLV sông Ba</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -994,29 +815,6 @@ function Dulieu() {
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Tên công trình"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="ten_cong_trinh"
-                                            value={searchDuLieuNangCap.ten_cong_trinh}
-                                            onChange={handleChange}
-                                        />
-                                    </Grid>
-
-                                    <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Mã định danh"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="ma_dinh_danh"
-                                            value={searchDuLieuNangCap.ma_dinh_danh}
-                                            onChange={handleChange}
-                                        />
-                                    </Grid>
                                     <Grid item xs={12} sm={2.9} lg={1.7}>
                                         <TextField
                                             label="Fưới sau NC từ"
@@ -1028,6 +826,7 @@ function Dulieu() {
                                             onChange={handleChange}
                                         />
                                     </Grid>
+
                                     <Grid item xs={12} sm={0.2} container alignItems="center" justifyContent="center">
                                         <Box component="span" sx={{ fontSize: '1.5rem' }}>
                                             ~
@@ -1045,7 +844,25 @@ function Dulieu() {
                                             onChange={handleChange}
                                         />
                                     </Grid>
-
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="giai_doan_dau_tu">GĐ đầu tư</InputLabel>
+                                            <Select
+                                                labelId="giai_doan_dau_tu"
+                                                id="giai_doan_dau_tu"
+                                                value={searchDuLieuNangCap.giai_doan_dau_tu}
+                                                label="giai_doan_dau_tu"
+                                                name='giai_doan_dau_tu'
+                                                size='small'
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="2021 - 2030">2021 - 2030</MenuItem>
+                                                <MenuItem value="Giai đoạn sau 2030">Giai đoạn sau 2030</MenuItem>
+                                                <MenuItem value="Giai đoạn trước 2030">Giai đoạn trước 2030</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
                                 </Grid>
                                 <div className='d-flex justify-content-center mt-2'>
                                     <Button
@@ -1156,11 +973,11 @@ function Dulieu() {
                                 </React.Fragment>
                             )}
                         </div>
-                    }
+                    } */}
                 </div>
             </div>
         </div>
     );
 }
 
-export default Dulieu;
+export default Kehoach;

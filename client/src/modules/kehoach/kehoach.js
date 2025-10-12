@@ -31,6 +31,7 @@ function Kehoach() {
     const navigate = useNavigate();
     const [activeIndex, setActiveIndex] = useState('Kế hoạch');
     const [listKeHoach, setListKeHoach] = useState([]);
+    const [listOption, setListOption] = useState({});
     const [currentKeHoach, setCurrentKeHoach] = useState();
     const [loading, setLoading] = useState(false);
     const [currentDuLieu, setCurrentDuLieu] = useState([]);
@@ -45,7 +46,6 @@ function Kehoach() {
         per_page: 15,
     })
     const [indexCheckKeHoach, setIndexCheckKeHoach] = useState(-1);
-    const [currentTinh, setCurrentTinh] = useState();
     const [statusDuLieu, setStatusDuLieu] = useState('Kế hoạch');
     const [kehoach, setKehoach] = useState(true);
     const [danhgia, setDanhgia] = useState(true);
@@ -96,7 +96,15 @@ function Kehoach() {
             params: params
         })
             .then(res => {
-                setCurrentDuLieu(res.data.data);
+                setCurrentDuLieu(res.data.data.data);
+                setListOption({
+                    listDanhMucDuAn: res.data.data.listDanhMucDuAn,
+                    listDiaDiem: res.data.data.listDiaDiem,
+                    listThoiGianKC: res.data.data.listThoiGianKC,
+                    listThoiGianHT: res.data.data.listThoiGianHT,
+                    listTmdt: res.data.data.listTmdt,
+                    listVonNstw: res.data.data.listVonNstw,
+                })
                 setLoading(false)
             });
     }
@@ -133,7 +141,7 @@ function Kehoach() {
 
     const toggleNav = () => setNavOpen(!navOpen);
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    console.log(indexCheckKeHoach)
+    const isLapScreen = useMediaQuery((theme) => theme.breakpoints.down('maxwithnav'));
     return (
         <div className="main-content" style={{ minHeight: '60vh' }}>
             <div style={{ display: isSmallScreen ? 'contents' : 'flex', marginTop: '5px' }}>
@@ -216,7 +224,7 @@ function Kehoach() {
                                     }}
                                         style={statusDuLieu === 'Kế hoạch' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}
                                     >
-                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I.Dữ liệu kế hoạch</p>
+                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I.Dự án vốn trong nước đầu tư giai đoạn 2026 - 2030</p>
                                     </div>
                                 </div>
                             </nav>
@@ -225,94 +233,140 @@ function Kehoach() {
                 }
                 <div style={{ width: isSmallScreen ? '100vw' : '80vw' }}>
                     {activeIndex === 'Kế hoạch' &&
-                        <div style={{ width: isSmallScreen ? '100vw' : '70vw' }}>
-                                {!currentKeHoach ? 
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <CircularProgress size={80} thickness={5} />
-                                    </Box> :
-                                    <div className="content content1">
-                                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentKeHoach?.noi_dung }} />
-                                    </div>
-                                }
+                        <div style={{ width: isSmallScreen ? '100vw' : isLapScreen ? '80vw' : '70vw' }}>
+                            {!currentKeHoach ?
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <CircularProgress size={80} thickness={5} />
+                                </Box> :
+                                <div className="content content1">
+                                    <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentKeHoach?.noi_dung }} />
+                                </div>
+                            }
                         </div>
                     }
                     {activeIndex === 'Tra cứu' && statusDuLieu === 'Kế hoạch' &&
                         <div style={{ padding: '10px' }}>
-                            <h5>Dữ liệu kế hoạch</h5>
+                            <h5>Dự án vốn trong nước đầu tư giai đoạn 2026 - 2030</h5>
                             <div style={{ borderTop: '2px solid #3E75E0', paddingTop: '10px' }}>
                                 <Grid container spacing={1} >
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Danh mục dự án"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="danh_muc_du_an"
-                                            value={searchDuLieu.danh_muc_du_an}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="loai_cong_trinh">Dự án</InputLabel>
+                                            <Select
+                                                labelId="danh_muc_du_an"
+                                                id="danh_muc_du_an"
+                                                value={searchDuLieu.danh_muc_du_an}
+                                                label="Dự án"
+                                                name='danh_muc_du_an'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                {listOption?.listDanhMucDuAn?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem sx={{
+                                                        maxWidth: 400,
+                                                        whiteSpace: 'normal',
+                                                        wordBreak: 'break-word'
+                                                    }} value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
 
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <TextField
-                                            label="Địa điểm XD"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="dia_diem_xd"
-                                            value={searchDuLieu.dia_diem_xd}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="loai_cong_trinh">Địa điểm XD</InputLabel>
+                                            <Select
+                                                labelId="dia_diem_xd"
+                                                id="dia_diem_xd"
+                                                value={searchDuLieu.dia_diem_xd}
+                                                label="Địa điểm XD"
+                                                name='dia_diem_xd'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                {listOption?.listDiaDiem?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={3} lg={1.5}>
-                                        <TextField
-                                            label="Thời gian KC"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="thoi_gian_kc"
-                                            value={searchDuLieu.thoi_gian_kc}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="loai_cong_trinh">Thời gian KC</InputLabel>
+                                            <Select
+                                                labelId="thoi_gian_kc"
+                                                id="thoi_gian_kc"
+                                                value={searchDuLieu.thoi_gian_kc}
+                                                label="Thời gian KC"
+                                                name='thoi_gian_kc'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                {listOption?.listThoiGianKC?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={3} lg={1.5}>
-                                        <TextField
-                                            label="Thời gian HT"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="thoi_gian_ht"
-                                            value={searchDuLieu.thoi_gian_ht}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="loai_cong_trinh">Thời gian HT</InputLabel>
+                                            <Select
+                                                labelId="thoi_gian_ht"
+                                                id="thoi_gian_ht"
+                                                value={searchDuLieu.thoi_gian_ht}
+                                                label="Thời gian HT"
+                                                name='thoi_gian_ht'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                {listOption?.listThoiGianHT?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={3} lg={1.5}>
-                                        <TextField
-                                            label="TMĐT"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="tmdt"
-                                            value={searchDuLieu.tmdt}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="loai_cong_trinh">TMĐT</InputLabel>
+                                            <Select
+                                                labelId="tmdt"
+                                                id="tmdt"
+                                                value={searchDuLieu.tmdt}
+                                                label="TMĐT"
+                                                name='tmdt'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                {listOption?.listTmdt?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={3} lg={1.5}>
-                                        <TextField
-                                            label="Vốn NSTW"
-                                            size="small"
-                                            variant="outlined"
-                                            fullWidth
-                                            name="von_nstw"
-                                            value={searchDuLieu.von_nstw}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="loai_cong_trinh">Vốn NSTW</InputLabel>
+                                            <Select
+                                                labelId="von_nstw"
+                                                id="von_nstw"
+                                                value={searchDuLieu.von_nstw}
+                                                label="Vốn NSTW"
+                                                name='von_nstw'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                {listOption?.listVonNstw?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                 </Grid>
                                 <div className='d-flex justify-content-center mt-2'>
@@ -339,7 +393,14 @@ function Kehoach() {
                                     >
                                         Tìm kiếm
                                     </Button>
+                                    <p style={{
+                                        position:"absolute",
+                                        right: "33px",
+                                        marginTop: "1.5rem"
+                                    }}>Đơn vị tính: Triệu đồng</p>
+
                                 </div>
+
                             </div>
                             {!currentDuLieu.data ? (
                                 <Box

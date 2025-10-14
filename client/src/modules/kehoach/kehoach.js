@@ -40,7 +40,8 @@ function Kehoach() {
         dia_diem_xd: '',
         thoi_gian_kc: '',
         thoi_gian_ht: '',
-        tmdt: '',
+        tmdt_tu: '',
+        tmdt_den: '',
         von_nstw: '',
         page: '',
         per_page: 15,
@@ -138,6 +139,7 @@ function Kehoach() {
     };
     const navItems = ["Kế hoạch", "Tra cứu"];
     const [navOpen, setNavOpen] = useState(true);
+    let array = Array.from({ length: 51 }, (_, index) => (index * 200000).toLocaleString('de-DE'));
 
     const toggleNav = () => setNavOpen(!navOpen);
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -224,7 +226,7 @@ function Kehoach() {
                                     }}
                                         style={statusDuLieu === 'Kế hoạch' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}
                                     >
-                                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I.Dự án vốn trong nước đầu tư giai đoạn 2026 - 2030</p>
+                                        <p style={{ color: '#0703A4',fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I.Dự án vốn trong nước đầu tư giai đoạn 2026 - 2030</p>
                                     </div>
                                 </div>
                             </nav>
@@ -256,29 +258,17 @@ function Kehoach() {
                             <div style={{ borderTop: '2px solid #3E75E0', paddingTop: '10px' }}>
                                 <Grid container spacing={1} >
                                     <Grid item xs={12} sm={6} lg={3}>
-                                        <FormControl fullWidth size="small">
-                                            <InputLabel id="loai_cong_trinh">Dự án</InputLabel>
-                                            <Select
-                                                labelId="danh_muc_du_an"
-                                                id="danh_muc_du_an"
-                                                value={searchDuLieu.danh_muc_du_an}
-                                                label="Dự án"
-                                                name='danh_muc_du_an'
-                                                size='small'
-                                                onChange={handleChangeXayMoi}
-                                            >
-                                                <MenuItem value="">Tất cả</MenuItem>
-                                                {listOption?.listDanhMucDuAn?.filter(item => item && item.trim() !== "").map(
-                                                    item => <MenuItem sx={{
-                                                        maxWidth: 400,
-                                                        whiteSpace: 'normal',
-                                                        wordBreak: 'break-word'
-                                                    }} value={item}>{item}</MenuItem>)}
-                                            </Select>
-                                        </FormControl>
+                                        <TextField
+                                            label="Dự án"
+                                            size="small"
+                                            variant="outlined"
+                                            fullWidth
+                                            name="danh_muc_du_an"
+                                            value={searchDuLieu.danh_muc_du_an}
+                                            onChange={handleChangeXayMoi}
+                                        />
                                     </Grid>
-
-                                    <Grid item xs={12} sm={6} lg={3}>
+                                    <Grid item xs={12} sm={6} lg={2.5}>
                                         <FormControl fullWidth size="small">
                                             <InputLabel id="loai_cong_trinh">Địa điểm XD</InputLabel>
                                             <Select
@@ -334,36 +324,41 @@ function Kehoach() {
                                     </Grid>
                                     <Grid item xs={12} sm={3} lg={1.5}>
                                         <FormControl fullWidth size="small">
-                                            <InputLabel id="loai_cong_trinh">TMĐT</InputLabel>
+                                            <InputLabel id="loai_cong_trinh">TMĐT từ</InputLabel>
                                             <Select
-                                                labelId="tmdt"
-                                                id="tmdt"
-                                                value={searchDuLieu.tmdt}
-                                                label="TMĐT"
-                                                name='tmdt'
+                                                labelId="tmdt_tu"
+                                                id="tmdt_tu"
+                                                value={searchDuLieu.tmdt_tu}
+                                                label="TMĐT từ"
+                                                name='tmdt_tu'
                                                 size='small'
                                                 onChange={handleChangeXayMoi}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                {listOption?.listTmdt?.filter(item => item && item.trim() !== "").map(
+                                                {array.map(
                                                     item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                         </FormControl>
                                     </Grid>
+                                    <Grid item xs={12} sm={0.2} container alignItems="center" justifyContent="center">
+                                        <Box component="span" sx={{ fontSize: '1.5rem' }}>
+                                            ~
+                                        </Box>
+                                    </Grid>
                                     <Grid item xs={12} sm={3} lg={1.5}>
                                         <FormControl fullWidth size="small">
-                                            <InputLabel id="loai_cong_trinh">Vốn NSTW</InputLabel>
+                                            <InputLabel id="loai_cong_trinh">TMĐT đến</InputLabel>
                                             <Select
-                                                labelId="von_nstw"
-                                                id="von_nstw"
-                                                value={searchDuLieu.von_nstw}
-                                                label="Vốn NSTW"
-                                                name='von_nstw'
+                                                labelId="tmdt_den"
+                                                id="tmdt_den"
+                                                value={searchDuLieu.tmdt_den}
+                                                label="TMĐT đến"
+                                                name='tmdt_den'
                                                 size='small'
                                                 onChange={handleChangeXayMoi}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                {listOption?.listVonNstw?.filter(item => item && item.trim() !== "").map(
+                                                {array.map(
                                                     item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                         </FormControl>

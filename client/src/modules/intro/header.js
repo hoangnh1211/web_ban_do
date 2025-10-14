@@ -43,7 +43,7 @@ const pages = [
   },
   {
     to: '/chien-luoc-thuy-loi',
-    name: 'Chiến Lược'
+    name: 'Chiến lược'
   },
   {
     to: '/contact',

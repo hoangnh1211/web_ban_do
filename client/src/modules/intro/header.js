@@ -99,7 +99,7 @@ function Header() {
                 lineHeight: '21.8px'
               }}
             >
-              TRANG THÔNG TIN QUẢN LÝ QUY HOẠCH THỦY LỢI
+              TRANG THÔNG TIN QUẢN LÝ KẾ HOẠCH - QUY HOẠCH THỦY LỢI
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -158,7 +158,7 @@ function Header() {
                 textAlign: 'center'
               }}
             >
-              TRANG THÔNG TIN QUẢN LÝ <br/> QUY HOẠCH THỦY LỢI
+              TRANG THÔNG TIN QUẢN LÝ <br/> KẾ HOẠCH - QUY HOẠCH THỦY LỢI
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
               {pages.map((page) => (

@@ -15,13 +15,14 @@ const data = {
         { title: 'Mã định danh', field_data: 'ma_dinh_danh' },
         // { title: 'Năm XD', field_data: 'nam_xd' },
         // { title: 'Năm NC', field_data: 'nam_nc' },
-        // { title: 'Xa', field_data: 'xa' },
-        { title: 'Tỉnh', field_data: 'tinh' },
-        { title: 'Quy hoạch', field_data: 'ten_quy_hoach' },
+        { title: 'Xã mới', field_data: 'xa' },
+        { title: 'Tỉnh mới', field_data: 'tinh' },
+        { title: 'Tên Quy hoạch', field_data: 'ten_quy_hoach' },
         { title: 'Loại công trình', field_data: 'loai_cong_trinh' },
-        { title: 'Flv (Km2)', field_data: 'flv' },
+        { title: 'Nhiệm vụ', field_data: 'nhiem_vu' },
+        // { title: 'Flv (Km2)', field_data: 'flv' },
         // { title: 'MNDBT (m)', field_data: 'mndbt' },
-        { title: 'Wtb (Trm3)', field_data: 'wtb' },
+        // { title: 'Wtb (Trm3)', field_data: 'wtb' },
         // { title: 'Chiều cao đập (m)', field_data: 'chieu_cao_dap' },
         // { title: 'Chiều dài đập (m)', field_data: 'chieu_dai_dap' },
         // { title: 'Kích thước cống (m)', field_data: 'kich_thuoc_cong' },
@@ -29,7 +30,7 @@ const data = {
         // { title: 'Tổng lưu lượng', field_data: 'tong_luu_luong' },
         // { title: 'Số tổ máy', field_data: 'so_to_may' },
         // { title: 'Công suất mỗi tổ máy (KW)', field_data: 'cong_suat_moi_to_may' },
-        // { title: 'Diện tích tưới thực tế (ha)', field_data: 'dien_tich_tuoi_thuc_te' },
+        { title: 'Diện tích tưới thực tế (ha)', field_data: 'dien_tich_tuoi_thuc_te' },
         // { title: 'Diện tích tiêu thực tế (ha)', field_data: 'dien_tich_tieu_thuc_te' },
         // { title: 'Wsau nâng cấp (Trm3)', field_data: 'wsau_nang_cap' },
         // { title: 'Chiều cao đập sau nâng cấp (m)', field_data: 'chieu_cao_dap_sau_nang_cap' },
@@ -39,22 +40,26 @@ const data = {
         // { title: 'Tổng lưu lượng sau nâng cấp', field_data: 'tong_luu_luong_sau_nang_cap' },
         // { title: 'Số tổ máy sau nâng cấp', field_data: 'so_to_may_sau_nang_cap' },
         // { title: 'Công suất mỗi tổ máy sau nâng cấp (KW)', field_data: 'cong_suat_moi_to_may_sau_nang_cap' },
-        { title: 'Ftưới sau NC', field_data: 'dien_tich_tuoi_sau_nang_cap' },
-        // { title: 'Diện tích tiêu sau nâng cấp (ha)', field_data: 'dien_tich_tieu_sau_nang_cap' },
-        { title: 'GĐ đầu tư', field_data: 'giai_doan_dau_tu' },
-        { title: 'Vốn đầu tư (tỷ đồng)', field_data: 'von_dau_tu' }
+        // { title: 'Ftưới sau NC', field_data: 'dien_tich_tuoi_sau_nang_cap' },
+        { title: 'Diện tích tưới sau nâng cấp (ha)', field_data: 'dien_tich_tuoi_sau_nang_cap' },
+        { title: 'Giai đoạn đầu tư', field_data: 'giai_doan_dau_tu' },
+        { title: 'Vốn đầu tư (tỷ đồng)', field_data: 'von_dau_tu' },
+        { title: 'Tình trạng triển khai', field_data: 'tinh_trang_trien_khai' },
+        { title: 'Ghi chú', field_data: 'ghi_chu' },
     ],
     du_lieu_xay_moi: [
         { title: 'STT', field_data: 'stt' },
         { title: 'Tên công trình', field_data: 'ten_cong_trinh' },
         { title: 'Mã định danh', field_data: 'ma_dinh_danh' },
-        // { title: 'Xã', field_data: 'xa' },
-        { title: 'Tỉnh', field_data: 'tinh' },
+        { title: 'Xã', field_data: 'xa' },
+        { title: 'Tỉnh ', field_data: 'tinh' },
         { title: 'Tên quy hoạch', field_data: 'ten_quy_hoach' },
         { title: 'Loại công trình', field_data: 'loai_cong_trinh' },
-        { title: 'Flv (Km2)', field_data: 'flv_km2' },
-        { title: 'MNDBT (m)', field_data: 'mndbt_m' },
-        { title: 'Whi (Trm3)', field_data: 'whi_trm3' },
+        { title: 'Nhiệm vụ', field_data: 'nhiem_vu' },
+        { title: 'Diện tích tưới (ha)', field_data: 'dien_tich_tuoi_ha' },
+        // { title: 'Flv (Km2)', field_data: 'flv_km2' },
+        // { title: 'MNDBT (m)', field_data: 'mndbt_m' },
+        // { title: 'Whi (Trm3)', field_data: 'whi_trm3' },
         // { title: 'Chiều cao đập (m)', field_data: 'chieu_cao_dap_m' },
         // { title: 'Chiều dài đập (m)', field_data: 'chieu_dai_dap_m' },
         // { title: 'Kích thước cống (m)', field_data: 'kich_thuoc_cong_m' },
@@ -62,13 +67,15 @@ const data = {
         // { title: 'Tổng lưu lượng', field_data: 'tong_luu_luong' },
         // { title: 'Số tổ máy', field_data: 'so_to_may' },
         // { title: 'Công suất mỗi tổ máy (KW)', field_data: 'cong_suat_moi_to_may_kw' },
-        { title: 'Ftưới (ha)', field_data: 'dien_tich_tuoi_ha' },
+        // { title: 'Ftưới (ha)', field_data: 'dien_tich_tuoi_ha' },
         // { title: 'Diện tích tiêu (ha)', field_data: 'dien_tich_tieu_ha' },
         // { title: 'Chống lũ', field_data: 'chong_lu' },
         // { title: 'Khác', field_data: 'khac' },
         // { title: 'Cấp nước sinh hoạt', field_data: 'cap_nuoc_sinh_hoat' },
         { title: 'Giai đoạn đầu tư', field_data: 'giai_doan_dau_tu' },
         { title: 'Vốn đầu tư (tỷ đồng)', field_data: 'von_dau_tu_ty_dong' },
+        { title: 'Tình trạng triển khai', field_data: 'tinh_trang_trien_khai' },
+        { title: 'Ghi chú', field_data: 'ghi_chu' },
         // { title: 'Ghi chú', field_data: 'ghi_chu' }
     ]
 };
@@ -80,6 +87,8 @@ function Dulieu() {
     const [currentDanhMuc, setCurrentDanhMuc] = useState();
     const [loading, setLoading] = useState(false);
     const [currentDuLieu, setCurrentDuLieu] = useState([]);
+    const [listOptionXayMoi, setListOptionXayMoi] = useState({});
+    const [listOptionNangCap, setListOptionNangCap] = useState({});
     const [searchDuLieuNangCap, setSearchDuLieuNangCap] = useState({
         ten_cong_trinh: '',
         ma_dinh_danh: '',
@@ -92,6 +101,8 @@ function Dulieu() {
         dien_tich_tuoi_sau_nang_cap_from: '',
         dien_tich_tuoi_sau_nang_cap_to: '',
         giai_doan_dau_tu: '',
+        tinh_trang_trien_khai: '',
+        von_dau_tu: '',
         page: '',
         per_page: 15,
     })
@@ -106,6 +117,8 @@ function Dulieu() {
         dien_tich_tuoi_ha_from: '',
         dien_tich_tuoi_ha_to: '',
         giai_doan_dau_tu: '',
+        tinh_trang_trien_khai: '',
+        von_dau_tu: '',
         page: '',
         per_page: 15,
     })
@@ -172,9 +185,9 @@ function Dulieu() {
                         setIndexCheck(index)
                         setNavCheck(crurrent.khu_vuc)
                         axios.get(`${process.env.REACT_APP_SERVER}/api/danhgiaquyhoach/${id}`)
-                        .then(res => {
-                            setCurrentTinh(res.data.data[0]);
-                        })
+                            .then(res => {
+                                setCurrentTinh(res.data.data[0]);
+                            })
                         setDanhgia(true)
                         setCurrentCategory('đánh giá')
                     }
@@ -211,7 +224,7 @@ function Dulieu() {
                     setDanhmuc(true)
                     setCurrentCategory('danh mục')
                 }
-                if (!id){
+                if (!id) {
                     setIndexCheckDanhMuc(0)
                     setNavCheckDanhmuc(res.data.data[0].khu_vuc)
                     axios.get(`${process.env.REACT_APP_SERVER}/api/danhmuc/${res.data.data[0].id}`)
@@ -243,7 +256,14 @@ function Dulieu() {
             params: params
         })
             .then(res => {
-                setCurrentDuLieu(res.data.data);
+                setCurrentDuLieu(res.data.data.data);
+                setListOptionNangCap({
+                    tinh: res.data.data.tinh,
+                    tenQuyHoach: res.data.data.tenQuyHoach,
+                    giaiDoanDauTu: res.data.data.giaiDoanDauTu,
+                    loaiCongTrinh: res.data.data.loaiCongTrinh,
+                    tinhTrangTrienKhai: res.data.data.tinhTrangTrienKhai,
+                })
                 setLoading(false)
             });
     }
@@ -252,7 +272,14 @@ function Dulieu() {
             params: params
         })
             .then(res => {
-                setCurrentDuLieu(res.data.data);
+                setCurrentDuLieu(res.data.data.data);
+                setListOptionXayMoi({
+                    tinh: res.data.data.tinh,
+                    tenQuyHoach: res.data.data.tenQuyHoach,
+                    giaiDoanDauTu: res.data.data.giaiDoanDauTu,
+                    loaiCongTrinh: res.data.data.loaiCongTrinh,
+                    tinhTrangTrienKhai: res.data.data.tinhTrangTrienKhai,
+                })
                 setLoading(false)
             });
     }
@@ -641,9 +668,8 @@ function Dulieu() {
                                                 onChange={handleChangeXayMoi}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Quy hoạch PCTT & TL">Quy hoạch PCTT & TL</MenuItem>
-                                                <MenuItem value="QHTLLV Sông Hương - Ô Lâu">QHTLLV Sông Hương - Ô Lâu</MenuItem>
-                                                <MenuItem value="QHTLLV sông Ba">QHTLLV sông Ba</MenuItem>
+                                                {listOptionXayMoi?.tenQuyHoach?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -654,45 +680,14 @@ function Dulieu() {
                                                 labelId="tinh"
                                                 id="tinh"
                                                 value={searchDuLieuXayMoi.tinh}
-                                                label="Tỉnh"
+                                                label="Tỉnh Mới"
                                                 name="tinh"
                                                 size="small"
                                                 onChange={handleChangeXayMoi}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Bắc Giang">Bắc Giang</MenuItem>
-                                                <MenuItem value="Thái Nguyên">Thái Nguyên</MenuItem>
-                                                <MenuItem value="Hòa Bình">Hòa Bình</MenuItem>
-                                                <MenuItem value="Lai Châu">Lai Châu</MenuItem>
-                                                <MenuItem value="Sơn La">Sơn La</MenuItem>
-                                                <MenuItem value="Quảng Ninh">Quảng Ninh</MenuItem>
-                                                <MenuItem value="Nghệ An">Nghệ An</MenuItem>
-                                                <MenuItem value="Hà Tĩnh">Hà Tĩnh</MenuItem>
-                                                <MenuItem value="Quảng Bình">Quảng Bình</MenuItem>
-                                                <MenuItem value="Quảng Trị">Quảng Trị</MenuItem>
-                                                <MenuItem value="Thừa Thiên Huế">Thừa Thiên Huế</MenuItem>
-                                                <MenuItem value="Quảng Nam">Quảng Nam</MenuItem>
-                                                <MenuItem value="Quảng Ngãi">Quảng Ngãi</MenuItem>
-                                                <MenuItem value="Khánh Hòa">Khánh Hòa</MenuItem>
-                                                <MenuItem value="Bình Thuận">Bình Thuận</MenuItem>
-                                                <MenuItem value="Phú Yên">Phú Yên</MenuItem>
-                                                <MenuItem value="Gia Lai">Gia Lai</MenuItem>
-                                                <MenuItem value="Đắk Lắk">Đắk Lắk</MenuItem>
-                                                <MenuItem value="Đắk Nông">Đắk Nông</MenuItem>
-                                                <MenuItem value="Lâm Đồng">Lâm Đồng</MenuItem>
-                                                <MenuItem value="Kon Tum">Kon Tum</MenuItem>
-                                                <MenuItem value="Liên tỉnh">Liên tỉnh</MenuItem>
-                                                <MenuItem value="Đồng Nai">Đồng Nai</MenuItem>
-                                                <MenuItem value="Hà Nội">Hà Nội</MenuItem>
-                                                <MenuItem value="Hưng Yên">Hưng Yên</MenuItem>
-                                                <MenuItem value="Thanh Hóa">Thanh Hóa</MenuItem>
-                                                <MenuItem value="Long An">Long An</MenuItem>
-                                                <MenuItem value="Bến Tre">Bến Tre</MenuItem>
-                                                <MenuItem value="Sóc Trăng">Sóc Trăng</MenuItem>
-                                                <MenuItem value="Tiền Giang">Tiền Giang</MenuItem>
-                                                <MenuItem value="An Giang">An Giang</MenuItem>
-                                                <MenuItem value="Đồng Tháp">Đồng Tháp</MenuItem>
-                                                <MenuItem value="Cần Thơ">Cần Thơ</MenuItem>
+                                                {listOptionXayMoi?.tinh?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -709,11 +704,8 @@ function Dulieu() {
                                                 onChange={handleChangeXayMoi}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Giai đoạn trước năm 2030">Giai đoạn trước năm 2030</MenuItem>
-                                                <MenuItem value="Giai đoạn sau năm 2030">Giai đoạn sau năm 2030</MenuItem>
-                                                <MenuItem value="Giai đoạn 2021 - 2050">Giai đoạn 2021 - 2050</MenuItem>
-                                                <MenuItem value="Giai đoạn 2021 - 2030">Giai đoạn 2021 - 2030</MenuItem>
-                                                <MenuItem value=""></MenuItem>
+                                                {listOptionXayMoi?.giaiDoanDauTu?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -730,11 +722,29 @@ function Dulieu() {
                                                 onChange={handleChangeXayMoi}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Hồ chứa">Hồ chứa</MenuItem>
-                                                <MenuItem value="Đập dâng">Đập dâng</MenuItem>
-                                                <MenuItem value="Trạm bơm">Trạm bơm</MenuItem>
-                                                <MenuItem value="Cống">Cống</MenuItem>
-                                                <MenuItem value="HTTL">HTTL</MenuItem>
+                                                {listOptionXayMoi?.loaiCongTrinh?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="von_dau_tu">Vốn đầu tư (tỷ đồng)</InputLabel>
+                                            <Select
+                                                labelId="von_dau_tu"
+                                                id="von_dau_tu"
+                                                value={searchDuLieuXayMoi.von_dau_tu}
+                                                label="Vốn đầu tư (tỷ đồng)"
+                                                name='von_dau_tu'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="<10 tỷ">&lt;10 tỷ</MenuItem>
+                                                <MenuItem value="10 - 20 tỷ">10 - 20 tỷ</MenuItem>
+                                                <MenuItem value="20 - 50 tỷ">20 - 50 tỷ</MenuItem>
+                                                <MenuItem value="50 - 100 tỷ">50 - 100 tỷ</MenuItem>
+                                                <MenuItem value=">100 tỷ">&gt;100 tỷ</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -760,37 +770,24 @@ function Dulieu() {
                                             onChange={handleChangeXayMoi}
                                         />
                                     </Grid>
-                                    
-                                    <Grid item xs={12} sm={2.9} lg={1.4}>
-                                        <TextField
-                                            label="Ftưới từ"
-                                            variant="outlined"
-                                            fullWidth
-                                            size='small'
-                                            name="dien_tich_tuoi_ha_from"
-                                            value={searchDuLieuXayMoi.dien_tich_tuoi_ha_from}
-                                            onChange={handleChangeXayMoi}
-                                        />
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="tinh_trang_trien_khai">Tình trạng triển khai</InputLabel>
+                                            <Select
+                                                labelId="tinh_trang_trien_khai"
+                                                id="tinh_trang_trien_khai"
+                                                value={searchDuLieuXayMoi.tinh_trang_trien_khai}
+                                                label="Tình trạng triển khai"
+                                                name='tinh_trang_trien_khai'
+                                                size='small'
+                                                onChange={handleChangeXayMoi}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                {listOptionXayMoi?.tinhTrangTrienKhai?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
-
-                                    <Grid item xs={12} sm={0.2} container alignItems="center" justifyContent="center">
-                                        <Box component="span" sx={{ fontSize: '1.5rem' }}>
-                                            ~
-                                        </Box>
-                                    </Grid>
-
-                                    <Grid item sm={2.9} lg={1.4}>
-                                        <TextField
-                                            label="Ftưới đến"
-                                            variant="outlined"
-                                            fullWidth
-                                            size='small'
-                                            name="dien_tich_tuoi_ha_to"
-                                            value={searchDuLieuXayMoi.dien_tich_tuoi_ha_to}
-                                            onChange={handleChangeXayMoi}
-                                        />
-                                    </Grid>
-                                    
                                 </Grid>
                                 <div className='d-flex justify-content-center mt-2'>
                                     <Button
@@ -921,9 +918,8 @@ function Dulieu() {
                                                 onChange={handleChange}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Quy hoạch PCTT & TL">Quy hoạch PCTT & TL</MenuItem>
-                                                <MenuItem value=" QHTLLV Sông Hương - Ô Lâu"> QHTLLV Sông Hương - Ô Lâu</MenuItem>
-                                                <MenuItem value="Điều chỉnh QHTLLV sông Ba">Điều chỉnh QHTLLV sông Ba</MenuItem>
+                                                {listOptionNangCap?.tenQuyHoach?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -940,23 +936,12 @@ function Dulieu() {
                                                 onChange={handleChange}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Hà Tĩnh">Hà Tĩnh</MenuItem>
-                                                <MenuItem value="Nghệ An">Nghệ An</MenuItem>
-                                                <MenuItem value="Quảng Bình">Quảng Bình</MenuItem>
-                                                <MenuItem value="Quảng Trị">Quảng Trị</MenuItem>
-                                                <MenuItem value="Thừa Thiên Huế">Thừa Thiên Huế</MenuItem>
-                                                <MenuItem value="Khánh Hòa">Khánh Hòa</MenuItem>
-                                                <MenuItem value="Quảng Ngãi">Quảng Ngãi</MenuItem>
-                                                <MenuItem value="Phú Yên">Phú Yên</MenuItem>
-                                                <MenuItem value="Bình Định">Bình Định</MenuItem>
-                                                <MenuItem value="Quảng Nam">Quảng Nam</MenuItem>
-                                                <MenuItem value="Gia Lai">Gia Lai</MenuItem>
-                                                <MenuItem value="Đắk Lắk">Đắk Lắk</MenuItem>
-                                                <MenuItem value="Hà Nội">Hà Nội</MenuItem>
+                                                {listOptionNangCap?.tinh?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                                                        <Grid item xs={12} sm={6} lg={3}>
+                                    <Grid item xs={12} sm={6} lg={3}>
                                         <FormControl fullWidth size="small">
                                             <InputLabel id="giai_doan_dau_tu">GĐ đầu tư</InputLabel>
                                             <Select
@@ -969,9 +954,8 @@ function Dulieu() {
                                                 onChange={handleChange}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="2021 - 2030">2021 - 2030</MenuItem>
-                                                <MenuItem value="Giai đoạn sau 2030">Giai đoạn sau 2030</MenuItem>
-                                                <MenuItem value="Giai đoạn trước 2030">Giai đoạn trước 2030</MenuItem>
+                                                {listOptionNangCap?.giaiDoanDauTu?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -988,9 +972,29 @@ function Dulieu() {
                                                 onChange={handleChange}
                                             >
                                                 <MenuItem value="">Tất cả</MenuItem>
-                                                <MenuItem value="Hồ chứa">Hồ chứa</MenuItem>
-                                                <MenuItem value="Đập dâng">Đập dâng</MenuItem>
-                                                <MenuItem value="Trạm bơm">Trạm bơm</MenuItem>
+                                                {listOptionNangCap?.loaiCongTrinh?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="von_dau_tu">Vốn đầu tư (tỷ đồng)</InputLabel>
+                                            <Select
+                                                labelId="von_dau_tu"
+                                                id="von_dau_tu"
+                                                value={searchDuLieuNangCap.von_dau_tu}
+                                                label="Vốn đầu tư (tỷ đồng)"
+                                                name='von_dau_tu'
+                                                size='small'
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                <MenuItem value="<10 tỷ">&lt;10 tỷ</MenuItem>
+                                                <MenuItem value="10 - 20 tỷ">10 - 20 tỷ</MenuItem>
+                                                <MenuItem value="20 - 50 tỷ">20 - 50 tỷ</MenuItem>
+                                                <MenuItem value="50 - 100 tỷ">50 - 100 tỷ</MenuItem>
+                                                <MenuItem value=">100 tỷ">&gt;100 tỷ</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -1017,36 +1021,26 @@ function Dulieu() {
                                             onChange={handleChange}
                                         />
                                     </Grid>
-                                    <Grid item xs={12} sm={2.9} lg={1.7}>
-                                        <TextField
-                                            label="Fưới sau NC từ"
-                                            variant="outlined"
-                                            fullWidth
-                                            size='small'
-                                            name="dien_tich_tuoi_sau_nang_cap_from"
-                                            value={searchDuLieuNangCap.dien_tich_tuoi_sau_nang_cap_from}
-                                            onChange={handleChange}
-                                        />
+                                    <Grid item xs={12} sm={6} lg={3}>
+                                        <FormControl fullWidth size="small">
+                                            <InputLabel id="tinh_trang_trien_khai">Tình trạng triển khai</InputLabel>
+                                            <Select
+                                                labelId="tinh_trang_trien_khai"
+                                                id="tinh_trang_trien_khai"
+                                                value={searchDuLieuNangCap.tinh_trang_trien_khai}
+                                                label="Tình trạng triển khai"
+                                                name='tinh_trang_trien_khai'
+                                                size='small'
+                                                onChange={handleChange}
+                                            >
+                                                <MenuItem value="">Tất cả</MenuItem>
+                                                {listOptionNangCap?.tinhTrangTrienKhai?.filter(item => item && item.trim() !== "").map(
+                                                    item => <MenuItem value={item}>{item}</MenuItem>)}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
-                                    <Grid item xs={12} sm={0.2} container alignItems="center" justifyContent="center">
-                                        <Box component="span" sx={{ fontSize: '1.5rem' }}>
-                                            ~
-                                        </Box>
-                                    </Grid>
-
-                                    <Grid item sm={2.9} lg={1.7}>
-                                        <TextField
-                                            label="Fưới sau NC đến"
-                                            variant="outlined"
-                                            fullWidth
-                                            size='small'
-                                            name="dien_tich_tuoi_sau_nang_cap_to"
-                                            value={searchDuLieuNangCap.dien_tich_tuoi_sau_nang_cap_to}
-                                            onChange={handleChange}
-                                        />
-                                    </Grid>
-
                                 </Grid>
+
                                 <div className='d-flex justify-content-center mt-2'>
                                     <Button
                                         variant="contained"

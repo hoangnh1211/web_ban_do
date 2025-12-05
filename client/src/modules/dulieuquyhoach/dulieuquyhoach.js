@@ -888,7 +888,7 @@ function Dulieu() {
                                 <Grid container spacing={1} >
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <FormControl fullWidth size="small">
-                                            <InputLabel id="ten_quy_hoach">Tên quy hoạch</InputLabel>
+                                            <InputLabel id="ten_quy_hoach">Tên Quy hoạch</InputLabel>
                                             <Select
                                                 labelId="ten_quy_hoach"
                                                 id="ten_quy_hoach"
@@ -992,7 +992,7 @@ function Dulieu() {
                                     </Grid>
                                     <Grid item xs={12} sm={6} lg={3}>
                                         <TextField
-                                            label="Mã định danh (NC)"
+                                            label="Mã định danh"
                                             size="small"
                                             variant="outlined"
                                             fullWidth

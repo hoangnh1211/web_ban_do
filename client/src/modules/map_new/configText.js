@@ -150,7 +150,7 @@ export const configText ={
         loai_ct: 'Loại công trình',
         // loaidautu: 'Loại đầu tư',
         Wtb_trieum3: 'Quy mô hiện trạng',
-        F_tuoi_tk: 'Nhiệm vu thiết kế',
+        F_tuoi_tk: 'Nhiệm vụ thiết kế',
         F_tuoi_tt: 'Nhiệm vụ hiện trạng',
         W_tang: 'Quy mô nâng cấp',
         F_sauQH: 'Nhiệm vụ nâng cấp',

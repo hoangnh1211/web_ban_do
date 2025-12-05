@@ -138,7 +138,7 @@ function Home() {
                             {Array.from({ length: recordsPerPage }, (_, index) => {
                                 if (activeStep * recordsPerPage + index < totalTh) {
                                     return (<Grid item>
-                                        <Link to={'du-lieu-quy-hoach?id=' + ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoachone[0]?.id} key={ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoachone[0]?.id}>
+                                        <Link to={'du-lieu-quy-hoach?id=' + ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoachView?.id} key={ketquaQuyhoach[activeStep * recordsPerPage + index]?.danhgiaquyhoachView?.id}>
                                             <Box
                                                 sx={{
                                                     border: '1px solid #3A5BFF',

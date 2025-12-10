@@ -732,7 +732,6 @@ export const ListLayer = [
 
 export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
-console.log(CTNC_SongBa_1, CTQH_SongBa_V2)
 export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, congTrinhQuyHoach, CTNC_songhuong, CTNC_SongBa_1, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach,heThongThuyLoiNangCap
     // ,thuyDien
     ,tramBom,cong,dapHoChuaLon, heSotuoitiieu]

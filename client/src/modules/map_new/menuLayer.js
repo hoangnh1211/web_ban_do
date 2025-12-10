@@ -65,6 +65,15 @@ function MenuLayer(props) {
   const [listDuLieuNen, setListDuLieuNen] = useState({
     data: [
       {
+        value: "Ranh giới tỉnh (Cập nhật 2025)",
+        index: [
+          ListLayer.findIndex((value) => value.id === "RanhGioiTinh_2025"),
+          ListLayer.findIndex((value) => value.id === "DiaPhan_Tinh_2025"),
+        ],
+        check: false,
+        show: true,
+      },
+      {
         value: "Sử dụng đất",
         index: [ListLayer.findIndex((value) => value.id === "sudungdat_vn")],
         check: false,
@@ -356,6 +365,15 @@ function MenuLayer(props) {
   const showAllDuLieuNen = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showDuLieuNen;
     let data = [
+      {
+        value: "Ranh giới tỉnh (Cập nhật 2025)",
+        index: [
+          ListLayer.findIndex((value) => value.id === "RanhGioiTinh_2025"),
+          ListLayer.findIndex((value) => value.id === "DiaPhan_Tinh_2025"),
+        ],
+        check: check,
+        show: true,
+      },
       {
         value: "Sử dụng đất",
         index: [ListLayer.findIndex((value) => value.id === "sudungdat_vn")],

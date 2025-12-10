@@ -564,6 +564,36 @@ const BoVung_SongHuong_2 = new TileLayer({
     visible: true,
 })
 
+const DiaPhan_Tinh_2025 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:DiaPhan_Tinh_2025',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: true,
+})
+
+const RanhGioiTinh_2025 = new TileLayer({
+    source: new TileWMS({
+        ratio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'songba:RanhGioiTinh_2025',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: true,
+})
+
 const sudungdat_vn = new TileLayer({
     source: new TileWMS({
         ratio: 1, tileSize: 256, serverType: 'geoserver', tilePixelRatio: 1,
@@ -633,6 +663,14 @@ export const ListLayer = [
     {
         id: 'sudungdat_vn',
         layer: sudungdat_vn,
+    },
+    {
+        id: 'RanhGioiTinh_2025',
+        layer: RanhGioiTinh_2025,
+    },
+    {
+        id: 'DiaPhan_Tinh_2025',
+        layer: DiaPhan_Tinh_2025,
     },
     {
         id: 'heThongThuyLoi',
@@ -788,7 +826,6 @@ export const ListLayer = [
 
 export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
-console.log(CTNC_SongBa_1, CTQH_SongBa_V2)
 export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, congTrinhQuyHoach, CTNC_songhuong, CTNC_SongBa_1, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach, heThongThuyLoiNangCap
     // ,thuyDien
     , tramBom, cong, dapHoChuaLon, heSotuoitiieu]

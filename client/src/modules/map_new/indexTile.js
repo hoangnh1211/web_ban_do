@@ -287,7 +287,7 @@ function MapNew() {
                 {dataMap && <Table data={dataMap.data} setInfo={setInfo} />}
             </div>
             {coordinate && (
-                <div style={{ position: 'fixed', bottom: 0, right: 0, backgroundColor: 'white', padding: '5px', border: '1px solid #ddd' }}>
+                <div style={{fontSize:"12px", position: 'fixed', bottom: 0, right: 200, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }}>
                     Tọa độ: {coordinate.join(', ')}
                 </div>
             )}
@@ -332,6 +332,9 @@ function MapNew() {
                 <a class="liclick" key="clearGraphics" data-toggle="tooltip" data-placement="top" title="Xóa đối tượng đồ họa"><i style={{fontWeight:'bold'}} class="icon-trash"></i></a>
             </div> */}
 
+            </div>
+            <div id="chugiai">
+                <img src='image/a5e9cc85acfe23a07aef.jpg' style={{position:"fixed", bottom:0, right:0, width:"300px"}}/>
             </div>
         </div>
     );

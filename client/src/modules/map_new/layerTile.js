@@ -362,7 +362,7 @@ const CTQH_SongBa_V2 = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'songba:CTQH_SongBa_V2',
+            "LAYERS": 'songba:XayMoi_SongBa_V3',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
@@ -377,7 +377,7 @@ const CTNC_SongBa_1 = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'songba:CTNC_SongBa_1',
+            "LAYERS": 'songba:NangCap_SongBa_V3',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
@@ -482,7 +482,7 @@ const CTQH_songhuong = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'songba:CTQH_songhuong',
+            "LAYERS": 'songba:XayMoi_SongHuong_V3',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
@@ -497,7 +497,7 @@ const CTNC_songhuong = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'songba:CTNC_songhuong',
+            "LAYERS": 'songba:NangCap_SongHuong_V3',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
@@ -617,7 +617,7 @@ const ctht_songba = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'songba:ctht_songba',
+            "LAYERS": 'songba:hientrang_SongBa_V3',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
@@ -632,7 +632,7 @@ const ctht_songhuong = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'songba:ctht_songhuong',
+            "LAYERS": 'songba:hientrang_SongHuong_V3',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
@@ -826,7 +826,7 @@ export const ListLayer = [
 
 export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
-export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, congTrinhQuyHoach, CTNC_songhuong, CTNC_SongBa_1, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach, heThongThuyLoiNangCap
+export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, congTrinhQuyHoach, ctht_songhuong, ctht_songba,CTNC_songhuong, CTNC_SongBa_1, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach, heThongThuyLoiNangCap
     // ,thuyDien
     , tramBom, cong, dapHoChuaLon, heSotuoitiieu]
 // export const listLayerData = [heSotuoitiieu,danhMucQuyHoach,dapHoChuaLon, cong, tramBom, thuyDien,congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, heThongThuyLoiNangCap]

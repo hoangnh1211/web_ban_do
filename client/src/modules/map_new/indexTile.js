@@ -334,7 +334,7 @@ function MapNew() {
 
             </div>
             <div id="chugiai">
-                <img src='image/a5e9cc85acfe23a07aef.jpg' style={{position:"fixed", bottom:0, right:0, width:"300px"}}/>
+                <img src='image/8d1bb9ee-fd89-43b1-b3c8-de3dde1d8daa.jpg' style={{position:"fixed", bottom:0, right:0, width:"400px"}}/>
             </div>
         </div>
     );

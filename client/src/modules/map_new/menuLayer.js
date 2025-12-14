@@ -314,7 +314,7 @@ function MenuLayer(props) {
       class: "fa-solid fa-caret-down",
     });
     data.map((value) => {
-      if (check) {
+      if (value.check) {
         value.index.forEach(element => {
           props.ShowLayersVisibility(element);
         });
@@ -362,7 +362,7 @@ function MenuLayer(props) {
       class: "fa-solid fa-caret-down",
     });
     data.map((value) => {
-      if (check) {
+      if (value.check) {
         value.index.forEach(element => {
           props.ShowLayersVisibility(element);
         });

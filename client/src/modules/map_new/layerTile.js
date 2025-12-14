@@ -639,6 +639,36 @@ const ctht_songhuong = new TileLayer({
     visible: false,
 })
 
+const Kenh_songHuong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1, tileSize: 256, serverType: 'geoserver', tilePixelRatio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format, 'TILED': true,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'SongBa:Kenh_songHuong',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
+const Kenh_songba = new TileLayer({
+    source: new TileWMS({
+        ratio: 1, tileSize: 256, serverType: 'geoserver', tilePixelRatio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format, 'TILED': true,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'SongBa:Kenh_songba',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
 export const ListLayer = [
     {
         id: 'nendiahinh',
@@ -669,10 +699,6 @@ export const ListLayer = [
         layer: RanhGioiTinh_2025,
     },
     {
-        id: 'DiaPhan_Tinh_2025',
-        layer: DiaPhan_Tinh_2025,
-    },
-    {
         id: 'heThongThuyLoi',
         layer: heThongThuyLoi,
     },
@@ -688,18 +714,18 @@ export const ListLayer = [
         id: 'phanvungtuoi_songhuong',
         layer: phanvungtuoi_songhuong,
     },
-    {
-        id: 'BoVung_SongBa_V2',
-        layer: BoVung_SongBa_V2,
-    },
+    // {
+    //     id: 'BoVung_SongBa_V2',
+    //     layer: BoVung_SongBa_V2,
+    // },
     {
         id: 'BoVung_SongBa_V1',
         layer: BoVung_SongBa_V1,
     },
-    {
-        id: 'BoVung_SongHuong_2',
-        layer: BoVung_SongHuong_2,
-    },
+    // {
+    //     id: 'BoVung_SongHuong_2',
+    //     layer: BoVung_SongHuong_2,
+    // },
     {
         id: 'BoVung_SongHuong_1',
         layer: BoVung_SongHuong_1,
@@ -791,6 +817,14 @@ export const ListLayer = [
         layer: TuyenChuyenNuoc_songhuong,
     },
     {
+        id: 'Kenh_songba',
+        layer: Kenh_songba,
+    },
+    {
+        id: 'Kenh_songHuong',
+        layer: Kenh_songHuong,
+    },
+    {
         id: 'ctht_songba',
         layer: ctht_songba,
     },
@@ -821,6 +855,10 @@ export const ListLayer = [
     {
         id: 'CTQH_songhuong',
         layer: CTQH_songhuong,
+    },
+    {
+        id: 'DiaPhan_Tinh_2025',
+        layer: DiaPhan_Tinh_2025,
     },
 ];
 

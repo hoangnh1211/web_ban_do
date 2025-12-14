@@ -211,6 +211,12 @@ function MenuLayer(props) {
         check: false,
         show: false,
       },
+      {
+        value: "Kênh tưới hiện trạng",
+        index: [ListLayer.findIndex((value) => value.id === "Kenh_songHuong")],
+        check: false,
+        show: false,
+      },
     ],
     show: false,
     class: "fa-solid fa-caret-right",
@@ -220,6 +226,12 @@ function MenuLayer(props) {
       {
         value: "Công trình hiện trạng",
         index: [ListLayer.findIndex((value) => value.id === "ctht_songba")],
+        check: false,
+        show: false,
+      },
+      {
+        value: "Kênh tưới hiện trạng",
+        index: [ListLayer.findIndex((value) => value.id === "Kenh_songba")],
         check: false,
         show: false,
       },
@@ -291,7 +303,7 @@ function MenuLayer(props) {
       {
         value: "Phân vùng tưới",
         index: [ListLayer.findIndex((value) => value.id === "PhanVungTuoi_SongBa")],
-        check: check,
+        check: false,
         show: false,
       },
     ];
@@ -339,7 +351,7 @@ function MenuLayer(props) {
       {
         value: "Phân vùng tưới",
         index: [ListLayer.findIndex((value) => value.id === "phanvungtuoi_songhuong")],
-        check: check,
+        check: false,
         show: false,
       },
     ];
@@ -409,6 +421,12 @@ function MenuLayer(props) {
         check: check,
         show: false,
       },
+      {
+        value: "Kênh tưới hiện trạng",
+        index: [ListLayer.findIndex((value) => value.id === "Kenh_songHuong")],
+        check: check,
+        show: false,
+      },
     ];
 
     setListSongHuongHienTrang({
@@ -436,6 +454,12 @@ function MenuLayer(props) {
       {
         value: "Công trình hiện trạng",
         index: [ListLayer.findIndex((value) => value.id === "ctht_songba")],
+        check: check,
+        show: false,
+      },
+      {
+        value: "Kênh tưới hiện trạng",
+        index: [ListLayer.findIndex((value) => value.id === "Kenh_songba")],
         check: check,
         show: false,
       },

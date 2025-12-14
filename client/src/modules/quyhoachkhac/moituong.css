@@ -156,3 +156,7 @@
 .main-content .content td {
   padding: 8px;
 }
+
+.main-content .content1 .pa_content table tbody td {
+  padding: 0px;
+}

@@ -7,6 +7,7 @@ import { FormControl, InputLabel, Button, Select, MenuItem, CircularProgress, Bo
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
+import "./contact.css"
 
 const data = {
     du_lieu_nang_cap: [

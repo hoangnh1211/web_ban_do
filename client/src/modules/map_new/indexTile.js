@@ -179,7 +179,6 @@ function MapNew() {
             size: map.getSize(),
             padding: [10, 10, 10, 10]
         });
-        console.log(data.values_.geometry.extent_)
 
         const combinedStyle = function (feature, resolution) {
             let style;

@@ -62,7 +62,7 @@ export const congTrinhNangCap = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'QuyHoachTL:Nangcap_ToanQuoc_14.12',
+            "LAYERS": 'QuyHoachTL:Nangcap_ToanQuoc_V4',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
@@ -77,7 +77,7 @@ export const congTrinhQuyHoach = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'QuyHoachTL:XayMoi_ToanQuoc_14.12',
+            "LAYERS": 'QuyHoachTL:XayMoi_ToanQuoc_V4',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),

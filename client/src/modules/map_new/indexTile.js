@@ -23,12 +23,13 @@ function MapNew() {
     const [showInfo, setShowInfo] = useState(false);
     const [getData, setGetData] = useState(false);
     const [dataCheck, setDataCheck] = useState(false);
-    useEffect(()=>{
+    const [open, setOpen] = useState(true);
+    useEffect(() => {
         const vectorSource = danhMucQuyHoach.getSource();
-        
+
         const handleFeatureChange = () => {
-            if (danhMucQuyHoach.getSource().getFeatures().length > 0 && getData === false){
-                if (!dataCheck){
+            if (danhMucQuyHoach.getSource().getFeatures().length > 0 && getData === false) {
+                if (!dataCheck) {
                     danhMucQuyHoach.setVisible(false);
                 }
 
@@ -45,7 +46,7 @@ function MapNew() {
         return () => {
             vectorSource.un('change', handleFeatureChange);
         };
-    },[dataCheck])
+    }, [dataCheck])
     useEffect(() => {
         danhMucQuyHoach.getSource().refresh();
         const source = danhMucQuyHoach.getSource();
@@ -54,7 +55,7 @@ function MapNew() {
         } else {
             console.error('Cannot access source from danhMucQuyHoach layer.');
         }
-    },[])
+    }, [])
     useEffect(() => {
         const container = document.getElementById('popup');
         const closer = document.getElementById('popup-closer');
@@ -83,7 +84,7 @@ function MapNew() {
             }),
             pixelRatio: 1,
         });
-        initialMap.getView().fit( [
+        initialMap.getView().fit([
             102.144585,
             8.561212,
             109.458946,
@@ -91,8 +92,8 @@ function MapNew() {
         ], {
             size: initialMap.getSize(),
         });
-       
-        
+
+
         initialMap.on('pointermove', (e) => {
             // const coords = toLonLat(e.coordinate).map(c => c.toFixed(6)); // Chuyển đổi tọa độ sang EPSG:4326 và định dạng
             setCoordinate(e.coordinate.map(c => c.toFixed(4)));
@@ -123,16 +124,16 @@ function MapNew() {
                     }
                 }
                 if (source && source instanceof VectorSource) {
-                    var feature = initialMap.forEachFeatureAtPixel(evt.pixel, function(feature) {
+                    var feature = initialMap.forEachFeatureAtPixel(evt.pixel, function (feature) {
                         return feature;
                     });
-                
+
                     // Kiểm tra nếu có feature được chọn
                     if (feature) {
                         // Xử lý feature tại đây
                         // console.log(feature)
                         overlay.setPosition(evt.coordinate);
-                        setDataMap({ data: [{ id: feature.getId(), properties: feature.getProperties()}] })
+                        setDataMap({ data: [{ id: feature.getId(), properties: feature.getProperties() }] })
                         break;
                     } else {
                         console.log('No feature selected at this location.');
@@ -176,7 +177,7 @@ function MapNew() {
         // mapView.setCenter(center);
         mapView.fit(data.values_.geometry.extent_, {
             size: map.getSize(),
-            padding: [10, 10, 10, 10] 
+            padding: [10, 10, 10, 10]
         });
         console.log(data.values_.geometry.extent_)
 
@@ -222,7 +223,7 @@ function MapNew() {
                     }),
                 });
             }
-        
+
             // Quy tắc 4: Nhãn văn bản
             const text = new olStyle.Text({
                 font: '15px Arial',
@@ -234,9 +235,9 @@ function MapNew() {
                 backgroundFill: new olStyle.Fill({ color: '#ffffff' }), // Màu nền
                 backgroundStroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
             });
-        
+
             style.setText(text);
-        
+
             return style;
         }
 
@@ -254,7 +255,7 @@ function MapNew() {
                     lineJoin: 'bevel',
                 }),
             });
-        
+
             // Quy tắc 4: Nhãn văn bản
             const text = new olStyle.Text({
                 font: '15px Arial',
@@ -266,15 +267,15 @@ function MapNew() {
                 backgroundFill: new olStyle.Fill({ color: '#ffffff' }), // Màu nền
                 backgroundStroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
             });
-        
+
             style.setText(text);
-        
+
             return style;
         }
         danhMucQuyHoach.getSource().getFeatures().forEach(value => {
             value.setStyle(combinedStyle);
         })
-    
+
         data.setStyle(combinedStyleHl);
     };
     return (
@@ -287,7 +288,7 @@ function MapNew() {
                 {dataMap && <Table data={dataMap.data} setInfo={setInfo} />}
             </div>
             {coordinate && (
-                <div style={{fontSize:"12px", position: 'fixed', bottom: 0, right: 200, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }}>
+                <div style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: open ? 400 : 105, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }}>
                     Tọa độ: {coordinate.join(', ')}
                 </div>
             )}
@@ -333,8 +334,49 @@ function MapNew() {
             </div> */}
 
             </div>
-            <div id="chugiai">
-                <img src='image/8d1bb9ee-fd89-43b1-b3c8-de3dde1d8daa.jpg' style={{position:"fixed", bottom:0, right:0, width:"400px"}}/>
+            <div
+                id="chugiai"
+                style={{
+                    position: "fixed",
+                    bottom: 0,
+                    right: 0,
+                    width: 400,
+                    zIndex: 9999,
+                }}
+            >
+                {/* Close icon */}
+                {open &&
+                    <>
+                        <button
+                            type="button"
+                            onClick={() => setOpen(false)}
+                            aria-label="Close legend"
+                            style={{
+                                position: "absolute",
+                                top: 8,
+                                right: 8,
+                                width: 28,
+                                height: 28,
+                                borderRadius: 999,
+                                border: "none",
+                                cursor: "pointer",
+                                fontSize: 18,
+                                lineHeight: "28px",
+                            }}
+                        >
+                            ×
+                        </button>
+
+                        <img
+                            src="image/8d1bb9ee-fd89-43b1-b3c8-de3dde1d8daa.jpg"
+                            alt="Chú giải"
+                            style={{ width: "100%", display: "block" }}
+                        />
+                    </>
+                }
+                {!open && <button style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: 0,width:100, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }} onClick={() => setOpen(true)}>
+                    Chú giải
+                </button>}
             </div>
         </div>
     );

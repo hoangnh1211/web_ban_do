@@ -17,7 +17,7 @@ function Footer() {
                         flexWrap: "nowrap",
                         justifyContent: "space-between",
                         paddingRight: "40px",
-                }}>Địa chỉ:  162A Trần Quang Khải, P. Lý Thái Tổ, Q. Hoàn Kiếm, TP. Hà Nội</p>
+                }}>Địa chỉ: 162A Trần Quang Khải, P. Hoàn Kiếm, TP. Hà Nội</p>
                 {!isSmallScreen && <p>Điện thoại: 0243 8256470 - 0243 8254081 - Fax: 0243. 8252807</p>}
             </div>
         )

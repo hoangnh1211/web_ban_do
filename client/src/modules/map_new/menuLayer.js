@@ -70,7 +70,7 @@ function MenuLayer(props) {
           ListLayer.findIndex((value) => value.id === "RanhGioiTinh_2025"),
           ListLayer.findIndex((value) => value.id === "DiaPhan_Tinh_2025"),
         ],
-        check: false,
+        check: true,
         show: true,
       },
       {
@@ -80,8 +80,8 @@ function MenuLayer(props) {
         show: true,
       },
     ],
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
 
   const [listCongTrinhQuyHoach, setListCongTrinhQuyHoach] = useState({
@@ -259,7 +259,7 @@ function MenuLayer(props) {
   const [showSongHuongHienTrang, setShowSongHuongHienTrang] = useState(false);
   const [showSongBaHienTrang, setShowSongBaHienTrang] = useState(false);
   const [showCongTrinhHienTrang, setShowCongTrinhHienTrang] = useState(true);
-  const [showDuLieuNen, setShowDuLieuNen] = useState(false);
+  const [showDuLieuNen, setShowDuLieuNen] = useState(true);
   const [showCongTrinh, setShowCongTrinh] = useState(true);
   const showAllSongBa = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showSongBa;

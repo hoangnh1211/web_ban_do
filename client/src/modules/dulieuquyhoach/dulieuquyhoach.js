@@ -100,7 +100,7 @@ function Dulieu() {
         dien_tich_tuoi_thuc_te: '',
         dien_tich_tuoi_sau_nang_cap_from: '',
         dien_tich_tuoi_sau_nang_cap_to: '',
-        giai_doan_dau_tu: 'Giai đoạn đến 2030',
+        giai_doan_dau_tu: 'Giai đoạn trước 2030',
         tinh_trang_trien_khai: '',
         von_dau_tu: '',
         page: '',

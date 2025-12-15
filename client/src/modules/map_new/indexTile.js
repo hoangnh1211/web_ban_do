@@ -367,7 +367,7 @@ function MapNew() {
                         </button>
 
                         <img
-                            src="image/8d1bb9ee-fd89-43b1-b3c8-de3dde1d8daa.jpg"
+                            src="image/Chugiai2.png"
                             alt="Chú giải"
                             style={{ width: "100%", display: "block" }}
                         />

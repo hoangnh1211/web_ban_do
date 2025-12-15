@@ -82,9 +82,9 @@ function Header() {
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
             <Avatar sx={{ width: isSmallScreen ?"30px" : "44px", height: isSmallScreen ?"50px" :'75px', marginRight:'10px' }}
-              component="a"
-              href={process.env.REACT_APP_SERVER}
-              target="_blank" alt="Remy Sharp" src={"image/logo.svg"} />
+              component={Link}
+              to="/"
+              alt="Remy Sharp" src={"image/logo.svg"} />
             <Typography
               variant="h6"
               noWrap
@@ -177,9 +177,9 @@ function Header() {
             <Box sx={{ flexGrow: 0, marginLeft: '30px' }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" component="a"
-                    href={process.env.REACT_APP_SERVER}
-                    target="_blank" src="image/image.png" />
+                  <Avatar alt="Remy Sharp" component={Link}
+                    to="/"
+                    src="image/image.png" />
                 </IconButton>
               </Tooltip>
               <Menu

@@ -156,7 +156,8 @@ function Home() {
                                                         },
                                                     },
                                                     paddingLeft: '6px',
-                                                    paddingRight: '6px'
+                                                    paddingRight: '6px',
+                                                    height: '100%'
                                                 }}
                                             >
                                                 <CardMedia

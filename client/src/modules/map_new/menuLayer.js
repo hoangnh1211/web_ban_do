@@ -176,7 +176,6 @@ function MenuLayer(props) {
         value: "Xây mới: Công trình",
         index: [
           ListLayer.findIndex((value) => value.id === "CTQH_songhuong"),
-          ListLayer.findIndex((value) => value.id === "longho_dk_songba"),
         ],
         check: false,
         show: false,
@@ -278,7 +277,10 @@ function MenuLayer(props) {
     let data = [
       {
         value: "Xây mới: Công trình",
-        index: [ListLayer.findIndex((value) => value.id === "CTQH_SongBa_V2")],
+        index: [
+          ListLayer.findIndex((value) => value.id === "CTQH_SongBa_V2"),
+          ListLayer.findIndex((value) => value.id === "longho_dk_songba"),
+        ],
         check: check,
         show: false,
       },

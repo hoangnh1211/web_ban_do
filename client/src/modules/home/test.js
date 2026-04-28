@@ -97,8 +97,8 @@ const AutoScrollCarousel = ({ items, itemsPerPage = 4, autoScrollInterval = 5000
 export default function Test() {
     const items = [
         { id: 1, src: 'image/logo_1.png', alt: 'Logo 1', link: 'https://iwrp.gov.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI' },
-        { id: 2, src: 'image/logo_2.png', alt: 'Logo 2', link: 'https://www1.cucthuyloi.gov.vn/', text: 'CỤC THUỶ LỢI' },
-        { id: 3, src: 'image/logo_3.jpg', alt: 'Logo 3', link: 'https://mard.gov.vn/Pages/default.aspx/', text: 'BỘ NÔNG NGHIỆP VÀ PHÁT TRIỂN NÔNG THÔN' },
+        { id: 2, src: 'image/logo_2.png', alt: 'Logo 2', link: 'https://www1.cucthuyloi.gov.vn/', text: 'CỤC QUẢN LÝ VÀ XÂY DỰNG CÔNG TRÌNH THUỶ LỢI' },
+        { id: 3, src: 'image/logo_3.jpg', alt: 'Logo 3', link: 'https://mae.gov.vn/', text: 'BỘ NÔNG NGHIỆP VÀ MÔI TRƯỜNG' },
         { id: 4, src: 'image/logo_4.png', alt: 'Logo 4', link: 'https://www.siwrp.org.vn/', text: 'VIỆN QUY HOẠCH THUỶ LỢI MIỀN NAM' },
         { id: 5, src: 'image/logo_5.png', alt: 'Logo 5', link: 'https://www.tlu.edu.vn/', text: 'TRƯỜNG ĐẠI HỌC THUỶ LỢI' },
         { id: 6, src: 'image/logo_6.png', alt: 'Logo 6', link: 'https://vawr.org.vn/', text: 'VIỆN KHOA HỌC THUỶ LỢI VIỆT NAM' },

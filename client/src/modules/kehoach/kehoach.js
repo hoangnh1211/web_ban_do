@@ -7,6 +7,10 @@ import { FormControl, InputLabel, Button, Select, MenuItem, CircularProgress, Bo
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
+import pdfMake, { prepareHtmlForPdf } from '../../utils/pdfmakeSetup';
+import htmlToPdfmake from 'html-to-pdfmake';
+import htmlDocx from 'html-docx-js/dist/html-docx';
+import { utils as xlsxUtils, writeFile as xlsxWriteFile } from 'xlsx';
 
 const data = {
     du_lieu_ke_hoach: [
@@ -109,6 +113,16 @@ function Kehoach() {
                 setLoading(false)
             });
     }
+
+    const getDuLieuExcel = () => {
+        axios.get(`${process.env.REACT_APP_SERVER}/api/dulieukehoach`, {
+            params: { ...searchDuLieu, page: 1, per_page: 5000 }
+        })
+            .then(res => {
+                downloadExcel(data.du_lieu_ke_hoach, res.data.data.data?.data ?? [], 'Dữ liệu kế hoạch');
+            });
+    }
+
     const handleChangeXayMoi = (e) => {
         const { name, value } = e.target;
         setSearchDuLieu((prevData) => ({
@@ -136,6 +150,45 @@ function Kehoach() {
             per_page: value.props.value,
             page: '1',
         });
+    };
+    const downloadPDF = () => {
+        const input = document.getElementById('contentToPrint');
+        const val = htmlToPdfmake(prepareHtmlForPdf(input.innerHTML));
+        const content = Array.isArray(val) ? val.filter(Boolean) : val;
+        const docDefinition = {
+            content,
+            pageSize: 'A4',
+            pageMargins: [30, 30, 30, 30],
+            defaultStyle: { font: 'Roboto', fontSize: 11 },
+        };
+        pdfMake.createPdf(docDefinition).download(currentKeHoach.loai_ke_hoach + ' - ' + currentKeHoach.ten_ke_hoach);
+    };
+    const downloadWord = async () => {
+        const input = document.getElementById('contentToPrint');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = input.innerHTML;
+        const button1 = tempDiv.querySelector('button');
+
+        if (button1) {
+            button1.remove();
+        }
+        const html = tempDiv.innerHTML;
+        // Convert HTML to a Word document
+        const converted = htmlDocx.asBlob(html);
+        const url = window.URL.createObjectURL(converted);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = currentKeHoach.loai_ke_hoach + ' - ' + currentKeHoach.ten_ke_hoach
+        link.click();
+    };
+    const downloadExcel = (columns, rows, filename) => {
+
+        const header = columns.map(c => c.title);
+        const dataRows = rows.map(row => columns.map(c => row[c.field_data] ?? ''));
+        const ws = xlsxUtils.aoa_to_sheet([header, ...dataRows]);
+        const wb = xlsxUtils.book_new();
+        xlsxUtils.book_append_sheet(wb, ws, 'Sheet1');
+        xlsxWriteFile(wb, `${filename}.xlsx`);
     };
     const navItems = ["Kế hoạch", "Tra cứu"];
     const [navOpen, setNavOpen] = useState(true);
@@ -226,7 +279,7 @@ function Kehoach() {
                                     }}
                                         style={statusDuLieu === 'Kế hoạch' ? { color: '#0703A4', borderBottom: '0.3px solid #e3e3e3' } : { borderBottom: '0.3px solid #e3e3e3' }}
                                     >
-                                        <p style={{ color: '#0703A4',fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I.Dự án vốn trong nước đầu tư giai đoạn 2026 - 2030</p>
+                                        <p style={{ color: '#0703A4', fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I.Dự án vốn trong nước đầu tư giai đoạn 2026 - 2030</p>
                                     </div>
                                 </div>
                             </nav>
@@ -247,7 +300,13 @@ function Kehoach() {
                                     <CircularProgress size={80} thickness={5} />
                                 </Box> :
                                 <div className="content content1">
-                                    <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentKeHoach?.noi_dung }} />
+                                    <div className='pa_content' id="contentToPrint" dangerouslySetInnerHTML={{ __html: currentKeHoach?.noi_dung }} />
+                                    <div style={{ marginTop: '10px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
+                                        <div>
+                                            <button className="download" style={{ marginRight: '20px' }} onClick={downloadPDF}>Download pdf</button>
+                                            <button className="download" onClick={downloadWord}>Download word</button>
+                                        </div>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -364,7 +423,8 @@ function Kehoach() {
                                         </FormControl>
                                     </Grid>
                                 </Grid>
-                                <div className='d-flex justify-content-center mt-2'>
+                                <div className='d-flex justify-content-center mt-2' style={{ position: 'relative' }}>
+                                    <button className="download" style={{ position: 'absolute', left: '30px', paddingLeft: '14px', paddingRight: '14px', borderRadius: '9px', height: '40px' }} onClick={() => getDuLieuExcel()}><i className="fas fa-download"></i></button>
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -389,7 +449,7 @@ function Kehoach() {
                                         Tìm kiếm
                                     </Button>
                                     <p style={{
-                                        position:"absolute",
+                                        position: "absolute",
                                         right: "33px",
                                         marginTop: "1.5rem"
                                     }}>Đơn vị tính: Triệu đồng</p>

@@ -14,8 +14,8 @@ import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import moment from 'moment'
 import htmlDocx from 'html-docx-js/dist/html-docx';
-import 'jspdf-autotable';
-import html2pdf from 'html2pdf.js';
+import pdfMake, { prepareHtmlForPdf } from '../../utils/pdfmakeSetup';
+import htmlToPdfmake from 'html-to-pdfmake';
 
 function QuyHoachKhac() {
     const [tinh, setTinh] = useState([]);
@@ -160,26 +160,20 @@ function QuyHoachKhac() {
         marginBottom: '10px',
         borderRadius: '10px',
     }
-    const downloadPDF = async () => {
+    const downloadPDF = () => {
         const input = document.getElementById('contentToPrint');
-        const button = input.querySelector('button');
-
-        if (button) {
-            button.classList.add('hide-when-printing');
-        }
-        const options = {
-            margin: [10, 10],
-            filename: 'quyhoach.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = input.innerHTML;
+        const val = htmlToPdfmake(prepareHtmlForPdf(input.innerHTML));
+        const content = Array.isArray(val) ? val.filter(Boolean) : val;
+        const docDefinition = {
+            content,
+            pageSize: 'A4',
+            pageMargins: [30, 30, 30, 30],
+            defaultStyle: { font: 'Roboto', fontSize: 11 },
         };
-
-        html2pdf().from(input).set(options).save();
-        if (button) {
-            button.classList.remove('hide-when-printing');
-        }
-
+        let pdfName =   indexCheck !== -1 ? 'quyhoach - ' +currentTinh.ten_tinh : 'quyhoach - ' +currentVung.ten_vung
+        pdfMake.createPdf(docDefinition).download(pdfName);
     };
     const downloadWord = async () => {
         const input = document.getElementById('contentToPrint');
@@ -196,7 +190,7 @@ function QuyHoachKhac() {
         const url = window.URL.createObjectURL(converted);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'quyhoach.docx';
+        link.download = indexCheck !== -1 ? 'quyhoach - ' +currentTinh.ten_tinh : 'quyhoach - ' +currentVung.ten_vung
         link.click();
     };
     const [navOpen, setNavOpen] = useState(true);
@@ -363,7 +357,7 @@ function QuyHoachKhac() {
                             }}
                         >
                             <CircularProgress size={80} thickness={5} />
-                        </Box>) : (currentCongtrinhQuyHoach &&
+                        </Box>) : (currentCongtrinhQuyHoach.length>0 &&
                             <Table className='table-quy-hoach-khac' sx={{ minWidth: 650 }} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>

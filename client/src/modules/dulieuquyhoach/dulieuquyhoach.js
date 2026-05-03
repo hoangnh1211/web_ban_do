@@ -8,6 +8,10 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import "./contact.css"
+import pdfMake, { prepareHtmlForPdf } from '../../utils/pdfmakeSetup';
+import htmlToPdfmake from 'html-to-pdfmake';
+import htmlDocx from 'html-docx-js/dist/html-docx';
+import { utils as xlsxUtils, writeFile as xlsxWriteFile } from 'xlsx';
 
 const data = {
     du_lieu_nang_cap: [
@@ -311,6 +315,23 @@ function Dulieu() {
                 setLoading(false)
             });
     }
+
+    const getDuLieuXayMoiExcel = () => {
+        axios.get(`${process.env.REACT_APP_SERVER}/api/dulieuxaymoi`, {
+            params: { ...searchDuLieuXayMoi, page: 1, per_page: 5000 }
+        })
+            .then(res => {
+                downloadExcel(data.du_lieu_xay_moi, res.data.data.data?.data ?? [], 'Danh mục công trình xây mới');
+            });
+    }
+    const getDuLieuNangCapExcel = () => {
+        axios.get(`${process.env.REACT_APP_SERVER}/api/dulieunangcap`, {
+            params: { ...searchDuLieuNangCap, page: 1, per_page: 5000 }
+        })
+            .then(res => {
+                downloadExcel(data.du_lieu_nang_cap, res.data.data.data?.data ?? [], 'Danh mục công trình nâng cấp');
+            });
+    }
     const changeStatus1 = (key) => {
         let st = { ...statusVung1 };
         st[key] = !st[key];
@@ -376,6 +397,48 @@ function Dulieu() {
             per_page: value.props.value,
             page: '1',
         });
+    };
+
+    const downloadPDF = (name) => {
+        const input = document.getElementById('contentToPrint');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = input.innerHTML;
+        const val = htmlToPdfmake(prepareHtmlForPdf(input.innerHTML));
+        const content = Array.isArray(val) ? val.filter(Boolean) : val;
+        const docDefinition = {
+            content,
+            pageSize: 'A4',
+            pageMargins: [30, 30, 30, 30],
+            defaultStyle: { font: 'Roboto', fontSize: 11 },
+        };
+        pdfMake.createPdf(docDefinition).download(name);
+    };
+    const downloadWord = async (name) => {
+        const input = document.getElementById('contentToPrint');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = input.innerHTML;
+        const button1 = tempDiv.querySelector('button');
+
+        if (button1) {
+            button1.remove();
+        }
+        const html = tempDiv.innerHTML;
+        // Convert HTML to a Word document
+        const converted = htmlDocx.asBlob(html);
+        const url = window.URL.createObjectURL(converted);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = name
+        link.click();
+    };
+    const downloadExcel = (columns, rows, filename) => {
+
+        const header = columns.map(c => c.title);
+        const dataRows = rows.map(row => columns.map(c => row[c.field_data] ?? ''));
+        const ws = xlsxUtils.aoa_to_sheet([header, ...dataRows]);
+        const wb = xlsxUtils.book_new();
+        xlsxUtils.book_append_sheet(wb, ws, 'Sheet1');
+        xlsxWriteFile(wb, `${filename}.xlsx`);
     };
     const navItems = ["Danh mục", "Tra cứu"];
     const [navOpen, setNavOpen] = useState(true);
@@ -628,7 +691,7 @@ function Dulieu() {
                                             width: '100%', display: 'flex', justifyContent: 'space-between',
                                             paddingRight: '10px'
                                         }}>
-                                            <p style={{ width: '100%', textAlign: 'left', paddingLeft: "10px",fontWeight: 700, fontSize: '16px' }}>B2. Năm 2025</p>
+                                            <p style={{ width: '100%', textAlign: 'left', paddingLeft: "10px", fontWeight: 700, fontSize: '16px' }}>B2. Năm 2025</p>
                                             <i className={giaidoan?.b2 ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                                         </div>
                                         {giaidoan?.b2 &&
@@ -727,7 +790,7 @@ function Dulieu() {
                                             width: '100%', display: 'flex', justifyContent: 'space-between',
                                             paddingRight: '10px'
                                         }}>
-                                            <p style={{ width: '100%', textAlign: 'left', paddingLeft: "10px",fontWeight: 700, fontSize: '16px' }}>B3. Giai đoạn 2021 - 2025</p>
+                                            <p style={{ width: '100%', textAlign: 'left', paddingLeft: "10px", fontWeight: 700, fontSize: '16px' }}>B3. Giai đoạn 2021 - 2025</p>
                                             <i className={giaidoan?.b3 ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                                         </div>
                                         {giaidoan?.b3 &&
@@ -862,7 +925,13 @@ function Dulieu() {
                                         <CircularProgress size={80} thickness={5} />
                                     </Box>) : (
                                     <div className="content content1">
-                                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentDanhMuc?.noi_dung }} />
+                                        <div className='pa_content' id="contentToPrint" dangerouslySetInnerHTML={{ __html: currentDanhMuc?.noi_dung }} />
+                                        <div style={{ marginTop: '10px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
+                                        <div>
+                                            <button className="download" style={{ marginRight: '20px' }} onClick={()=>{downloadPDF(currentDanhMuc.ten_danh_muc)}}>Download pdf</button>
+                                            <button className="download" onClick={()=>{downloadWord(currentDanhMuc.ten_danh_muc)}}>Download word</button>
+                                        </div>
+                                    </div>
                                     </div>
                                 ) :
                                 !currentTinh ? (
@@ -876,7 +945,11 @@ function Dulieu() {
                                         <CircularProgress size={80} thickness={5} />
                                     </Box>) : (
                                     <div className="content content1">
-                                        <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentTinh?.noi_dung }} />
+                                        <div className='pa_content' id="contentToPrint"  dangerouslySetInnerHTML={{ __html: currentTinh?.noi_dung }} />
+                                        <div>
+                                            <button className="download" style={{ marginRight: '20px' }} onClick={()=>{downloadPDF('Đánh giá kết quả - '+currentTinh.ten_tinh)}}>Download pdf</button>
+                                            <button className="download" onClick={()=>{downloadWord(currentDanhMuc.ten_danh_muc)}}>Download word</button>
+                                        </div>
                                     </div>
                                 )
                             }
@@ -1021,7 +1094,8 @@ function Dulieu() {
                                         </FormControl>
                                     </Grid>
                                 </Grid>
-                                <div className='d-flex justify-content-center mt-2'>
+                                <div className='d-flex justify-content-center mt-2' style={{ position: 'relative' }}>
+                                    <button className="download" style={{ position: 'absolute', left: '30px', paddingLeft: '14px', paddingRight: '14px', borderRadius: '9px', height: '40px' }} onClick={() => getDuLieuXayMoiExcel()}><i className="fas fa-download"></i></button>
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -1029,7 +1103,7 @@ function Dulieu() {
                                         style={{
                                             width: '200px',
                                             height: '40px',
-                                            textAlign: 'center', // Căn giữa nội dung bên trong button
+                                            textAlign: 'center',
                                         }}
                                         onClick={() => {
                                             setSearchDuLieuXayMoi({
@@ -1273,7 +1347,8 @@ function Dulieu() {
                                     </Grid>
                                 </Grid>
 
-                                <div className='d-flex justify-content-center mt-2'>
+                                <div className='d-flex justify-content-center mt-2' style={{ position: 'relative' }}>
+                                    <button className="download" style={{ position: 'absolute', left: '30px', paddingLeft: '14px', paddingRight: '14px', borderRadius: '9px', height: '40px' }} onClick={() => getDuLieuNangCapExcel()}><i className="fas fa-download"></i></button>
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -1281,7 +1356,7 @@ function Dulieu() {
                                         style={{
                                             width: '200px',
                                             height: '40px',
-                                            textAlign: 'center', // Căn giữa nội dung bên trong button
+                                            textAlign: 'center',
                                         }}
                                         onClick={() => {
                                             setSearchDuLieuNangCap({

@@ -1158,7 +1158,7 @@ function Dulieu() {
                                                     {currentDuLieu.data.map((row, index) => (
                                                         <TableRow
                                                             sx={{
-                                                                backgroundColor: index % 2 === 0 ? '#f1f6ff' : 'inherit',
+                                                                backgroundColor: row.tinh_trang_trien_khai === 'Đã hoàn thành' ? '#7AE9F5' : row.tinh_trang_trien_khai === 'Đang thực hiện' ? '#E7FBFD' : 'inherit',
                                                             }}
                                                         >
                                                             {data.du_lieu_xay_moi.map(value =>
@@ -1410,7 +1410,7 @@ function Dulieu() {
                                                     {currentDuLieu.data.map((row, index) => (
                                                         <TableRow
                                                             sx={{
-                                                                backgroundColor: index % 2 === 0 ? '#f1f6ff' : 'inherit',
+                                                                backgroundColor: row.tinh_trang_trien_khai === 'Đã thực hiện' ? '#7AE9F5' : row.tinh_trang_trien_khai === 'Đang thực hiện' ? '#E7FBFD' : 'inherit',
                                                             }}
                                                         >
                                                             {data.du_lieu_nang_cap.map(value =>

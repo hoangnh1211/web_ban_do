@@ -1158,7 +1158,7 @@ function Dulieu() {
                                                     {currentDuLieu.data.map((row, index) => (
                                                         <TableRow
                                                             sx={{
-                                                                backgroundColor: row.tinh_trang_trien_khai === 'Đã hoàn thành' ? '#7AE9F5' : row.tinh_trang_trien_khai === 'Đang thực hiện' ? '#E7FBFD' : 'inherit',
+                                                                backgroundColor: row.tinh_trang_trien_khai === 'Đã hoàn thành' ? '#7AE9F5' : ['Đang thực hiện', 'Chuẩn bị khởi công', 'Khởi công mới năm 2025'].includes(row.tinh_trang_trien_khai) ? '#E7FBFD' : 'inherit',
                                                             }}
                                                         >
                                                             {data.du_lieu_xay_moi.map(value =>

@@ -217,7 +217,7 @@ function QuyHoachKhac() {
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.trungdu && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Trung du và miền núi phía Bắc')
-                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#808080', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
@@ -228,7 +228,7 @@ function QuyHoachKhac() {
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.dongbang && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Đồng Bằng Bắc Bộ')
-                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#808080', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
                         })}
                     </ul>
                     <div onClick={() => changeStatus('bactrunbo')} style={navCheck === 'Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
@@ -238,7 +238,7 @@ function QuyHoachKhac() {
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.bactrunbo && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Bắc Trung Bộ')
-                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#808080', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
@@ -249,7 +249,7 @@ function QuyHoachKhac() {
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.namtrungbo && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Nam Trung Bộ')
-                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#808080', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
@@ -260,7 +260,7 @@ function QuyHoachKhac() {
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.taynguyen && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Tây Nguyên')
-                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#808080', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
@@ -271,7 +271,7 @@ function QuyHoachKhac() {
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.dongnambo && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Đông Nam Bộ')
-                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#808080', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
@@ -282,7 +282,7 @@ function QuyHoachKhac() {
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                         {statusVung.dongbangsong && tinh.map((value, index) => {
                             if (value.khu_vuc === 'Đồng bằng sông Cửu Long')
-                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#808080', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
+                                return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
                     </ul>
@@ -290,7 +290,7 @@ function QuyHoachKhac() {
                 <p style={{ paddingLeft: '10px', paddingRight: '10px', marginBottom: '5px', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>  B. P/a Thủy lợi trong quy hoạch Vùng</p>
                 <ul style={{ listStyleType: 'none', paddingLeft: '0px', width: '100%' }}>
                     {vung.map((value, index) => {
-                        return <li style={index === indexCheckVung ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.noi_dung === null ? { color: '#808080', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.noi_dung === null ? undefined : () => getVung(value, index)}>{value.ten_vung}</li>
+                        return <li style={index === indexCheckVung ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.noi_dung === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.noi_dung === null ? undefined : () => getVung(value, index)}>{value.ten_vung}</li>
                     })}
                 </ul>
             </nav>

@@ -17,7 +17,7 @@ const Table = React.memo((props) => {
                         <tr key={item}>
                             <td style={{ padding: '0.25rem' }}>
                                 <p style={{ marginBottom: 0, fontSize: '14px' }}>
-                                    <span className="slabel">{configText[layer][item]}</span>: <span style={item === 'diadanh' ? { fontWeight: 'bold' } : item === 'ten_ct' ? { color: '#1565C0' } : {}}>{data[item]} {configDonvi[layer][item]}</span>
+                                    <span className="slabel">{configText[layer][item]}</span>: <span style={item === 'diadanh' ? { fontWeight: 'bold' } : item === 'ten_ct' ? { color: '#1565C0', fontWeight: 'bold' } : {}}>{data[item]} {configDonvi[layer][item]}</span>
                                 </p>
                             </td>
                         </tr>

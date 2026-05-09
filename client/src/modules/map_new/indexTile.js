@@ -23,7 +23,7 @@ function MapNew() {
     const [showInfo, setShowInfo] = useState(false);
     const [getData, setGetData] = useState(false);
     const [dataCheck, setDataCheck] = useState(false);
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(window.innerWidth > 768);
     useEffect(() => {
         const vectorSource = danhMucQuyHoach.getSource();
 
@@ -169,6 +169,14 @@ function MapNew() {
                 listLayer[i].setVisible(false)
         };
     };
+    const handleMapFit = async (toado) => {
+        const mapView = map.getView();
+        mapView.fit(toado, {
+            size: map.getSize(),
+            padding: [10, 10, 10, 10]
+        });
+    }
+
     const handleSearch = async (layerIdToSearch) => {
         let data = danhMucQuyHoach.getSource().getFeatures().find(feature => feature.id_ === layerIdToSearch);
         // let data = danhmucVector.find(feature => feature.id_ === layerIdToSearch);
@@ -278,16 +286,16 @@ function MapNew() {
         data.setStyle(combinedStyleHl);
     };
     return (
-        <div>
+        <div style={{ marginTop: window.innerWidth <= 768 ? 56 : 70 }}>
             {/* <Header title ="Hệ thống thông tin quy hoạch thủy lợi trực tuyến"/> */}
-            <MenuLayer setDataCheck={setDataCheck} getData={getData} handleSearch={handleSearch} toggleLayersVisibility={toggleLayersVisibility} ShowLayersVisibility={ShowLayersVisibility} HideLayersVisibility={HideLayersVisibility} />
+            <MenuLayer setDataCheck={setDataCheck} getData={getData} handleSearch={handleSearch} handleMapFit={handleMapFit} toggleLayersVisibility={toggleLayersVisibility} ShowLayersVisibility={ShowLayersVisibility} HideLayersVisibility={HideLayersVisibility} />
             <div style={{ height: '100vh', width: '100%' }} ref={mapElement} className="map-container"></div>
             <div id="popup" className="ol-popup">
                 <a href="#" id="popup-closer" className="ol-popup-closer"></a>
                 {dataMap && <Table data={dataMap.data} setInfo={setInfo} />}
             </div>
             {coordinate && (
-                <div style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: open ? 400 : 105, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }}>
+                <div style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: open ? (window.innerWidth <= 1440 ? 260 : 360) : 105, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }}>
                     Tọa độ: {coordinate.join(', ')}
                 </div>
             )}
@@ -339,7 +347,7 @@ function MapNew() {
                     position: "fixed",
                     bottom: 0,
                     right: 0,
-                    width: 400,
+                    width: window.innerWidth <= 1440 ? 260 : 360,
                     zIndex: 9999,
                 }}
             >
@@ -373,7 +381,7 @@ function MapNew() {
                         />
                     </>
                 }
-                {!open && <button style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: 0,width:100, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }} onClick={() => setOpen(true)}>
+                {!open && <button style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: 0, width: 100, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }} onClick={() => setOpen(true)}>
                     Chú giải
                 </button>}
             </div>

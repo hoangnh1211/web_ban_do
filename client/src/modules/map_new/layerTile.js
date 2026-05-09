@@ -186,6 +186,21 @@ export const dapHoChuaLon = new TileLayer({
     visible: true,
 });
 
+export const congtrinh_ht_toanQuoc = new TileLayer({
+    source: new TileWMS({
+        ratio: 1, tileSize: 256, serverType: 'geoserver', tilePixelRatio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format, 'TILED': true,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'QuyHoachTL:congtrinh_ht_toanQuoc',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: true,
+});
+
 export const heThongThuyLoi = new TileLayer({
     source: new TileWMS({
         ratio: 1, tileSize: 256, serverType: 'geoserver', tilePixelRatio: 1,
@@ -698,10 +713,10 @@ export const ListLayer = [
         id: 'RanhGioiTinh_2025',
         layer: RanhGioiTinh_2025,
     },
-    {
-        id: 'heThongThuyLoi',
-        layer: heThongThuyLoi,
-    },
+    // {
+    //     id: 'heThongThuyLoi',
+    //     layer: heThongThuyLoi,
+    // },
     {
         id: 'heThongThuyLoiNangCap',
         layer: heThongThuyLoiNangCap,
@@ -735,17 +750,21 @@ export const ListLayer = [
         layer: heSotuoitiieu,
     },
     {
-        id: 'dapHoChuaLon',
-        layer: dapHoChuaLon,
+        id: 'congtrinh_ht_toanQuoc',
+        layer: congtrinh_ht_toanQuoc,
     },
-    {
-        id: 'cong',
-        layer: cong,
-    },
-    {
-        id: 'tramBom',
-        layer: tramBom,
-    },
+    // {
+    //     id: 'dapHoChuaLon',
+    //     layer: dapHoChuaLon,
+    // },
+    // {
+    //     id: 'cong',
+    //     layer: cong,
+    // },
+    // {
+    //     id: 'tramBom',
+    //     layer: tramBom,
+    // },
     // {
     //     id: 'thuyDien',
     //     layer: thuyDien,
@@ -866,5 +885,7 @@ export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
 export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, congTrinhQuyHoach, ctht_songhuong, ctht_songba,CTNC_songhuong, CTNC_SongBa_1, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach, heThongThuyLoiNangCap
     // ,thuyDien
-    , tramBom, cong, dapHoChuaLon, heSotuoitiieu]
+    // , tramBom, cong, dapHoChuaLon
+    , congtrinh_ht_toanQuoc
+    , heSotuoitiieu]
 // export const listLayerData = [heSotuoitiieu,danhMucQuyHoach,dapHoChuaLon, cong, tramBom, thuyDien,congTrinhQuyHoach, congTrinhNangCap, tuyenChuyenNuoc, heThongThuyLoiNangCap]

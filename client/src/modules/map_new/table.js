@@ -16,9 +16,8 @@ const Table = React.memo((props) => {
                     return (
                         <tr key={item}>
                             <td style={{ padding: '0.25rem' }}>
-                            {configText[layer][item] === 'diadanh' }
                                 <p style={{ marginBottom: 0, fontSize: '14px' }}>
-                                    <span className="slabel">{configText[layer][item]}</span>: <span style={item === 'diadanh' ? { fontWeight:'bold'} : {}}>{data[item]} {configDonvi[layer][item]}</span>
+                                    <span className="slabel">{configText[layer][item]}</span>: <span style={item === 'diadanh' ? { fontWeight: 'bold' } : item === 'ten_ct' ? { color: '#1565C0' } : {}}>{data[item]} {configDonvi[layer][item]}</span>
                                 </p>
                             </td>
                         </tr>
@@ -45,7 +44,7 @@ const Table = React.memo((props) => {
     return (
         <div id="popup-content">
             {props.data &&
-                <TableBootrap striped bordered hover className="striped-table">
+                <TableBootrap striped hover className="striped-table">
                     {showAllTable(props.data)}
                 </TableBootrap>}
         </div>

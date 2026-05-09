@@ -78,7 +78,7 @@ function Header() {
       const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
     <div>
-      <AppBar position={(location.pathname == '/quy-hoach-khac'|| location.pathname == '/du-lieu-quy-hoach' || location.pathname == '/danh-gia-quy-hoach'|| location.pathname == '/chien-luoc-thuy-loi'|| location.pathname == '/ke-hoach') ? "fixed" : "static"}>
+      <AppBar position={"fixed"}>
         <Container maxWidth="maxwithnav">
           <Toolbar disableGutters>
             <Avatar sx={{ width: isSmallScreen ?"30px" : "44px", height: isSmallScreen ?"50px" :'75px', marginRight:'10px' }}

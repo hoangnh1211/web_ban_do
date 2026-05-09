@@ -103,7 +103,7 @@ function Home() {
     };
 
     return (
-        <div className=''>
+        <div className='' style={{marginTop:70}}>
             {!isSmallScreen && <Banner />}
 
             <div className="mr-7 ml-7">

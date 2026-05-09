@@ -7,6 +7,8 @@ import { Spinner } from "react-bootstrap";
 import { useMediaQuery } from '@mui/material';
 
 function MenuLayer(props) {
+  const toaDoSongBa = [107.99787066, 11.79573149, 109.45948839, 14.60149705];
+  const toaDoSongHuong = [106.7237, 16.0115, 108.17, 16.77151];
   const [dataDanhMuc, setDataDanhMuc] = useState({
     show: false,
     class: "fa-solid fa-caret-right",
@@ -523,6 +525,7 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
+    if (flag) props.handleMapFit(toaDoSongHuong);
   };
   const showAllQuyHoachSongHuongQuyHoach = (flag) => {
     showAllSongHuong(flag)
@@ -540,6 +543,7 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
+    if (flag) props.handleMapFit(toaDoSongBa);
   };
   const showAllQuyHoachSongBaQuyHoach = (flag) => {
     showAllSongBa(flag)
@@ -618,47 +622,52 @@ function MenuLayer(props) {
   };
   const showAllCongTrinhHienTrang = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showCongTrinhHienTrang;
-    let data = [
-      {
-        value: "Hồ đâp hiện trạng",
-        index: [ListLayer.findIndex((value) => value.id === "dapHoChuaLon")],
-        check: check,
-        show: false,
-      },
-      // {
-      //   value: "Thuỷ điện", index: [ListLayer.findIndex((value) => value.id === "thuyDien")], check: check,
-      //   show: false,
-      // },
-      {
-        value: "Cống hiện trạng", index: [ListLayer.findIndex((value) => value.id === "cong")], check: check,
-        show: false,
-      },
-      {
-        value: "Trạm bơm hiện trạng", index: [ListLayer.findIndex((value) => value.id === "tramBom")], check: check,
-        show: false,
-      },
-      {
-        value: "Hệ thống thuỷ lợi", index: [ListLayer.findIndex((value) => value.id === "heThongThuyLoi")], check: check,
-        show: false,
-      }
-    ];
+    // let data = [
+    //   {
+    //     value: "Hồ đâp hiện trạng",
+    //     index: [ListLayer.findIndex((value) => value.id === "dapHoChuaLon")],
+    //     check: check,
+    //     show: false,
+    //   },
+    //   // {
+    //   //   value: "Thuỷ điện", index: [ListLayer.findIndex((value) => value.id === "thuyDien")], check: check,
+    //   //   show: false,
+    //   // },
+    //   {
+    //     value: "Cống hiện trạng", index: [ListLayer.findIndex((value) => value.id === "cong")], check: check,
+    //     show: false,
+    //   },
+    //   {
+    //     value: "Trạm bơm hiện trạng", index: [ListLayer.findIndex((value) => value.id === "tramBom")], check: check,
+    //     show: false,
+    //   },
+    //   {
+    //     value: "Hệ thống thuỷ lợi", index: [ListLayer.findIndex((value) => value.id === "heThongThuyLoi")], check: check,
+    //     show: false,
+    //   }
+    // ];
 
-    setListCongTrinhHienTrang({
-      data: data,
-      show: true,
-      class: "fa-solid fa-caret-down",
-    });
-    data.map((value) => {
-      if (check) {
-        value.index.forEach(element => {
-          props.ShowLayersVisibility(element);
-        });
+    // setListCongTrinhHienTrang({
+    //   data: data,
+    //   show: true,
+    //   class: "fa-solid fa-caret-down",
+    // });
+    // data.map((value) => {
+    //   if (check) {
+    //     value.index.forEach(element => {
+    //       props.ShowLayersVisibility(element);
+    //     });
+    //   } else {
+    //     value.index.forEach(element => {
+    //       props.HideLayersVisibility(element);
+    //     });
+    //   }
+    // });
+    if (!showCongTrinhHienTrang) {
+          props.ShowLayersVisibility(ListLayer.findIndex((value) => value.id === "congtrinh_ht_toanQuoc"));
       } else {
-        value.index.forEach(element => {
-          props.HideLayersVisibility(element);
-        });
+          props.HideLayersVisibility(ListLayer.findIndex((value) => value.id === "congtrinh_ht_toanQuoc"));
       }
-    });
     setShowCongTrinhHienTrang(!showCongTrinhHienTrang);
   };
   const renderOptions = (data, callback) => {
@@ -742,12 +751,12 @@ function MenuLayer(props) {
     });
   };
 
-  const [open, setOpen] = useState(true);
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const [open, setOpen] = useState(!isSmallScreen);
 
   const toggleMenu = () => {
     setOpen(!open);
   };
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   return (
     <>
       {open && (
@@ -1017,10 +1026,10 @@ function MenuLayer(props) {
                           )}
                           <div className="dropdown__toggle dropdown__list-item">
                             <b>
-                              <i
+                              {/* <i
                                 className={listCongTrinhHienTrang.class}
                                 onClick={() => { setListCongTrinhHienTrang({ ...listCongTrinhHienTrang, show: !listCongTrinhHienTrang.show, class: !listCongTrinhHienTrang.show ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right" }) }}
-                              ></i>
+                              ></i> */}
                               <span className="icon-layer"><input style={{ marginLeft: '5px' }} type="checkbox" value="" checked={showCongTrinhHienTrang} id='a61' onChange={() => showAllCongTrinhHienTrang()} /></span>
                               <span
                                 style={{
@@ -1028,17 +1037,17 @@ function MenuLayer(props) {
                                   fontSize: "16px",
                                   // fontFamily: "Manrope, Roboto, Helvetica, Arial, sans-serif",
                                 }}
-                                onClick={() => { setListCongTrinhHienTrang({ ...listCongTrinhHienTrang, show: !listCongTrinhHienTrang.show, class: !listCongTrinhHienTrang.show ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right" }) }}
+                                // onClick={() => { setListCongTrinhHienTrang({ ...listCongTrinhHienTrang, show: !listCongTrinhHienTrang.show, class: !listCongTrinhHienTrang.show ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right" }) }}
                               >
                                 Dữ liệu hiện trạng
                               </span>
                             </b>
                           </div>
-                          {listCongTrinhHienTrang.show && (
+                          {/* {listCongTrinhHienTrang.show && (
                             <ul className={"dropdown__list " + "dropdown__list--active"}>
                               {renderOptions(listCongTrinhHienTrang, setListCongTrinhHienTrang)}
                             </ul>
-                          )}
+                          )} */}
                         </ul>
                       )}
                     </div>

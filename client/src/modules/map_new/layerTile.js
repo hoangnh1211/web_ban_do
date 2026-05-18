@@ -77,7 +77,7 @@ export const congTrinhQuyHoach = new TileLayer({
             'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
-            "LAYERS": 'QuyHoachTL:XayMoi_ToanQuoc_V4',
+            "LAYERS": 'QuyHoachTL:xaymoi_toanquoc_V5',
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),

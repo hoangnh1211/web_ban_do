@@ -81,8 +81,6 @@ function MapNew() {
             overlays: [overlay],
             view: new View({
                 projection: 'EPSG:4326',
-                extent: vietnamExtent,
-                minZoom: 5,
             }),
             pixelRatio: 1,
         });

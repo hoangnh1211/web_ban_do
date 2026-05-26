@@ -5,7 +5,7 @@ import {
   BookOpen, Monitor, MapPin, Wind, User, Droplet, ChevronLeft, Download, Share2, 
   Printer, Activity, ArrowUpRight, ArrowDownRight, CalendarDays, Clock,
   Grip, Shield, AlertTriangle, Building2, Coins, Beaker, Globe, Newspaper,
-  Search, Layers, Plus, Minus, LocateFixed, Filter, BarChart3, Cpu, Radio, Scan, Scale, Network
+  Search, Layers, Plus, Minus, LocateFixed, Filter, BarChart3, Cpu, Radio, Scan, Scale, Network, ChevronDown, Kanban, Haze, Droplets 
 } from 'lucide-react';
 
 const ScrollbarStyles = () => (
@@ -663,11 +663,11 @@ const VanHanhView = ({ goBack }) => {
 
   const irrigationModules = [
     { id: 'forecast', title: 'Nguồn nước trữ hồ chứa', icon: <Waves size={32} />, color: 'bg-cyan-600', description: 'Hiện trạng & Dự báo vùng' },
-    { id: 'system_monitor', title: 'Dòng chảy sông', icon: <Monitor size={32} />, color: 'bg-slate-700', description: 'Sơ đồ dòng chảy, độ mặn' },
+    { id: 'system_monitor', title: 'Dòng chảy sông', icon: <Kanban size={32} />, color: 'bg-indigo-600', description: 'Sơ đồ dòng chảy, độ mặn' },
     { id: 'rain_data', title: 'Tổng hợp dữ liệu mưa', icon: <CloudRain size={32} />, color: 'bg-indigo-600', description: 'Lượng mưa lũy tích các vùng' },
     { id: 'salinity', title: 'Xâm nhập mặn ĐBSCL', icon: <MapPin size={32} />, color: 'bg-indigo-500', description: 'Ranh mặn, độ mặn các trạm' },
-    { id: 'reports', title: 'Ảnh hưởng hạn hán, xâm nhập mặn', icon: <ClipboardCheck size={32} />, color: 'bg-amber-600', description: 'Nhật ký trực, báo cáo nhanh' },
-    { id: 'drought_salinity', title: 'Ảnh hưởng ngập, lụt, úng', icon: <Droplet size={32} />, color: 'bg-red-700', description: 'Cảnh báo sớm & số liệu quan trắc' }
+    { id: 'reports', title: 'Ảnh hưởng hạn hán, xâm nhập mặn', icon: <Haze size={32} />, color: 'bg-amber-600', description: 'Nhật ký trực, báo cáo nhanh' },
+    { id: 'drought_salinity', title: 'Ảnh hưởng ngập, lụt, úng', icon: <Droplets size={32} />, color: 'bg-indigo-600', description: 'Cảnh báo sớm & số liệu quan trắc' }
   ];
 
   const salinityData = [
@@ -1513,13 +1513,643 @@ const LegalDocsView = ({ goBack }) => {
   );
 };
 
+const DM_QUY_HOACH_LIST = [
+  {
+    title: 'QUY HOẠCH QUỐC GIA',
+    url: 'https://docs.google.com/document/d/1KkNgY3ritQsuU-LE6O2JeEqnuD4venar/edit?usp=sharing',
+  },
+  {
+    title: 'QUY HOẠCH LVS HỒNG-THÁI BÌNH',
+    url: 'https://docs.google.com/document/d/1BYD26oQSEC_etMk4ml6yAphXPHBLESNp/edit?usp=sharing',
+  },
+  {
+    title: 'QUY HOẠCH LVS CỬU LONG',
+    url: 'https://docs.google.com/document/d/1Rs_si03E0yiwO25SrFUCfmX-94ZVsXix/edit?usp=sharing',
+  },
+  {
+    title: 'QUY HOẠCH CÁC LVS KHÁC',
+    children: [
+      { title: 'QHTL LVS Kỳ Cùng', url: 'https://docs.google.com/document/d/18CL-cJFOSIz4ZqPdk3eFIZHGCHI4S0sN/edit?usp=sharing' },
+      { title: 'QHTL LVS Bưởi', url: 'https://docs.google.com/document/d/1N1uWq_E_cs-Y0wzhxd1rFDqkxF7uadTf/edit?usp=sharing' },
+      { title: 'QHTL LVS Gianh và vùng phụ cận', url: 'https://docs.google.com/document/d/1jRSC_GiZSF-yBoW7W8nrEokaj07Y_c9_/edit?usp=sharing' },
+      { title: 'QHTL LVS Nhật Lệ', url: 'https://docs.google.com/document/d/1CgB2U9HRSYadY4-9miCZvfWyaRMMKEyi/edit?usp=sharing' },
+      { title: 'QHTL LVS Mã', url: null },
+      { title: 'QHTL LVS Hương - Ô Lâu', url: 'https://docs.google.com/document/d/1PmC7QFrVafsUmaJ4Mr2QG6Oww4xJbrNk/edit?usp=sharing' },
+      { title: 'QHTL LVS Trà Bồng - Trà Khúc', url: 'https://docs.google.com/document/d/1wL6yKlK82TyH8wWzJWIo4x2Awr3BzGTk/edit?usp=sharing' },
+      { title: 'QHTL LVS Kone - Hà Thanh - La Tinh', url: 'https://docs.google.com/document/d/1Q8ECb6GEGiYbWJK6HHlTxQV9Yw0v1VE9/edit?usp=sharing' },
+      { title: 'QHTL LVS Ba và vùng phụ cận', url: 'https://docs.google.com/document/d/1vC5IWM6CbSOoYilHOSh83z2tCHFwvBoL/edit?usp=sharing' },
+      { title: 'QHTL LVS Srêpok', url: null },
+      { title: 'QHTL LVS Sê San', url: null },
+    ],
+  },
+  {
+    title: 'QUY HOẠCH TỈNH',
+    children: [
+      { title: 'Tỉnh Sơn La', url: 'https://docs.google.com/document/d/1bOE5Gh-ELTBxcr0-InkWN61LUjgJMxhN/edit?usp=sharing' },
+      { title: 'Tỉnh Tuyên Quang', url: null },
+      { title: 'Tỉnh Lai Châu', url: 'https://docs.google.com/document/d/1V64PBffM4n00EyUJS0hlmYn2AGRWsOOe/edit?usp=sharing' },
+      { title: 'Tỉnh Lạng Sơn', url: 'https://docs.google.com/document/d/1lxIxsKXnTpqM7XScl42eaIl-sqGmT8Yj/edit?usp=sharing' },
+      { title: 'Tỉnh Lào Cai', url: 'https://docs.google.com/document/d/1oxNb6c13IA8FUq8YMtZArh8dQvldGqik/edit?usp=sharing' },
+      { title: 'Tỉnh Phú Thọ', url: 'https://docs.google.com/document/d/1l89VlcYcSeV4zm78Dc4TNcNrbnFXfKk_/edit?usp=sharing' },
+      { title: 'Tỉnh Thái Nguyên', url: 'https://docs.google.com/document/d/1nmlyhg7JOhbjjfz1zAUrZTiLPm2BZDkL/edit?usp=sharing' },
+      { title: 'Tỉnh Bắc Ninh', url: null },
+      { title: 'Tp. Hải Phòng', url: 'https://docs.google.com/document/d/1N5VhjZgzkMqUfJdNLFXsjQakrCqGQfeH/edit?usp=sharing' },
+      { title: 'Tỉnh Hưng Yên', url: 'https://docs.google.com/document/d/1pEJcHeco4GBuRrjQkxf15da8YyhBYfvL/edit?usp=sharing' },
+      { title: 'Tỉnh Ninh Bình', url: 'https://docs.google.com/document/d/13S8nrq6SexUV3rvOX_7Illju1rHXddTH/edit?usp=sharing' },
+      { title: 'Tỉnh Quảng Trị', url: 'https://docs.google.com/document/d/1CG0KfVlHMwewFt74zzbAsn5CSsZko_0g/edit?usp=sharing' },
+      { title: 'Tp. Huế', url: 'https://docs.google.com/document/d/1dFWES6qIryHGLdcF20pjuG7y-v24Rcgv/edit?usp=sharing' },
+      { title: 'Tỉnh Gia Lai', url: 'https://docs.google.com/document/d/1i4AFPHcI9YC10ZpUe1w0cE7x8XDV2Ewj/edit?usp=sharing' },
+      { title: 'Tỉnh Tây Ninh', url: 'https://docs.google.com/document/d/1wC6PsPBeA7X_NrBTS5Ipx98_Qe-sNBMQ/edit?usp=sharing' },
+      { title: 'Tỉnh Đồng Nai', url: 'https://docs.google.com/document/d/1817r0MDXu2eBLFDY3yAySgcVWp2MonpR/edit?usp=sharing' },
+      { title: 'Tp. Cần Thơ', url: 'https://docs.google.com/document/d/1VKg7-o1k1stauQjViJ8URpW11QHqIOx0/edit?usp=sharing' },
+      { title: 'Tỉnh An Giang', url: 'https://docs.google.com/document/d/1OUk1IcvjblXcOpJ-swd4bWnZjETQcWw9/edit?usp=sharing' },
+      { title: 'Tỉnh Vĩnh Long', url: 'https://docs.google.com/document/d/1PM4gZPJOPa17V4tI2dHXV24k7MJm-1-4/edit?usp=sharing' },
+      { title: 'Tỉnh Cà Mau', url: 'https://docs.google.com/document/d/1hmzy00INOt_7DL0p_ZKOiaO2qw2jj2EV/edit?usp=sharing' },
+    ],
+  },
+];
+
+const toEmbedUrl = (url) => {
+  if (!url) return null;
+  if (url.includes('docs.google.com/document')) {
+    return url.replace(/\/edit(\?.*)?$/, '/preview');
+  }
+  if (url.includes('drive.google.com')) {
+    return url.replace(/\/view(\?.*)?$/, '/preview');
+  }
+  return url;
+};
+
+const DanhMucQuyHoachView = ({ goBack }) => {
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [expandedGroup, setExpandedGroup] = useState(null);
+
+  if (selectedItem) {
+    const embedUrl = toEmbedUrl(selectedItem.url);
+    return (
+      <div className="flex h-screen w-full flex-col bg-slate-50 max-w-md mx-auto shadow-2xl overflow-hidden border-x border-slate-200 relative animate-in slide-in-from-right-4 duration-300">
+        <AppHeader title={selectedItem.title} bgGradient="bg-gradient-to-br from-indigo-800/70 via-indigo-600/60 to-violet-600/50" />
+        <div className="px-4 py-2 flex-shrink-0">
+          <button onClick={() => setSelectedItem(null)} className="flex items-center gap-1 px-3 py-1.5 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded-xl text-[11px] font-bold transition-colors active:scale-95">
+            <ChevronLeft size={14} /> Danh mục
+          </button>
+        </div>
+        <iframe src={embedUrl} className="flex-1 w-full border-0" title={selectedItem.title} allow="fullscreen" />
+      </div>
+    );
+  }
+
+  const renderLeaf = (item, idx, isChild = false) => {
+    const hasUrl = !!item.url;
+    return (
+      <button
+        key={idx}
+        onClick={hasUrl ? () => setSelectedItem(item) : undefined}
+        disabled={!hasUrl}
+        className={`w-full flex items-center gap-3 rounded-2xl px-4 shadow-sm border transition-all text-left
+          ${isChild ? 'py-2.5' : 'py-3'}
+          ${hasUrl
+            ? 'bg-white border-slate-100 hover:shadow-md active:scale-[0.98] cursor-pointer'
+            : 'bg-slate-50 border-slate-100 opacity-50 cursor-not-allowed'
+          }`}
+      >
+        <div className={`flex-shrink-0 rounded-lg flex items-center justify-center
+          ${isChild ? 'w-7 h-7' : 'w-8 h-8'}
+          ${hasUrl ? 'bg-indigo-100' : 'bg-slate-200'}`}
+        >
+          <FileText size={isChild ? 14 : 16} className={hasUrl ? 'text-indigo-600' : 'text-slate-400'} />
+        </div>
+        <span className={`flex-1 leading-tight
+          ${isChild ? 'text-[12px] font-semibold text-slate-700' : 'text-[12.5px] font-bold text-slate-800 uppercase tracking-wide'}
+          ${!hasUrl ? 'text-slate-400' : ''}`}
+        >
+          {item.title}
+        </span>
+        {hasUrl
+          ? <ChevronRight size={isChild ? 14 : 16} className="text-slate-400 flex-shrink-0" />
+          : <span className="text-[10px] text-slate-400 flex-shrink-0 italic">Chưa có</span>
+        }
+      </button>
+    );
+  };
+
+  return (
+    <div className="flex h-screen w-full flex-col bg-indigo-50 font-sans text-slate-900 max-w-md mx-auto shadow-2xl overflow-hidden border-x border-slate-200 relative animate-in slide-in-from-right-4 duration-300">
+      <SwipeableScreen goBack={goBack}>
+        <AppHeader title="Quy hoạch thủy lợi" bgGradient="bg-gradient-to-br from-indigo-800/70 via-indigo-600/60 to-violet-600/50" />
+        <div className="flex-1 overflow-y-auto px-4 py-4 pb-8 blur-scrollbar">
+            <div className="flex items-center gap-3 mb-4">
+                <button onClick={goBack} className="p-2 bg-white rounded-xl shadow-sm border border-slate-200"><ChevronLeft size={20} className="text-cyan-700"/></button>
+                <b><h1 className="font-black text-cyan-900 uppercase text-[13px] tracking-tight">Danh mục quy hoạch</h1></b>
+            </div>
+          <div className="space-y-2">
+            {DM_QUY_HOACH_LIST.map((item, idx) => {
+              if (!item.children) {
+                return renderLeaf(item, idx, false);
+              }
+              const isOpen = expandedGroup === idx;
+              return (
+                <div key={idx}>
+                  <button
+                    onClick={() => setExpandedGroup(isOpen ? null : idx)}
+                    className="w-full flex items-center gap-3 bg-blue-600 rounded-2xl px-4 py-3 shadow-sm border border-blue-500 hover:bg-blue-700 transition-all active:scale-[0.98] text-left"
+                  >
+                    <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+                      <Layers size={16} className="text-white" />
+                    </div>
+                    <span className="flex-1 text-[12.5px] font-bold text-white leading-tight uppercase tracking-wide">{item.title}</span>
+                    {isOpen
+                      ? <ChevronDown size={16} className="text-white flex-shrink-0" />
+                      : <ChevronRight size={16} className="text-white flex-shrink-0" />
+                    }
+                  </button>
+                  {isOpen && (
+                    <div className="ml-4 mt-1 space-y-1">
+                      {item.children.map((child, cidx) => renderLeaf(child, cidx, true))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </SwipeableScreen>
+    </div>
+  );
+};
+
+const CT_QH_DATA = [
+  { stt: 153, ten: "H. Nà Lạnh", ma: "H05.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Bắc Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 21000, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 154, ten: "H. Nghinh Tường", ma: "H55.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Thái Nguyên", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 171, ten: "H. Thượng Tiến", ma: "H44.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Phú Thọ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 1300, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 228, ten: "H. Phiêng Lúc", ma: "H35.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Lai Châu", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 575, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 229, ten: "Cụm H. CN Mộc Châu", ma: "H52.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Sơn La", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 4500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 230, ten: "H. Tài Chi", ma: "H49.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Quảng Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 1507, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 231, ten: "H. Cài -Thác Nhồng", ma: "H49.TLXM.HC002", loaiHinh: "Xây mới", tinh: "Quảng Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 332, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 244, ten: "H. Thác Muối", ma: "H41.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Nghệ An", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 5350, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 245, ten: "H. Trại Dơi", ma: "H27.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Hà Tĩnh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 253, ten: "H. Khe Đá", ma: "H50.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 200, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 268, ten: "H. Châu Giang", ma: "H50.TLXM.HC015", loaiHinh: "Xây mới", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 250, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 269, ten: "H. Khe Mước", ma: "H50.TLXM.HC016", loaiHinh: "Xây mới", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 3982, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 270, ten: "H. Sông Nhùng", ma: "H50.TLXM.HC017", loaiHinh: "Xây mới", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 870, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 271, ten: "H. Bến Đá", ma: "H50.TLXM.HC018", loaiHinh: "Xây mới", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 800, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 274, ten: "H. Bến Than", ma: "H50.TLXM.HC019", loaiHinh: "Xây mới", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 323, ten: "H. Ô Lâu Thượng", ma: "H57.TLXM.HC001", loaiHinh: "Xây mới", tinh: "TP. Huế", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 7820, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 324, ten: "H. Thủy Cam", ma: "H57.TLXM.HC002", loaiHinh: "Xây mới", tinh: "TP. Huế", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 200, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 335, ten: "H. sông Côn", ma: "H17.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Đà Nẵng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 1500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 336, ten: "H. Trường Đồng", ma: "H17.TLXM.HC002", loaiHinh: "Xây mới", tinh: "Đà Nẵng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 1150, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 337, ten: "H. Thượng sông Vệ", ma: "H48.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 10000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 338, ten: "H. Đăk Po Kei A", ma: "H48.TLXM.HC002", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 339, ten: "H. Đăk Ren", ma: "H48.TLXM.HC003", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2200, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 340, ten: "H. Đăk Po Kei B", ma: "H48.TLXM.HC004", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 7000, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 341, ten: "H. Đắk Cấm", ma: "H48.TLXM.HC005", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 4700, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 342, ten: "H. Đăk Hring", ma: "H48.TLXM.HC006", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2800, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 471, ten: "H. Đồng Điền", ma: "H32.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Khánh Hoà", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 473, ten: "H. Ia Thul", ma: "H21.TLXM.HC002", loaiHinh: "Xây mới", tinh: "Gia Lai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 8600, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 645, ten: "H. Krông Năng", ma: "H15.TLXM.HC036", loaiHinh: "Xây mới", tinh: "Đắk Lắk", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 7500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 647, ten: "H. Ea Khal", ma: "H15.TLXM.HC037", loaiHinh: "Xây mới", tinh: "Đắk Lắk", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 7200, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 786, ten: "H. La Ngà 3", ma: "H36.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Lâm Đồng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 97246, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 787, ten: "H. Ka Pét", ma: "H36.TLXM.HC002", loaiHinh: "Xây mới", tinh: "Lâm Đồng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 7700, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 788, ten: "H. Tân Lê", ma: "H36.TLXM.HC003", loaiHinh: "Xây mới", tinh: "Lâm Đồng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 350, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 789, ten: "H. Cà Tót", ma: "H36.TLXM.HC004", loaiHinh: "Xây mới", tinh: "Lâm Đồng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 1500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 790, ten: "H. Sông Tom", ma: "H36.TLXM.HC005", loaiHinh: "Xây mới", tinh: "Lâm Đồng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 1650, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 791, ten: "H. Đắk Gang", ma: "H36.TLXM.HC006", loaiHinh: "Xây mới", tinh: "Lâm Đồng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 1860, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 809, ten: "H. Ta Hoét", ma: "H36.TLXM.HC023", loaiHinh: "Xây mới", tinh: "Lâm Đồng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2580, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 817, ten: "H. Cây Chanh", ma: "G10.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Hồ Chí Minh, Đồng Nai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 818, ten: "H. Sông Ray 2", ma: "H19.TLXM.HC001", loaiHinh: "Xây mới", tinh: "Đồng Nai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2200, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1025, ten: "Đ. Long Tửu", ma: "H26.TLXM.DD001", loaiHinh: "Xây mới", tinh: "Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước", tuoi: 17300, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1026, ten: "Đ. Xuân Quan", ma: "H31.TLXM.DD001", loaiHinh: "Xây mới", tinh: "Hưng Yên", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước", tuoi: 103571, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1027, ten: "Đ. Cẩm Hoàng", ma: "H56.TLXM.DD001", loaiHinh: "Xây mới", tinh: "Thanh Hóa", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước", tuoi: 30243, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1032, ten: "Đ. Sông Lam", ma: "G10.TLXM.DD001", loaiHinh: "Xây mới", tinh: "Nghệ An, Hà Tĩnh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1068, ten: "Đ. Quảng Huế", ma: "H17.TLXM.DD001", loaiHinh: "Xây mới", tinh: "Đà Nẵng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Ổn định tỷ lệ phân lưu giữa sông Vu Gia-Thu Bồn", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1069, ten: "Đ. HL H. sông Côn", ma: "H17.TLXM.DD002", loaiHinh: "Xây mới", tinh: "Đà Nẵng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1070, ten: "Đ. Vĩnh Điện", ma: "H17.TLXM.DD003", loaiHinh: "Xây mới", tinh: "Đà Nẵng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước/Ngăn mặn", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1071, ten: "Đ. HL H. Sông Vệ", ma: "H48.TLXM.DD001", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1072, ten: "Đ. Đăk A Kôi", ma: "H48.TLXM.DD002", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1231, ten: "Đ. Thượng Ayun", ma: "H21.TLXM.DD003", loaiHinh: "Xây mới", tinh: "Gia Lai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Đập dâng", nhiemVu: "Cấp nước", tuoi: 22300, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1415, ten: "TB. Cẩm Đình", ma: "H26.TLXM.TB001", loaiHinh: "Xây mới", tinh: "Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Trạm bơm", nhiemVu: "Cấp nước", tuoi: 18000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1416, ten: "TB. Liên Mạc", ma: "H26.TLXM.TB002", loaiHinh: "Xây mới", tinh: "Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Trạm bơm", nhiemVu: "Cấp nước", tuoi: 31800, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1417, ten: "TB. Xuân Quan", ma: "H31.TLXM.TB001", loaiHinh: "Xây mới", tinh: "Hưng Yên", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Trạm bơm", nhiemVu: "Cấp nước", tuoi: 90300, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1588, ten: "C. Vàm Cỏ", ma: "H53.TLXM.CO001", loaiHinh: "Xây mới", tinh: "Tây Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: 20000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1589, ten: "C. Hàm Luông", ma: "H61.TLXM.CO001", loaiHinh: "Xây mới", tinh: "Vĩnh Long", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: 25000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1590, ten: "C. Cái Cau", ma: "H13.TLXM.CO001", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1591, ten: "C. Cái Tràm", ma: "H13.TLXM.CO002", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1592, ten: "C. Rạch Vọp", ma: "H13.TLXM.CO003", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1593, ten: "C. Xoám Đông - Rạch Nho", ma: "H13.TLXM.CO004", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1594, ten: "C. Trà Ếch", ma: "H13.TLXM.CO005", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1595, ten: "C. Bò Ót", ma: "H13.TLXM.CO006", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1596, ten: "C. Thốt Nốt", ma: "H13.TLXM.CO007", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1597, ten: "C. Cần Thơ Bé", ma: "H13.TLXM.CO008", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1598, ten: "C. Tham Rơm", ma: "H13.TLXM.CO009", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1599, ten: "C. Ngã Cái", ma: "H13.TLXM.CO010", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1600, ten: "C. Ô Môn", ma: "H13.TLXM.CO011", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1601, ten: "C. Rạch Vàm", ma: "H13.TLXM.CO012", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1602, ten: "C. Đất Mới", ma: "H13.TLXM.CO013", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1603, ten: "C. Trà Nóc", ma: "H13.TLXM.CO014", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1604, ten: "C. Bình Thủy", ma: "H13.TLXM.CO015", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1605, ten: "C. Cần Thơ", ma: "H13.TLXM.CO016", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1606, ten: "C. Rạch Mọp", ma: "H13.TLXM.CO017", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1607, ten: "C. Saintard", ma: "H13.TLXM.CO018", loaiHinh: "Xây mới", tinh: "Cần Thơ", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1608, ten: "C. Nguyễn Tấn Thành", ma: "H20.TLXM.CO001", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1609, ten: "C. Rạch Ngầm", ma: "H20.TLXM.CO002", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1610, ten: "C. Ông Mười", ma: "H20.TLXM.CO003", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1611, ten: "C. Mù U", ma: "H20.TLXM.CO004", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1612, ten: "C. Trà Tân", ma: "H20.TLXM.CO005", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1613, ten: "C. Ba Rài", ma: "H20.TLXM.CO006", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1614, ten: "C. Hồng Ngự", ma: "H20.TLXM.CO007", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1615, ten: "C. An Bình", ma: "H20.TLXM.CO008", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1616, ten: "C. Đồng Tiến", ma: "H20.TLXM.CO009", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1617, ten: "Tràn Trà Đư 1", ma: "H20.TLXM.CO010", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1618, ten: "Tràn Trà Đư 2", ma: "H20.TLXM.CO011", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1619, ten: "Tràn Trung Tâm 1", ma: "H20.TLXM.CO012", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1620, ten: "Tràn Trung Tâm 2", ma: "H20.TLXM.CO013", loaiHinh: "Xây mới", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1621, ten: "C. Kênh Đào", ma: "H01.TLXM.CO001", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1622, ten: "C. Cần Thảo", ma: "H01.TLXM.CO002", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1623, ten: "C. Tri Tôn", ma: "H01.TLXM.CO003", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1624, ten: "C. Mười Châu Phú", ma: "H01.TLXM.CO004", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1625, ten: "C. Ba Thê", ma: "H01.TLXM.CO005", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1626, ten: "C. Chắc Năng Gù", ma: "H01.TLXM.CO006", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1627, ten: "C. Mặc Cần Dưng", ma: "H01.TLXM.CO007", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1628, ten: "C. Chắc Cà Đao", ma: "H01.TLXM.CO008", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1629, ten: "C. Long Xuyên", ma: "H01.TLXM.CO009", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1630, ten: "C. Kênh Tròn", ma: "H01.TLXM.CO010", loaiHinh: "Xây mới", tinh: "An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Cống", nhiemVu: "Đa mục tiêu", tuoi: null, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 1635, ten: "Tuyến kết nối H. Cấm Sơn và H. Khuôn Thần chuyển nước cho vùng cây ăn quả Lục Ngạn", ma: "H05.TLXM.CN001", loaiHinh: "Xây mới", tinh: "Bắc Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 19800, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1636, ten: "Tuyến H. Cửa Đạt tưới vùng ven đường H. Chí Minh", ma: "H56.TLXM.CN001", loaiHinh: "Xây mới", tinh: "Thanh Hóa", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 20000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1637, ten: "Tuyến chuyển nước H. Rào Trổ - H. Vực Tròn cấp nước khu kinh tế ven biển phía Bắc tỉnh Quảng Bình", ma: "H50.TLXM.CN001", loaiHinh: "Xây mới", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 71, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1638, ten: "Tuyến chuyển nước H. Ô Lâu Thượng - H. Hòa Mỹ cấp nước cho vùng cát Phong Điền", ma: "H57.TLXM.CN001", loaiHinh: "Xây mới", tinh: "TP. Huế", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 3000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1640, ten: "Tuyến chuyển nước từ H. Thượng sông Vệ - H. Núi Ngang cấp nước cho lưu vực sông Trà Câu", ma: "H48.TLXM.CN002", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 6000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1641, ten: "Hệ thống Đăk Akôi - Đăk Pokei - Đăk Pokei B", ma: "H48.TLXM.CN003", loaiHinh: "Xây mới", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 7000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1642, ten: "Tuyến chuyển nước từ H. thượng sông Vệ - H. Đồng Mít cấp nước cho vùng Phù Mỹ, Phù Cát", ma: "G10.TLXM.CN001", loaiHinh: "Xây mới", tinh: "Quảng Ngãi, Gia Lai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 5000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1643, ten: "Tuyến chuyển nước từ H. Định Bình - H. Hội Sơn - H. Hội Khánh", ma: "H21.TLXM.CN001", loaiHinh: "Xây mới", tinh: "Gia Lai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 16500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1644, ten: "Hệ thống đập Thượng Ayun - H. Đăk Ptó", ma: "H21.TLXM.CN002", loaiHinh: "Xây mới", tinh: "Gia Lai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 22300, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1645, ten: "Tuyến dẫn nước H. sông Chò 1 cho khu tưới dọc tuyến, bổ sung nước H. Suối Dầu, H. Cam Ranh", ma: "H32.TLXM.CN001", loaiHinh: "Xây mới", tinh: "Khánh Hòa", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 3400, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1646, ten: "Tuyến kết nối, chuyển nước từ H. sông Than cấp nước phía Nam tỉnh Ninh Thuận", ma: "H32.TLXM.CN002", loaiHinh: "Xây mới", tinh: "Khánh Hòa", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 5000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1647, ten: "Tuyến kết nối H. Sông Cái - Sông Sắt cấp nước khu vực phía Bắc tỉnh Ninh Thuận", ma: "H32.TLXM.CN003", loaiHinh: "Xây mới", tinh: "Khánh Hòa", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1648, ten: "Hệ thống chuyển nước Tân Mỹ - Bà Râu - Sông Trâu - Cho Mo - Suối Trầu", ma: "H32.TLXM.CN004", loaiHinh: "Xây mới", tinh: "Khánh Hòa", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1649, ten: "Tuyến chuyển nước từ H. La Ngà 3 cấp nước khu vực phía Nam tỉnh Bình Thuận", ma: "H36.TLXM.CN001", loaiHinh: "Xây mới", tinh: "Lâm Đồng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 8400, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1650, ten: "Kết nối, chuyển nước giữa các hệ thống thủy lợi Bảo Định - Gò Công - Tân Trụ", ma: "G10.TLXM.CN002", loaiHinh: "Xây mới", tinh: "Đồng Tháp, Tây Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1651, ten: "Hệ thống điều tiết, bổ sung nguồn nước cho vùng Nam QL1A tỉnh Cà Mau", ma: "H12.TLXM.CN001", loaiHinh: "Xây mới", tinh: "Cà Mau", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 110000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1652, ten: "Hệ thống công trình chuyển nước Bán đảo Cà Mau", ma: "H12.TLXM.CN002", loaiHinh: "Xây mới", tinh: "Cà Mau", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HT chuyển nước", nhiemVu: "Cấp nước", tuoi: 190000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2050" },
+  { stt: 1868, ten: "H. Sông Sào", ma: "H41.TLNC.HC001", loaiHinh: "Nâng cấp", tinh: "Nghệ An", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 4500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1869, ten: "H. Sông Rác", ma: "H27.TLNC.HC001", loaiHinh: "Nâng cấp", tinh: "Hà Tĩnh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 4500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 1894, ten: "H. Vực Tròn", ma: "H50.TLNC.HC009", loaiHinh: "Nâng cấp", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2050, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 2006, ten: "H. Phú Ninh", ma: "H17.TLNC.HC001", loaiHinh: "Nâng cấp", tinh: "Đà Nẵng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 23000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 2007, ten: "H. Đá Bàn", ma: "H32.TLNC.HC001", loaiHinh: "Nâng cấp", tinh: "Khánh Hoà", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 5000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 2008, ten: "H. Núi Ngang", ma: "H48.TLNC.HC001", loaiHinh: "Nâng cấp", tinh: "Quảng Ngãi", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 2500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 2105, ten: "H. Định Bình", ma: "H21.TLNC.HC042", loaiHinh: "Nâng cấp", tinh: "Gia Lai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 16500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 2155, ten: "H. Phú Xuân", ma: "H15.TLNC.HC001", loaiHinh: "Nâng cấp", tinh: "Đắk Lắk", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Hồ chứa", nhiemVu: "Cấp nước", tuoi: 1500, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 2798, ten: "TB. Ấp Bắc", ma: "H26.TLNC.TB001", loaiHinh: "Nâng cấp", tinh: "Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Trạm bơm", nhiemVu: "", tuoi: 5300, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 2799, ten: "TB. Phù Sa", ma: "H26.TLNC.TB002", loaiHinh: "Nâng cấp", tinh: "Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "Trạm bơm", nhiemVu: "", tuoi: 7362, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3128, ten: "Hệ thống Pa Khoang - Nậm Rốm", ma: "H18.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Điện Biên", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 6900, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3129, ten: "Hệ thống Thác Huống", ma: "G10.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Thái Nguyên, Bắc Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 13900, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3130, ten: "Hệ thống Cầu Sơn - Cấm Sơn", ma: "G10.TLNC.HT002", loaiHinh: "Nâng cấp", tinh: "Bắc Ninh, Lạng Sơn", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 9500, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3131, ten: "Hệ thống Liễn Sơn - Bạch Hạc", ma: "G10.TLNC.HT003", loaiHinh: "Nâng cấp", tinh: "Phú Thọ, Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 23408, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3132, ten: "Cải tạo, nâng cấp hệ thống công trình chuyển nước vào sông Đáy phục vụ đa mục tiêu", ma: "G10.TLNC.HT004", loaiHinh: "Nâng cấp", tinh: "Hà Nội, Ninh Bình", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 16000, tieu: null, giaiDoan: "Giai đoạn sau 2030" },
+  { stt: 3133, ten: "Hệ thống Bảo Định", ma: "G10.TLNC.HT005", loaiHinh: "Nâng cấp", tinh: "Đồng Tháp, Tây Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 64000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3134, ten: "Hệ thống Quản Lộ - Phụng Hiệp", ma: "G10.TLNC.HT006", loaiHinh: "Nâng cấp", tinh: "Cần Thơ, Cà Mau", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 403300, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3135, ten: "Hệ thống Ô Môn - Xà No", ma: "G10.TLNC.HT007", loaiHinh: "Nâng cấp", tinh: "Cần Thơ, An Giang", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 45400, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3136, ten: "Hệ thống Bắc Hưng Hải", ma: "G10.TLNC.HT008", loaiHinh: "Nâng cấp", tinh: "Hưng Yên, Hải Phòng, Hà Nội, Bắc Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Tưới tiêu kết hợp", tuoi: 103571, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3137, ten: "Hệ thống Tân An - Đ. Đá", ma: "H21.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Gia Lai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 15000, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3138, ten: "Hệ thống Ayun Hạ", ma: "H21.TLNC.HT002", loaiHinh: "Nâng cấp", tinh: "Gia Lai", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3139, ten: "Hệ thống Bắc Nam Hà", ma: "H42.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Ninh Bình", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Tưới tiêu kết hợp", tuoi: 63361, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3140, ten: "Hệ thống Bắc Đuống", ma: "H05.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Bắc Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Tưới tiêu kết hợp", tuoi: 55000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3141, ten: "Hệ thống Ấp Bắc - Nam Hồng", ma: "H26.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 5300, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3142, ten: "Hệ thống Sông Nhuệ", ma: "H26.TLNC.HT002", loaiHinh: "Nâng cấp", tinh: "Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Tưới tiêu kết hợp", tuoi: 61629, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3143, ten: "Hệ thống Phù Sa (trạm bơm đầu mối)", ma: "H26.TLNC.HT003", loaiHinh: "Nâng cấp", tinh: "Hà Nội", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: null, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3144, ten: "Hệ thống Đa Độ, An Kim Hải", ma: "H24.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Hài Phòng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Tưới tiêu kết hợp", tuoi: 10867, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3145, ten: "Hệ thống Bái Thượng", ma: "H56.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Thanh Hoá", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 45000, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3146, ten: "Hệ thống Đô Lương", ma: "H41.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Nghệ An", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 21500, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3147, ten: "Hệ thống Nam Hưng Nghi", ma: "H41.TLNC.HT002", loaiHinh: "Nâng cấp", tinh: "Nghệ An", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 24500, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3148, ten: "Hệ thống Kẻ Gỗ", ma: "H27.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Hà Tĩnh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 21136, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3149, ten: "Hệ thống Nam Thạch Hãn", ma: "H50.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Quảng Trị", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 10600, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3151, ten: "Hệ thống An Trạch - Thanh Quýt - Bầu Nít - Hà Thanh", ma: "H17.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Đà Nẵng", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 9700, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3154, ten: "Hệ thống Đồng Cam", ma: "H15.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Đắk Lắk", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 15000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3155, ten: "Hệ thống Nha Trinh - Lâm Cấm", ma: "H32.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Khánh Hoà", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 13000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3156, ten: "Hệ thống Dầu Tiếng - Phước Hoà", ma: "H53.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Tây Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 110000, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3157, ten: "Hệ thống Nhật Tảo - Tân Trụ", ma: "H53.TLNC.HT002", loaiHinh: "Nâng cấp", tinh: "Tây Ninh", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 18000, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+  { stt: 3158, ten: "Hệ thống Gò Công", ma: "H20.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Đồng Tháp", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 54000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3159, ten: "Hệ thống Bắc Bến Tre", ma: "H61.TLNC.HT001", loaiHinh: "Nâng cấp", tinh: "Vĩnh Long", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 139000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3160, ten: "Hệ thống Nam Bến Tre", ma: "H61.TLNC.HT002", loaiHinh: "Nâng cấp", tinh: "Vĩnh Long", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 210000, tieu: null, giaiDoan: "Giai đoạn 2021 - 2030" },
+  { stt: 3161, ten: "Hệ thống Nam Măng Thít", ma: "H61.TLNC.HT003", loaiHinh: "Nâng cấp", tinh: "Vĩnh Long", quyHoach: 'Quy hoạch PCTT & TL', loaiCT: "HTTL", nhiemVu: "Cấp nước", tuoi: 225700, tieu: null, giaiDoan: "Giai đoạn trước 2050" },
+];
+
+const DanhMucCongTrinhQHView = ({ goBack }) => {
+  const [search, setSearch] = useState('');
+  const [filterTinh, setFilterTinh] = useState('Tất cả');
+  const [filterLoaiHinh, setFilterLoaiHinh] = useState('Tất cả');
+  const [filterLoaiCT, setFilterLoaiCT] = useState('Tất cả');
+
+  const uniqueTinh = ['Tất cả', ...new Set(CT_QH_DATA.map(d => d.tinh))];
+  const uniqueLoaiHinh = ['Tất cả', ...new Set(CT_QH_DATA.map(d => d.loaiHinh))];
+  const uniqueLoaiCT = ['Tất cả', ...new Set(CT_QH_DATA.map(d => d.loaiCT))];
+
+  const filtered = CT_QH_DATA.filter(d => {
+    const q = search.toLowerCase();
+    const matchSearch = !q || d.ten.toLowerCase().includes(q) || d.ma.toLowerCase().includes(q) || d.quyHoach.toLowerCase().includes(q) || d.nhiemVu.toLowerCase().includes(q);
+    const matchTinh = filterTinh === 'Tất cả' || d.tinh === filterTinh;
+    const matchLoaiHinh = filterLoaiHinh === 'Tất cả' || d.loaiHinh === filterLoaiHinh;
+    const matchLoaiCT = filterLoaiCT === 'Tất cả' || d.loaiCT === filterLoaiCT;
+    return matchSearch && matchTinh && matchLoaiHinh && matchLoaiCT;
+  });
+
+  return (
+    <div className="flex h-screen w-full flex-col bg-slate-50 font-sans text-slate-900 max-w-md mx-auto shadow-2xl overflow-hidden border-x border-slate-200 relative animate-in slide-in-from-right-4 duration-300">
+      <SwipeableScreen goBack={goBack}>
+        <AppHeader title="Quy hoạch thủy lợi" bgGradient="bg-gradient-to-br from-violet-800/80 via-violet-600/70 to-purple-600/60"/>
+        <div className="flex-1 overflow-y-auto pb-8 blur-scrollbar">
+          <div className="px-4 pt-4 pb-3">
+            <div className="flex items-center gap-3 mb-4">
+                <button onClick={goBack} className="p-2 bg-white rounded-xl shadow-sm border border-slate-200"><ChevronLeft size={20} className="text-cyan-700"/></button>
+                <b><h1 className="font-black text-cyan-900 uppercase text-[13px] tracking-tight">Danh mục công trình QH</h1></b>
+            </div>
+            <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+              <div className="flex items-center gap-2 mb-3 border-b border-slate-100 pb-2">
+                <Filter size={15} className="text-slate-400" />
+                <span className="text-[11px] font-bold uppercase text-slate-700 tracking-tight">Bộ lọc tìm kiếm</span>
+              </div>
+              <div className="relative mb-3">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search size={14} className="text-slate-400" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Tên công trình, mã định danh, quy hoạch..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-[12px] focus:outline-none focus:ring-2 focus:ring-violet-500/50"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[9px] font-bold text-slate-500 mb-1 ml-1 uppercase">Tỉnh / TP</label>
+                  <select value={filterTinh} onChange={e => setFilterTinh(e.target.value)} className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-[11px] font-medium text-slate-700 focus:outline-none">
+                    {uniqueTinh.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[9px] font-bold text-slate-500 mb-1 ml-1 uppercase">Loại hình ĐT</label>
+                  <select value={filterLoaiHinh} onChange={e => setFilterLoaiHinh(e.target.value)} className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-[11px] font-medium text-slate-700 focus:outline-none">
+                    {uniqueLoaiHinh.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+                <div className="col-span-2">
+                  <label className="block text-[9px] font-bold text-slate-500 mb-1 ml-1 uppercase">Loại công trình</label>
+                  <select value={filterLoaiCT} onChange={e => setFilterLoaiCT(e.target.value)} className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-[11px] font-medium text-slate-700 focus:outline-none">
+                    {uniqueLoaiCT.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-4">
+            <div className="flex justify-between items-end mb-3 px-1">
+              <h3 className="text-[12px] font-black uppercase text-slate-800">Danh sách công trình</h3>
+              <span className="text-[10px] font-medium text-violet-600 bg-violet-100 px-2 py-0.5 rounded-full">{filtered.length} kết quả</span>
+            </div>
+            <div className="space-y-3">
+              {filtered.length > 0 ? filtered.map(ct => (
+                <div key={ct.ma} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex-1 min-w-0 pr-2">
+                      <span className="text-[8.5px] font-bold px-2 py-0.5 rounded uppercase tracking-wider bg-violet-100 text-violet-700 border border-violet-200">{ct.loaiHinh}</span>
+                      <h4 className="font-black text-slate-800 text-[14px] mt-1 leading-tight">{ct.ten}</h4>
+                    </div>
+                    <span className="text-[8.5px] font-bold px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 border border-slate-200 flex-shrink-0">{ct.loaiCT}</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-y-1.5 text-[10.5px] mt-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                    <div className="col-span-2 flex items-center gap-1.5 text-violet-700 font-bold mb-1 border-b border-slate-200 pb-1">
+                      <Database size={11} /> {ct.ma}
+                    </div>
+                    <div className="text-slate-500">📍 Tỉnh/TP:</div><div className="font-semibold text-slate-800 text-right">{ct.tinh}</div>
+                    <div className="text-slate-500">📋 Quy hoạch:</div><div className="font-semibold text-slate-800 text-right text-[9.5px]">{ct.quyHoach}</div>
+                    <div className="text-slate-500">🎯 Nhiệm vụ:</div><div className="font-semibold text-slate-800 text-right">{ct.nhiemVu}</div>
+                    {ct.tuoi && <><div className="text-slate-500">🌾 DT tưới:</div><div className="font-semibold text-violet-700 text-right">{ct.tuoi.toLocaleString()} ha</div></>}
+                    <div className="col-span-2 text-slate-500 pt-1 border-t border-slate-200 mt-0.5">⏱️ {ct.giaiDoan}</div>
+                  </div>
+                </div>
+              )) : (
+                <div className="text-center py-10 text-slate-400 text-xs">Không tìm thấy công trình phù hợp.</div>
+              )}
+            </div>
+          </div>
+        </div>
+      </SwipeableScreen>
+    </div>
+  );
+};
+
+const KH_DTC_DATA = [
+  { stt: 1, ten: "Hồ chứa nước Cánh Tạng", diaDiem: "Phú Thọ", thoiGian: "2017-2026", tmdt: "4128000", ghiChu: "Chuyển tiếp" },
+  { stt: 2, ten: "Hồ Bản Mồng", diaDiem: "Nghệ An", thoiGian: "2010-2026", tmdt: "5552000", ghiChu: "Chuyển tiếp" },
+  { stt: 3, ten: "Sửa chữa, nâng cấp HTTL Bắc Nam Hà và HTTL Xuân Thủy", diaDiem: "Ninh Bình", thoiGian: "2023-2026", tmdt: "874000", ghiChu: "Chuyển tiếp" },
+  { stt: 4, ten: "Công trình kiểm soát nguồn nước bờ Nam sông Hậu", diaDiem: "", thoiGian: "2023-2026", tmdt: "900000", ghiChu: "Chuyển tiếp" },
+  { stt: 5, ten: "Củng cố hoàn thiện và xử lý sạt lở đê biển một số tỉnh Bắc Bộ:\n- Dự án thành phần số 2: Đê biển Cồn Tròn, Hải Thịnh, huyện Hải Hậu, tỉnh Nam Định;\n- Dự án thành phần số 3: Đê biển Bình Minh 4, huyện Kim Sơn, tỉnh Ninh Bình.", diaDiem: "Hải Phòng, Ninh Bình", thoiGian: "2023-2026", tmdt: "1020000", ghiChu: "Chuyển tiếp" },
+  { stt: 6, ten: "Sửa chữa, nâng cấp Hệ thống Bắc Hưng Hải GĐ2:\n- Dự án thành phần số 1: Sửa chữa, nâng cấp hệ thống Bắc Hưng Hải giai đoạn 2, tỉnh Hưng Yên;\n- Dự án thành phần số 2: Sửa chữa, nâng cấp hệ thống Bắc Hưng Hải giai đoạn 2, tỉnh Hải Dương;\n- Dự án thành phần số 3: Sửa chữa, nâng cấp hệ thống Bắc Hưng Hải giai đoạn 2, tỉnh Bắc Ninh", diaDiem: "Hưng Yên, Hải Phòng", thoiGian: "2023-2026", tmdt: "13308887", ghiChu: "Chuyển tiếp" },
+  { stt: 7, ten: "Hệ thống kênh mương hồ EaHleo 1", diaDiem: "Đắk Lắk", thoiGian: "2022-2026", tmdt: "640450", ghiChu: "Chuyển tiếp" },
+  { stt: 8, ten: "Nâng cấp cải tạo kênh trục vùng Tứ giác Long Xuyên", diaDiem: "An Giang", thoiGian: "2023-2026", tmdt: "150000", ghiChu: "Chuyển tiếp" },
+  { stt: 9, ten: "Hệ thống kênh mương hồ Ngòi Giành", diaDiem: "Phú Thọ", thoiGian: "2023-2026", tmdt: "1402000", ghiChu: "Chuyển tiếp" },
+  { stt: 10, ten: "Hệ thống kênh mương HTTL Nà Sản", diaDiem: "Sơn La", thoiGian: "2022-2026", tmdt: "245498", ghiChu: "Chuyển tiếp" },
+  { stt: 11, ten: "Hồ Suối Cái", diaDiem: "Đắk Lắk", thoiGian: "2023-2026", tmdt: "487210", ghiChu: "Chuyển tiếp" },
+  { stt: 12, ten: "Hoàn thiện HTTL Bắc, Nam Bến Tre", diaDiem: "Vĩnh Long", thoiGian: "2023-2026", tmdt: "501000", ghiChu: "Chuyển tiếp" },
+  { stt: 13, ten: "Hồ Chà Rang", diaDiem: "Khánh Hòa", thoiGian: "2023-2026", tmdt: "401000", ghiChu: "Chuyển tiếp" },
+  { stt: 14, ten: "Cụm CTTL Bắc Quang- Quang Bình", diaDiem: "Tuyên Quang", thoiGian: "2023-2026", tmdt: "270500", ghiChu: "Chuyển tiếp" },
+  { stt: 15, ten: "Sửa chữa Nâng cấp hệ thống thủy lợi Thác Huống", diaDiem: "Bắc Ninh", thoiGian: "2023-2026", tmdt: "350500", ghiChu: "Chuyển tiếp" },
+  { stt: 16, ten: "Nâng cấp hệ thống thủy lợi 8 xã miền núi phía Đông Bắc huyện Nho Quan và kè chống sạt lở sông Chanh", diaDiem: "Ninh Bình", thoiGian: "2022-2026", tmdt: "701000", ghiChu: "Chuyển tiếp" },
+  { stt: 17, ten: "Trạm bơm Hoàng Khánh", diaDiem: "Thanh Hóa", thoiGian: "2023-2026", tmdt: "249633", ghiChu: "Chuyển tiếp" },
+  { stt: 18, ten: "Tiêu vùng 3 Nông cống GĐ2", diaDiem: "Thanh Hóa", thoiGian: "2023-2026", tmdt: "450500", ghiChu: "Chuyển tiếp" },
+  { stt: 19, ten: "Tăng cường khả năng tiêu thoát lũ vùng Bắc Thanh Hóa", diaDiem: "Thanh Hóa", thoiGian: "2023-2026", tmdt: "698000", ghiChu: "Chuyển tiếp" },
+  { stt: 20, ten: "Tăng cường khả năng thoát lũ hạ du hồ Kẻ Gỗ", diaDiem: "Hà Tĩnh", thoiGian: "2023-2026", tmdt: "950000", ghiChu: "Chuyển tiếp" },
+  { stt: 21, ten: "Hệ thống kênh mương hồ Đạ Lây, Đạ Sị", diaDiem: "Lâm Đồng", thoiGian: "2023-2026", tmdt: "565350", ghiChu: "Chuyển tiếp" },
+  { stt: 22, ten: "Tăng cường khả năng thoát lũ suối Rạt", diaDiem: "Đắk Lắk", thoiGian: "2023-2026", tmdt: "646000", ghiChu: "Chuyển tiếp" },
+  { stt: 23, ten: "Hồ Đắk Gang", diaDiem: "Lâm Đồng", thoiGian: "2023-2026", tmdt: "1082000", ghiChu: "Chuyển tiếp" },
+  { stt: 24, ten: "Cụm công trình thủy lợi vùng cao Bảy Núi", diaDiem: "An Giang", thoiGian: "2023-2026", tmdt: "516300", ghiChu: "Chuyển tiếp" },
+  { stt: 25, ten: "Xử lý sạt lở bờ sông Đăk Bla", diaDiem: "Quảng Ngãi", thoiGian: "2023-2026", tmdt: "277000", ghiChu: "Chuyển tiếp" },
+  { stt: 26, ten: "Cụm hồ chứa nước tỉnh Cao Bằng", diaDiem: "Cao Bằng", thoiGian: "2022-2025", tmdt: "261000", ghiChu: "Chuyển tiếp" },
+  { stt: 27, ten: "Kè chống sạt lở bờ sông Kỳ Cùng", diaDiem: "Lạng Sơn", thoiGian: "2023-2026", tmdt: "200000", ghiChu: "Chuyển tiếp" },
+  { stt: 28, ten: "Nâng cấp, cải tạo cơ sở hạ tầng phục vụ sản xuất muối giai đoạn 2021-2025", diaDiem: "Các tỉnh", thoiGian: "2024-2026", tmdt: "510850", ghiChu: "Chuyển tiếp" },
+  { stt: 29, ten: "Cụm hồ chứa Hố Khế, Mò Ó, Cha Mai", diaDiem: "Đà Nẵng", thoiGian: "2023-2027", tmdt: "490000", ghiChu: "Chuyển tiếp" },
+  { stt: 30, ten: "Hệ thống dẫn nước Hồ Sông Chò 1", diaDiem: "Khánh Hòa", thoiGian: "2024-2027", tmdt: "1310000", ghiChu: "Chuyển tiếp" },
+  { stt: 31, ten: "Hồ Krông Pách Thượng GĐ2", diaDiem: "Đắk Lắk", thoiGian: "2024-2027", tmdt: "1120400", ghiChu: "Chuyển tiếp" },
+  { stt: 32, ten: "Sửa chữa đảm bảo an toàn hồ, đập chứa nước, Dự án thành phần số 2: Sửa chữa cấp bách đảm bảo an toàn đập Liễn Sơn, tỉnh Vĩnh Phúc.", diaDiem: "Phú Thọ", thoiGian: "2023-2025", tmdt: "89130", ghiChu: "Chuyển tiếp" },
+  { stt: 33, ten: "Sửa chữa đảm bảo an toàn hồ, đập chứa nước, Dự án thành phần số 4: Sửa chữa cấp bách đảm bảo an toàn hồ Cửa Đạt, tỉnh Thanh Hóa.", diaDiem: "Thanh Hóa", thoiGian: "2023-2025", tmdt: "190080", ghiChu: "Chuyển tiếp" },
+  { stt: 34, ten: "Sửa chữa đảm bảo an toàn hồ, đập chứa nước, Dự án thành phần số 6: Sửa chữa cấp bách đảm bảo an toàn hồ Vạc Tròn, tỉnh Quảng Bình.", diaDiem: "Quảng Trị", thoiGian: "2023-2025", tmdt: "123010", ghiChu: "Chuyển tiếp" },
+  { stt: 35, ten: "Sửa chữa đảm bảo an toàn hồ, đập chứa nước, Dự án thành phần số 8: Sửa chữa cấp bách đảm bảo an toàn đập Thảo Long, tỉnh Thừa Thiên Huế.", diaDiem: "Huế", thoiGian: "2023-2025", tmdt: "348845", ghiChu: "Chuyển tiếp" },
+  { stt: 36, ten: "Sửa chữa đảm bảo an toàn hồ, đập chứa nước, Dự án thành phần số 10: Sửa chữa cấp bách đảm bảo an toàn một số hồ chứa tỉnh Bình Thuận.", diaDiem: "Lâm Đồng", thoiGian: "2023-2025", tmdt: "71228", ghiChu: "Chuyển tiếp" },
+  { stt: 37, ten: "Cụm Hồ Đắk Rô Gia - laTul: Dự án thành phần số 01 - Hồ chứa nước la Tun", diaDiem: "Quảng Ngãi", thoiGian: "", tmdt: "307662", ghiChu: "Chuyển tiếp" },
+  { stt: 38, ten: "Công trình trữ nước và hệ thống cấp nước sinh hoạt tại các vùng có nguồn nước bị ô nhiễm, vùng khan hiếm nước, vùng bị ảnh hưởng xâm nhập mặn", diaDiem: "Các tỉnh ĐBSCL", thoiGian: "2024-2026", tmdt: "1104000", ghiChu: "Chuyển tiếp" },
+  { stt: 39, ten: "Công trình trữ nước và hệ thống cấp nước sinh hoạt tại các vùng có nguồn nước bị ô nhiễm, vùng khan hiếm nước, vùng bị ảnh hưởng xâm nhập mặn:\n-Dự án thành phần số 8: Hồ chứa nước ngọt đảo Thổ Châu, thành phố Phú Quốc, tỉnh Kiên Giang", diaDiem: "", thoiGian: "2025-2028", tmdt: "280000", ghiChu: "Chuyển tiếp" },
+  { stt: 40, ten: "Hồ chứa nước Thục Luyện", diaDiem: "Phú Thọ", thoiGian: "2023-2027", tmdt: "570000", ghiChu: "Chuyển tiếp" },
+  { stt: 41, ten: "Cụm hồ Bản Phủ, Nậm Là", diaDiem: "Điện Biên", thoiGian: "2023-2027", tmdt: "998000", ghiChu: "Chuyển tiếp" },
+  { stt: 42, ten: "Cụm công trình thủy lợi Bắc Kạn", diaDiem: "Thái Nguyên", thoiGian: "2023-2027", tmdt: "741500", ghiChu: "Chuyển tiếp" },
+  { stt: 43, ten: "Hệ thống công trình điều tiết, bổ sung nước phục vụ NTTS vùng phía nam QL1A tỉnh Bạc Liêu", diaDiem: "Cần Thơ, Càu Mau", thoiGian: "2025-2028", tmdt: "1451214", ghiChu: "Chuyển tiếp" },
+  { stt: 44, ten: "Hồ Bản Mồng GĐ2", diaDiem: "Nghệ An", thoiGian: "2025-2028", tmdt: "1849000", ghiChu: "Chuyển tiếp" },
+  { stt: 45, ten: "Hoàn thiện hệ thống công trình sử dụng nước hồ Sông Lũy", diaDiem: "Lâm Đồng", thoiGian: "2024-2026", tmdt: "551000", ghiChu: "Chuyển tiếp" },
+  { stt: 46, ten: "Nâng cấp mở rộng HTTL hồ Núi Ngang -Liệt Sơn", diaDiem: "Quảng Ngãi", thoiGian: "2026-2028", tmdt: "708830", ghiChu: "Chuyển tiếp" },
+  { stt: 47, ten: "Hệ thống kênh nhánh CTTL IaMơr", diaDiem: "Gia Lai", thoiGian: "2025-2028", tmdt: "205190", ghiChu: "Chuyển tiếp" },
+  { stt: 48, ten: "Hồ EaKhal GĐ1", diaDiem: "Đắk Lắk", thoiGian: "2026-2029", tmdt: "610000", ghiChu: "Khởi công mới năm 2026" },
+  { stt: 49, ten: "Cụm công trình Tắc Thủ và các công trình thủy lợi ven biển Tây", diaDiem: "An Giang, Cà Mau", thoiGian: "2026-2029", tmdt: "714283", ghiChu: "Khởi công mới năm 2026" },
+  { stt: 50, ten: "Hồ chứa nước IaThul", diaDiem: "Gia Lai", thoiGian: "2026-2030", tmdt: "4024000", ghiChu: "Khởi công mới năm 2026" },
+  { stt: 51, ten: "Cụm công trình Khe Mước - Bến Than", diaDiem: "Quảng Trị", thoiGian: "2026-2029", tmdt: "1272000", ghiChu: "Khởi công mới năm 2026" },
+  { stt: 52, ten: "Nâng cấp, hiện đại hóa và cải thiện môi trường nước HTTL Bắc Hưng Hải", diaDiem: "Hà Nội, Hưng Yên, Hải Phòng, Bắc Ninh", thoiGian: "2026-2031", tmdt: "4200000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 53, ten: "Nâng cấp, sửa chữa HTTL Bắc Nam Hà và Xuân Thủy GĐ 2026-2030", diaDiem: "Ninh Bình", thoiGian: "2026-2030", tmdt: "1000000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 54, ten: "Nâng cấp, sửa chữa HTTL Dầu Tiếng - Phước Hòa GĐ 2026- 2030", diaDiem: "Tây Ninh, TP. Hồ Chí Minh", thoiGian: "2026-2030", tmdt: "500000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 55, ten: "Hoàn thiện hệ thống thủy lợi Ngàn Trươi", diaDiem: "Hà Tĩnh", thoiGian: "2026-2030", tmdt: "1200000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 56, ten: "Hoàn thiện hệ thống tưới hồ chứa nước Ia Mơr", diaDiem: "Gia Lai, Đắk Lắk", thoiGian: "2026-2030", tmdt: "1405000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 57, ten: "Hồ Đồng Điền", diaDiem: "Khánh Hòa", thoiGian: "2026-2032", tmdt: "7035000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 58, ten: "Công trình điếu tiết nguồn nước, chính trị sông Quảng Huế và Nâng cấp Hệ thống An Trạch - Bàu Nít - Thanh Quýt - Hà Thanh", diaDiem: "Đà Nẵng", thoiGian: "2026-2031", tmdt: "1700000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 59, ten: "Cụm hồ tỉnh Điện Biên", diaDiem: "Điện Biên", thoiGian: "2026-2030", tmdt: "700000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 60, ten: "Cụm hồ tỉnh Sơn La", diaDiem: "Sơn La", thoiGian: "2026-2030", tmdt: "500000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 61, ten: "Cụm hồ Lai Châu", diaDiem: "Lai Châu", thoiGian: "2026-2030", tmdt: "1000000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 62, ten: "Hồ Thượng Tiến", diaDiem: "Phú Thọ", thoiGian: "2026-2030", tmdt: "700", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 63, ten: "Đập Sông Lam", diaDiem: "Nghệ An", thoiGian: "2026-2030", tmdt: "700000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 64, ten: "Đầu tư hoàn thiện hệ thống kênh lấy nước sau thủy điện sông Hinh", diaDiem: "Đắk Lắk", thoiGian: "2026-2030", tmdt: "600000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 65, ten: "Hồ Ô Lâu Thượng", diaDiem: "Thừa Thiên Huế, Quảng trị", thoiGian: "2026-2031", tmdt: "6600000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 66, ten: "Nâng cấp, tăng dung tích trữ các hồ, đập vùng Tây Nguyên", diaDiem: "Tỉnh Gia Lai, Đắk Lắk, Lâm Đồng, Quảng Ngãi", thoiGian: "2026-2030", tmdt: "1500000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 67, ten: "Đồng bộ hệ thống kiếm soát nguồn nước khu vực Nam Bến Tre", diaDiem: "Vĩnh Long", thoiGian: "2026-2030", tmdt: "1500000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 68, ten: "Đảm bảo an ninh nguồn nước, thích ứng với BĐKH khu vực Nam Sông Hậu", diaDiem: "Cần Thơ", thoiGian: "2026-2030", tmdt: "1500000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 69, ten: "Đồng bộ hệ thống kiếm soát nguồn nước khu vực Nam QL1A", diaDiem: "Cà Mau", thoiGian: "2026-2030", tmdt: "1400000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 70, ten: "Nâng cấp, tu bổ đê điếu xung yếu hệ thống sông Hồng - Thái Bình, sông Mã giai đoạn 2026-2030", diaDiem: "Các tỉnh", thoiGian: "2026-2030", tmdt: "3500000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 71, ten: "Tu bô, nâng cấp đê tả, hữu Hoàng Long và các công trình phòng, chống lũ tiến tới xóa bỏ phân, chậm lũ", diaDiem: "Ninh Bình", thoiGian: "2026-2030", tmdt: "1200000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 72, ten: "Nâng cấp, củng cố hệ thống đê biến trên địa bàn tỉnh Ninh Bình", diaDiem: "Ninh Bình", thoiGian: "2026-2030", tmdt: "1000000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 73, ten: "Xử lý sạt lở bờ sông, bờ biến khu vực miến Trung", diaDiem: "Các tỉnh", thoiGian: "2026-2030", tmdt: "2000000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 74, ten: "Xây dựng công trình phòng, chống lũ quét; khắc phục sạt lở bờ sông, suối các tỉnh miến núi phía Bắc", diaDiem: "Các tỉnh", thoiGian: "2026-2030", tmdt: "2000000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 75, ten: "Nâng cấp, hoàn thiện đê biến Đông", diaDiem: "Các tỉnh ĐBSCL", thoiGian: "2026-2030", tmdt: "4000000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 76, ten: "Nâng cấp, hoàn thiện đê biến Tây", diaDiem: "Các tỉnh ĐBSCL", thoiGian: "2026-2030", tmdt: "2700000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 77, ten: "Xử lý sạt lở bờ sông, bờ biến vùng đồng bằng sông Cửu Long", diaDiem: "Các tỉnh", thoiGian: "2026-2030", tmdt: "3000000", ghiChu: "Mở mới 2026 - 2030" },
+  { stt: 78, ten: "Rà soát Quy hoạch Phòng, chống thiên tai và thủy lợi", diaDiem: "", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 79, ten: "Hồ Sông Côn", diaDiem: "Đà Nẵng", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 80, ten: "Đập Cẩm Hoàng", diaDiem: "Thanh Hóa", thoiGian: "2026-2030", tmdt: "8000000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 81, ten: "Công trình kiểm soát mặn trên sông Vàm Cỏ", diaDiem: "Tây Ninh", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 82, ten: "Công trình kiểm soát mặn trên sông Hàm Luông", diaDiem: "Vĩnh Long", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 83, ten: "Công trình chuyển nước Gò Công", diaDiem: "Đồng Tháp", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 84, ten: "Hệ thống công trình chuyển nước Bán đảo Cà Mau", diaDiem: "Cà Mau", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 85, ten: "Hồ Châu Giang", diaDiem: "Quảng Trị", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 86, ten: "Đập Xuân Quan", diaDiem: "Hưng Yên", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 87, ten: "Đập Long Tửu", diaDiem: "Hà Nội", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 88, ten: "Hồ chứa nước Vũ Môn (Trại Dơi), huyện Hương Khê", diaDiem: "Hà Tĩnh", thoiGian: "2026-2030", tmdt: "1400000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 89, ten: "Đập Thu Cúc và hệ thống đường ống cấp nước sản xuất nông nghiệp, sinh hoạt", diaDiem: "Phú Thọ", thoiGian: "2026-2030", tmdt: "800000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 90, ten: "Hồ Nà Lạnh", diaDiem: "Bắc Ninh", thoiGian: "2026-2030", tmdt: "6000000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 91, ten: "Hồ Nginh Tường", diaDiem: "Thái Nguyên", thoiGian: "2026-2030", tmdt: "2000000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 92, ten: "Nâng cấp hạ tầng đảm bảo thoát lũ, giảm ngập lụt cho khu vực Phong Nha - Kẻ Bàng", diaDiem: "Quảng Trị", thoiGian: "2026-2030", tmdt: "1700000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 93, ten: "Hồ Thượng sông Vệ, đập hạ lưu sông Vệ", diaDiem: "Quảng Ngãi", thoiGian: "2026-2030", tmdt: "4500000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 94, ten: "Tăng cường khả năng thoát lũ hạ du hồ Phú Ninh", diaDiem: "Đà Nẵng", thoiGian: "2026-2030", tmdt: "1400000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 95, ten: "Tăng dung tích Hồ Định Bình", diaDiem: "Gia Lai", thoiGian: "2026-2030", tmdt: "2750000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 96, ten: "Hồ La Ngà 3", diaDiem: "Lâm Đồng", thoiGian: "2026-2030", tmdt: "8650000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 97, ten: "Hồ Krông Năng", diaDiem: "Đắk Lắk", thoiGian: "2026-2030", tmdt: "1500000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 98, ten: "Nâng cấp Hệ thống Đồng Cam", diaDiem: "Đắk Lắk", thoiGian: "2026-2030", tmdt: "1450000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 99, ten: "Hồ chứa nước Phú Xuân 2", diaDiem: "Đắk Lắk", thoiGian: "2026-2030", tmdt: "850000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 100, ten: "Hệ thống Đắk Akôi- Đắk Pokei- Đắk Pokei B", diaDiem: "Quảng Ngãi", thoiGian: "2026-2030", tmdt: "3500000", ghiChu: "Chuẩn bị đầu tư 2026 - 2030" },
+  { stt: 101, ten: "Dự án Quản lý tổng hợp vùng ven biển Đồng bằng sông Cửu Long, giai đoạn II (KfW2)", diaDiem: "", thoiGian: "2026-2030", tmdt: "1251706", ghiChu: "Chuẩn bị đầu tư 2026 - 2030 (Vốn ODA)" },
+  { stt: 102, ten: "Dự án Cải tạo, nâng cấp hệ thống công trình chuyền nước vào sông Đáy phục vụ mục tiêu thích ứng biến đổi khí hậu", diaDiem: "", thoiGian: "2026-2030", tmdt: "8636250", ghiChu: "Chuẩn bị đầu tư 2026 - 2030 (Vốn ODA)" },
+  { stt: 103, ten: "Dự án nâng cao an toàn hồ đập và hiện đại hóa quản lý vận hành các hệ thống công trình Thủy lợi (WB12)", diaDiem: "", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030 (Vốn ODA)" },
+  { stt: 104, ten: "Dự án hiện đại hoá hệ thống thuỷ lợi Cầu Sơn - Cấm Sơn thích ứng biến đổi khí hậu", diaDiem: "", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030 (Vốn ODA)" },
+  { stt: 105, ten: "Dự án Hiện đại hóa thủy tợi thích ứng BĐKH do Bộ Nông nghiệp và PTNT thực hiện - Giai đoạn 2 (ADB9 giai đoạn 2)", diaDiem: "", thoiGian: "2026-2030", tmdt: "", ghiChu: "Chuẩn bị đầu tư 2026 - 2030 (Vốn ODA)" },
+];
+
+const KeHoachDauTuCongView = ({ goBack }) => {
+  const [search, setSearch] = useState('');
+  const [filterDiaDiem, setFilterDiaDiem] = useState('Tất cả');
+  const [filterThoiGian, setFilterThoiGian] = useState('Tất cả');
+
+  const uniqueDiaDiem = ['Tất cả', ...new Set(KH_DTC_DATA.flatMap(d => d.diaDiem ? d.diaDiem.split(',').map(s => s.trim()) : []))];
+  const uniqueThoiGian = ['Tất cả', ...new Set(KH_DTC_DATA.map(d => d.thoiGian))];
+
+  const filtered = KH_DTC_DATA.filter(d => {
+    const q = search.toLowerCase();
+    const matchSearch = !q || d.ten.toLowerCase().includes(q) || d.diaDiem.toLowerCase().includes(q) || d.tmdt.includes(q);
+    const matchDiaDiem = filterDiaDiem === 'Tất cả' || d.diaDiem.includes(filterDiaDiem);
+    const matchThoiGian = filterThoiGian === 'Tất cả' || d.thoiGian === filterThoiGian;
+    return matchSearch && matchDiaDiem && matchThoiGian;
+  });
+
+  return (
+    <div className="flex h-screen w-full flex-col bg-slate-50 font-sans text-slate-900 max-w-md mx-auto shadow-2xl overflow-hidden border-x border-slate-200 relative animate-in slide-in-from-right-4 duration-300">
+      <SwipeableScreen goBack={goBack}>
+        <AppHeader title="Quy hoạch thủy lợi" bgGradient="bg-gradient-to-br from-sky-800/80 via-sky-600/70 to-cyan-600/60"/>
+        <div className="flex-1 overflow-y-auto pb-8 blur-scrollbar">
+          <div className="px-4 pt-4 pb-3">
+            <div className="flex items-center gap-3 mb-4">
+                <button onClick={goBack} className="p-2 bg-white rounded-xl shadow-sm border border-slate-200"><ChevronLeft size={20} className="text-cyan-700"/></button>
+                <b><h1 className="font-black text-cyan-900 uppercase text-[13px] tracking-tight">Kế hoạch đầu tư công</h1></b>
+            </div>
+            <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+              <div className="flex items-center gap-2 mb-3 border-b border-slate-100 pb-2">
+                <Filter size={15} className="text-slate-400" />
+                <span className="text-[11px] font-bold uppercase text-slate-700 tracking-tight">Bộ lọc tìm kiếm</span>
+              </div>
+              <div className="relative mb-3">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search size={14} className="text-slate-400" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Tên dự án, địa điểm, kinh phí..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-[12px] focus:outline-none focus:ring-2 focus:ring-sky-500/50"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[9px] font-bold text-slate-500 mb-1 ml-1 uppercase">Địa điểm</label>
+                  <select value={filterDiaDiem} onChange={e => setFilterDiaDiem(e.target.value)} className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-[11px] font-medium text-slate-700 focus:outline-none">
+                    {uniqueDiaDiem.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[9px] font-bold text-slate-500 mb-1 ml-1 uppercase">Thời gian</label>
+                  <select value={filterThoiGian} onChange={e => setFilterThoiGian(e.target.value)} className="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-[11px] font-medium text-slate-700 focus:outline-none">
+                    {uniqueThoiGian.map(t => <option key={t} value={t}>{t}</option>)}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-4">
+            <div className="flex justify-between items-end mb-3 px-1">
+              <h3 className="text-[12px] font-black uppercase text-slate-800">Danh sách dự án</h3>
+              <span className="text-[10px] font-medium text-sky-600 bg-sky-100 px-2 py-0.5 rounded-full">{filtered.length} kết quả</span>
+            </div>
+            <div className="space-y-3">
+              {filtered.length > 0 ? filtered.map(da => (
+                <div key={da.stt} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-start mb-2 gap-2">
+                    <h4 className="font-black text-slate-800 text-[13px] leading-tight flex-1">{da.ten}</h4>
+                    <span className="text-[8.5px] font-bold px-2 py-0.5 rounded-lg bg-sky-100 text-sky-700 border border-sky-200 flex-shrink-0">{da.ghiChu}</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-y-1.5 text-[10.5px] mt-2 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                    {da.diaDiem && <><div className="text-slate-500">📍 Địa điểm:</div><div className="font-semibold text-slate-800 text-right text-[10px]">{da.diaDiem}</div></>}
+                    <div className="text-slate-500">⏱️ Thời gian:</div><div className="font-semibold text-slate-800 text-right">{da.thoiGian}</div>
+                    <div className="text-slate-500">💰 TMĐT:</div><div className="font-bold text-sky-700 text-right">{da.tmdt} tr.đ</div>
+                  </div>
+                </div>
+              )) : (
+                <div className="text-center py-10 text-slate-400 text-xs">Không tìm thấy dự án phù hợp.</div>
+              )}
+            </div>
+          </div>
+        </div>
+      </SwipeableScreen>
+    </div>
+  );
+};
+
 const QuyHoachView = ({ goBack }) => {
   const [activeTab, setActiveTab] = useState('home');
+  const [showDmQuyHoach, setShowDmQuyHoach] = useState(false);
+  const [showDmCtQH, setShowDmCtQH] = useState(false);
+  const [showKhDtc, setShowKhDtc] = useState(false);
   const modules = [
-    { id: 'dm_quy_hoach', title: 'Danh mục Quy hoạch', icon: <MapIcon size={32}/>, color: 'bg-indigo-600', description: 'Danh mục các quy hoạch thủy lợi' },
-    { id: 'dm_ct_qh', title: 'Danh mục công trình QH', icon: <Layers size={32}/>, color: 'bg-violet-600', description: 'Danh mục công trình trong quy hoạch' },
-    { id: 'kh_dtc', title: 'Kế hoạch đầu tư công', icon: <Coins size={32}/>, color: 'bg-sky-600', description: 'Kế hoạch vốn đầu tư công hàng năm' },
+    { id: 'dm_quy_hoach', title: 'Danh mục Quy hoạch', icon: <MapIcon size={32}/>, color: 'bg-indigo-600', description: 'Danh mục các quy hoạch thủy lợi', action: () => setShowDmQuyHoach(true) },
+    { id: 'dm_ct_qh', title: 'Danh mục công trình QH', icon: <Layers size={32}/>, color: 'bg-violet-600', description: 'Danh mục công trình trong quy hoạch', action: () => setShowDmCtQH(true) },
+    { id: 'kh_dtc', title: 'Kế hoạch đầu tư công', icon: <Coins size={32}/>, color: 'bg-sky-600', description: 'Kế hoạch vốn đầu tư công hàng năm', action: () => setShowKhDtc(true) },
   ];
+
+  if (showDmQuyHoach) return <DanhMucQuyHoachView goBack={() => setShowDmQuyHoach(false)} />;
+  if (showDmCtQH) return <DanhMucCongTrinhQHView goBack={() => setShowDmCtQH(false)} />;
+  if (showKhDtc) return <KeHoachDauTuCongView goBack={() => setShowKhDtc(false)} />;
 
   return (
     <div className="flex h-screen w-full flex-col bg-indigo-50 font-sans text-slate-900 max-w-md mx-auto shadow-2xl overflow-hidden border-x border-slate-200 relative animate-in slide-in-from-right-4 duration-300">
@@ -1528,7 +2158,7 @@ const QuyHoachView = ({ goBack }) => {
       <main className="flex-1 overflow-y-auto blur-scrollbar px-6 py-6 pb-24 relative">
         <div className="grid grid-cols-2 gap-4">
           {modules.map((item, idx) => (
-            <button key={item.id} className={`flex flex-col items-center p-5 rounded-[32px] bg-white border border-slate-100 shadow-md hover:shadow-2xl transition-all active:scale-95 group relative overflow-hidden ${idx === 2 ? 'col-span-2' : ''}`}>
+            <button key={item.id} onClick={() => item.action && item.action()} className={`flex flex-col items-center p-5 rounded-[32px] bg-white border border-slate-100 shadow-md hover:shadow-2xl transition-all active:scale-95 group relative overflow-hidden ${idx === 2 ? 'col-span-2' : ''}`}>
               <div className={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl ${item.color} text-white shadow-xl`}>{item.icon}</div>
               <h3 className="text-sm font-bold text-slate-800 leading-tight mb-1 text-center flex items-center justify-center px-1">{item.title}</h3>
               <p className="text-[10px] text-slate-400 font-medium text-center leading-tight">{item.description}</p>

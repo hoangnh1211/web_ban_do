@@ -74,13 +74,15 @@ function MapNew() {
             return false;
         };
 
+        const vietnamExtent = [100.5, 7.0, 112.0, 24.5];
         const initialMap = new Map({
             target: mapElement.current,
             layers: listLayer,
             overlays: [overlay],
             view: new View({
-                // center: [105.567, 21.144], zoom: 9.5,
-                projection: 'EPSG:4326'
+                projection: 'EPSG:4326',
+                extent: vietnamExtent,
+                minZoom: 5,
             }),
             pixelRatio: 1,
         });

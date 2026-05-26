@@ -112,7 +112,7 @@ function MenuLayer(props) {
       {
         value: "Xây mới: Tuyến chuyển nước",
         index: [ListLayer.findIndex((value) => value.id === "tuyenChuyenNuoc")],
-        check: true,
+        check: false,
         show: true,
       },
       {
@@ -517,7 +517,7 @@ function MenuLayer(props) {
     showAllCongTrinhHienTrang(flag)
     setShowCongTrinhHienTrang(flag)
   };
-  const showAllQuyHoachSongHuong = (flag) => {
+  const showAllQuyHoachSongHuong = (flag, click = false) => {
     showAllQuyHoachSongHuongQuyHoach(flag)
     showAllQuyHoachSongHuongHiẹnTrang(flag)
     setShowQuyHoachSongHuong(flag)
@@ -525,7 +525,16 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
-    if (flag) props.handleMapFit(toaDoSongHuong);
+    if (flag) {
+      props.ShowLayersVisibility(ListLayer.findIndex(
+        (value) => value.id === "BoVung_SongHuong_1"
+      ));
+    } else {
+      props.HideLayersVisibility(ListLayer.findIndex(
+        (value) => value.id === "BoVung_SongHuong_1"
+      ));
+    }
+    if (click && flag) props.handleMapFit(toaDoSongHuong);
   };
   const showAllQuyHoachSongHuongQuyHoach = (flag) => {
     showAllSongHuong(flag)
@@ -535,7 +544,7 @@ function MenuLayer(props) {
     showAllSongHuongHienTrang(flag)
     setShowSongHuongHienTrang(flag)
   };
-  const showAllQuyHoachSongBa = (flag) => {
+  const showAllQuyHoachSongBa = (flag, click = false) => {
     showAllQuyHoachSongBaQuyHoach(flag)
     showAllQuyHoachSongBaHiẹnTrang(flag)
     setShowQuyHoachSongBa(flag)
@@ -543,7 +552,16 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
-    if (flag) props.handleMapFit(toaDoSongBa);
+    if (flag) {
+      props.ShowLayersVisibility(ListLayer.findIndex(
+        (value) => value.id === "BoVung_SongBa_V1"
+      ));
+    } else {
+      props.HideLayersVisibility(ListLayer.findIndex(
+        (value) => value.id === "BoVung_SongBa_V1"
+      ));
+    }
+    if (click && flag) props.handleMapFit(toaDoSongBa);
   };
   const showAllQuyHoachSongBaQuyHoach = (flag) => {
     showAllSongBa(flag)
@@ -1072,7 +1090,7 @@ function MenuLayer(props) {
                             value=""
                             checked={showQuyHoachSongHuong}
                             id="a61"
-                            onChange={() => showAllQuyHoachSongHuong(!showQuyHoachSongHuong)}
+                            onChange={() => showAllQuyHoachSongHuong(!showQuyHoachSongHuong, true)}
                           />
                         </span>
                         <span
@@ -1193,7 +1211,7 @@ function MenuLayer(props) {
                             value=""
                             checked={showQuyHoachSongBa}
                             id="a61"
-                            onChange={() => showAllQuyHoachSongBa(!showQuyHoachSongBa)}
+                            onChange={() => showAllQuyHoachSongBa(!showQuyHoachSongBa, true)}
                           />
                         </span>
                         <span

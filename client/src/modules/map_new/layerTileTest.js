@@ -8,7 +8,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import { Style, Fill, Stroke, Text } from 'ol/style';
 export const urlConfig = process.env.REACT_APP_SERVER_MAP_CACHE;
 export const format = 'image/png';
-export const tileSize = 512;
+export const tileSize = 256;
 export const bungHoDuKien = new TileLayer({
     source: new TileWMS({
         ratio: 1, tileSize: tileSize, serverType: 'geoserver', tilePixelRatio: 1,
@@ -21,7 +21,7 @@ export const bungHoDuKien = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: true,
+    visible: false,
 });
 
 export const heThongThuyLoiNangCap = new TileLayer({
@@ -66,7 +66,7 @@ export const congTrinhNangCap = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: true,
+    visible: false,
 });
 
 export const congTrinhQuyHoach = new TileLayer({
@@ -81,7 +81,7 @@ export const congTrinhQuyHoach = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: true,
+    visible: false,
 });
 
 export const bungHoChua = new TileLayer({
@@ -589,7 +589,7 @@ const DiaPhan_Tinh_2025 = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: true,
+    visible: false,
 })
 
 const RanhGioiTinh_2025 = new TileLayer({
@@ -604,7 +604,7 @@ const RanhGioiTinh_2025 = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: true,
+    visible: false,
 })
 
 const sudungdat_vn = new TileLayer({

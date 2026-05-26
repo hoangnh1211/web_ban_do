@@ -11,6 +11,7 @@ const Dulieu = lazy(() => import("../modules/dulieuquyhoach/dulieuquyhoach"));
 const Kehoach = lazy(() => import("../modules/kehoach/kehoach"));
 const Import = lazy(() => import("../modules/data/import"));
 const MapNewTile = lazy(() => import("../modules/map_new/indexTile"));
+const MapNewTileTest = lazy(() => import("../modules/map_new/indexTileTest"));
 
 // Tạo component loading đơn giản
 const Loading = () => <div></div>;
@@ -22,7 +23,7 @@ function Router() {
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/new-map" element={<MapNewTile />} />
-                <Route path="/new-map-noheader" element={<MapNewTile />} />
+                <Route path="/new-map-test" element={<MapNewTileTest />} />
                 {/* <Route path="/new-map-tile" element={<MapNewTile />} /> */}
                 <Route path="/quy-hoach-khac" element={<QuyHoachKhac />} />
                 <Route path="/danh-gia-quy-hoach" element={<DanhGiaQuyHoach />} />

@@ -10,7 +10,7 @@ import Overlay from 'ol/Overlay';
 import "./map.css"
 import MenuLayer from './menuLayer';
 // import { listLayer, listLayerData, danhMucQuyHoach } from './layer'
-import { listLayer, listLayerData, danhMucQuyHoach } from './layerTile'
+import { listLayer, listLayerData, danhMucQuyHoach } from './layerTileTest'
 import Info from './info';
 import VectorSource from 'ol/source/Vector';
 import TileWMS from 'ol/source/TileWMS';

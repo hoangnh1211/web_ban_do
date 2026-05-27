@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect, useRef } from 'react';
 import { Map, View } from 'ol';
+import { defaults as defaultInteractions } from 'ol/interaction';
 import 'ol/ol.css';
 import * as olStyle from 'ol/style';
 
@@ -72,6 +73,7 @@ function MapNew() {
             target: mapElement.current,
             layers: listLayer,
             overlays: [overlay],
+            interactions: defaultInteractions({ doubleClickZoom: false }),
             view: new View({
                 projection: 'EPSG:4326',
                 // center: [106.0, 16.0],
@@ -98,16 +100,13 @@ function MapNew() {
             // Kiểm tra layer tại điểm click, bắt đầu từ layer trên cùng
             overlay.setPosition(undefined);
             for (const layer of listLayerData) {
-                // Ví dụ này giả định rằng bạn đang làm việc với layer WMS
                 let source = layer.get('visible') ? layer.getSource() : null;
                 if (source && source instanceof TileWMS) {
                     let url = source.getFeatureInfoUrl(
                         evt.coordinate, viewResolution, viewProjection,
-                        { 'INFO_FORMAT': 'application/json' } // Hoặc định dạng bạn cần
+                        { 'INFO_FORMAT': 'application/json' }
                     );
-                    // Sử dụng URL để gửi yêu cầu và lấy thông tin
                     if (url) {
-                        console.log(url)
                         let value = await axios.get(url);
                         if (value.data.features?.length > 0) {
                             overlay.setPosition(evt.coordinate);
@@ -120,16 +119,10 @@ function MapNew() {
                     var feature = initialMap.forEachFeatureAtPixel(evt.pixel, function (feature) {
                         return feature;
                     });
-
-                    // Kiểm tra nếu có feature được chọn
                     if (feature) {
-                        // Xử lý feature tại đây
-                        // console.log(feature)
                         overlay.setPosition(evt.coordinate);
                         setDataMap({ data: [{ id: feature.getId(), properties: feature.getProperties() }] })
                         break;
-                    } else {
-                        console.log('No feature selected at this location.');
                     }
                 }
             }

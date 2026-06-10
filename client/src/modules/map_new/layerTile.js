@@ -66,7 +66,7 @@ export const congTrinhNangCap = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         }
     }),
-    visible: true,
+    visible: false,
 });
 
 export const congTrinhQuyHoach = new TileLayer({
@@ -379,7 +379,7 @@ const CTQH_SongBa_V2 = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const CTNC_SongBa_1 = new TileLayer({
@@ -424,7 +424,7 @@ const longho_dk_songba = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const BoVung_SongBa_V2 = new TileLayer({
@@ -454,7 +454,7 @@ const BoVung_SongBa_V1 = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const PhanVungTuoi_SongBa = new TileLayer({
@@ -499,7 +499,7 @@ const CTQH_songhuong = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const CTNC_songhuong = new TileLayer({
@@ -559,7 +559,7 @@ const BoVung_SongHuong_1 = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const BoVung_SongHuong_2 = new TileLayer({
@@ -634,7 +634,7 @@ const ctht_songba = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const ctht_songhuong = new TileLayer({
@@ -649,7 +649,7 @@ const ctht_songhuong = new TileLayer({
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
-    visible: false,
+    visible: true,
 })
 
 const Kenh_songHuong = new TileLayer({

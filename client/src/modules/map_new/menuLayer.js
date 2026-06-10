@@ -106,7 +106,7 @@ function MenuLayer(props) {
       {
         value: "Công trình nâng cấp",
         index: [ListLayer.findIndex((value) => value.id === "congTrinhNangCap")],
-        check: true,
+        check: false,
         show: true,
       },
       {
@@ -118,7 +118,7 @@ function MenuLayer(props) {
       {
         value: "Nạo vét hệ thống kênh trục",
         index: [ListLayer.findIndex((value) => value.id === "naoVetHeThongThayThe")],
-        check: true,
+        check: false,
         show: false,
       },
       {
@@ -141,7 +141,7 @@ function MenuLayer(props) {
           ListLayer.findIndex((value) => value.id === "CTQH_SongBa_V2"),
           ListLayer.findIndex((value) => value.id === "longho_dk_songba")
         ],
-        check: false,
+        check: true,
         show: false,
       },
       {
@@ -169,8 +169,8 @@ function MenuLayer(props) {
         show: false,
       },
     ],
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
   const [listSongHuong, setListSongHuong] = useState({
     data: [
@@ -179,7 +179,7 @@ function MenuLayer(props) {
         index: [
           ListLayer.findIndex((value) => value.id === "CTQH_songhuong"),
         ],
-        check: false,
+        check: true,
         show: false,
       },
       {
@@ -201,15 +201,15 @@ function MenuLayer(props) {
         show: false,
       },
     ],
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
   const [listSongHuongHienTrang, setListSongHuongHienTrang] = useState({
     data: [
       {
         value: "Công trình hiện trạng",
         index: [ListLayer.findIndex((value) => value.id === "ctht_songhuong")],
-        check: false,
+        check: true,
         show: false,
       },
       {
@@ -219,15 +219,15 @@ function MenuLayer(props) {
         show: false,
       },
     ],
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
   const [listSongBaHienTrang, setListSongBaHienTrang] = useState({
     data: [
       {
         value: "Công trình hiện trạng",
         index: [ListLayer.findIndex((value) => value.id === "ctht_songba")],
-        check: false,
+        check: true,
         show: false,
       },
       {
@@ -237,8 +237,8 @@ function MenuLayer(props) {
         show: false,
       },
     ],
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
   const [listBando, setListBando] = useState({
     show: true,
@@ -249,12 +249,12 @@ function MenuLayer(props) {
     class: "fa-solid fa-caret-down",
   });
   const [listQuyHoachSongHuong, setListQuyHoachSongHuong] = useState({
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
   const [listQuyHoachSongBa, setListQuyHoachSongBa] = useState({
-    show: false,
-    class: "fa-solid fa-caret-right",
+    show: true,
+    class: "fa-solid fa-caret-down",
   });
   const handleChangeCheck = (callback, data, i, check) => {
     data.data[i].check = !check;
@@ -265,12 +265,12 @@ function MenuLayer(props) {
   };
   const [showBanDoQuyHoach, setShowBanDoQuyHoach] = useState(true);
   const [showQuyHoachQuocGia, setShowQuyHoachQuocGia] = useState(true);
-  const [showQuyHoachSongHuong, setShowQuyHoachSongHuong] = useState(false);
-  const [showQuyHoachSongBa, setShowQuyHoachSongBa] = useState(false);
-  const [showSongBa, setShowSongBa] = useState(false);
-  const [showSongHuong, setShowSongHuong] = useState(false);
-  const [showSongHuongHienTrang, setShowSongHuongHienTrang] = useState(false);
-  const [showSongBaHienTrang, setShowSongBaHienTrang] = useState(false);
+  const [showQuyHoachSongHuong, setShowQuyHoachSongHuong] = useState(true);
+  const [showQuyHoachSongBa, setShowQuyHoachSongBa] = useState(true);
+  const [showSongBa, setShowSongBa] = useState(true);
+  const [showSongHuong, setShowSongHuong] = useState(true);
+  const [showSongHuongHienTrang, setShowSongHuongHienTrang] = useState(true);
+  const [showSongBaHienTrang, setShowSongBaHienTrang] = useState(true);
   const [showCongTrinhHienTrang, setShowCongTrinhHienTrang] = useState(true);
   const [showDuLieuNen, setShowDuLieuNen] = useState(true);
   const [showCongTrinh, setShowCongTrinh] = useState(true);
@@ -681,12 +681,12 @@ function MenuLayer(props) {
     //     });
     //   }
     // });
-    if (!showCongTrinhHienTrang) {
+    if (check) {
           props.ShowLayersVisibility(ListLayer.findIndex((value) => value.id === "congtrinh_ht_toanQuoc"));
       } else {
           props.HideLayersVisibility(ListLayer.findIndex((value) => value.id === "congtrinh_ht_toanQuoc"));
       }
-    setShowCongTrinhHienTrang(!showCongTrinhHienTrang);
+    setShowCongTrinhHienTrang(check);
   };
   const renderOptions = (data, callback) => {
     return data.data.map((option, i) => {
@@ -969,7 +969,14 @@ function MenuLayer(props) {
                             value=""
                             checked={showQuyHoachQuocGia}
                             id="a61"
-                            onChange={() => showAllQuyHoachQuocGia(!showQuyHoachQuocGia)}
+                            onChange={() => {
+                              const next = !showQuyHoachQuocGia;
+                              if (next) {
+                                if (showQuyHoachSongHuong) showAllQuyHoachSongHuong(false);
+                                if (showQuyHoachSongBa) showAllQuyHoachSongBa(false);
+                              }
+                              showAllQuyHoachQuocGia(next);
+                            }}
                           />
                         </span>
                         <span
@@ -1090,7 +1097,14 @@ function MenuLayer(props) {
                             value=""
                             checked={showQuyHoachSongHuong}
                             id="a61"
-                            onChange={() => showAllQuyHoachSongHuong(!showQuyHoachSongHuong, true)}
+                            onChange={() => {
+                              const next = !showQuyHoachSongHuong;
+                              if (next) {
+                                if (showQuyHoachQuocGia) showAllQuyHoachQuocGia(false);
+                                if (showQuyHoachSongBa) showAllQuyHoachSongBa(false);
+                              }
+                              showAllQuyHoachSongHuong(next, true);
+                            }}
                           />
                         </span>
                         <span
@@ -1211,7 +1225,14 @@ function MenuLayer(props) {
                             value=""
                             checked={showQuyHoachSongBa}
                             id="a61"
-                            onChange={() => showAllQuyHoachSongBa(!showQuyHoachSongBa, true)}
+                            onChange={() => {
+                              const next = !showQuyHoachSongBa;
+                              if (next) {
+                                if (showQuyHoachQuocGia) showAllQuyHoachQuocGia(false);
+                                if (showQuyHoachSongHuong) showAllQuyHoachSongHuong(false);
+                              }
+                              showAllQuyHoachSongBa(next, true);
+                            }}
                           />
                         </span>
                         <span

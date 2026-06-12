@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SA_913 ロール設定_新規登録</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #F9FAFB;
+      color: #111827;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+    input, textarea, select, button { font-family: inherit; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const PERM_TREE = [
+  { cat: '商品管理', screens: [
+    { name: '商品一覧',       actions: ['新規登録','編集','削除','CSVエクスポート'] },
+    { name: 'セット商品一覧', actions: ['新規登録','編集','削除'] },
+    { name: '在庫一括管理',   actions: ['編集','一括保存'] },
+    { name: '在庫インポート', actions: [] },
+  ]},
+  { cat: '注文管理', screens: [
+    { name: '注文一覧',         actions: ['一括操作','CSVエクスポート','メール送信'] },
+    { name: '注文詳細',         actions: ['注文情報閲覧','注文情報編集','注文者情報閲覧','注文者情報編集','配送先情報閲覧','配送先情報編集','商品情報閲覧','商品情報編集'] },
+    { name: '出荷一覧',         actions: ['CSVエクスポート','納品書PDF'] },
+    { name: '出荷実績インポート', actions: [] },
+  ]},
+  { cat: '請求管理', screens: [
+    { name: '期間別集計',   actions: ['CSVエクスポート'] },
+  ]},
+  { cat: 'コンテンツ管理', screens: [
+    { name: 'メールテンプレート管理', actions: ['新規作成','編集','削除'] },
+  ]},
+  { cat: '各種設定', screens: [
+    { name: '基本設定',       actions: ['編集'] },
+    { name: '配送設定',       actions: ['新規作成','編集','削除'] },
+    { name: 'メンテナンス設定', actions: ['編集'] },
+    { name: '管理者設定',     actions: ['新規作成','編集','削除'] },
+  ]},
+];
+
+/* ─── Checkbox with indeterminate ─── */
+function CheckRow({ checked, indeterminate, onChange, label, bold }) {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    if (ref.current) ref.current.indeterminate = !!indeterminate;
+  }, [indeterminate]);
+  return (
+    <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 13, fontWeight: bold ? 700 : 400, userSelect: 'none' }}>
+      <input ref={ref} type="checkbox" checked={!!checked} onChange={onChange}
+        style={{ width: 14, height: 14, accentColor: '#155DFC', cursor: 'pointer', flexShrink: 0 }} />
+      <span style={{ color: '#374151' }}>{label}</span>
+    </label>
+  );
+}
+
+/* ─── Permission Table ─── */
+function PermissionTable({ perms, setPerms }) {
+  function catStatus(ci) {
+    let total = 0, on = 0;
+    PERM_TREE[ci].screens.forEach((scr, si) => {
+      total += 1 + scr.actions.length;
+      const s = perms[ci]._screens[si];
+      if (s._view) on++;
+      scr.actions.forEach((_, ai) => { if (s[`a_${ai}`]) on++; });
+    });
+    if (on === 0) return { checked: false, indeterminate: false };
+    if (on === total) return { checked: true, indeterminate: false };
+    return { checked: false, indeterminate: true };
+  }
+
+  function screenStatus(ci, si) {
+    const scr = PERM_TREE[ci].screens[si];
+    const s = perms[ci]._screens[si];
+    const total = 1 + scr.actions.length;
+    let on = 0;
+    if (s._view) on++;
+    scr.actions.forEach((_, ai) => { if (s[`a_${ai}`]) on++; });
+    if (on === 0) return { checked: false, indeterminate: false };
+    if (on === total) return { checked: true, indeterminate: false };
+    return { checked: false, indeterminate: true };
+  }
+
+  function toggleCat(ci) {
+    const { checked } = catStatus(ci);
+    const newVal = !checked;
+    setPerms(prev => {
+      const copy = { ...prev };
+      copy[ci] = { _screens: {} };
+      PERM_TREE[ci].screens.forEach((scr, si) => {
+        copy[ci]._screens[si] = { _view: newVal };
+        scr.actions.forEach((_, ai) => { copy[ci]._screens[si][`a_${ai}`] = newVal; });
+      });
+      return copy;
+    });
+  }
+
+  function toggleScreen(ci, si) {
+    const { checked } = screenStatus(ci, si);
+    const newVal = !checked;
+    setPerms(prev => {
+      const copy = { ...prev };
+      const scrPerm = { _view: newVal };
+      PERM_TREE[ci].screens[si].actions.forEach((_, ai) => { scrPerm[`a_${ai}`] = newVal; });
+      copy[ci] = { _screens: { ...copy[ci]._screens, [si]: scrPerm } };
+      return copy;
+    });
+  }
+
+  function toggleAction(ci, si, ai) {
+    setPerms(prev => {
+      const copy = { ...prev };
+      const screen = { ...copy[ci]._screens[si] };
+      screen[`a_${ai}`] = !screen[`a_${ai}`];
+      copy[ci] = { _screens: { ...copy[ci]._screens, [si]: screen } };
+      return copy;
+    });
+  }
+
+  function toggleView(ci, si) {
+    setPerms(prev => {
+      const copy = { ...prev };
+      const screen = { ...copy[ci]._screens[si] };
+      screen._view = !screen._view;
+      copy[ci] = { _screens: { ...copy[ci]._screens, [si]: screen } };
+      return copy;
+    });
+  }
+
+  return (
+    <div style={{ border: '1px solid #E5E7EB', borderRadius: 6, overflow: 'hidden' }}>
+      {/* Header */}
+      <div style={{
+        display: 'grid', gridTemplateColumns: '180px 200px 1fr',
+        padding: '8px 16px', background: '#F9FAFB',
+        borderBottom: '1px solid #E5E7EB',
+      }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#6B7280' }}>カテゴリ</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#6B7280' }}>画面</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#6B7280' }}>操作権限</div>
+      </div>
+
+      {PERM_TREE.map((cat, ci) => {
+        const cs = catStatus(ci);
+        return (
+          <div key={ci} style={{ borderBottom: ci < PERM_TREE.length - 1 ? '1px solid #E5E7EB' : 'none' }}>
+            {cat.screens.map((scr, si) => {
+              const ss = screenStatus(ci, si);
+              const s = perms[ci]._screens[si];
+              return (
+                <div key={si} style={{
+                  display: 'grid', gridTemplateColumns: '180px 200px 1fr',
+                  padding: '10px 16px',
+                  borderBottom: si < cat.screens.length - 1 ? '1px solid #F3F4F6' : 'none',
+                  alignItems: 'center', background: '#fff',
+                }}>
+                  <div>
+                    {si === 0 && (
+                      <CheckRow checked={cs.checked} indeterminate={cs.indeterminate} onChange={() => toggleCat(ci)} label={cat.cat} bold />
+                    )}
+                  </div>
+                  <div>
+                    <CheckRow checked={ss.checked} indeterminate={ss.indeterminate} onChange={() => toggleScreen(ci, si)} label={scr.name} />
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 16px' }}>
+                    <CheckRow checked={s._view} onChange={() => toggleView(ci, si)} label="閲覧" />
+                    {scr.actions.map((act, ai) => (
+                      <CheckRow key={ai} checked={s[`a_${ai}`]} onChange={() => toggleAction(ci, si, ai)} label={act} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ─── SystemSelector ─── */
+function SystemSelector({ value, onChange }) {
+  const opts = ['HT', '倉庫管理'];
+  return (
+    <div style={{ display:'inline-flex', alignItems:'center', gap:16 }}>
+      {opts.map(opt => (
+        <label key={opt} style={{ display:'inline-flex', alignItems:'center', gap:5, cursor:'pointer', fontSize:13, color:'#374151', userSelect:'none' }}>
+          <input type="radio" name="system" value={opt} checked={value===opt} onChange={() => onChange(opt)}
+            style={{ width:14, height:14, accentColor:'#155DFC', cursor:'pointer' }} />
+          {opt}
+        </label>
+      ))}
+    </div>
+  );
+}
+
+/* ─── App ─── */
+function App() {
+  const [roleName, setRoleName] = React.useState('');
+  const [desc, setDesc] = React.useState('');
+  const [system, setSystem] = React.useState('HT');
+
+  const [perms, setPerms] = React.useState(() => {
+    const init = {};
+    PERM_TREE.forEach((cat, ci) => {
+      init[ci] = { _screens: {} };
+      cat.screens.forEach((scr, si) => {
+        init[ci]._screens[si] = { _view: false };
+        scr.actions.forEach((_, ai) => { init[ci]._screens[si][`a_${ai}`] = false; });
+      });
+    });
+    return init;
+  });
+
+  return (
+    <div style={{ padding: '24px 16px 60px', maxWidth: 960, margin: '0 auto' }}>
+
+      {/* Back */}
+      <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 4,
+        fontSize: 13, color: '#374151', textDecoration: 'none', marginBottom: 12 }}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 12L6 8L10 4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        ロール一覧に戻る
+      </a>
+
+      <h1 style={{ fontSize: 22, fontWeight: 700, color: '#0A0A0A', marginBottom: 20 }}>
+        ロール新規登録
+      </h1>
+
+      <div style={{ background: '#fff', border: '1px solid #E5E7EB', borderRadius: 8, padding: 24, boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+
+        {/* ロール名 */}
+        <div style={{ marginBottom: 18 }}>
+          <label style={{ fontSize: 13, fontWeight: 500, color: '#374151', display: 'flex', alignItems: 'center', gap: 4, marginBottom: 6 }}>
+            ロール名 <span style={{ color: '#EF4444', fontWeight: 700 }}>*</span>
+          </label>
+          <input
+            type="text"
+            value={roleName}
+            onChange={e => setRoleName(e.target.value)}
+            placeholder="例：注文管理担当"
+            style={{ width: '100%', maxWidth: 400, height: 36, border: '1px solid #D1D5DB', borderRadius: 6, padding: '0 12px', fontSize: 14, color: '#111827', outline: 'none', background: '#fff' }}
+          />
+        </div>
+
+        {/* 説明 */}
+        <div style={{ marginBottom: 18 }}>
+          <label style={{ fontSize: 13, fontWeight: 500, color: '#374151', display: 'block', marginBottom: 6 }}>
+            説明
+          </label>
+          <textarea
+            value={desc}
+            onChange={e => setDesc(e.target.value)}
+            placeholder="このロールの権限範囲について簡潔に記述してください"
+            rows={2}
+            style={{ width: '100%', maxWidth: 600, border: '1px solid #D1D5DB', borderRadius: 6, padding: '8px 12px', fontSize: 14, color: '#111827', outline: 'none', background: '#fff', resize: 'vertical', lineHeight: 1.6 }}
+          />
+        </div>
+
+        {/* システム */}
+        <div style={{ marginBottom: 24 }}>
+          <label style={{ fontSize: 13, fontWeight: 500, color: '#374151', display: 'flex', alignItems: 'center', gap: 4, marginBottom: 6 }}>
+            システム <span style={{ color: '#EF4444', fontWeight: 700 }}>*</span>
+          </label>
+          <SystemSelector value={system} onChange={setSystem} />
+        </div>
+
+        {/* Divider */}
+        <div style={{ borderTop: '1px solid #F3F4F6', marginBottom: 20 }}></div>
+
+        {/* Permission table */}
+        <div style={{ marginBottom: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 10 }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0A0A0A' }}>権限設定</h3>
+            <span style={{ fontSize: 12, color: '#6B7280' }}>大項目チェックで配下を一括設定できます</span>
+          </div>
+          <PermissionTable perms={perms} setPerms={setPerms} />
+        </div>
+
+        {/* Buttons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            height: 40, padding: '0 20px', background: '#155DFC', color: '#fff',
+            border: 'none', borderRadius: 6, fontSize: 14, fontWeight: 600, cursor: 'pointer',
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+              <polyline points="17 21 17 13 7 13 7 21" />
+              <polyline points="7 3 7 8 15 8" />
+            </svg>
+            保存
+          </button>
+          <button style={{
+            height: 40, padding: '0 20px', background: '#fff', color: '#374151',
+            border: '1px solid #D1D5DB', borderRadius: 6, fontSize: 14, cursor: 'pointer',
+          }}>
+            キャンセル
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

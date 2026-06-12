@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>カレンダー設定</title>
+<style>
+  :root {
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --header-navy: #2b3445;
+    --ink: #1f2937;
+    --ink-soft: #6b7280;
+    --border: #e5e7eb;
+    --cell-border: #eef0f2;
+    --holiday-bg: #e9eaec;
+    --page-bg: #f3f4f6;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--page-bg);
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+      "Yu Gothic", Meiryo, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page-header {
+    background: #ffffff;
+    border-left: 6px solid var(--header-navy);
+    padding: 16px 28px;
+  }
+  .page-header h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .page {
+    padding: 24px;
+  }
+
+  .panel {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px 32px;
+  }
+
+  .panel__desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+  }
+
+  .calendars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .cal__month {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  table.cal {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  table.cal thead th {
+    background: var(--header-navy);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 0;
+    text-align: center;
+  }
+  table.cal thead th:first-child { border-top-left-radius: 4px; }
+  table.cal thead th:last-child { border-top-right-radius: 4px; }
+  table.cal thead th.weekend { background: #3a4456; }
+
+  table.cal td {
+    height: 40px;
+    border: 1px solid var(--cell-border);
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    color: var(--ink);
+    position: relative;
+  }
+  table.cal td.empty { background: #ffffff; }
+  table.cal td.selectable { cursor: pointer; }
+  table.cal td.selectable:hover { background: #eef4ff; }
+  table.cal td.holiday { background: var(--holiday-bg); color: var(--ink-soft); }
+  table.cal td.holiday.selectable:hover { background: #dfe1e5; }
+
+  /* 固定休業日（土日・祝日）：定数。変更・操作不可 */
+  table.cal td.fixed {
+    background: #d4d7dc;
+    color: #8b9099;
+    cursor: not-allowed;
+  }
+
+  /* 過去日：操作不可 */
+  table.cal td.past {
+    color: #c5c9d0;
+    background: repeating-linear-gradient(
+      -45deg,
+      #fafafb,
+      #fafafb 5px,
+      #f1f2f4 5px,
+      #f1f2f4 10px
+    );
+    cursor: not-allowed;
+  }
+
+  /* 今日 */
+  table.cal td.today {
+    box-shadow: inset 0 0 0 2px var(--blue);
+    font-weight: 700;
+    color: var(--blue);
+  }
+
+  table.cal td .dot {
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+
+  .btn-save {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 11px 26px;
+    border-radius: 6px;
+    transition: background 0.15s ease;
+  }
+  .btn-save:hover { background: var(--blue-dark); }
+  .btn-save svg { display: block; }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .legend .sw {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid var(--cell-border);
+    display: inline-block;
+  }
+  .legend .sw--holiday { background: var(--holiday-bg); }
+  .legend .sw--fixed { background: #d4d7dc; }
+  .legend .sw--today { box-shadow: inset 0 0 0 2px var(--blue); background: #fff; }
+  .legend .sw--past {
+    background: repeating-linear-gradient(-45deg,#fafafb,#fafafb 4px,#f1f2f4 4px,#f1f2f4 8px);
+  }
+</style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>カレンダー設定</h1>
+  </header>
+
+  <div class="page">
+    <section class="panel" data-screen-label="カレンダー設定">
+      <p class="panel__desc">営業日・休業日を設定します</p>
+
+      <div class="calendars" id="calendars"></div>
+
+      <div class="legend">
+        <span><i class="sw sw--today"></i>今日</span>
+        <span><i class="sw sw--fixed"></i>固定休業日（土・日・祝日）※変更不可</span>
+        <span><i class="sw sw--holiday"></i>任意休業日（クリックで切替）</span>
+        <span><i class="sw sw--past"></i>過去日（操作不可）</span>
+      </div>
+
+      <button class="btn-save" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        保存
+      </button>
+    </section>
+  </div>
+
+  <script>
+    const WEEKDAYS = ["日", "月", "火", "水", "木", "金", "土"];
+    const MONTHS = [
+      { year: 2026, month: 6 },
+      { year: 2026, month: 7 },
+      { year: 2026, month: 8 },
+    ];
+    // 今日（2026年6月5日）より前は操作不可
+    const TODAY = { year: 2026, month: 6, day: 5 };
+    const todayValue = TODAY.year * 10000 + TODAY.month * 100 + TODAY.day;
+
+    // 日本の祝日（定数）―変更不可。例：2026年夏期
+    // 7/20 海の日、8/11 山の日
+    const JP_HOLIDAYS = {
+      20260720: "海の日",
+      20260811: "山の日",
+    };
+
+    function buildCalendar({ year, month }) {
+      const wrap = document.createElement("div");
+      wrap.className = "cal__wrap";
+
+      const title = document.createElement("p");
+      title.className = "cal__month";
+      title.textContent = `${year}年${month}月`;
+      wrap.appendChild(title);
+
+      const table = document.createElement("table");
+      table.className = "cal";
+
+      const thead = document.createElement("thead");
+      const hr = document.createElement("tr");
+      WEEKDAYS.forEach((w, i) => {
+        const th = document.createElement("th");
+        th.textContent = w;
+        if (i === 0 || i === 6) th.classList.add("weekend");
+        hr.appendChild(th);
+      });
+      thead.appendChild(hr);
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      const first = new Date(year, month - 1, 1);
+      const startDay = first.getDay();
+      const daysInMonth = new Date(year, month, 0).getDate();
+
+      let day = 1;
+      for (let week = 0; week < 6; week++) {
+        if (day > daysInMonth) break;
+        const tr = document.createElement("tr");
+        for (let dow = 0; dow < 7; dow++) {
+          const td = document.createElement("td");
+          if ((week === 0 && dow < startDay) || day > daysInMonth) {
+            td.className = "empty";
+          } else {
+            const value = year * 10000 + month * 100 + day;
+            const isSunday = dow === 0;
+            const isSaturday = dow === 6;
+            const isWeekend = isSunday || isSaturday;
+            const jpName = JP_HOLIDAYS[value];
+            const isFixed = isWeekend || !!jpName; // 土日・祝日は定数
+            td.textContent = day;
+
+            if (value < todayValue) {
+              // 過去日：操作不可
+              td.classList.add("past");
+            } else if (value === todayValue) {
+              // 今日：操作不可だが枠で明示
+              td.classList.add("today");
+              if (isFixed) {
+                td.classList.add("fixed");
+                if (isSunday || jpName) td.classList.add("holiday-jp");
+              } else {
+                td.classList.add("past");
+              }
+            } else if (isFixed) {
+              // 固定休業日（土・日・祝日）：定数。クリック不可
+              td.classList.add("fixed");
+              if (isSunday || jpName) td.classList.add("holiday-jp");
+              if (jpName) td.title = jpName;
+            } else {
+              // 平日（今日より後）：クリックで任意休業日を切替
+              td.classList.add("selectable");
+              td.addEventListener("click", () => {
+                td.classList.toggle("holiday");
+              });
+            }
+            day++;
+          }
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+      table.appendChild(tbody);
+      wrap.appendChild(table);
+      return wrap;
+    }
+
+    const container = document.getElementById("calendars");
+    MONTHS.forEach((m) => container.appendChild(buildCalendar(m)));
+  </script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>配送グループ設定 新規登録</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: 'Noto Sans JP', sans-serif; background: #F3F4F6; color: #111827; font-size: 14px; min-height: 100vh; }
+    input, textarea, select, button { font-family: inherit; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+/* ─── Primitives ─── */
+function Hint({ children }) {
+  return <p style={{ fontSize:11, color:'#9CA3AF', marginTop:4, lineHeight:1.5 }}>{children}</p>;
+}
+function Input({ placeholder='', defaultValue, value, onChange, type='text', disabled, readOnly, style }) {
+  return (
+    <input type={type} placeholder={placeholder} defaultValue={defaultValue}
+      value={value} onChange={onChange} disabled={disabled} readOnly={readOnly}
+      style={{ height:36, border:'1px solid #D1D5DB', borderRadius:6, padding:'0 10px',
+        fontSize:13, color:'#111827', background: disabled?'#F9FAFB':'#fff', outline:'none', ...style }} />
+  );
+}
+function Textarea({ placeholder='', rows=3, defaultValue }) {
+  return (
+    <textarea placeholder={placeholder} rows={rows} defaultValue={defaultValue}
+      style={{ width:'100%', border:'1px solid #D1D5DB', borderRadius:6, padding:'8px 10px',
+        fontSize:13, color:'#111827', background:'#fff', outline:'none', resize:'vertical', lineHeight:1.6 }} />
+  );
+}
+function Select({ options=[], defaultValue, value, onChange, placeholder, disabled, style }) {
+  const base = { height:36, border:'1px solid #D1D5DB', borderRadius:6,
+    padding:'0 28px 0 10px', fontSize:13, color:'#374151',
+    background: disabled ? '#F9FAFB' : '#fff',
+    outline:'none', appearance:'none', cursor: disabled ? 'default' : 'pointer',
+    backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+    backgroundRepeat:'no-repeat', backgroundPosition:'right 8px center' };
+  if (value !== undefined) {
+    return (
+      <select value={value} onChange={onChange} disabled={disabled} style={{...base, ...style}}>
+        {placeholder && <option value="">{placeholder}</option>}
+        {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+    );
+  }
+  return (
+    <select defaultValue={defaultValue || ''} disabled={disabled} style={{...base, ...style}}>
+      {placeholder && <option value="">{placeholder}</option>}
+      {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+    </select>
+  );
+}
+function SectionCard({ title, children }) {
+  return (
+    <div style={{ background:'#fff', borderRadius:8, border:'1px solid #E5E7EB', padding:'24px', marginBottom:16 }}>
+      <h2 style={{ fontSize:15, fontWeight:700, color:'#111827', paddingBottom:12, borderBottom:'1px solid #E5E7EB', marginBottom:20 }}>
+        {title}
+      </h2>
+      {children}
+    </div>
+  );
+}
+function SubSection({ title, children }) {
+  return (
+    <div style={{ marginBottom:24 }}>
+      <h3 style={{ fontSize:13, fontWeight:700, color:'#374151', marginBottom:12,
+        paddingLeft:8, borderLeft:'3px solid #155DFC' }}>{title}</h3>
+      {children}
+    </div>
+  );
+}
+function Row({ label, required, hint, children, labelWidth=180 }) {
+  return (
+    <div style={{ display:'flex', gap:16, marginBottom:16, alignItems:'flex-start' }}>
+      <div style={{ width:labelWidth, flexShrink:0, paddingTop:8 }}>
+        <span style={{ fontSize:13, color:'#374151', fontWeight:500 }}>{label}</span>
+        {required && <span style={{ color:'#EF4444', fontWeight:700, marginLeft:4 }}>*</span>}
+        {hint && <p style={{ fontSize:11, color:'#9CA3AF', marginTop:2, lineHeight:1.4 }}>{hint}</p>}
+      </div>
+      <div style={{ flex:1 }}>{children}</div>
+    </div>
+  );
+}
+function CB({ label, defaultChecked, checked, onChange }) {
+  const cbProps = (checked !== undefined) ? { checked, onChange } : { defaultChecked };
+  return (
+    <label style={{ display:'inline-flex', alignItems:'center', gap:6, cursor:'pointer', fontSize:13, color:'#374151', userSelect:'none' }}>
+      <input type="checkbox" {...cbProps}
+        style={{ width:14, height:14, accentColor:'#155DFC', cursor:'pointer', flexShrink:0 }} />
+      {label && <span>{label}</span>}
+    </label>
+  );
+}
+
+/* ─── Form table helpers ─── */
+/* FTable: bordered container for form rows */
+function FTable({ children, style }) {
+  return (
+    <div style={{ border:'1px solid #E5E7EB', borderRadius:6, overflow:'hidden', ...style }}>
+      {children}
+    </div>
+  );
+}
+/* FRow: label (left gray) + content (right white) */
+function FRow({ label, children, noBorder, labelW=130 }) {
+  return (
+    <div style={{
+      display:'grid', gridTemplateColumns:`${labelW}px 1fr`,
+      borderBottom: noBorder ? 'none' : '1px solid #E5E7EB',
+      alignItems:'stretch',
+    }}>
+      <div style={{
+        background:'#F9FAFB', padding:'10px 12px',
+        fontSize:13, fontWeight:500, color:'#374151',
+        borderRight:'1px solid #E5E7EB',
+        display:'flex', alignItems:'flex-start', paddingTop:12,
+      }}>
+        {label}
+      </div>
+      <div style={{ padding:'10px 14px', background:'#fff' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Prefecture list ─── */
+const PREFS_LIST = [
+  '北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県',
+  '茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県',
+  '新潟県','富山県','石川県','福井県','山梨県','長野県',
+  '岐阜県','静岡県','愛知県','三重県',
+  '滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県',
+  '鳥取県','島根県','岡山県','広島県','山口県',
+  '徳島県','香川県','愛媛県','高知県',
+  '福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県',
+];
+
+/* ─── RegionLeadTimeTable ─── */
+function RegionLeadTimeTable() {
+  const [rows, setRows] = React.useState([
+    { id:1, pref:'青森県', days:'87' },
+    { id:2, pref:'群馬県', days:'9' },
+    { id:3, pref:'', days:'' },
+  ]);
+  const prefOpts = [{value:'', label:'選択してください'}, ...PREFS_LIST.map(p => ({value:p, label:p}))];
+  const addRow = () => setRows(r => [...r, { id:Date.now(), pref:'', days:'' }]);
+  const removeRow = id => setRows(r => r.filter(x => x.id !== id));
+
+  return (
+    <div>
+      <div style={{ border:'1px solid #E5E7EB', borderRadius:6, overflow:'hidden', marginBottom:8 }}>
+        {/* Header */}
+        <div style={{ display:'grid', gridTemplateColumns:'160px 1fr 50px', background:'#F9FAFB', borderBottom:'1px solid #E5E7EB' }}>
+          <div style={{ padding:'7px 10px', fontSize:12, fontWeight:600, color:'#6B7280', borderRight:'1px solid #E5E7EB' }}>都道府県</div>
+          <div style={{ padding:'7px 10px', fontSize:12, fontWeight:600, color:'#6B7280', borderRight:'1px solid #E5E7EB' }}>配送リードタイム（最短配送日に地域別のリードタイムを追加）</div>
+          <div style={{ padding:'7px 10px', fontSize:12, fontWeight:600, color:'#6B7280', textAlign:'center' }}>削除</div>
+        </div>
+        {/* Rows */}
+        {rows.map((row, i) => (
+          <div key={row.id} style={{ display:'grid', gridTemplateColumns:'160px 1fr 50px',
+            borderBottom: i < rows.length-1 ? '1px solid #E5E7EB' : 'none', alignItems:'center' }}>
+            <div style={{ padding:'7px 10px', borderRight:'1px solid #E5E7EB' }}>
+              <Select options={prefOpts} defaultValue={row.pref} style={{ width:'100%' }} />
+            </div>
+            <div style={{ padding:'7px 10px', borderRight:'1px solid #E5E7EB', display:'flex', alignItems:'center', gap:6 }}>
+              <Input type="number" defaultValue={row.days} style={{ width:80 }} />
+              <span style={{ fontSize:13, color:'#374151' }}>日</span>
+            </div>
+            <div style={{ padding:'7px 10px', display:'flex', alignItems:'center', justifyContent:'center' }}>
+              <button onClick={() => removeRow(row.id)}
+                style={{ width:24, height:24, borderRadius:'50%', border:'1px solid #FCA5A5',
+                  background:'#FEF2F2', color:'#EF4444', cursor:'pointer', fontSize:11,
+                  display:'inline-flex', alignItems:'center', justifyContent:'center' }}>
+                ✕
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ textAlign:'right' }}>
+        <button onClick={addRow}
+          style={{ height:30, padding:'0 14px', border:'1px solid #D1D5DB', borderRadius:5,
+            background:'#fff', fontSize:13, color:'#374151', cursor:'pointer' }}>
+          + 追加
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Prefecture checkboxes (配送設定) ─── */
+const REGIONS = [
+  { name:'北海道', prefs:['北海道'] },
+  { name:'東北', prefs:['青森','岩手','宮城','秋田','山形','福島'] },
+  { name:'関東', prefs:['茨城','栃木','群馬','埼玉','千葉','東京','神奈川'] },
+  { name:'甲信越・北陸', prefs:['新潟','富山','石川','福井','山梨','長野'] },
+  { name:'東海', prefs:['岐阜','静岡','愛知','三重'] },
+  { name:'近畿', prefs:['滋賀','京都','大阪','兵庫','奈良','和歌山'] },
+  { name:'中国', prefs:['鳥取','島根','岡山','広島','山口'] },
+  { name:'四国', prefs:['徳島','香川','愛媛','高知'] },
+  { name:'九州', prefs:['福岡','佐賀','長崎','熊本','大分','宮崎','鹿児島'] },
+  { name:'沖縄', prefs:['沖縄'] },
+];
+
+function PrefCheckboxes() {
+  const allPrefs = REGIONS.flatMap(r => r.prefs);
+  const [checked, setChecked] = React.useState(() => {
+    const m = {};
+    allPrefs.forEach(p => { m[p] = true; });
+    return m;
+  });
+  function toggleAll(val) { const m = {}; allPrefs.forEach(p => { m[p] = val; }); setChecked(m); }
+  function toggleRegion(prefs, val) { setChecked(prev => { const m = {...prev}; prefs.forEach(p => { m[p] = val; }); return m; }); }
+  function toggle(pref) { setChecked(prev => ({ ...prev, [pref]: !prev[pref] })); }
+
+  return (
+    <div>
+      <div style={{ display:'flex', gap:8, marginBottom:14 }}>
+        <button onClick={() => toggleAll(true)}
+          style={{ height:30, padding:'0 12px', border:'1px solid #D1D5DB', borderRadius:5,
+            fontSize:12, background:'#fff', cursor:'pointer', color:'#374151' }}>全選択</button>
+        <button onClick={() => toggleAll(false)}
+          style={{ height:30, padding:'0 12px', border:'1px solid #D1D5DB', borderRadius:5,
+            fontSize:12, background:'#fff', cursor:'pointer', color:'#374151' }}>全解除</button>
+      </div>
+      <div style={{ marginTop:0, display:'flex', flexDirection:'column', gap:12 }}>
+        {REGIONS.map(region => {
+          const allOn = region.prefs.every(p => checked[p]);
+          const anyOn = region.prefs.some(p => checked[p]);
+          return (
+            <div key={region.name} style={{ border:'1px solid #E5E7EB', borderRadius:6, overflow:'hidden' }}>
+              <div style={{ background:'#F9FAFB', padding:'8px 12px', display:'flex', alignItems:'center', gap:10, borderBottom:'1px solid #E5E7EB' }}>
+                <input type="checkbox" checked={allOn} onChange={e => toggleRegion(region.prefs, e.target.checked)}
+                  ref={el => { if (el) el.indeterminate = !allOn && anyOn; }}
+                  style={{ width:14, height:14, accentColor:'#155DFC', cursor:'pointer' }} />
+                <span style={{ fontSize:13, fontWeight:700, color:'#374151' }}>{region.name}</span>
+              </div>
+              <div style={{ padding:'10px 12px', display:'flex', flexWrap:'wrap', gap:'8px 16px' }}>
+                {region.prefs.map(pref => (
+                  <label key={pref} style={{ display:'flex', alignItems:'center', gap:5, cursor:'pointer', fontSize:13, color:'#374151', minWidth:90 }}>
+                    <input type="checkbox" checked={!!checked[pref]} onChange={() => toggle(pref)}
+                      style={{ width:14, height:14, accentColor:'#155DFC', cursor:'pointer' }} />
+                    {pref}
+                  </label>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Main App ─── */
+function App() {
+  const [dateEnabled, setDateEnabled] = React.useState('有効');
+  const [timeEnabled, setTimeEnabled] = React.useState('有効');
+  const [addrEnabled, setAddrEnabled] = React.useState('有効');
+
+  const ENB_OPTS = [{ value:'有効', label:'有効' }, { value:'無効', label:'無効' }];
+
+  const TIME_OPTS = ['8:00','8:30','9:00','9:30','10:00','10:30','11:00','11:30',
+    '12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30',
+    '16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30',
+    '20:00','21:00','22:00','23:00'].map(t => ({ value:t, label:t }));
+
+  const WEEKDAYS = ['日曜日','月曜日','火曜日','水曜日','木曜日','金曜日','土曜日','祝日','カレンダーの休日'];
+  const defaultExcluded = [false, true, false, true, true, false, false, false, false];
+
+  const TIME_SLOTS = ['午前中（8時〜12時）','12時〜14時','14時〜16時','16時〜18時','18時〜20時','','',''];
+
+  return (
+    <div style={{ maxWidth:820, margin:'0 auto', padding:'24px 16px 60px' }}>
+
+      {/* Back link */}
+      <a href="#" style={{ display:'inline-flex', alignItems:'center', gap:4,
+        fontSize:13, color:'#374151', textDecoration:'none', marginBottom:12 }}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 12L6 8L10 4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        配送グループ設定に戻る
+      </a>
+      <h1 style={{ fontSize:22, fontWeight:700, color:'#111827', marginBottom:20 }}>配送グループ設定 新規登録</h1>
+
+      {/* ── 1. 基本情報 ── */}
+      <SectionCard title="基本情報">
+        <Row label="配送グループ名" required>
+          <Input placeholder="例：基本送料無料グループ" style={{ width:'100%' }} />
+        </Row>
+        <Row label="配送グループ説明">
+          <Textarea placeholder="このグループの説明を入力してください" rows={3} />
+        </Row>
+        <Row label="配送業者名" required>
+          <Select placeholder="配送業者を選択してください" options={[
+            { value:'yamato', label:'ヤマト運輸' },
+            { value:'sagawa', label:'佐川急便' },
+            { value:'yupack', label:'ゆうパック' },
+            { value:'seino',  label:'西濃運輸' },
+          ]} style={{ width:'100%' }} />
+        </Row>
+
+      </SectionCard>
+
+      {/* ── 2. 配送日時・配送先指定 ── */}
+      <SectionCard title="配送日時・配送先指定">
+
+        {/* ===== 配送日時 ===== */}
+        <SubSection title="配送日時">
+
+          {/* 配送日指定 ブロック */}
+          <FTable style={{ marginBottom:16 }}>
+
+            {/* 配送日指定 トグル行 */}
+            <FRow label="配送日指定">
+              <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+                <Select value={dateEnabled} onChange={e => setDateEnabled(e.target.value)} options={ENB_OPTS} style={{ width:80 }} />
+                {dateEnabled === '有効' && (
+                  <button style={{ height:32, padding:'0 14px', background:'#2563EB', color:'#fff',
+                    border:'none', borderRadius:5, fontSize:12, fontWeight:500, cursor:'pointer', whiteSpace:'nowrap' }}>
+                    配送希望日をプレビューする
+                  </button>
+                )}
+              </div>
+            </FRow>
+
+            {dateEnabled === '有効' && (
+              <>
+                {/* 日後 */}
+                <FRow label="">
+                  <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+                    <Input type="number" defaultValue="7" style={{ width:64 }} />
+                    <span style={{ fontSize:13, color:'#374151' }}>日後</span>
+                  </div>
+                </FRow>
+
+                {/* 時間制定 */}
+                <FRow label="時間制定">
+                  <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
+                    <CB defaultChecked />
+                    <span style={{ fontSize:13, color:'#374151' }}>注文時間が</span>
+                    <Select options={TIME_OPTS} defaultValue="14:30" style={{ width:88 }} />
+                    <span style={{ fontSize:13, color:'#374151' }}>時以降の場合は起算日を翌日にする</span>
+                  </div>
+                </FRow>
+
+                {/* 休日規定 */}
+                <FRow label="休日規定">
+                  <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+                    <CB label="配算日がカレンダーの休日の場合、営業日を最短配送日の起算日にする" defaultChecked />
+                    <CB label="最短配送日の算出に、カレンダーの休日は含めない" />
+                  </div>
+                </FRow>
+
+                {/* 最短配送日 / 地域別配送日 */}
+                <FRow label="最短配送日">
+                  <RegionLeadTimeTable />
+                </FRow>
+
+                {/* 日付選択肢 */}
+                <FRow label="日付選択肢">
+              {/* 選択可能な日数 */}
+              <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:12 }}>
+                <span style={{ fontSize:13, color:'#374151', fontWeight:500, whiteSpace:'nowrap' }}>選択可能な日数</span>
+                <Input type="number" defaultValue="20" style={{ width:64 }} />
+                <span style={{ fontSize:13, color:'#374151' }}>日間</span>
+              </div>
+              {/* 休業日除外設定 */}
+              <div style={{ marginBottom:10 }}>
+                <div style={{ fontSize:13, fontWeight:500, color:'#374151', marginBottom:6 }}>休業日除外設定</div>
+                <div style={{ display:'flex', flexWrap:'wrap', gap:'6px 16px' }}>
+                  {WEEKDAYS.map((d, i) => (
+                    <CB key={d} label={d} defaultChecked={defaultExcluded[i]} />
+                  ))}
+                </div>
+              </div>
+              {/* 必須項目設定 */}
+              <div style={{ marginBottom:8 }}>
+                <div style={{ fontSize:13, fontWeight:500, color:'#374151', marginBottom:4 }}>必須項目設定</div>
+                <CB label="配送希望日の選択を必須とする" />
+              </div>
+              <p style={{ fontSize:12, color:'#6B7280', marginTop:6 }}>
+                ※ カレンダーの休日は<a href="#" style={{ color:'#155DFC', textDecoration:'none' }}>カレンダー設定</a>からご確認いただけます。
+              </p>
+            </FRow>
+
+                <FRow label="説明文" noBorder>
+                  <Textarea rows={5} defaultValue={"配送日をご指定いただけます。\n以下のリストからご選択ください。\n※ 最短の日程で配送を希望される場合は、指定せずにご注文ください。"} />
+                </FRow>
+              </>
+            )}
+          </FTable>
+
+          {/* 配送時間指定 ブロック */}
+          <FTable>
+            <FRow label="配送時間指定" noBorder={timeEnabled !== '有効'}>
+              <Select value={timeEnabled} onChange={e => setTimeEnabled(e.target.value)} options={ENB_OPTS} style={{ width:80 }} />
+            </FRow>
+
+            {timeEnabled === '有効' && (
+              <>
+                {/* 注 */}
+                <FRow label="">
+                  <p style={{ fontSize:12, color:'#6B7280' }}>下に記入いただいた内容がお客様の注文時にプルダウンメニューで表示されます。</p>
+                </FRow>
+
+                {/* 時間選択肢 */}
+                <FRow label="時間選択肢">
+                  <div style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:8 }}>
+                    {TIME_SLOTS.map((t, i) => (
+                      <div key={i} style={{ display:'flex', alignItems:'center', gap:6 }}>
+                        <span style={{ fontSize:12, color:'#6B7280', minWidth:14, flexShrink:0 }}>{i + 1}</span>
+                        <Input defaultValue={t} placeholder={t ? '' : `選択肢${i + 1}`} style={{ flex:1, minWidth:0 }} />
+                      </div>
+                    ))}
+                  </div>
+                </FRow>
+
+                {/* 必須項目設定 */}
+                <FRow label="必須項目設定">
+                  <CB label="配送希望時間の選択を必須とする" />
+                </FRow>
+
+                {/* 説明文 */}
+                <FRow label="説明文" noBorder>
+                  <Textarea rows={5} defaultValue={"配送時間をご指定いただけます。\n以下のリストからご選択ください。\n※ 最短の日程で配送を希望される場合は、指定せずにご注文ください。"} />
+                </FRow>
+              </>
+            )}
+          </FTable>
+
+        </SubSection>
+
+        {/* ===== 配送先指定 ===== */}
+        <SubSection title="配送先指定">
+          <FTable>
+            <FRow label="別配送先指定" noBorder>
+              <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+                <Select value={addrEnabled} onChange={e => setAddrEnabled(e.target.value)} options={ENB_OPTS} style={{ width:80 }} />
+                <span style={{ fontSize:13, color:'#6B7280' }}>別住所への配送を無効にできます。</span>
+              </div>
+            </FRow>
+          </FTable>
+        </SubSection>
+
+      </SectionCard>
+
+      {/* ── 3. 配送設定 ── */}
+      <SectionCard title="配送設定">
+        <SubSection title="配送可能エリア">
+          <PrefCheckboxes />
+        </SubSection>
+      </SectionCard>
+
+      {/* ── Footer ── */}
+      <div style={{ display:'flex', alignItems:'center', gap:8, marginTop:8 }}>
+        <button style={{ display:'inline-flex', alignItems:'center', gap:6,
+          height:40, padding:'0 20px', background:'#155DFC', color:'#fff',
+          border:'none', borderRadius:6, fontSize:14, fontWeight:600, cursor:'pointer' }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+            <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          登録
+        </button>
+        <button style={{ height:40, padding:'0 20px', background:'#fff', color:'#374151',
+          border:'1px solid #D1D5DB', borderRadius:6, fontSize:14, cursor:'pointer' }}>
+          キャンセル
+        </button>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

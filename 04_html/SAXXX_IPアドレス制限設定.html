@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPアドレス一覧</title>
+<style>
+  :root {
+    --green: #2563d9;
+    --green-hover: #1d4fad;
+    --link-green: #2563d9;
+    --border: #e2e3e5;
+    --header-bg: #eceded;
+    --header-text: #41464b;
+    --text: #2b2f33;
+    --row-hover: #f6f9f7;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: var(--text);
+    font-family: "Yu Gothic UI", "Yu Gothic", "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans", "Noto Sans JP", "Meiryo", system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    padding: 18px 22px 40px;
+    min-height: 100vh;
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 4px 0 16px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 16px;
+  }
+  .btn-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    font-family: inherit;
+  }
+  .btn-new:hover { background: var(--green-hover); }
+  .btn-new .plus { font-size: 15px; line-height: 1; font-weight: 700; }
+
+  /* Pagination */
+  .pager {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--text);
+    user-select: none;
+  }
+  .pager .count { font-weight: 600; min-width: 92px; text-align: center; }
+  .pager button {
+    background: none;
+    border: none;
+    font-size: 17px;
+    color: #5a5f63;
+    cursor: pointer;
+    padding: 2px 4px;
+    line-height: 1;
+    font-family: inherit;
+  }
+  .pager button:hover:not(:disabled) { color: var(--green); }
+  .pager button:disabled { color: #c3c6c8; cursor: default; }
+
+  /* Table */
+  .table-scroll { width: 100%; overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+  }
+  thead th {
+    background: var(--header-bg);
+    color: var(--header-text);
+    font-weight: 700;
+    text-align: left;
+    padding: 11px 16px;
+    white-space: nowrap;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  thead th:first-child { padding-left: 14px; }
+  tbody td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  tbody tr:hover { background: var(--row-hover); }
+  td.col-no { color: #2b2f33; width: 40px; }
+  td.col-desc { white-space: normal; min-width: 240px; }
+  .sys-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+  .sys-ht {
+    background: #e6f1fb;
+    color: #1b6fb8;
+  }
+  .sys-wh {
+    background: #fdf0e3;
+    color: #b8701b;
+  }
+  .status-active { color: #2b2f33; }
+  .edit-link {
+    color: var(--link-green);
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .edit-link:hover { text-decoration: underline; }
+  td.col-edit { text-align: right; width: 70px; padding-right: 22px; }
+  td.col-stop { color: #2b2f33; }
+
+  /* Modal */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(40, 44, 48, 0.45);
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 90px 20px 40px;
+    z-index: 50;
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: #fff;
+    width: 760px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+    padding: 28px 34px 26px;
+    animation: pop 0.14s ease;
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .modal h2 {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0 0 26px;
+  }
+  .field {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    align-items: start;
+    margin-bottom: 18px;
+  }
+  .field > label {
+    padding-top: 8px;
+    font-size: 14px;
+    color: #2b2f33;
+  }
+  .field .req {
+    color: #d33a3a;
+    margin-left: 4px;
+    font-size: 12px;
+  }
+  .field input[type="text"],
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: 1px solid #c7c9cb;
+    border-radius: 18px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    outline: none;
+  }
+  .field textarea {
+    border-radius: 12px;
+    resize: vertical;
+    min-height: 96px;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(37,99,217,0.15); }
+  .field.invalid input,
+  .field.invalid select { border-color: #d33a3a; }
+  .err {
+    display: none;
+    color: #d33a3a;
+    font-size: 12.5px;
+    margin-top: 5px;
+  }
+  .field.invalid .err { display: block; }
+  .modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+  .actions-right {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-left: auto;
+  }
+  .btn-delete-link {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #d33a3a;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+  }
+  .btn-delete-link:hover { text-decoration: underline; }
+  .btn-delete-link.hidden { visibility: hidden; }
+  .btn-cancel {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #41464b;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-cancel:hover { color: #2b2f33; text-decoration: underline; }
+  .btn-save {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 9px 26px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.12s ease;
+  }
+  .btn-save:hover { background: var(--green-hover); }
+  .modal-confirm { width: 420px; padding: 26px 30px 22px; }
+  .modal-confirm h2 { margin-bottom: 16px; }
+  .confirm-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #2b2f33;
+    margin: 0 0 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap" data-screen-label="IPアドレス一覧">
+    <h1>IPアドレス一覧</h1>
+
+    <div class="toolbar">
+      <button class="btn-new" type="button">
+        <span class="plus">＋</span><span>新規登録</span>
+      </button>
+      <div class="pager">
+        <button id="first" type="button" title="最初へ">|&lt;</button>
+        <button id="prev" type="button" title="前へ">&lt;</button>
+        <span class="count" id="count">1〜25/41件</span>
+        <button id="next" type="button" title="次へ">&gt;</button>
+        <button id="last" type="button" title="最後へ">&gt;|</button>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>説明</th>
+            <th>システム</th>
+            <th>IPアドレス</th>
+            <th>ステータス</th>
+            <th>作成日</th>
+            <th>更新日</th>
+            <th>停止日</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- IPアドレス登録 モーダル -->
+  <div class="overlay" id="overlay" data-screen-label="IPアドレス登録">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle">IPアドレス登録</h2>
+
+      <div class="field" id="f-desc">
+        <label for="in-desc">説明<span class="req">*</span></label>
+        <div>
+          <input type="text" id="in-desc" autocomplete="off">
+          <div class="err">必須項目です。</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-sys">
+        <label for="in-sys">システム<span class="req">*</span></label>
+        <div>
+          <select id="in-sys">
+            <option value="">選択してください</option>
+            <option value="HT担当者">HT担当者</option>
+            <option value="倉庫担当者">倉庫担当者</option>
+          </select>
+          <div class="err">必須項目です。</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-ip">
+        <label for="in-ip">IPアドレス<span class="req">*</span></label>
+        <div>
+          <input type="text" id="in-ip" autocomplete="off" placeholder="例: 192.168.0.1">
+          <div class="err">必須項目です。</div>
+        </div>
+      </div>
+
+      <div class="field" id="f-status">
+        <label for="in-status">ステータス</label>
+        <div>
+          <select id="in-status">
+            <option value="有効">有効</option>
+            <option value="無効">無効</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field" id="f-note">
+        <label for="in-note">備考</label>
+        <div>
+          <textarea id="in-note"></textarea>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-delete-link" type="button" id="btn-delete-link">削除</button>
+        <div class="actions-right">
+          <button class="btn-cancel" type="button" id="btn-cancel">キャンセル</button>
+          <button class="btn-save" type="button" id="btn-save">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IPアドレス情報の削除 確認ダイアログ -->
+  <div class="overlay" id="del-overlay" data-screen-label="IPアドレス情報の削除">
+    <div class="modal modal-confirm" role="dialog" aria-modal="true" aria-labelledby="delTitle">
+      <h2 id="delTitle">IPアドレス情報の削除</h2>
+      <p class="confirm-text" id="del-text"></p>
+      <div class="modal-actions">
+        <div class="actions-right">
+          <button class="btn-cancel" type="button" id="del-cancel">キャンセル</button>
+          <button class="btn-save" type="button" id="del-confirm">削除</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const HT = "HT担当者";
+  const WH = "倉庫担当者";
+
+  const data = [
+    { desc: "AWS WorkSpaces AZ-1a (HT VDI環境)test", sys: HT, ip: "54.92.59.98",     status: "有効", created: "2023/10/31", updated: "2026/02/26", stopped: "" },
+    { desc: "AWS WorkSpaces AZ-1c (HT VDI環境)",     sys: HT, ip: "52.198.25.80",    status: "有効", created: "2023/10/31", updated: "2025/08/12", stopped: "2025/08/12" },
+    { desc: "HTオフィスのグローバルIPアドレス2",        sys: HT, ip: "124.33.202.69",   status: "有効", created: "2023/10/31", updated: "2023/10/31", stopped: "" },
+    { desc: "HTオフィスのグローバルIPアドレス1",        sys: HT, ip: "124.33.202.66",   status: "有効", created: "2023/10/31", updated: "2023/10/31", stopped: "" },
+    { desc: "Kha IP",                                sys: WH, ip: "127.",            status: "有効", created: "2025/05/28", updated: "2025/05/28", stopped: "" },
+    { desc: "IP Anh",                                sys: WH, ip: "14.177.235.12",   status: "有効", created: "2025/05/28", updated: "2025/07/16", stopped: "" },
+    { desc: "IP GEM",                                sys: HT, ip: "118.70.171.220",  status: "有効", created: "2025/08/07", updated: "2025/08/12", stopped: "2025/08/12" },
+    { desc: "canhnh1",                               sys: WH, ip: "113.183.14.80",   status: "有効", created: "2025/08/29", updated: "2025/08/29", stopped: "" },
+    { desc: "NEC VWオペレーター",                       sys: WH, ip: "221.170.30.61",   status: "有効", created: "2025/09/22", updated: "2025/09/22", stopped: "" },
+    { desc: "仙台オフィス",                            sys: HT, ip: "42.115.182.138",  status: "有効", created: "2025/09/22", updated: "2025/09/22", stopped: "" },
+    { desc: "仙台オフィス",                            sys: HT, ip: "203.223.25.11",   status: "有効", created: "2025/09/22", updated: "2025/09/22", stopped: "" },
+    { desc: "仙台オフィス",                            sys: HT, ip: "203.223.25.12",   status: "有効", created: "2025/09/22", updated: "2025/09/22", stopped: "" },
+    { desc: "Zscaler②",                              sys: WH, ip: "222.227.93.126",  status: "有効", created: "2025/09/22", updated: "2025/09/22", stopped: "" },
+    { desc: "加藤さん",                               sys: WH, ip: "220.211.179.195", status: "有効", created: "2025/09/22", updated: "2025/11/05", stopped: "" },
+    { desc: "Tra IP2",                               sys: WH, ip: "125.197.93.22",   status: "有効", created: "2025/10/06", updated: "2025/10/06", stopped: "" },
+    { desc: "Tra IP",                                sys: WH, ip: "143.189.212.52",  status: "有効", created: "2025/10/06", updated: "2025/10/06", stopped: "" },
+    { desc: "大阪オフィス",                            sys: HT, ip: "203.140.11.4",    status: "有効", created: "2025/10/06", updated: "2025/10/06", stopped: "" },
+    { desc: "名古屋倉庫 NAT",                          sys: WH, ip: "210.155.32.88",   status: "有効", created: "2025/10/09", updated: "2025/10/09", stopped: "" },
+    { desc: "福岡倉庫 NAT",                            sys: WH, ip: "210.155.32.89",   status: "有効", created: "2025/10/09", updated: "2025/10/09", stopped: "" },
+    { desc: "Zscaler①",                              sys: HT, ip: "222.227.93.125",  status: "有効", created: "2025/10/12", updated: "2025/10/14", stopped: "" },
+    { desc: "VPN Gateway 東京",                       sys: HT, ip: "153.126.44.21",   status: "有効", created: "2025/10/18", updated: "2025/10/18", stopped: "" },
+    { desc: "VPN Gateway 大阪",                       sys: HT, ip: "153.126.44.22",   status: "有効", created: "2025/10/18", updated: "2025/10/18", stopped: "" },
+    { desc: "横浜倉庫 WMS",                            sys: WH, ip: "111.87.55.200",   status: "有効", created: "2025/10/20", updated: "2025/10/20", stopped: "" },
+    { desc: "札幌倉庫 WMS",                            sys: WH, ip: "111.87.55.201",   status: "有効", created: "2025/10/20", updated: "2025/10/20", stopped: "" },
+    { desc: "AWS WorkSpaces AZ-1d (倉庫VDI環境)",     sys: WH, ip: "52.198.25.81",    status: "有効", created: "2025/10/22", updated: "2025/10/22", stopped: "" },
+    { desc: "千葉倉庫 NAT",                            sys: WH, ip: "210.155.32.90",   status: "有効", created: "2025/10/25", updated: "2025/10/25", stopped: "" },
+    { desc: "Tu IP",                                 sys: HT, ip: "14.177.235.13",   status: "有効", created: "2025/10/28", updated: "2025/10/28", stopped: "" },
+    { desc: "Minh IP",                               sys: HT, ip: "14.177.235.14",   status: "有効", created: "2025/10/28", updated: "2025/10/30", stopped: "" },
+    { desc: "仙台倉庫 監視カメラ",                      sys: WH, ip: "42.115.182.140",  status: "有効", created: "2025/11/01", updated: "2025/11/01", stopped: "" },
+    { desc: "本社 予備回線",                           sys: HT, ip: "124.33.202.70",   status: "有効", created: "2025/11/03", updated: "2025/11/03", stopped: "" },
+    { desc: "京都倉庫 WMS",                            sys: WH, ip: "111.87.55.202",   status: "有効", created: "2025/11/05", updated: "2025/11/05", stopped: "" },
+    { desc: "神戸オフィス",                            sys: HT, ip: "203.140.11.5",    status: "有効", created: "2025/11/07", updated: "2025/11/07", stopped: "" },
+    { desc: "Hoa IP",                                sys: HT, ip: "14.177.235.15",   status: "有効", created: "2025/11/10", updated: "2025/11/10", stopped: "" },
+    { desc: "広島倉庫 NAT",                            sys: WH, ip: "210.155.32.91",   status: "有効", created: "2025/11/12", updated: "2025/11/12", stopped: "" },
+    { desc: "AWS WorkSpaces AZ-1b (HT VDI環境)",     sys: HT, ip: "54.92.59.99",     status: "有効", created: "2025/11/14", updated: "2025/11/14", stopped: "" },
+    { desc: "Long IP",                               sys: HT, ip: "118.70.171.221",  status: "有効", created: "2025/11/16", updated: "2025/11/16", stopped: "" },
+    { desc: "さいたま倉庫 WMS",                        sys: WH, ip: "111.87.55.203",   status: "有効", created: "2025/11/18", updated: "2025/11/18", stopped: "" },
+    { desc: "NEC VWオペレーター②",                     sys: WH, ip: "221.170.30.62",   status: "有効", created: "2025/11/20", updated: "2025/11/20", stopped: "" },
+    { desc: "Zscaler③",                              sys: HT, ip: "222.227.93.127",  status: "有効", created: "2025/11/22", updated: "2025/11/22", stopped: "" },
+    { desc: "新潟倉庫 監視カメラ",                      sys: WH, ip: "210.155.32.92",   status: "有効", created: "2025/11/24", updated: "2025/11/24", stopped: "" },
+    { desc: "Phuong IP",                             sys: HT, ip: "14.177.235.16",   status: "有効", created: "2025/11/26", updated: "2025/11/26", stopped: "" }
+  ];
+
+  const PAGE_SIZE = 25;
+  let page = 0;
+  const totalPages = Math.ceil(data.length / PAGE_SIZE);
+
+  const tbody = document.getElementById("tbody");
+  const countEl = document.getElementById("count");
+  const btnFirst = document.getElementById("first");
+  const btnPrev = document.getElementById("prev");
+  const btnNext = document.getElementById("next");
+  const btnLast = document.getElementById("last");
+
+  function sysBadge(sys) {
+    const cls = sys === HT ? "sys-ht" : "sys-wh";
+    return `<span class="sys-badge ${cls}">${sys}</span>`;
+  }
+
+  function render() {
+    const start = page * PAGE_SIZE;
+    const end = Math.min(start + PAGE_SIZE, data.length);
+    const rows = data.slice(start, end).map((r, i) => `
+      <tr>
+        <td class="col-no">${start + i + 1}</td>
+        <td class="col-desc">${r.desc}</td>
+        <td>${sysBadge(r.sys)}</td>
+        <td>${r.ip}</td>
+        <td class="status-active">${r.status}</td>
+        <td>${r.created}</td>
+        <td>${r.updated}</td>
+        <td class="col-stop">${r.stopped}</td>
+        <td class="col-edit"><a class="edit-link" data-idx="${start + i}">編集</a></td>
+      </tr>`).join("");
+    tbody.innerHTML = rows;
+
+    countEl.textContent = `${start + 1}〜${end}/${data.length}件`;
+    btnFirst.disabled = page === 0;
+    btnPrev.disabled = page === 0;
+    btnNext.disabled = page >= totalPages - 1;
+    btnLast.disabled = page >= totalPages - 1;
+  }
+
+  btnFirst.addEventListener("click", () => { page = 0; render(); });
+  btnPrev.addEventListener("click", () => { if (page > 0) { page--; render(); } });
+  btnNext.addEventListener("click", () => { if (page < totalPages - 1) { page++; render(); } });
+  btnLast.addEventListener("click", () => { page = totalPages - 1; render(); });
+
+  /* ---- Modal: IPアドレス登録 / 編集 ---- */
+  const overlay = document.getElementById("overlay");
+  const btnNew = document.querySelector(".btn-new");
+  const modalTitle = document.getElementById("modalTitle");
+  const inDesc = document.getElementById("in-desc");
+  const inSys = document.getElementById("in-sys");
+  const inIp = document.getElementById("in-ip");
+  const inStatus = document.getElementById("in-status");
+  const inNote = document.getElementById("in-note");
+  const fDesc = document.getElementById("f-desc");
+  const fSys = document.getElementById("f-sys");
+  const fIp = document.getElementById("f-ip");
+  const fStatus = document.getElementById("f-status");
+  const btnDeleteLink = document.getElementById("btn-delete-link");
+
+  let editIndex = null; // null = create mode; otherwise index into data
+
+  function today() {
+    const d = new Date();
+    const p = n => String(n).padStart(2, "0");
+    return `${d.getFullYear()}/${p(d.getMonth() + 1)}/${p(d.getDate())}`;
+  }
+
+  function openCreate() {
+    editIndex = null;
+    modalTitle.textContent = "IPアドレス登録";
+    inDesc.value = "";
+    inSys.value = "";
+    inIp.value = "";
+    inStatus.value = "有効";
+    inNote.value = "";
+    fStatus.style.display = "none";       // ステータスは登録時は非表示
+    btnDeleteLink.classList.add("hidden"); // 削除は登録時は非表示
+    [fDesc, fSys, fIp].forEach(f => f.classList.remove("invalid"));
+    overlay.classList.add("open");
+    setTimeout(() => inDesc.focus(), 30);
+  }
+
+  function openEdit(idx) {
+    editIndex = idx;
+    const r = data[idx];
+    modalTitle.textContent = "IPアドレス編集";
+    inDesc.value = r.desc;
+    inSys.value = r.sys;
+    inIp.value = r.ip;
+    inStatus.value = r.status;
+    inNote.value = r.note || "";
+    fStatus.style.display = "";           // 編集時はステータス表示
+    btnDeleteLink.classList.remove("hidden");
+    [fDesc, fSys, fIp].forEach(f => f.classList.remove("invalid"));
+    overlay.classList.add("open");
+    setTimeout(() => inDesc.focus(), 30);
+  }
+
+  function closeModal() { overlay.classList.remove("open"); }
+
+  function validate() {
+    let ok = true;
+    [[fDesc, inDesc.value.trim()], [fSys, inSys.value], [fIp, inIp.value.trim()]]
+      .forEach(([f, v]) => {
+        if (!v) { f.classList.add("invalid"); ok = false; }
+        else { f.classList.remove("invalid"); }
+      });
+    return ok;
+  }
+
+  function save() {
+    if (!validate()) return;
+    if (editIndex === null) {
+      data.unshift({
+        desc: inDesc.value.trim(),
+        sys: inSys.value,
+        ip: inIp.value.trim(),
+        status: "有効",
+        created: today(),
+        updated: today(),
+        stopped: "",
+        note: inNote.value.trim()
+      });
+      page = 0;
+    } else {
+      const r = data[editIndex];
+      r.desc = inDesc.value.trim();
+      r.sys = inSys.value;
+      r.ip = inIp.value.trim();
+      r.status = inStatus.value;
+      r.note = inNote.value.trim();
+      r.updated = today();
+      r.stopped = inStatus.value === "無効" ? (r.stopped || today()) : "";
+    }
+    closeModal();
+    render();
+  }
+
+  btnNew.addEventListener("click", openCreate);
+  document.getElementById("btn-cancel").addEventListener("click", closeModal);
+  document.getElementById("btn-save").addEventListener("click", save);
+  overlay.addEventListener("click", e => { if (e.target === overlay) closeModal(); });
+  // 編集リンク（イベント委任）
+  tbody.addEventListener("click", e => {
+    const link = e.target.closest(".edit-link");
+    if (link) openEdit(Number(link.dataset.idx));
+  });
+  // clear error as soon as a field is corrected
+  inDesc.addEventListener("input", () => { if (inDesc.value.trim()) fDesc.classList.remove("invalid"); });
+  inSys.addEventListener("change", () => { if (inSys.value) fSys.classList.remove("invalid"); });
+  inIp.addEventListener("input", () => { if (inIp.value.trim()) fIp.classList.remove("invalid"); });
+
+  /* ---- Delete confirmation ---- */
+  const delOverlay = document.getElementById("del-overlay");
+  const delText = document.getElementById("del-text");
+
+  function openDelete() {
+    if (editIndex === null) return;
+    delText.textContent = `${data[editIndex].desc}を削除しますか？`;
+    delOverlay.classList.add("open");
+  }
+  function closeDelete() { delOverlay.classList.remove("open"); }
+  function confirmDelete() {
+    if (editIndex !== null) {
+      data.splice(editIndex, 1);
+      editIndex = null;
+      if (page > 0 && page >= Math.ceil(data.length / PAGE_SIZE)) page--;
+    }
+    closeDelete();
+    closeModal();
+    render();
+  }
+
+  btnDeleteLink.addEventListener("click", openDelete);
+  document.getElementById("del-cancel").addEventListener("click", closeDelete);
+  document.getElementById("del-confirm").addEventListener("click", confirmDelete);
+  delOverlay.addEventListener("click", e => { if (e.target === delOverlay) closeDelete(); });
+
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    if (delOverlay.classList.contains("open")) closeDelete();
+    else closeModal();
+  });
+
+  render();
+</script>
+</body>
+</html>

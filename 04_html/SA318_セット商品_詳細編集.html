@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SA_306 セット商品_詳細編集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { font-family: 'Noto Sans JP', sans-serif; background: #F3F4F6; color: #111827; font-size: 14px; min-height: 100vh; }
+    input, textarea, select, button { font-family: inherit; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+/* ──────────────────────────────────────
+   Primitives
+────────────────────────────────────── */
+function Label({ children, required }) {
+  return (
+    <div style={{ display:'flex', alignItems:'center', gap:4, marginBottom:6 }}>
+      <span style={{ fontSize:13, color:'#374151', fontWeight:500 }}>{children}</span>
+      {required && <span style={{ color:'#EF4444', fontWeight:700 }}>*</span>}
+    </div>
+  );
+}
+function Hint({ children }) {
+  return <p style={{ fontSize:11, color:'#9CA3AF', marginTop:4, lineHeight:1.5 }}>{children}</p>;
+}
+function Input({ defaultValue, value, onChange, placeholder, type='text', prefix, disabled, style }) {
+  return (
+    <div style={{ position:'relative', display:'flex', alignItems:'center' }}>
+      {prefix && <span style={{ position:'absolute', left:10, color:'#6B7280', fontSize:14, pointerEvents:'none' }}>{prefix}</span>}
+      <input type={type} defaultValue={defaultValue} value={value} onChange={onChange}
+        placeholder={placeholder} disabled={disabled}
+        style={{ width:'100%', height:36, border:'1px solid #D1D5DB', borderRadius:6,
+          padding:`0 10px 0 ${prefix?'26px':'10px'}`, fontSize:14, color:'#111827',
+          background: disabled?'#F9FAFB':'#fff', outline:'none', ...style }} />
+    </div>
+  );
+}
+function Textarea({ defaultValue, placeholder, rows=4 }) {
+  return (
+    <textarea defaultValue={defaultValue} placeholder={placeholder} rows={rows}
+      style={{ width:'100%', border:'1px solid #D1D5DB', borderRadius:6,
+        padding:'8px 10px', fontSize:14, color:'#111827', background:'#fff',
+        outline:'none', resize:'vertical', lineHeight:1.6 }} />
+  );
+}
+function RichTextEditor({ placeholder, rows=5 }) {
+  const tools = [
+    { label:'B', title:'太字', fw:'bold' },
+    { label:'I', title:'イタリック', fi:'italic' },
+    { label:'U', title:'下線', td:'underline' },
+    { label:'≡', title:'リスト' },
+    { label:'1.', title:'番号リスト' },
+    { label:'🔗', title:'リンク' },
+  ];
+  return (
+    <div style={{ border:'1px solid #D1D5DB', borderRadius:6, overflow:'hidden' }}>
+      <div style={{ display:'flex', gap:2, padding:'5px 8px', borderBottom:'1px solid #E5E7EB', background:'#F9FAFB' }}>
+        {tools.map((t,i) => (
+          <button key={i} title={t.title}
+            style={{ minWidth:26, height:24, border:'1px solid #E5E7EB', borderRadius:4, background:'#fff',
+              cursor:'pointer', fontSize:12, color:'#374151', padding:'0 5px',
+              fontWeight:t.fw||'normal', fontStyle:t.fi||'normal', textDecoration:t.td||'none' }}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <textarea placeholder={placeholder} rows={rows}
+        style={{ width:'100%', border:'none', padding:'8px 10px', fontSize:14, color:'#111827',
+          outline:'none', resize:'vertical', lineHeight:1.6, background:'#fff', display:'block' }} />
+    </div>
+  );
+}
+function Select({ defaultValue, placeholder, options=[], value, onChange, disabled }) {
+  const base = { width:'100%', height:36, border:'1px solid #D1D5DB', borderRadius:6,
+    padding:'0 32px 0 10px', fontSize:14, color:'#111827',
+    background: disabled?'#F9FAFB':'#fff', outline:'none', cursor: disabled?'not-allowed':'pointer',
+    appearance:'none',
+    backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+    backgroundRepeat:'no-repeat', backgroundPosition:'right 10px center' };
+  if (value !== undefined) {
+    return (
+      <select value={value} onChange={onChange} disabled={disabled} style={base}>
+        {placeholder && <option value="">{placeholder}</option>}
+        {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+    );
+  }
+  return (
+    <select defaultValue={defaultValue||''} disabled={disabled} style={base}>
+      {!defaultValue && placeholder && <option value="">{placeholder}</option>}
+      {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+    </select>
+  );
+}
+function Section({ title, children }) {
+  return (
+    <div style={{ background:'#fff', borderRadius:8, border:'1px solid #E5E7EB', padding:'24px', marginBottom:16 }}>
+      <h2 style={{ fontSize:15, fontWeight:700, color:'#111827', paddingBottom:12, borderBottom:'1px solid #E5E7EB', marginBottom:20 }}>{title}</h2>
+      {children}
+    </div>
+  );
+}
+function FieldRow({ children, cols='1fr 1fr' }) {
+  return <div style={{ display:'grid', gridTemplateColumns:cols, gap:16 }}>{children}</div>;
+}
+function Field({ children, style }) {
+  return <div style={{ marginBottom:16, ...style }}>{children}</div>;
+}
+function SaveBtn({ label='保存', onClick }) {
+  return (
+    <button onClick={onClick} style={{ display:'inline-flex', alignItems:'center', gap:6, height:40, padding:'0 20px',
+      background:'#155DFC', color:'#fff', border:'none', borderRadius:6, fontSize:14, fontWeight:600, cursor:'pointer' }}>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+        <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+        <polyline points="17 21 17 13 7 13 7 21"/>
+        <polyline points="7 3 7 8 15 8"/>
+      </svg>
+      {label}
+    </button>
+  );
+}
+
+/* ──────────────────────────────────────
+   Image upload area
+────────────────────────────────────── */
+function ImageUploadArea({ images, setImages, maxImages=5 }) {
+  function removeImage(id) { setImages(imgs => imgs.filter(i => i.id !== id)); }
+  const COLORS = ['#3B5BDB','#862E2E','#5CA940','#D97706','#7C3AED'];
+  function addDummy() {
+    const c = COLORS[images.length % COLORS.length];
+    setImages(imgs => [...imgs, { id:Date.now(), color:c }]);
+  }
+  const mainSlot = images[0] || null;
+  const subSlots = images.slice(1);
+  const subMax = maxImages - 1;
+  return (
+    <div>
+      <div style={{ display:'flex', alignItems:'flex-start', gap:16 }}>
+        <div>
+          <div style={{ fontSize:11, fontWeight:600, color:'#155DFC', marginBottom:6 }}>メイン画像</div>
+          <div style={{ position:'relative', display:'inline-block' }}>
+            {mainSlot ? (
+              <>
+                <div style={{ width:100, height:100, borderRadius:6, background:mainSlot.color, border:'2px solid #155DFC' }} />
+                <button onClick={() => removeImage(mainSlot.id)}
+                  style={{ position:'absolute', top:-8, right:-8, width:20, height:20, borderRadius:'50%',
+                    background:'#6B7280', border:'2px solid #fff', display:'flex', alignItems:'center',
+                    justifyContent:'center', cursor:'pointer', padding:0, zIndex:2 }}>
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 2L8 8M8 2L2 8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                </button>
+              </>
+            ) : (
+              <button onClick={addDummy}
+                style={{ width:100, height:100, borderRadius:6, border:'2px dashed #155DFC',
+                  background:'#EFF6FF', cursor:'pointer', display:'flex', flexDirection:'column',
+                  alignItems:'center', justifyContent:'center', gap:4, color:'#155DFC' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#155DFC" strokeWidth="1.8">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                </svg>
+                <span style={{ fontSize:10 }}>アップロード</span>
+              </button>
+            )}
+          </div>
+        </div>
+        <div style={{ width:1, background:'#E5E7EB', alignSelf:'stretch', margin:'0 4px' }} />
+        <div style={{ flex:1 }}>
+          <div style={{ fontSize:11, fontWeight:600, color:'#6B7280', marginBottom:6 }}>サブ画像（最大{subMax}枚）</div>
+          <div style={{ display:'flex', alignItems:'flex-start', gap:10, flexWrap:'wrap' }}>
+            {subSlots.map(img => (
+              <div key={img.id} style={{ position:'relative', display:'inline-block' }}>
+                <div style={{ width:80, height:80, borderRadius:6, background:img.color, border:'1px solid #E5E7EB' }} />
+                <button onClick={() => removeImage(img.id)}
+                  style={{ position:'absolute', top:-8, right:-8, width:20, height:20, borderRadius:'50%',
+                    background:'#6B7280', border:'2px solid #fff', display:'flex', alignItems:'center',
+                    justifyContent:'center', cursor:'pointer', padding:0, zIndex:2 }}>
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 2L8 8M8 2L2 8" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                </button>
+              </div>
+            ))}
+            {images.length < maxImages && (
+              <button onClick={addDummy}
+                style={{ width:80, height:80, borderRadius:6, border:'2px dashed #D1D5DB',
+                  background:'#FAFAFA', cursor:'pointer', display:'flex', flexDirection:'column',
+                  alignItems:'center', justifyContent:'center', gap:4, color:'#9CA3AF' }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="1.8">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                </svg>
+                <span style={{ fontSize:10 }}>追加</span>
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+      <Hint>メイン1枚＋サブ最大{subMax}枚（合計{maxImages}枚）まで登録可能。推奨サイズ: 800×800px</Hint>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────
+   TAB 1: セット基本情報
+────────────────────────────────────── */
+function TabBasicInfo() {
+  const [images, setImages] = React.useState([
+    { id:1, color:'#3B5BDB' },
+    { id:2, color:'#862E2E' },
+  ]);
+  return (
+    <div>
+      <Section title="基本情報">
+        <Field>
+          <Label required>商品名</Label>
+          <Input defaultValue="クラシックソファー（2人がけ）" />
+        </Field>
+        <Field>
+          <Label>商品管理番号</Label>
+          <Input defaultValue="SF-002" style={{ maxWidth:240 }} />
+        </Field>
+        <Field>
+          <Label>JANコード</Label>
+          <Input placeholder="例：4589123456789" style={{ maxWidth:240 }} />
+        </Field>
+        <Field style={{ marginBottom:0 }}>
+          <Label>商品説明</Label>
+          <RichTextEditor rows={6} placeholder="商品の説明を入力してください" />
+        </Field>
+      </Section>
+
+      <Section title="商品画像">
+        <ImageUploadArea images={images} setImages={setImages} maxImages={5} />
+      </Section>
+
+      <Section title="仕様情報">
+        <Hint>ユーザー画面の仕様テーブルに表示されます。不要な項目は空欄のままにしてください。</Hint>
+        <div style={{ marginTop:14 }}>
+          <Field>
+            <Label>サイズ</Label>
+            <Textarea rows={3} placeholder="例：W165×D80×H75cm" />
+          </Field>
+          <Field>
+            <Label>質量</Label>
+            <Textarea rows={2} placeholder="例：約35kg" />
+          </Field>
+          <Field>
+            <Label>ハードウェア仕様</Label>
+            <Textarea rows={4} placeholder="例：フレーム素材：天然木 / カバー素材：ファブリック" />
+          </Field>
+          <Field style={{ marginBottom:0 }}>
+            <Label>注意事項</Label>
+            <RichTextEditor rows={4} placeholder="例：直射日光を避けて保管してください" />
+          </Field>
+        </div>
+      </Section>
+
+      <Section title="表示設定">
+        <Field style={{ marginBottom:0 }}>
+          <Label>公開ステータス</Label>
+          <Select defaultValue="published" options={[
+            { value:'published', label:'公開' },
+            { value:'hidden',    label:'非公開' },
+            { value:'draft',     label:'下書き' },
+          ]} style={{ maxWidth:200 }} />
+        </Field>
+      </Section>
+
+      <div style={{ display:'flex', gap:8 }}>
+        <SaveBtn />
+        <button style={{ height:40, padding:'0 20px', background:'#fff', color:'#374151',
+          border:'1px solid #D1D5DB', borderRadius:6, fontSize:14, cursor:'pointer' }}>
+          キャンセル
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────
+   TAB 2: セット情報
+────────────────────────────────────── */
+const SAMPLE_PRODUCTS = [
+  { id:'P001', name:'クラシックソファー（2人がけ）', price:20000 },
+  { id:'P002', name:'クラシックソファー（一人がけ）', price:8000 },
+  { id:'P003', name:'ダイニングチェア', price:12000 },
+  { id:'P004', name:'コーヒーテーブル', price:15000 },
+  { id:'P005', name:'ブックシェルフ',   price:9500 },
+];
+
+function ProductModal({ onSelect, onClose }) {
+  const [q, setQ] = React.useState('');
+  const filtered = SAMPLE_PRODUCTS.filter(p => p.name.includes(q) || p.id.includes(q));
+  return (
+    <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.45)', zIndex:200,
+      display:'flex', alignItems:'center', justifyContent:'center' }}>
+      <div style={{ background:'#fff', borderRadius:8, width:480, maxHeight:'75vh', display:'flex',
+        flexDirection:'column', overflow:'hidden', boxShadow:'0 8px 32px rgba(0,0,0,0.16)' }}>
+        <div style={{ padding:'14px 20px', borderBottom:'1px solid #E5E7EB', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+          <span style={{ fontWeight:700, fontSize:15 }}>商品を選択</span>
+          <button onClick={onClose} style={{ background:'none', border:'none', cursor:'pointer', color:'#6B7280', fontSize:18, lineHeight:1 }}>✕</button>
+        </div>
+        <div style={{ padding:'10px 20px', borderBottom:'1px solid #E5E7EB' }}>
+          <input type="text" value={q} onChange={e => setQ(e.target.value)} placeholder="商品名・IDで検索"
+            style={{ width:'100%', height:36, border:'1px solid #D1D5DB', borderRadius:6, padding:'0 10px', fontSize:14, outline:'none' }} autoFocus />
+        </div>
+        <div style={{ overflowY:'auto', flex:1 }}>
+          {filtered.map(p => (
+            <button key={p.id} onClick={() => { onSelect(p); onClose(); }}
+              style={{ width:'100%', padding:'11px 20px', border:'none', background:'transparent', cursor:'pointer',
+                textAlign:'left', borderBottom:'1px solid #F3F4F6', display:'flex', alignItems:'center', justifyContent:'space-between' }}
+              onMouseEnter={e => e.currentTarget.style.background='#F9FAFB'}
+              onMouseLeave={e => e.currentTarget.style.background='transparent'}>
+              <div>
+                <div style={{ fontSize:14, fontWeight:500, color:'#111827' }}>{p.name}</div>
+                <div style={{ fontSize:12, color:'#6B7280', marginTop:2 }}>ID: {p.id} ／ ¥{p.price.toLocaleString()}</div>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 12l4-4-4-4" stroke="#6B7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SetRegisterForm({ data }) {
+  const d = data || {};
+  const [unlimited, setUnlimited] = React.useState(d.stock === null);
+  return (
+    <div>
+      <Section title="基本情報">
+        <Field>
+          <Label required>セット名</Label>
+          <Input key={'name-'+(d.id||'new')} defaultValue={d.name||''} placeholder="例：単品販売 カラー：ブラウン" />
+        </Field>
+        <Field>
+          <Label>SKUコード</Label>
+          <Input key={'sku2-'+(d.id||'new')} defaultValue={d.sku||''} placeholder="例：SF-002-01-B" style={{ maxWidth:240 }} />
+        </Field>
+        <FieldRow>
+          <Field>
+            <Label>品番</Label>
+            <Input key={'sku-'+(d.id||'new')} defaultValue={d.sku||''} placeholder="例：SF-002-01-B" />
+          </Field>
+          <Field>
+            <Label>メーカー型番</Label>
+            <Input key={'maker-'+(d.id||'new')} defaultValue={d.makerNum||''} placeholder="例：SF-A001-AC" />
+          </Field>
+        </FieldRow>
+        <Field>
+          <Label>JANコード</Label>
+          <Input key={'jan-'+(d.id||'new')} defaultValue={d.jan||''} placeholder="例：4589123456789" style={{ maxWidth:240 }} />
+        </Field>
+        <Field style={{ marginBottom:0 }}>
+          <Label>説明</Label>
+          <Textarea key={'desc-'+(d.id||'new')} rows={3} placeholder="補足説明を入力してください" />
+        </Field>
+      </Section>
+
+      <Section title="在庫設定">
+        <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:14 }}>
+          <input type="checkbox" id="unlimited-s" checked={unlimited} onChange={e => setUnlimited(e.target.checked)}
+            style={{ width:15, height:15, accentColor:'#155DFC', cursor:'pointer' }} />
+          <label htmlFor="unlimited-s" style={{ fontSize:13, color:'#374151', cursor:'pointer' }}>無制限在庫</label>
+        </div>
+        <FieldRow>
+          <Field>
+            <Label>在庫数</Label>
+            <Input key={'stock-'+(d.id||'new')} type="number" defaultValue={d.stock ?? ''} placeholder="0" disabled={unlimited} />
+          </Field>
+          <Field>
+            <Label>入数</Label>
+            <Input key={'qty-'+(d.id||'new')} type="number" defaultValue={d.qty||1} />
+          </Field>
+        </FieldRow>
+        <FieldRow>
+          <Field style={{ marginBottom:0 }}>
+            <Label>単位</Label>
+            <Input key={'unit-'+(d.id||'new')} defaultValue={d.unit||''} placeholder="例：個、台、セット" />
+          </Field>
+          <Field style={{ marginBottom:0 }}>
+            <Label>在庫アラート</Label>
+            <Input key={'reorder-'+(d.id||'new')} type="number" defaultValue={d.reorder||''} placeholder="例：5" disabled={unlimited} />
+            <Hint>在庫がこの数を下回るとアラート送信</Hint>
+          </Field>
+        </FieldRow>
+      </Section>
+
+      <Section title="価格設定">
+        <Field>
+          <Label required>販売価格</Label>
+          <Input key={'price-'+(d.id||'new')} prefix="¥" type="number" defaultValue={d.price||''} placeholder="0" style={{ maxWidth:200 }} />
+        </Field>
+        <Field style={{ marginBottom:0 }}>
+          <Label>税区分</Label>
+          <Select key={'tax-'+(d.id||'new')} defaultValue={d.tax||'included'} options={[
+            { value:'included', label:'税込' },
+            { value:'excluded', label:'税抜' },
+            { value:'free',     label:'非課税' },
+          ]} style={{ maxWidth:200 }} />
+        </Field>
+      </Section>
+
+      <Section title="配送設定">
+        <Field style={{ marginBottom:0 }}>
+          <Label>配送グループ</Label>
+          <Select key={'ship-'+(d.id||'new')} defaultValue={d.shipping||''} placeholder="商品デフォルトを使用" options={[
+            { value:'free',     label:'基本送料無料' },
+            { value:'no_cod',   label:'代引き不可' },
+            { value:'standard', label:'標準配送' },
+            { value:'express',  label:'速達配送' },
+          ]} />
+        </Field>
+      </Section>
+
+      <Section title="表示設定">
+        <Field style={{ marginBottom:0 }}>
+          <Label>公開ステータス</Label>
+          <Select key={'status-'+(d.id||'new')} defaultValue={d.status==='非公開'?'hidden':'published'} options={[
+            { value:'published', label:'公開' },
+            { value:'hidden',    label:'非公開' },
+          ]} style={{ maxWidth:200 }} />
+        </Field>
+      </Section>
+
+      <div style={{ display:'flex', gap:8 }}>
+        <SaveBtn label={d.id ? '更新' : '登録'} />
+        <a href="#" target="_blank"
+          style={{ display:'inline-flex', alignItems:'center', gap:6, height:40, padding:'0 16px',
+            background:'#fff', color:'#374151', border:'1px solid #D1D5DB', borderRadius:6,
+            fontSize:14, fontWeight:500, textDecoration:'none' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          プレビュー
+        </a>
+        <button style={{ height:40, padding:'0 20px', background:'#fff', color:'#374151',
+          border:'1px solid #D1D5DB', borderRadius:6, fontSize:14, cursor:'pointer' }}>
+          キャンセル
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function TabSetInfo() {
+  const INITIAL_SETS = [
+    { id:'SET-001', name:'単品販売 カラー：ブラウン', sku:'SF-002-01-B', makerNum:'SF-A001', stock:0, qty:1, price:20000, shipping:'free', status:'公開' },
+    { id:'SET-002', name:'2個セット カラー：ブラウン', sku:'SF-002-02-B', makerNum:'SF-A002', stock:12, qty:2, price:19500, shipping:'standard', status:'公開' },
+    { id:'SET-003', name:'単品販売 カラー：オーク', sku:'SF-002-01-O', makerNum:'SF-A001-O', stock:38, qty:1, price:20000, shipping:'free', status:'公開' },
+    { id:'SET-004', name:'2個セット カラー：オーク', sku:'SF-002-02-O', makerNum:'SF-A002-O', stock:null, qty:2, price:19500, shipping:'no_cod', status:'非公開' },
+  ];
+  const SHIP_LABELS = { free:'基本送料無料', no_cod:'代引き不可', standard:'標準配送', express:'速達配送' };
+  const [sets, setSets] = React.useState(INITIAL_SETS);
+  const [formData, setFormData] = React.useState(INITIAL_SETS[0]); // default: editing set-001
+  const [isNew, setIsNew] = React.useState(false);
+
+  function startEdit(s) { setFormData(s); setIsNew(false); }
+  function startNew() { setFormData(null); setIsNew(true); }
+  function deleteSet(id) { setSets(prev => prev.filter(s => s.id !== id)); }
+
+  return (
+    <div>
+      {/* ── セット一覧 ── */}
+      <div style={{ background:'#fff', borderRadius:8, border:'1px solid #E5E7EB', marginBottom:16, overflow:'hidden' }}>
+        <div style={{ padding:'14px 20px', borderBottom:'1px solid #E5E7EB', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+          <h2 style={{ fontSize:15, fontWeight:700, color:'#111827' }}>セット一覧</h2>
+          <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+            <span style={{ fontSize:13, color:'#6B7280' }}>全 {sets.length} 件</span>
+            <button onClick={startNew}
+              style={{ display:'inline-flex', alignItems:'center', gap:5, height:32, padding:'0 14px',
+                background:'#155DFC', color:'#fff', border:'none', borderRadius:6,
+                fontSize:12, fontWeight:600, cursor:'pointer' }}>
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round"><path d="M5.5 1v9M1 5.5h9"/></svg>
+              セット新規登録
+            </button>
+          </div>
+        </div>
+        <table style={{ width:'100%', borderCollapse:'collapse' }}>
+          <thead>
+            <tr style={{ background:'#F9FAFB', borderBottom:'1px solid #E5E7EB' }}>
+              {['SKUコード','販売価格','在庫数','配送グループ','操作'].map((h,i) => (
+                <th key={i} style={{ padding:'9px 14px', textAlign:'left', fontSize:12, fontWeight:600, color:'#6B7280', whiteSpace:'nowrap' }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {sets.map((s,i) => (
+              <tr key={s.id} style={{ borderBottom: i < sets.length-1 ? '1px solid #F3F4F6' : 'none' }}>
+                <td style={{ padding:'10px 14px', fontSize:13, fontWeight:500, color:'#111827' }}>{s.sku}</td>
+                <td style={{ padding:'10px 14px', fontSize:13, color:'#374151' }}>¥{s.price.toLocaleString()}</td>
+                <td style={{ padding:'10px 14px', fontSize:13, color: s.stock===0?'#EF4444': s.stock===null?'#6B7280':'#374151', fontWeight: s.stock===0?700:400 }}>
+                  {s.stock===null?'無制限':s.stock.toLocaleString()}
+                </td>
+                <td style={{ padding:'10px 14px', fontSize:13, color:'#374151' }}>{SHIP_LABELS[s.shipping]||'—'}</td>
+                <td style={{ padding:'10px 14px', whiteSpace:'nowrap' }}>
+                  <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+                    <button onClick={() => startEdit(s)}
+                      style={{ height:28, padding:'0 12px', background:'#155DFC', color:'#fff',
+                        border:'none', borderRadius:5, fontSize:12, fontWeight:500, cursor:'pointer', whiteSpace:'nowrap' }}>
+                      編集
+                    </button>
+                    <button onClick={() => deleteSet(s.id)}
+                      style={{ height:28, padding:'0 12px', background:'#FEF2F2', color:'#EF4444',
+                        border:'1px solid #FCA5A5', borderRadius:5, fontSize:12, cursor:'pointer', whiteSpace:'nowrap' }}>
+                      削除
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* ── セット編集 / セット登録フォーム ── */}
+      <div style={{ borderTop:'3px solid #155DFC', borderRadius:'0 0 8px 8px' }}>
+        <div style={{ background:'#EFF6FF', borderLeft:'1px solid #BFDBFE', borderRight:'1px solid #BFDBFE', padding:'12px 20px' }}>
+          <h2 style={{ fontSize:15, fontWeight:700, color:'#155DFC' }}>{isNew ? 'セット登録' : 'セット編集'}</h2>
+        </div>
+        <div style={{ border:'1px solid #BFDBFE', borderTop:'none', borderRadius:'0 0 8px 8px', padding:'4px 0' }}>
+          <SetRegisterForm key={isNew ? 'new' : (formData && formData.id)} data={isNew ? null : formData} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────
+   Main App with tabs
+────────────────────────────────────── */
+const TABS = [
+  { id:'basic',   label:'商品基本情報' },
+  { id:'sets',    label:'セット情報' },
+];
+
+function App() {
+  const [activeTab, setActiveTab] = React.useState('basic');
+
+  return (
+    <div style={{ maxWidth:780, margin:'0 auto', padding:'24px 16px 60px' }}>
+      {/* Back */}
+      <a href="SA_302_セット商品一覧.html" style={{ display:'inline-flex', alignItems:'center', gap:4, fontSize:13, color:'#374151', textDecoration:'none', marginBottom:12 }}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        セット商品一覧に戻る
+      </a>
+
+      <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:20 }}>
+        <div>
+          <h1 style={{ fontSize:22, fontWeight:700, color:'#111827' }}>クラシックソファー（2人がけ）</h1>
+          <p style={{ fontSize:12, color:'#6B7280', marginTop:4 }}>商品ID: P001 ／ 商品管理番号: SF-002</p>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div style={{ display:'flex', borderBottom:'2px solid #E5E7EB', marginBottom:24 }}>
+        {TABS.map(tab => (
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+            style={{
+              height:42, padding:'0 20px', border:'none', background:'transparent',
+              fontSize:14, fontWeight: activeTab===tab.id ? 700 : 400,
+              color: activeTab===tab.id ? '#155DFC' : '#6B7280',
+              borderBottom: activeTab===tab.id ? '2px solid #155DFC' : '2px solid transparent',
+              marginBottom:-2, cursor:'pointer', whiteSpace:'nowrap',
+              transition:'color .15s',
+            }}>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      {activeTab === 'basic'   && <TabBasicInfo />}
+      {activeTab === 'sets'    && <TabSetInfo />}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

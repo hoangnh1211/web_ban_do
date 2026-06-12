@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SA_910 管理者設定_一覧</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #F9FAFB;
+      color: #111827;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+    a, button { font-family: inherit; }
+
+    .page { padding: 32px 40px; max-width: 1280px; margin: 0 auto; }
+
+    h1 { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 20px; }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .toolbar-spacer { flex: 1; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      height: 40px; padding: 0 16px;
+      background: #155DFC; color: #fff;
+      border: none; border-radius: 6px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: #1249CC; }
+
+    /* ── Table card ── */
+    .table-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #E5E7EB;
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead tr { background: #F9FAFB; border-bottom: 1px solid #E5E7EB; }
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 13px; font-weight: 600; color: #374151;
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid #E5E7EB; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #FAFAFA; }
+    td {
+      padding: 14px 16px;
+      font-size: 14px; color: #374151;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .id-col  { font-weight: 500; color: #6B7280; width: 80px; }
+    .name-col { font-weight: 500; color: #111827; }
+    .date-col { color: #6B7280; font-size: 13px; }
+
+    /* ── Action buttons ── */
+    .action-cell { display: flex; align-items: center; gap: 6px; }
+    .btn-edit {
+      display: inline-flex; align-items: center;
+      height: 30px; padding: 0 16px;
+      background: #155DFC; color: #fff;
+      border: none; border-radius: 5px;
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-edit:hover { background: #1249CC; }
+
+    /* ── Pagination ── */
+    .pagination {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-top: 20px; padding-bottom: 32px;
+    }
+    .pagination-info { font-size: 13px; color: #6B7280; }
+    .page-btns { display: flex; align-items: center; gap: 4px; }
+    .page-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 6px; border: 1px solid #D1D5DB;
+      background: #fff; color: #374151;
+      font-size: 14px; cursor: pointer; font-weight: 500;
+    }
+    .page-btn:hover { background: #F3F4F6; }
+    .page-btn.active { background: #111827; color: #fff; border-color: #111827; }
+    .page-btn.arrow { border: none; background: none; font-size: 18px; width: 28px; }
+    .page-btn.arrow:hover { background: none; color: #111827; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <h1>管理者設定</h1>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <a href="SA_911_管理者設定_新規登録.html" class="btn-primary">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+        <path d="M7 1v12M1 7h12"></path>
+      </svg>
+      新規管理者登録
+    </a>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th class="id-col">ID</th>
+          <th>権限</th>
+          <th>氏名</th>
+          <th>メールアドレス</th>
+          <th style="width:100px;">システム</th>
+          <th style="width:110px;">登録日</th>
+          <th style="width:120px;">登録者</th>
+          <th style="width:110px;">更新日</th>
+          <th style="width:120px;">更新者</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id-col">A001</td>
+          <td>全権限管理者</td>
+          <td class="name-col">山田 太郎</td>
+          <td>yamada.taro@example.com</td>
+          <td>HT</td>
+          <td class="date-col">2024/01/10</td>
+          <td class="date-col">山田 太郎</td>
+          <td class="date-col">2026/05/01</td>
+          <td class="date-col">山田 太郎</td>
+          <td>
+            <div class="action-cell">
+              <a href="SA_912_管理者設定_編集.html" class="btn-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="id-col">A002</td>
+          <td>注文管理担当</td>
+          <td class="name-col">鈴木 花子</td>
+          <td>suzuki.hanako@example.com</td>
+          <td>HT</td>
+          <td class="date-col">2024/03/15</td>
+          <td class="date-col">山田 太郎</td>
+          <td class="date-col">2026/04/20</td>
+          <td class="date-col">山田 太郎</td>
+          <td>
+            <div class="action-cell">
+              <a href="SA_912_管理者設定_編集.html" class="btn-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="id-col">A003</td>
+          <td>商品管理担当</td>
+          <td class="name-col">田中 次郎</td>
+          <td>tanaka.jiro@example.com</td>
+          <td>倉庫管理</td>
+          <td class="date-col">2024/06/01</td>
+          <td class="date-col">山田 太郎</td>
+          <td class="date-col">2026/03/10</td>
+          <td class="date-col">山田 太郎</td>
+          <td>
+            <div class="action-cell">
+              <a href="SA_912_管理者設定_編集.html" class="btn-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="id-col">A004</td>
+          <td>閲覧専用</td>
+          <td class="name-col">佐藤 美咲</td>
+          <td>sato.misaki@example.com</td>
+          <td>HT</td>
+          <td class="date-col">2025/01/20</td>
+          <td class="date-col">山田 太郎</td>
+          <td class="date-col">2026/01/15</td>
+          <td class="date-col">山田 太郎</td>
+          <td>
+            <div class="action-cell">
+              <a href="SA_912_管理者設定_編集.html" class="btn-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="id-col">A005</td>
+          <td>請求管理担当</td>
+          <td class="name-col">伊藤 健太</td>
+          <td>ito.kenta@example.com</td>
+          <td>HT</td>
+          <td class="date-col">2025/04/01</td>
+          <td class="date-col">山田 太郎</td>
+          <td class="date-col">2026/05/30</td>
+          <td class="date-col">山田 太郎</td>
+          <td>
+            <div class="action-cell">
+              <a href="SA_912_管理者設定_編集.html" class="btn-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <span class="pagination-info">全 5 件</span>
+    <div class="page-btns">
+      <button class="page-btn arrow">&#8249;</button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn arrow">&#8250;</button>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

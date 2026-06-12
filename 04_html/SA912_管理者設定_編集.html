@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SA_912 管理者編集</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #F9FAFB;
+      color: #111827;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+    input, textarea, select, button { font-family: inherit; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+/* ─── Sample role groups ─── */
+const ROLE_OPTIONS = [
+  { id: 'r1', name: '全権限管理者', desc: 'すべての画面・操作が利用可能' },
+  { id: 'r2', name: '注文管理担当', desc: '注文管理・出荷管理の閲覧・操作' },
+  { id: 'r3', name: '商品管理担当', desc: '商品管理・在庫管理の閲覧・操作' },
+  { id: 'r4', name: '請求管理担当', desc: '請求書・期間別集計の閲覧・操作' },
+  { id: 'r5', name: '閲覧専用',     desc: '全画面の閲覧のみ（編集不可）' },
+];
+
+/* ─── Primitives ─── */
+function Field({ label, required, children, hint }) {
+  return (
+    <div style={{ marginBottom: 18 }}>
+      <label style={{ fontSize: 13, fontWeight: 500, color: '#374151', display: 'flex', alignItems: 'center', gap: 4, marginBottom: 6 }}>
+        {label}
+        {required && <span style={{ color: '#EF4444', fontWeight: 700 }}>*</span>}
+      </label>
+      {children}
+      {hint && <p style={{ fontSize: 11, color: '#9CA3AF', marginTop: 4 }}>{hint}</p>}
+    </div>
+  );
+}
+
+function Input({ value, onChange, defaultValue, placeholder, type = 'text', readOnly }) {
+  return (
+    <input
+      type={type}
+      defaultValue={defaultValue}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      readOnly={readOnly}
+      style={{
+        width: '100%', height: 36, border: '1px solid #D1D5DB', borderRadius: 6,
+        padding: '0 12px', fontSize: 14, color: readOnly ? '#6B7280' : '#111827',
+        outline: 'none', background: readOnly ? '#F9FAFB' : '#fff'
+      }}
+    />
+  );
+}
+
+/* ─── Role Dropdown ─── */
+function RoleDropdown({ value, onChange }) {
+  const [open, setOpen] = React.useState(false);
+  const ref = React.useRef(null);
+
+  const selected = ROLE_OPTIONS.find(r => r.id === value);
+
+  React.useEffect(() => {
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      {/* Trigger */}
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        style={{
+          width: '100%', height: 36, border: '1px solid #D1D5DB', borderRadius: 6,
+          padding: '0 12px', fontSize: 14, color: selected ? '#111827' : '#9CA3AF',
+          background: '#fff', cursor: 'pointer', textAlign: 'left',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8,
+          outline: 'none',
+          boxShadow: open ? '0 0 0 3px rgba(21,93,252,0.12)' : 'none',
+          borderColor: open ? '#155DFC' : '#D1D5DB',
+        }}
+      >
+        <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {selected ? selected.name : 'ロールを選択してください'}
+        </span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .15s' }}>
+          <path d="M4 6l4 4 4-4" stroke="#6B7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {/* Dropdown panel */}
+      {open && (
+        <div style={{
+          position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, zIndex: 50,
+          background: '#fff', border: '1px solid #E5E7EB', borderRadius: 8,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.10)', overflow: 'hidden',
+        }}>
+          {ROLE_OPTIONS.map(role => (
+            <button
+              key={role.id}
+              type="button"
+              onClick={() => { onChange(role.id); setOpen(false); }}
+              style={{
+                width: '100%', padding: '10px 14px', background: role.id === value ? '#EFF6FF' : 'transparent',
+                border: 'none', cursor: 'pointer', textAlign: 'left',
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
+                borderBottom: '1px solid #F3F4F6',
+              }}
+              onMouseEnter={e => { if (role.id !== value) e.currentTarget.style.background = '#F9FAFB'; }}
+              onMouseLeave={e => { if (role.id !== value) e.currentTarget.style.background = 'transparent'; }}
+            >
+              <div>
+                <div style={{ fontSize: 14, fontWeight: role.id === value ? 600 : 400, color: role.id === value ? '#155DFC' : '#111827' }}>
+                  {role.name}
+                </div>
+                <div style={{ fontSize: 12, color: '#6B7280', marginTop: 2 }}>{role.desc}</div>
+              </div>
+              {role.id === value && (
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+                  <path d="M3 8l3.5 3.5L13 5" stroke="#155DFC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+            </button>
+          ))}
+          {/* Link to role management */}
+          <a
+            href="SA_913_ロール設定_新規登録.html"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6, padding: '10px 14px',
+              fontSize: 13, color: '#155DFC', textDecoration: 'none', background: '#F9FAFB',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="6.5" stroke="#155DFC" strokeWidth="1.3" />
+              <path d="M8 5v6M5 8h6" stroke="#155DFC" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            新しいロールを作成する
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+/* ─── App ─── */
+function App() {
+  const [roleId, setRoleId] = React.useState('r2');
+
+  return (
+    <div style={{ padding: '24px 16px 60px', maxWidth: 900, margin: '0 auto' }}>
+
+      {/* Back link */}
+      <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 4,
+        fontSize: 13, color: '#374151', textDecoration: 'none', marginBottom: 12 }}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 12L6 8L10 4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        管理者設定に戻る
+      </a>
+
+      <h1 style={{ fontSize: 22, fontWeight: 700, color: '#0A0A0A', marginBottom: 20 }}>
+        管理者編集
+      </h1>
+
+      {/* ── Card ── */}
+      <div style={{
+        background: '#fff', border: '1px solid #E5E7EB', borderRadius: 8,
+        padding: 24, boxShadow: '0 1px 2px rgba(0,0,0,0.04)'
+      }}>
+
+        {/* Basic info */}
+        <Field label="管理者ID" required>
+          <Input defaultValue="A001" readOnly />
+        </Field>
+        <Field label="メールアドレス">
+          <Input defaultValue="yamada.taro@example.com" readOnly />
+        </Field>
+        <Field label="管理者名" required>
+          <Input defaultValue="山田 太郎" placeholder="管理者A" />
+        </Field>
+        {/* Divider */}
+        <div style={{ borderTop: '1px solid #F3F4F6', margin: '8px 0 20px' }}></div>
+
+        {/* システム */}
+        <Field label="システム">
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 16 }}>
+            {['HT', '倉庫管理'].map(opt => (
+              <label key={opt} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 13, color: opt === 'HT' ? '#374151' : '#9CA3AF', userSelect: 'none', cursor: 'not-allowed' }}>
+                <input type="radio" name="system" value={opt} defaultChecked={opt === 'HT'} disabled
+                  style={{ width: 14, height: 14, accentColor: '#155DFC', cursor: 'not-allowed' }} />
+                {opt}
+              </label>
+            ))}
+          </div>
+        </Field>
+
+        {/* Role */}
+        <Field
+          label="ロール"
+          required
+        >
+          <RoleDropdown value={roleId} onChange={setRoleId} />
+        </Field>
+
+
+
+        {/* Buttons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 }}>
+          <button style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            height: 40, padding: '0 20px', background: '#155DFC', color: '#fff',
+            border: 'none', borderRadius: 6, fontSize: 14, fontWeight: 600, cursor: 'pointer'
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+              <polyline points="17 21 17 13 7 13 7 21" />
+              <polyline points="7 3 7 8 15 8" />
+            </svg>
+            保存
+          </button>
+          <button style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            height: 40, padding: '0 20px', background: '#EF4444', color: '#fff',
+            border: 'none', borderRadius: 6, fontSize: 14, fontWeight: 600, cursor: 'pointer'
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6M10 11v6M14 11v6M9 6V4h6v2" />
+            </svg>
+            削除
+          </button>
+          <button style={{
+            height: 40, padding: '0 20px', background: '#fff', color: '#374151',
+            border: '1px solid #D1D5DB', borderRadius: 6, fontSize: 14, cursor: 'pointer'
+          }}>
+            キャンセル
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

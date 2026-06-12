@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>配送グループ一覧</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #F9FAFB;
+      color: #111827;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    .page {
+      padding: 32px 40px;
+      max-width: 1184px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 40px;
+      padding: 0 16px;
+      background: #155DFC;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 40px;
+      padding: 0 16px;
+      background: #fff;
+      color: #374151;
+      border: 1px solid #D1D5DB;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .toolbar-spacer { flex: 1; }
+
+    /* ── Table card ── */
+    .table-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #E5E7EB;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      background: #F9FAFB;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid #E5E7EB;
+    }
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+    td {
+      padding: 16px 16px;
+      font-size: 14px;
+      color: #374151;
+      vertical-align: middle;
+    }
+
+    .id-col { color: #374151; font-weight: 500; }
+
+    .group-name { color: #111827; font-weight: 500; }
+
+    /* ── Status badge ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 24px;
+      padding: 0 10px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-on  { background: #DCFCE7; color: #166534; }
+    .badge-off { background: #F3F4F6; color: #6B7280; }
+
+    /* ── 操作 buttons ── */
+    .action-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-action-edit {
+      display: inline-flex;
+      align-items: center;
+      height: 30px;
+      padding: 0 12px;
+      background: #EFF6FF;
+      color: #155DFC;
+      border: 1px solid #BFDBFE;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+    }
+    .btn-action-edit:hover { background: #DBEAFE; }
+
+    /* ── Pagination ── */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      margin-top: 320px;
+      padding-bottom: 32px;
+    }
+    .page-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      border: 1px solid #D1D5DB;
+      background: #fff;
+      color: #374151;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+    }
+    .page-btn:hover { background: #F3F4F6; }
+    .page-btn.active {
+      background: #111827;
+      color: #fff;
+      border-color: #111827;
+    }
+    .page-btn.arrow {
+      color: #374151;
+      font-size: 18px;
+      border: none;
+      background: none;
+      width: 28px;
+    }
+    .page-btn.arrow:hover { background: none; color: #111827; }
+    .page-dots {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      color: #6B7280;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <h1>配送グループ一覧</h1>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="btn-primary">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+        <path d="M7 1v12M1 7h12"/>
+      </svg>
+      新規配送グループ登録
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>グループ名</th>
+          <th>配送業者</th>
+          <th>配送日指定</th>
+          <th>配送時間指定</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id-col">1</td>
+          <td class="group-name">基本送料無料グループ</td>
+          <td>ヤマト運輸</td>
+          <td>あり</td>
+          <td>あり</td>
+          <td>
+            <div class="action-cell">
+              <a href="#" class="btn-action-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="id-col">2</td>
+          <td class="group-name">代引き不可グループ</td>
+          <td>佐川急便</td>
+          <td>あり</td>
+          <td>なし</td>
+          <td>
+            <div class="action-cell">
+              <a href="#" class="btn-action-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="id-col">3</td>
+          <td class="group-name">標準配送グループ</td>
+          <td>ゆうパック</td>
+          <td>あり</td>
+          <td>あり</td>
+          <td>
+            <div class="action-cell">
+              <a href="#" class="btn-action-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="id-col">4</td>
+          <td class="group-name">速達配送グループ</td>
+          <td>ヤマト運輸</td>
+          <td>あり</td>
+          <td>あり</td>
+          <td>
+            <div class="action-cell">
+              <a href="#" class="btn-action-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="id-col">5</td>
+          <td class="group-name">沖縄・離島配送グループ</td>
+          <td>西濃運輸</td>
+          <td>なし</td>
+          <td>なし</td>
+          <td>
+            <div class="action-cell">
+              <a href="#" class="btn-action-edit">編集</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+</body>
+</html>

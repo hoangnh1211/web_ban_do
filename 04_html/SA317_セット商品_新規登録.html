@@ -108,6 +108,7 @@ function Field({ children, style }) {
   return <div style={{ marginBottom:16, ...style }}>{children}</div>;
 }
 function SaveBtn({ label='保存', onClick }) {
+  if (!onClick) onClick = () => { window.location.href = 'SA316_セット商品一覧.html'; };
   return (
     <button onClick={onClick} style={{ display:'inline-flex', alignItems:'center', gap:6, height:40, padding:'0 20px',
       background:'#155DFC', color:'#fff', border:'none', borderRadius:6, fontSize:14, fontWeight:600, cursor:'pointer' }}>
@@ -262,7 +263,7 @@ function TabBasicInfo({ onNext }) {
             <path d="M4 8h8M9 5l3 3-3 3"/>
           </svg>
         </button>
-        <a href="SA_302_セット商品一覧.html"
+        <a href="SA316_セット商品一覧.html"
           style={{ height:40, padding:'0 20px', display:'inline-flex', alignItems:'center',
             background:'#fff', color:'#374151', border:'1px solid #D1D5DB', borderRadius:6,
             fontSize:14, cursor:'pointer', textDecoration:'none' }}>
@@ -429,10 +430,9 @@ function SetRegisterForm() {
           </svg>
           プレビュー
         </a>
-        <button style={{ height:40, padding:'0 20px', background:'#fff', color:'#374151',
-          border:'1px solid #D1D5DB', borderRadius:6, fontSize:14, cursor:'pointer' }}>
+        <a href="SA316_セット商品一覧.html" style={{ height:40, padding:'0 20px', display:'inline-flex', alignItems:'center', background:'#fff', color:'#374151', border:'1px solid #D1D5DB', borderRadius:6, fontSize:14, cursor:'pointer', textDecoration:'none' }}>
           キャンセル
-        </button>
+        </a>
       </div>
     </div>
   );
@@ -507,7 +507,7 @@ function App() {
   const [activeTab, setActiveTab] = React.useState('basic');
   return (
     <div style={{ maxWidth:780, margin:'0 auto', padding:'24px 16px 60px' }}>
-      <a href="SA_302_セット商品一覧.html" style={{ display:'inline-flex', alignItems:'center', gap:4, fontSize:13, color:'#374151', textDecoration:'none', marginBottom:12 }}>
+      <a href="SA316_セット商品一覧.html" style={{ display:'inline-flex', alignItems:'center', gap:4, fontSize:13, color:'#374151', textDecoration:'none', marginBottom:12 }}>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
         商品一覧に戻る
       </a>

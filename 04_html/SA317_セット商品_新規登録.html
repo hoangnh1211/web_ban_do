@@ -108,7 +108,6 @@ function Field({ children, style }) {
   return <div style={{ marginBottom:16, ...style }}>{children}</div>;
 }
 function SaveBtn({ label='保存', onClick }) {
-  if (!onClick) onClick = () => { window.location.href = 'SA316_セット商品一覧.html'; };
   return (
     <button onClick={onClick} style={{ display:'inline-flex', alignItems:'center', gap:6, height:40, padding:'0 20px',
       background:'#155DFC', color:'#fff', border:'none', borderRadius:6, fontSize:14, fontWeight:600, cursor:'pointer' }}>
@@ -387,11 +386,11 @@ function SetRegisterForm() {
           <Input prefix="¥" type="number" placeholder="0" style={{ maxWidth:200 }} />
         </Field>
         <Field style={{ marginBottom:0 }}>
-          <Label>税区分</Label>
-          <Select defaultValue="included" options={[
-            { value:'included', label:'税込' },
-            { value:'excluded', label:'税抜' },
-            { value:'free',     label:'非課税' },
+          <Label>税率</Label>
+          <Select defaultValue="standard" options={[
+            { value:'standard', label:'標準税率（10%）' },
+            { value:'reduced',  label:'軽減税率（8%）' },
+            { value:'free',     label:'無課税（0%）' },
           ]} style={{ maxWidth:200 }} />
         </Field>
       </Section>
@@ -418,21 +417,11 @@ function SetRegisterForm() {
         </Field>
       </Section>
 
-      <div style={{ display:'flex', gap:8 }}>
-        <SaveBtn label="登録" />
-        <a href="#" target="_blank"
-          style={{ display:'inline-flex', alignItems:'center', gap:6, height:40, padding:'0 16px',
-            background:'#fff', color:'#374151', border:'1px solid #D1D5DB', borderRadius:6,
-            fontSize:14, fontWeight:500, textDecoration:'none' }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-          プレビュー
-        </a>
-        <a href="SA316_セット商品一覧.html" style={{ height:40, padding:'0 20px', display:'inline-flex', alignItems:'center', background:'#fff', color:'#374151', border:'1px solid #D1D5DB', borderRadius:6, fontSize:14, cursor:'pointer', textDecoration:'none' }}>
-          キャンセル
-        </a>
+      <div style={{ padding:'4px 0 8px' }}>
+        <button style={{ display:'inline-flex', alignItems:'center', gap:6, height:36, padding:'0 18px',
+          background:'#155DFC', color:'#fff', border:'none', borderRadius:6, fontSize:13, fontWeight:600, cursor:'pointer' }}>
+          セット登録
+        </button>
       </div>
     </div>
   );
@@ -492,6 +481,27 @@ function TabSetInfo() {
         <div style={{ border:'1px solid #BFDBFE', borderTop:'none', borderRadius:'0 0 8px 8px', padding:'4px 0' }}>
           <SetRegisterForm />
         </div>
+      </div>
+
+      {/* 商品登録ボタンエリア */}
+      <div style={{ marginTop:24, paddingTop:20, borderTop:'2px solid #E5E7EB', display:'flex', gap:8, alignItems:'center' }}>
+        <SaveBtn label="商品登録" onClick={() => { window.location.href = 'SA316_セット商品一覧.html'; }} />
+        <a href="#" target="_blank"
+          style={{ display:'inline-flex', alignItems:'center', gap:6, height:40, padding:'0 16px',
+            background:'#fff', color:'#374151', border:'1px solid #D1D5DB', borderRadius:6,
+            fontSize:14, fontWeight:500, textDecoration:'none' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          プレビュー
+        </a>
+        <a href="SA316_セット商品一覧.html"
+          style={{ height:40, padding:'0 20px', display:'inline-flex', alignItems:'center',
+            background:'#fff', color:'#374151', border:'1px solid #D1D5DB', borderRadius:6,
+            fontSize:14, textDecoration:'none' }}>
+          キャンセル
+        </a>
       </div>
     </div>
   );

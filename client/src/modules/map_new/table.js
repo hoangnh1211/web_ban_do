@@ -9,6 +9,7 @@ import { Table as TableBootrap } from 'react-bootstrap';
 const Table = React.memo((props) => {
 
     const showContent = (key_table, data, layer) => {
+        if (!configText[layer]) return null;
         const key_table1 = Object.keys(configText[layer])
         return (
             key_table1.map(item => {

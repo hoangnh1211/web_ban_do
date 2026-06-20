@@ -498,9 +498,9 @@ export const configText ={
     },
     XayMoi_SongHong: {
         // stt: "",
-        // ten_ct: "",
-        mdd: "Tên công trình",
-        x: "Mã định danh",
+        ten_ct: "Tên công trình",
+        mdd: "Mã định danh",
+        // x: "",
         // y: "",
         tinh: "Tỉnh",
         luu_vuc: "Lưu vực",
@@ -520,7 +520,7 @@ export const configText ={
         ghichu: "Ghi chú",
         // phanloai: "",
     },
-    XayMoi_SongCuuLong: {
+    xaymoi_cuulong: {
         ten_ct: "Tên công trình",
         mdd: "Mã định danh",
         xa: "Xã",
@@ -548,7 +548,7 @@ export const configText ={
         nguonvon: "Nguồn vốn",
         ghichu: "Ghi chú",
     },
-    NangCap_SongCuuLong: {
+    nangcap_cuulong: {
         ten_ct: "Tên công trình",
         mdd: "Mã định danh",
         tinhmoi: "Tỉnh",
@@ -572,7 +572,7 @@ export const configText ={
         nguonvon: "Nguồn vốn",
         ghichu: "Ghi chú",
     },
-    NaoVet_SongCuuLong: {
+    Kenh_DK_NaoVet: {
         name: "Tên kênh",
         mdd: "Mã định danh",
         tinh: "Tỉnh",
@@ -916,7 +916,7 @@ export const configDonvi ={
         ftieu_qh: "(ha)",
         von_ty: "(tỷ đồng)",
     },
-    XayMoi_SongCuuLong: {
+    xaymoi_cuulong: {
         mndbt_m: "(m)",
         whi_trm3: "(triệu m³)",
         hdap_m: "(m)",
@@ -928,7 +928,7 @@ export const configDonvi ={
         ftieu_qh: "(ha)",
         von_ty: "(tỷ)",
     },
-    NangCap_SongCuuLong: {
+    nangcap_cuulong: {
         ftuoi_ht: "(ha)",
         ftieu_ht: "(ha)",
         Wsau_nc: "(Triệu m³)",
@@ -937,7 +937,7 @@ export const configDonvi ={
         bcong_saun: "(m)",
         von_ty: "(tỷ)",
     },
-    NaoVet_SongCuuLong: {
+    Kenh_DK_NaoVet: {
         l_kenh: "(Km)",
         b_kenh: "(m)",
     },

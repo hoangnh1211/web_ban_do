@@ -34,7 +34,7 @@ const Table = React.memo((props) => {
                 const key_table = Object.keys(value.properties)
                 let layer = value?.id.split(".")[0];
                 return (
-                    <tbody key={index}>
+                    <tbody key={value.id ?? index}>
                         {showContent(key_table, value.properties, layer)}
                     </tbody>
                 )

@@ -1,7 +1,6 @@
 import './App.css';
 import Intro from './modules/intro/intro';
-import { createBrowserHistory } from 'history';
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import "./Animate.css"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -22,11 +21,10 @@ const theme = createTheme({
 });
 
 
-const history = createBrowserHistory();
 function App() {
 
     return (
-        <Router history={history}>
+        <Router>
             <ThemeProvider theme={theme}>
                 <Intro />
             </ThemeProvider>

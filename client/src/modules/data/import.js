@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import 'chartjs-adapter-moment';
 import { Modal, Spinner , Button} from 'react-bootstrap';
 
 function Import() {

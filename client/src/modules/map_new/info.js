@@ -9,7 +9,7 @@ function Info(props) {
     const showContent = (key_table, data, layer) => {
         return (
             key_table.map(item => {
-                if (layer && configText[layer][item] && data[item]){
+                if (layer && configText[layer] && configText[layer][item] && data[item]){
                     return (
                         <p><span className='slabel'>{ configText[layer][item]}</span> : {data[item]} {configDonvi[layer][item]}</p>
                     )
@@ -24,7 +24,7 @@ function Info(props) {
                 let layer = value?.id.split(".")[0];
                 return (
                     <div id="tbSolieu">
-                         <p className="hname"><span>{value.properties.ten}</span><a href="#" id="popup-closer" className="ol-popup-closer" onClick={()=>{props.setInfo(false)}}></a> </p>
+                         <p className="hname"><span>{value.properties.ten}</span><button type="button" className="ol-popup-closer" onClick={()=>{props.setInfo(false)}} /> </p>
                          <div className="info">
                             {showContent(key_table, value.properties, layer)}
                         </div>

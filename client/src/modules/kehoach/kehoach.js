@@ -7,10 +7,6 @@ import { FormControl, InputLabel, Button, Select, MenuItem, CircularProgress, Bo
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
-import pdfMake, { prepareHtmlForPdf } from '../../utils/pdfmakeSetup';
-import htmlToPdfmake from 'html-to-pdfmake';
-import htmlDocx from 'html-docx-js/dist/html-docx';
-import { utils as xlsxUtils, writeFile as xlsxWriteFile } from 'xlsx';
 
 const data = {
     du_lieu_ke_hoach: [
@@ -151,44 +147,43 @@ function Kehoach() {
             page: '1',
         });
     };
-    const downloadPDF = () => {
+    const downloadPDF = async () => {
+        const [{ default: pdfMake, prepareHtmlForPdf }, { default: htmlToPdfmake }] = await Promise.all([
+            import('../../utils/pdfmakeSetup'),
+            import('html-to-pdfmake'),
+        ]);
         const input = document.getElementById('contentToPrint');
         const val = htmlToPdfmake(prepareHtmlForPdf(input.innerHTML));
         const content = Array.isArray(val) ? val.filter(Boolean) : val;
-        const docDefinition = {
+        pdfMake.createPdf({
             content,
             pageSize: 'A4',
             pageMargins: [30, 30, 30, 30],
             defaultStyle: { font: 'Roboto', fontSize: 11 },
-        };
-        pdfMake.createPdf(docDefinition).download(currentKeHoach.loai_ke_hoach + ' - ' + currentKeHoach.ten_ke_hoach);
+        }).download(currentKeHoach.loai_ke_hoach + ' - ' + currentKeHoach.ten_ke_hoach);
     };
     const downloadWord = async () => {
+        const { default: htmlDocx } = await import('html-docx-js/dist/html-docx');
         const input = document.getElementById('contentToPrint');
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = input.innerHTML;
-        const button1 = tempDiv.querySelector('button');
-
-        if (button1) {
-            button1.remove();
-        }
-        const html = tempDiv.innerHTML;
-        // Convert HTML to a Word document
-        const converted = htmlDocx.asBlob(html);
+        tempDiv.querySelector('button')?.remove();
+        const converted = htmlDocx.asBlob(tempDiv.innerHTML);
         const url = window.URL.createObjectURL(converted);
         const link = document.createElement('a');
         link.href = url;
-        link.download = currentKeHoach.loai_ke_hoach + ' - ' + currentKeHoach.ten_ke_hoach
+        link.download = currentKeHoach.loai_ke_hoach + ' - ' + currentKeHoach.ten_ke_hoach;
         link.click();
+        window.URL.revokeObjectURL(url);
     };
-    const downloadExcel = (columns, rows, filename) => {
-
+    const downloadExcel = async (columns, rows, filename) => {
+        const { utils, writeFile } = await import('xlsx');
         const header = columns.map(c => c.title);
         const dataRows = rows.map(row => columns.map(c => row[c.field_data] ?? ''));
-        const ws = xlsxUtils.aoa_to_sheet([header, ...dataRows]);
-        const wb = xlsxUtils.book_new();
-        xlsxUtils.book_append_sheet(wb, ws, 'Sheet1');
-        xlsxWriteFile(wb, `${filename}.xlsx`);
+        const ws = utils.aoa_to_sheet([header, ...dataRows]);
+        const wb = utils.book_new();
+        utils.book_append_sheet(wb, ws, 'Sheet1');
+        writeFile(wb, `${filename}.xlsx`);
     };
     const navItems = ["Kế hoạch", "Tra cứu"];
     const [navOpen, setNavOpen] = useState(true);

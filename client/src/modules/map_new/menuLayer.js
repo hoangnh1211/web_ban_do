@@ -1,6 +1,6 @@
-/* eslint-disable react/jsx-key */
+﻿/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ListLayer } from "./layerTile";
 import "./map.css";
 import { Spinner } from "react-bootstrap";
@@ -349,9 +349,9 @@ function MenuLayer(props) {
     class: "fa-solid fa-caret-right",
   });
   const handleChangeCheck = (callback, data, i, check) => {
-    data.data[i].check = !check;
-    callback({ ...data, data: data.data });
-    data.data[i].index.forEach(element => {
+    const newData = data.data.map((item, idx) => idx === i ? { ...item, check: !check } : item);
+    callback({ ...data, data: newData });
+    newData[i].index.forEach(element => {
       props.toggleLayersVisibility(element, !check);
     });
   };
@@ -415,7 +415,7 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
-    data.map((value) => {
+    data.forEach((value) => {
       if (value.check) {
         value.index.forEach(element => {
           props.ShowLayersVisibility(element);
@@ -426,7 +426,7 @@ function MenuLayer(props) {
         });
       }
     });
-    setShowSongBa(!showSongBa);
+    setShowSongBa(check);
   }
 
   const showAllSongHuong = (check1 = null) => {
@@ -463,7 +463,7 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
-    data.map((value) => {
+    data.forEach((value) => {
       if (value.check) {
         value.index.forEach(element => {
           props.ShowLayersVisibility(element);
@@ -474,7 +474,7 @@ function MenuLayer(props) {
         });
       }
     });
-    setShowSongHuong(!showSongHuong);
+    setShowSongHuong(check);
   }
   const showAllDuLieuNen = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showDuLieuNen;
@@ -501,7 +501,7 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
-    data.map((value) => {
+    data.forEach((value) => {
       if (check) {
         value.index.forEach(element => {
           props.ShowLayersVisibility(element);
@@ -536,7 +536,7 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
-    data.map((value) => {
+    data.forEach((value) => {
       if (value.check) {
         value.index.forEach(element => {
           props.ShowLayersVisibility(element);
@@ -547,7 +547,7 @@ function MenuLayer(props) {
         });
       }
     });
-    setShowSongHuongHienTrang(!showSongHuongHienTrang);
+    setShowSongHuongHienTrang(check);
   }
 
   const showAllSongBaHienTrang = (check1 = null) => {
@@ -572,7 +572,7 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
-    data.map((value) => {
+    data.forEach((value) => {
       if (value.check) {
         value.index.forEach(element => {
           props.ShowLayersVisibility(element);
@@ -583,7 +583,7 @@ function MenuLayer(props) {
         });
       }
     });
-    setShowSongBaHienTrang(!showSongBaHienTrang);
+    setShowSongBaHienTrang(check);
   }
 
   const showAllSongHong = (check1 = null) => {
@@ -603,7 +603,7 @@ function MenuLayer(props) {
       },
     ];
     setListSongHong({ data, show: true, class: "fa-solid fa-caret-down" });
-    data.map((value) => {
+    data.forEach((value) => {
       if (value.check) {
         value.index.forEach(element => { props.ShowLayersVisibility(element); });
       } else {
@@ -636,7 +636,7 @@ function MenuLayer(props) {
       },
     ];
     setListSongHongHienTrang({ data, show: true, class: "fa-solid fa-caret-down" });
-    data.map((value) => {
+    data.forEach((value) => {
       value.index.forEach(element => { props.HideLayersVisibility(element); });
     });
     setShowSongHongHienTrang(check);
@@ -699,7 +699,7 @@ function MenuLayer(props) {
       },
     ];
     setListSongCuuLong({ data, show: true, class: "fa-solid fa-caret-down" });
-    data.map((value) => {
+    data.forEach((value) => {
       if (value.check) {
         value.index.forEach(element => { props.ShowLayersVisibility(element); });
       } else {
@@ -860,7 +860,7 @@ function MenuLayer(props) {
       show: true,
       class: "fa-solid fa-caret-down",
     });
-    data.map((value) => {
+    data.forEach((value) => {
       if (value.check) {
         value.index.forEach(element => {
           props.ShowLayersVisibility(element);
@@ -871,7 +871,7 @@ function MenuLayer(props) {
         });
       }
     });
-    setShowCongTrinh(!showCongTrinh);
+    setShowCongTrinh(check);
   };
   const showAllCongTrinhHienTrang = (check1 = null) => {
     let check = (check1 !== null) ? check1 : !showCongTrinhHienTrang;
@@ -925,21 +925,22 @@ function MenuLayer(props) {
   };
   const renderOptions = (data, callback) => {
     return data.data.map((option, i) => {
+      const inputId = `opt-chk-${i}`;
       return (
-        <div className="form-check" style={{ marginLeft: "15px" }}>
+        <div key={i} className="form-check" style={{ marginLeft: "15px" }}>
           <input
             className="form-check-input"
             type="checkbox"
             value=""
             checked={option.check}
-            id="a61"
+            id={inputId}
             onChange={() => handleChangeCheck(callback, data, i, option.check)}
           />
           <label
             className={
               option.check ? "form-check-label checkTrue" : "form-check-label"
             }
-            id="a62"
+            htmlFor={inputId}
           >
             {option.value}
           </label>
@@ -980,6 +981,7 @@ function MenuLayer(props) {
     return value.map((option) => {
       return (
         <div
+          key={option.id}
           className="form-check"
           onClick={() => {
             props.handleSearch(`DanhMucQuyHoach.${option.id}`);
@@ -995,7 +997,6 @@ function MenuLayer(props) {
             className={
               option.id === dataDanhMuc.idCheck ? "form-check-label checkTrue" : "form-check-label"
             }
-            id="a62"
           >
             {option.tenlv}
           </label>
@@ -1006,6 +1007,10 @@ function MenuLayer(props) {
 
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const [open, setOpen] = useState(!isSmallScreen);
+
+  useEffect(() => {
+    setOpen(!isSmallScreen);
+  }, [isSmallScreen]);
 
   const toggleMenu = () => {
     setOpen(!open);
@@ -1085,9 +1090,7 @@ function MenuLayer(props) {
                       <input
                         style={{ marginLeft: "5px" }}
                         type="checkbox"
-                        value={dataDanhMuc.value.check}
-                        id="a61"
-                        onChange={() => {
+                        value={dataDanhMuc.value.check}                        onChange={() => {
                           let check = !dataDanhMuc.value.check;
                           dataDanhMuc.value.check = !dataDanhMuc.value.check;
                           props.setDataCheck(true);
@@ -1156,9 +1159,7 @@ function MenuLayer(props) {
                         style={{ marginLeft: "5px" }}
                         type="checkbox"
                         value=""
-                        defaultChecked={showBanDoQuyHoach}
-                        id="a61"
-                        onChange={() => showAllBando()}
+                        defaultChecked={showBanDoQuyHoach}                        onChange={() => showAllBando()}
                       />
                     </span>
                     <span
@@ -1203,16 +1204,7 @@ function MenuLayer(props) {
                             type="checkbox"
                             value=""
                             checked={showQuyHoachQuocGia}
-                            id="a61"
-                            onChange={() => {
-                              const next = !showQuyHoachQuocGia;
-                              if (next) {
-                                if (showQuyHoachLuuVucKhac) showAllQuyHoachLuuVucKhac(false);
-                                if (showQuyHoachSongHong) showAllQuyHoachSongHong(false);
-                                if (showQuyHoachSongCuuLong) showAllQuyHoachSongCuuLong(false);
-                              }
-                              showAllQuyHoachQuocGia(next);
-                            }}
+                            onChange={() => showAllQuyHoachQuocGia(!showQuyHoachQuocGia)}
                           />
                         </span>
                         <span
@@ -1256,7 +1248,6 @@ function MenuLayer(props) {
                                   type="checkbox"
                                   value=""
                                   checked={showCongTrinh}
-                                  id="a61"
                                   onChange={() => showAllCongTrinh()}
                                 />
                               </span>
@@ -1330,16 +1321,7 @@ function MenuLayer(props) {
                             type="checkbox"
                             value=""
                             checked={showQuyHoachSongHong}
-                            id="a61"
-                            onChange={() => {
-                              const next = !showQuyHoachSongHong;
-                              if (next) {
-                                if (showQuyHoachQuocGia) showAllQuyHoachQuocGia(false);
-                                if (showQuyHoachLuuVucKhac) showAllQuyHoachLuuVucKhac(false);
-                                if (showQuyHoachSongCuuLong) showAllQuyHoachSongCuuLong(false);
-                              }
-                              showAllQuyHoachSongHong(next, true);
-                            }}
+                            onChange={() => showAllQuyHoachSongHong(!showQuyHoachSongHong, true)}
                           />
                         </span>
                         <span
@@ -1375,7 +1357,6 @@ function MenuLayer(props) {
                                   type="checkbox"
                                   value=""
                                   checked={showSongHong}
-                                  id="a61"
                                   onChange={() => showAllSongHong()}
                                 />
                               </span>
@@ -1410,7 +1391,6 @@ function MenuLayer(props) {
                                   type="checkbox"
                                   value=""
                                   checked={showSongHongHienTrang}
-                                  id="a61"
                                   onChange={() => showAllSongHongHienTrang()}
                                 />
                               </span>
@@ -1448,16 +1428,7 @@ function MenuLayer(props) {
                             type="checkbox"
                             value=""
                             checked={showQuyHoachSongCuuLong}
-                            id="a61"
-                            onChange={() => {
-                              const next = !showQuyHoachSongCuuLong;
-                              if (next) {
-                                if (showQuyHoachQuocGia) showAllQuyHoachQuocGia(false);
-                                if (showQuyHoachLuuVucKhac) showAllQuyHoachLuuVucKhac(false);
-                                if (showQuyHoachSongHong) showAllQuyHoachSongHong(false);
-                              }
-                              showAllQuyHoachSongCuuLong(next, true);
-                            }}
+                            onChange={() => showAllQuyHoachSongCuuLong(!showQuyHoachSongCuuLong, true)}
                           />
                         </span>
                         <span
@@ -1493,7 +1464,6 @@ function MenuLayer(props) {
                                   type="checkbox"
                                   value=""
                                   checked={showSongCuuLong}
-                                  id="a61"
                                   onChange={() => showAllSongCuuLong()}
                                 />
                               </span>
@@ -1537,16 +1507,7 @@ function MenuLayer(props) {
                             type="checkbox"
                             value=""
                             checked={showQuyHoachLuuVucKhac}
-                            id="a61"
-                            onChange={() => {
-                              const next = !showQuyHoachLuuVucKhac;
-                              if (next) {
-                                if (showQuyHoachQuocGia) showAllQuyHoachQuocGia(false);
-                                if (showQuyHoachSongHong) showAllQuyHoachSongHong(false);
-                                if (showQuyHoachSongCuuLong) showAllQuyHoachSongCuuLong(false);
-                              }
-                              showAllQuyHoachLuuVucKhac(next);
-                            }}
+                            onChange={() => showAllQuyHoachLuuVucKhac(!showQuyHoachLuuVucKhac)}
                           />
                         </span>
                         <span
@@ -1582,17 +1543,7 @@ function MenuLayer(props) {
                                   type="checkbox"
                                   value=""
                                   checked={showQuyHoachSongHuong}
-                                  id="a61"
-                                  onChange={() => {
-                                    const next = !showQuyHoachSongHuong;
-                                    if (next) {
-                                      if (showQuyHoachQuocGia) showAllQuyHoachQuocGia(false);
-                                      if (showQuyHoachSongHong) showAllQuyHoachSongHong(false);
-                                      if (showQuyHoachSongCuuLong) showAllQuyHoachSongCuuLong(false);
-                                      if (showQuyHoachSongBa) showAllQuyHoachSongBa(false);
-                                    }
-                                    showAllQuyHoachSongHuong(next, true);
-                                  }}
+                                  onChange={() => showAllQuyHoachSongHuong(!showQuyHoachSongHuong, true)}
                                 />
                               </span>
                               <span
@@ -1617,7 +1568,7 @@ function MenuLayer(props) {
                                       onClick={() => { setListSongHuong({ ...listSongHuong, show: !listSongHuong.show, class: !listSongHuong.show ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right" }); }}
                                     ></i>
                                     <span className="icon-layer">
-                                      <input style={{ marginLeft: "5px" }} type="checkbox" value="" checked={showSongHuong} id="a61" onChange={() => showAllSongHuong()} />
+                                      <input style={{ marginLeft: "5px" }} type="checkbox" value="" checked={showSongHuong} onChange={() => showAllSongHuong()} />
                                     </span>
                                     <span
                                       style={{ marginLeft: "5px", fontSize: "16px" }}
@@ -1673,17 +1624,7 @@ function MenuLayer(props) {
                                   type="checkbox"
                                   value=""
                                   checked={showQuyHoachSongBa}
-                                  id="a61"
-                                  onChange={() => {
-                                    const next = !showQuyHoachSongBa;
-                                    if (next) {
-                                      if (showQuyHoachQuocGia) showAllQuyHoachQuocGia(false);
-                                      if (showQuyHoachSongHong) showAllQuyHoachSongHong(false);
-                                      if (showQuyHoachSongCuuLong) showAllQuyHoachSongCuuLong(false);
-                                      if (showQuyHoachSongHuong) showAllQuyHoachSongHuong(false);
-                                    }
-                                    showAllQuyHoachSongBa(next, true);
-                                  }}
+                                  onChange={() => showAllQuyHoachSongBa(!showQuyHoachSongBa, true)}
                                 />
                               </span>
                               <span
@@ -1708,7 +1649,7 @@ function MenuLayer(props) {
                                       onClick={() => { setListSongBa({ ...listSongBa, show: !listSongBa.show, class: !listSongBa.show ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right" }); }}
                                     ></i>
                                     <span className="icon-layer">
-                                      <input style={{ marginLeft: "5px" }} type="checkbox" value="" checked={showSongBa} id="a61" onChange={() => showAllSongBa()} />
+                                      <input style={{ marginLeft: "5px" }} type="checkbox" value="" checked={showSongBa} onChange={() => showAllSongBa()} />
                                     </span>
                                     <span
                                       style={{ marginLeft: "5px", fontSize: "16px" }}
@@ -1769,7 +1710,6 @@ function MenuLayer(props) {
                             type="checkbox"
                             value=""
                             checked={showDuLieuNen}
-                            id="a61"
                             onChange={() => showAllDuLieuNen(!showDuLieuNen)}
                           />
                         </span>

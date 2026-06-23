@@ -12,10 +12,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Box } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import moment from 'moment'
-import htmlDocx from 'html-docx-js/dist/html-docx';
-import pdfMake, { prepareHtmlForPdf } from '../../utils/pdfmakeSetup';
-import htmlToPdfmake from 'html-to-pdfmake';
 
 function QuyHoachKhac() {
     const [tinh, setTinh] = useState([]);
@@ -160,38 +156,35 @@ function QuyHoachKhac() {
         marginBottom: '10px',
         borderRadius: '10px',
     }
-    const downloadPDF = () => {
+    const downloadPDF = async () => {
+        const [{ default: pdfMake, prepareHtmlForPdf }, { default: htmlToPdfmake }] = await Promise.all([
+            import('../../utils/pdfmakeSetup'),
+            import('html-to-pdfmake'),
+        ]);
         const input = document.getElementById('contentToPrint');
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = input.innerHTML;
         const val = htmlToPdfmake(prepareHtmlForPdf(input.innerHTML));
         const content = Array.isArray(val) ? val.filter(Boolean) : val;
-        const docDefinition = {
+        const pdfName = indexCheck !== -1 ? 'quyhoach - ' + currentTinh.ten_tinh : 'quyhoach - ' + currentVung.ten_vung;
+        pdfMake.createPdf({
             content,
             pageSize: 'A4',
             pageMargins: [30, 30, 30, 30],
             defaultStyle: { font: 'Roboto', fontSize: 11 },
-        };
-        let pdfName =   indexCheck !== -1 ? 'quyhoach - ' +currentTinh.ten_tinh : 'quyhoach - ' +currentVung.ten_vung
-        pdfMake.createPdf(docDefinition).download(pdfName);
+        }).download(pdfName);
     };
     const downloadWord = async () => {
+        const { default: htmlDocx } = await import('html-docx-js/dist/html-docx');
         const input = document.getElementById('contentToPrint');
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = input.innerHTML;
-        const button1 = tempDiv.querySelector('button');
-
-        if (button1) {
-            button1.remove();
-        }
-        const html = tempDiv.innerHTML;
-        // Convert HTML to a Word document
-        const converted = htmlDocx.asBlob(html);
+        tempDiv.querySelector('button')?.remove();
+        const converted = htmlDocx.asBlob(tempDiv.innerHTML);
         const url = window.URL.createObjectURL(converted);
         const link = document.createElement('a');
         link.href = url;
-        link.download = indexCheck !== -1 ? 'quyhoach - ' +currentTinh.ten_tinh : 'quyhoach - ' +currentVung.ten_vung
+        link.download = indexCheck !== -1 ? 'quyhoach - ' + currentTinh.ten_tinh : 'quyhoach - ' + currentVung.ten_vung;
         link.click();
+        window.URL.revokeObjectURL(url);
     };
     const [navOpen, setNavOpen] = useState(true);
     
@@ -390,7 +383,7 @@ function QuyHoachKhac() {
                         </div>
                         <div>
                             <i><p style={{ textAlign: 'right', marginBottom: '5px' }}>Nguồn tài liệu: {currentTinh?.nguon_tai_lieu}</p></i>
-                            <i><p style={{ textAlign: 'right', marginBottom: '5px' }}>Thời gian cập nhật: {currentTinh && moment(currentTinh?.ngay_update).format('DD-MM-YYYY')}</p></i>
+                            <i><p style={{ textAlign: 'right', marginBottom: '5px' }}>Thời gian cập nhật: {currentTinh && new Date(currentTinh?.ngay_update).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p></i>
                         </div>
                     </div>
                 </div>

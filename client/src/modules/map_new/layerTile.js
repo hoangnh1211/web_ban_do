@@ -579,10 +579,10 @@ const BoVung_SongHuong_2 = new TileLayer({
 
 const DiaPhan_Tinh_2025 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,
+        ratio: 1, tileSize: tileSize, serverType: 'geoserver', tilePixelRatio: 1,
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'SongBa:DiaPhan_Tinh_2025',
@@ -594,10 +594,10 @@ const DiaPhan_Tinh_2025 = new TileLayer({
 
 const RanhGioiTinh_2025 = new TileLayer({
     source: new TileWMS({
-        ratio: 1,
+        ratio: 1, tileSize: tileSize, serverType: 'geoserver', tilePixelRatio: 1,
         url: urlConfig,
         params: {
-            'FORMAT': format,
+            'FORMAT': format, 'TILED': true,
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'SongBa:RanhGioiTinh_2025',

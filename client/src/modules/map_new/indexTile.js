@@ -16,15 +16,67 @@ import Info from './info';
 import VectorSource from 'ol/source/Vector';
 import TileWMS from 'ol/source/TileWMS';
 
+const searchNormalStyle = function (feature, resolution) {
+    const stroke = new olStyle.Stroke({
+        color: '#ff0000',
+        width: resolution <= 0.004 ? 0.5 : resolution <= 0.01 ? 0.3 : 0.15,
+        lineJoin: 'bevel',
+    });
+    const text = new olStyle.Text({
+        font: '15px Arial',
+        text: feature.get('luuvuc'),
+        fill: new olStyle.Fill({ color: '#2f2b9f' }),
+        stroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
+        offsetX: 5, offsetY: 0,
+        backgroundFill: new olStyle.Fill({ color: '#ffffff' }),
+        backgroundStroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
+    });
+    const style = new olStyle.Style({ fill: new olStyle.Fill({ color: 'transparent' }), stroke });
+    style.setText(text);
+    return style;
+};
+
+const searchHighlightStyle = function (feature) {
+    const text = new olStyle.Text({
+        font: '15px Arial',
+        text: feature.get('luuvuc'),
+        fill: new olStyle.Fill({ color: '#2f2b9f' }),
+        stroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
+        offsetX: 5, offsetY: 0,
+        backgroundFill: new olStyle.Fill({ color: '#ffffff' }),
+        backgroundStroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
+    });
+    const style = new olStyle.Style({
+        fill: new olStyle.Fill({ color: 'transparent' }),
+        stroke: new olStyle.Stroke({ color: '#ff0000', width: 3, lineJoin: 'bevel' }),
+    });
+    style.setText(text);
+    return style;
+};
+
+class ErrorBoundary extends React.Component {
+    constructor(props) { super(props); this.state = { error: false }; }
+    static getDerivedStateFromError() { return { error: true }; }
+    render() {
+        if (this.state.error) return <div style={{ padding: 20, color: 'red' }}>Đã xảy ra lỗi. Vui lòng tải lại trang.</div>;
+        return this.props.children;
+    }
+}
+
 function MapNew() {
     const [map, setMap] = useState();
     const mapElement = useRef();
-    const [coordinate, setCoordinate] = useState(null);
     const [dataMap, setDataMap] = useState(null);
     const [showInfo, setShowInfo] = useState(false);
     const [getData, setGetData] = useState(false);
     const [dataCheck, setDataCheck] = useState(false);
     const [open, setOpen] = useState(window.innerWidth > 768);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const onResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, []);
     useEffect(() => {
         const vectorSource = danhMucQuyHoach.getSource();
 
@@ -47,10 +99,7 @@ function MapNew() {
         return () => {
             vectorSource.un('change', handleFeatureChange);
         };
-    }, [dataCheck])
-    useEffect(() => {
-        danhMucQuyHoach.getSource().refresh();
-    }, [])
+    }, [dataCheck, getData])
     useEffect(() => {
         const container = document.getElementById('popup');
         const closer = document.getElementById('popup-closer');
@@ -90,41 +139,47 @@ function MapNew() {
 
 
         initialMap.on('pointermove', (e) => {
-            // const coords = toLonLat(e.coordinate).map(c => c.toFixed(6)); // Chuyển đổi tọa độ sang EPSG:4326 và định dạng
-            setCoordinate(e.coordinate.map(c => c.toFixed(4)));
+            const coords = e.coordinate.map(c => c.toFixed(4));
+            const el = document.getElementById('coord-display');
+            if (el) el.textContent = `Tọa độ: ${coords.join(', ')}`;
         });
         initialMap.on('singleclick', async function (evt) {
             let viewResolution = initialMap.getView().getResolution();
             let viewProjection = initialMap.getView().getProjection();
-
-            // Kiểm tra layer tại điểm click, bắt đầu từ layer trên cùng
             overlay.setPosition(undefined);
-            for (const layer of listLayerData) {
-                let source = layer.get('visible') ? layer.getSource() : null;
-                if (source && source instanceof TileWMS) {
-                    let url = source.getFeatureInfoUrl(
-                        evt.coordinate, viewResolution, viewProjection,
-                        { 'INFO_FORMAT': 'application/json' }
-                    );
-                    if (url) {
-                        let value = await axios.get(url);
-                        if (value.data.features?.length > 0) {
-                            overlay.setPosition(evt.coordinate);
-                            setDataMap({ data: value.data.features })
-                            break;
-                        }
-                    }
-                }
-                if (source && source instanceof VectorSource) {
-                    var feature = initialMap.forEachFeatureAtPixel(evt.pixel, function (feature) {
-                        return feature;
-                    });
+
+            const visibleLayers = listLayerData.filter(layer => layer.get('visible'));
+
+            // VectorSource: check synchronously (no network needed)
+            for (const layer of visibleLayers) {
+                if (layer.getSource() instanceof VectorSource) {
+                    const feature = initialMap.forEachFeatureAtPixel(evt.pixel, f => f);
                     if (feature) {
                         overlay.setPosition(evt.coordinate);
-                        setDataMap({ data: [{ id: feature.getId(), properties: feature.getProperties() }] })
-                        break;
+                        setDataMap({ data: [{ id: feature.getId(), properties: feature.getProperties() }] });
+                        return;
                     }
                 }
+            }
+
+            // TileWMS: fire all visible-layer requests in parallel
+            const tileWmsLayers = visibleLayers.filter(layer => layer.getSource() instanceof TileWMS);
+            const requests = tileWmsLayers.map((layer, i) => {
+                const url = layer.getSource().getFeatureInfoUrl(
+                    evt.coordinate, viewResolution, viewProjection,
+                    { 'INFO_FORMAT': 'application/json' }
+                );
+                if (!url) return Promise.resolve(null);
+                return axios.get(url)
+                    .then(res => res.data.features?.length > 0 ? { features: res.data.features, order: i } : null)
+                    .catch(() => null);
+            });
+
+            const results = await Promise.all(requests);
+            const hit = results.filter(Boolean).sort((a, b) => a.order - b.order)[0];
+            if (hit) {
+                overlay.setPosition(evt.coordinate);
+                setDataMap({ data: hit.features });
             }
         });
 
@@ -135,9 +190,6 @@ function MapNew() {
 
     }, []);
 
-    const setInfo = (value) => {
-        setShowInfo(value)
-    }
     const toggleLayersVisibility = (index, value) => {
         listLayer[index].setVisible(value);
     };
@@ -165,7 +217,7 @@ function MapNew() {
 
     const handleSearch = async (layerIdToSearch) => {
         let data = danhMucQuyHoach.getSource().getFeatures().find(feature => feature.id_ === layerIdToSearch);
-        // let data = danhmucVector.find(feature => feature.id_ === layerIdToSearch);
+        if (!data) return;
         const mapView = map.getView();
         // const center = olExtent.getCenter(data.values_.geometry.extent_);
         // mapView.setCenter(center);
@@ -174,118 +226,25 @@ function MapNew() {
             padding: [10, 10, 10, 10]
         });
 
-        const combinedStyle = function (feature, resolution) {
-            let style;
-            let width = null;
-            if (resolution <= 0.004) {
-                style = new olStyle.Style({
-                    fill: new olStyle.Fill({
-                        color: 'transparent',
-                        opacity: 0, // Độ trong suốt
-                    }),
-                    stroke: new olStyle.Stroke({
-                        color: '#ff0000',
-                        width: width ? width : 0.5,
-                        lineJoin: 'bevel',
-                    }),
-                });
-            }
-            else if (resolution > 0.004 && resolution <= 0.01) {
-                style = new olStyle.Style({
-                    fill: new olStyle.Fill({
-                        color: 'transparent',
-                        opacity: 0, // Độ trong suốt
-                    }),
-                    stroke: new olStyle.Stroke({
-                        color: '#ff0000',
-                        width: width ? width : 0.3,
-                        lineJoin: 'bevel',
-                    }),
-                });
-            }
-            else {
-                style = new olStyle.Style({
-                    fill: new olStyle.Fill({
-                        color: 'transparent',
-                        opacity: 0, // Độ trong suốt
-                    }),
-                    stroke: new olStyle.Stroke({
-                        color: '#ff0000',
-                        width: width ? width : 0.15,
-                        lineJoin: 'bevel',
-                    }),
-                });
-            }
-
-            // Quy tắc 4: Nhãn văn bản
-            const text = new olStyle.Text({
-                font: '15px Arial',
-                text: feature.get('luuvuc'), // Thuộc tính được sử dụng cho nhãn
-                fill: new olStyle.Fill({ color: '#2f2b9f' }),
-                stroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
-                offsetX: 5,
-                offsetY: 0,
-                backgroundFill: new olStyle.Fill({ color: '#ffffff' }), // Màu nền
-                backgroundStroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
-            });
-
-            style.setText(text);
-
-            return style;
-        }
-
-        const combinedStyleHl = function (feature) {
-            let style;
-
-            style = new olStyle.Style({
-                fill: new olStyle.Fill({
-                    color: 'transparent',
-                    opacity: 0, // Độ trong suốt
-                }),
-                stroke: new olStyle.Stroke({
-                    color: '#ff0000',
-                    width: 3,
-                    lineJoin: 'bevel',
-                }),
-            });
-
-            // Quy tắc 4: Nhãn văn bản
-            const text = new olStyle.Text({
-                font: '15px Arial',
-                text: feature.get('luuvuc'), // Thuộc tính được sử dụng cho nhãn
-                fill: new olStyle.Fill({ color: '#2f2b9f' }),
-                stroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
-                offsetX: 5,
-                offsetY: 0,
-                backgroundFill: new olStyle.Fill({ color: '#ffffff' }), // Màu nền
-                backgroundStroke: new olStyle.Stroke({ color: '#808080', width: 0.5 }),
-            });
-
-            style.setText(text);
-
-            return style;
-        }
         danhMucQuyHoach.getSource().getFeatures().forEach(value => {
-            value.setStyle(combinedStyle);
+            value.setStyle(searchNormalStyle);
         })
 
-        data.setStyle(combinedStyleHl);
+        data.setStyle(searchHighlightStyle);
     };
     return (
-        <div style={{ marginTop: window.innerWidth <= 768 ? 56 : 70 }}>
+        <div style={{ marginTop: windowWidth <= 768 ? 56 : 70 }}>
             {/* <Header title ="Hệ thống thông tin quy hoạch thủy lợi trực tuyến"/> */}
             <MenuLayer setDataCheck={setDataCheck} getData={getData} handleSearch={handleSearch} handleMapFit={handleMapFit} toggleLayersVisibility={toggleLayersVisibility} ShowLayersVisibility={ShowLayersVisibility} HideLayersVisibility={HideLayersVisibility} />
             <div style={{ height: '100vh', width: '100%' }} ref={mapElement} className="map-container"></div>
             <div id="popup" className="ol-popup">
-                <a href="#" id="popup-closer" className="ol-popup-closer"></a>
-                {dataMap && <Table data={dataMap.data} setInfo={setInfo} />}
+                <button type="button" id="popup-closer" className="ol-popup-closer"></button>
+                {dataMap && <Table data={dataMap.data} setInfo={setShowInfo} />}
             </div>
-            {coordinate && (
-                <div style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: open ? (window.innerWidth <= 1440 ? 260 : 360) : 105, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }}>
-                    Tọa độ: {coordinate.join(', ')}
-                </div>
-            )}
-            {showInfo && dataMap && <Info data={dataMap.data} setInfo={setInfo} />}
+            <div id="coord-display" style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: open ? (windowWidth <= 1440 ? 260 : 360) : 105, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }}>
+                Tọa độ: -
+            </div>
+            {showInfo && dataMap && <Info data={dataMap.data} setInfo={setShowInfo} />}
             <div id="toolRight">
                 <div className="toolgroup">
                     <div className="UI-DROP show" id="layerBases" display="name" style={{ float: 'right', height: '34px', position: "relative" }}>
@@ -333,7 +292,7 @@ function MapNew() {
                     position: "fixed",
                     bottom: 0,
                     right: 0,
-                    width: window.innerWidth <= 1440 ? 260 : 360,
+                    width: windowWidth <= 1440 ? 260 : 360,
                     zIndex: 9999,
                 }}
             >
@@ -375,4 +334,6 @@ function MapNew() {
     );
 }
 
-export default MapNew;
+export default function MapNewWithBoundary(props) {
+    return <ErrorBoundary><MapNew {...props} /></ErrorBoundary>;
+}

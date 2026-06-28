@@ -652,6 +652,21 @@ const ctht_songhuong = new TileLayer({
     visible: false,
 })
 
+const ctht_songhong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1, tileSize: tileSize, serverType: 'geoserver', tilePixelRatio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format, 'TILED': true,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'SongHong:HienTrang_SongHong',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
 const Kenh_songHuong = new TileLayer({
     source: new TileWMS({
         ratio: 1, tileSize: tileSize, serverType: 'geoserver', tilePixelRatio: 1,
@@ -1050,6 +1065,10 @@ export const ListLayer = [
         layer: ctht_songhuong,
     },
     {
+        id: 'ctht_songhong',
+        layer: ctht_songhong,
+    },
+    {
         id: 'PhanVungThuyLoi_SongHong',
         layer: PhanVungThuyLoi_SongHong,
     },
@@ -1115,7 +1134,7 @@ export const ListLayer = [
 
 export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
-export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, CTQH_SongHong, CTQH_SongCuuLong, congTrinhQuyHoach, ctht_songhuong, ctht_songba, CTNC_songhuong, CTNC_SongBa_1, CTNC_SongHong, CTNC_SongCuuLong, NaoVet_SongCuuLong, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach, heThongThuyLoiNangCap
+export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, CTQH_SongHong, CTQH_SongCuuLong, congTrinhQuyHoach, ctht_songhuong, ctht_songba, ctht_songhong, CTNC_songhuong, CTNC_SongBa_1, CTNC_SongHong, CTNC_SongCuuLong, NaoVet_SongCuuLong, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach, heThongThuyLoiNangCap
     // ,thuyDien
     // , tramBom, cong, dapHoChuaLon
     , congtrinh_ht_toanQuoc

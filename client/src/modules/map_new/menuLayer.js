@@ -269,6 +269,12 @@ function MenuLayer(props) {
         show: true,
       },
       {
+        value: "Công trình hiện trạng",
+        index: [ListLayer.findIndex((value) => value.id === "ctht_songhong")],
+        check: false,
+        show: true,
+      },
+      {
         value: "Phân khu thuỷ lợi",
         index: [ListLayer.findIndex((value) => value.id === "PhanKhuThuyLoi_SongHong")],
         check: false,
@@ -623,6 +629,12 @@ function MenuLayer(props) {
         show: true,
       },
       {
+        value: "Công trình hiện trạng",
+        index: [ListLayer.findIndex((value) => value.id === "ctht_songhong")],
+        check: check,
+        show: true,
+      },
+      {
         value: "Phân khu thuỷ lợi",
         index: [ListLayer.findIndex((value) => value.id === "PhanKhuThuyLoi_SongHong")],
         check: false,
@@ -637,7 +649,11 @@ function MenuLayer(props) {
     ];
     setListSongHongHienTrang({ data, show: true, class: "fa-solid fa-caret-down" });
     data.forEach((value) => {
-      value.index.forEach(element => { props.HideLayersVisibility(element); });
+      if (value.check) {
+        value.index.forEach(element => { props.ShowLayersVisibility(element); });
+      } else {
+        value.index.forEach(element => { props.HideLayersVisibility(element); });
+      }
     });
     setShowSongHongHienTrang(check);
   };
@@ -645,8 +661,8 @@ function MenuLayer(props) {
   const showAllQuyHoachSongHong = (flag, click = false) => {
     showAllSongHong(flag);
     setShowSongHong(flag);
-    showAllSongHongHienTrang(false);
-    setShowSongHongHienTrang(false);
+    showAllSongHongHienTrang(flag);
+    setShowSongHongHienTrang(flag);
     setShowQuyHoachSongHong(flag);
     setListQuyHoachSongHong({ show: true, class: "fa-solid fa-caret-down" });
     if (flag) {

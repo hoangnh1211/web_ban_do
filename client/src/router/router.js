@@ -6,14 +6,14 @@ const lazyWithRetry = (importFn) => lazy(() =>
 );
 
 const Home = lazyWithRetry(() => import("../modules/home/home"));
-const QuyHoachKhac = lazyWithRetry(() => import("../modules/quyhoachkhac"));
-const DanhGiaQuyHoach = lazyWithRetry(() => import("../modules/danhgiaquyhoachkhac"));
-const ChienLuocThuyLoi = lazyWithRetry(() => import("../modules/chienluocthuyloi"));
-const Contact = lazyWithRetry(() => import("../modules/contact/contact"));
-const Dulieu = lazyWithRetry(() => import("../modules/dulieuquyhoach/dulieuquyhoach"));
-const Kehoach = lazyWithRetry(() => import("../modules/kehoach/kehoach"));
+const QuyHoachKhac = lazyWithRetry(() => import(/* webpackPrefetch: true */ "../modules/quyhoachkhac"));
+const DanhGiaQuyHoach = lazyWithRetry(() => import(/* webpackPrefetch: true */ "../modules/danhgiaquyhoachkhac"));
+const ChienLuocThuyLoi = lazyWithRetry(() => import(/* webpackPrefetch: true */ "../modules/chienluocthuyloi"));
+const Contact = lazyWithRetry(() => import(/* webpackPrefetch: true */ "../modules/contact/contact"));
+const Dulieu = lazyWithRetry(() => import(/* webpackPrefetch: true */ "../modules/dulieuquyhoach/dulieuquyhoach"));
+const Kehoach = lazyWithRetry(() => import(/* webpackPrefetch: true */ "../modules/kehoach/kehoach"));
 const Import = lazyWithRetry(() => import("../modules/data/import"));
-const MapNewTile = lazyWithRetry(() => import("../modules/map_new/indexTile"));
+const MapNewTile = lazyWithRetry(() => import(/* webpackPrefetch: true */ "../modules/map_new/indexTile"));
 const MapNewTileTest = lazyWithRetry(() => import("../modules/map_new/indexTileTest"));
 
 const Loading = () => (

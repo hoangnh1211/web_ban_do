@@ -202,7 +202,7 @@ function MapNew() {
     };
     const toggleLayersNenVisibility = (index) => {
         listLayer[index].setVisible(true);
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 6; i++) {
             if (i !== index)
                 listLayer[i].setVisible(false)
         };
@@ -261,6 +261,7 @@ function MapNew() {
                             <li value="GOOGLE" layerid="googlemap" onClick={() => toggleLayersNenVisibility(2)}> <span>Bản đồ Google Map</span></li>
                             <li value="GOOGLE" layerid="googlemap" onClick={() => toggleLayersNenVisibility(3)}> <span>Bản đồ Google satellite</span></li>
                             <li value="GOOGLE" layerid="googlemap" onClick={() => toggleLayersNenVisibility(4)}> <span>Bản đồ Google terrian</span></li>
+                            <li value="VNSDI" layerid="bandohanhchinh_vnsdi" onClick={() => toggleLayersNenVisibility(5)}> <span>Bản đồ hành chính Việt Nam</span></li>
                         </ul>
                     </div>
                 </div>

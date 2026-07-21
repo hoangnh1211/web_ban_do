@@ -266,6 +266,13 @@ const googleterriar = new TileLayer({
     visible: false,
 });
 
+const bandohanhchinh_vnsdi = new TileLayer({
+    source: new XYZ({
+        url: `https://quyhoachthuyloi.vn/vnsdi-proxy/{z}/{y}/{x}?token=${process.env.REACT_APP_VNSDI_TOKEN}`
+    }),
+    visible: false,
+});
+
 // export const danhMucQuyHoach = new TileLayer({
 //     source: new TileWMS({
 //         ratio: 1,tileSize: 256,serverType: 'geoserver',tilePixelRatio: 1,
@@ -897,6 +904,10 @@ export const ListLayer = [
     {
         id: 'googleterriar',
         layer: googleterriar
+    },
+    {
+        id: 'bandohanhchinh_vnsdi',
+        layer: bandohanhchinh_vnsdi
     },
     {
         id: 'sudungdat_vn',

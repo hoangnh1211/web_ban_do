@@ -236,7 +236,7 @@ function QuyHoachKhac() {
                         })}
                     </ul>
                     <div onClick={() => changeStatus('namtrungbo')} style={navCheck === 'Nam Trung Bộ' ? styleCheck : styleNotCheck}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ</p>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. NTB và TN</p>
                         <i className={statusVung.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
@@ -246,7 +246,7 @@ function QuyHoachKhac() {
 
                         })}
                     </ul>
-                    <div onClick={() => changeStatus('taynguyen')} style={navCheck === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
+                    {/* <div onClick={() => changeStatus('taynguyen')} style={navCheck === 'Tây Nguyên' ? styleCheck : styleNotCheck}>
                         <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Tây Nguyên</p>
                         <i className={statusVung.taynguyen ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
@@ -256,9 +256,9 @@ function QuyHoachKhac() {
                                 return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : value.phuong_an === null ? { color: '#D9D9D9', borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={value.phuong_an === null ? undefined : () => getTinh(value, index)}>{value.stt}. {value.ten_tinh}</li>
 
                         })}
-                    </ul>
+                    </ul> */}
                     <div onClick={() => changeStatus('dongnambo')} style={navCheck === 'Đông Nam Bộ' ? styleCheck : styleNotCheck}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đông Nam Bộ</p>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Đông Nam Bộ</p>
                         <i className={statusVung.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
@@ -269,7 +269,7 @@ function QuyHoachKhac() {
                         })}
                     </ul>
                     <div onClick={() => changeStatus('dongbangsong')} style={navCheck === 'Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
-                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Đồng bằng sông Cửu Long</p>
+                        <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đồng bằng sông Cửu Long</p>
                         <i className={statusVung.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
                     </div>
                     <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>

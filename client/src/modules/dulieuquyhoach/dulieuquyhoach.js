@@ -439,14 +439,25 @@ function Dulieu() {
     const toggleNav = () => setNavOpen(!navOpen);
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     return (
-        <div className="main-content" style={{ minHeight: '60vh' }}>
+        <div className="main-content" style={{ minHeight: '60vh', overflow: 'visible' }}>
             <div style={{ display: isSmallScreen ? 'contents' : 'flex', marginTop: '5px' }}>
                 {isSmallScreen &&
                     <div style={{ zIndex: "100", padding: "10px", width: '30px' }}>
                         <i className="fas fa-bars" onClick={toggleNav} ></i>
                     </div>}
                 {navOpen &&
-                    <div style={{ zIndex: 90, background: '#fff', position: isSmallScreen ? 'absolute' : 'flex', width: isSmallScreen ? '60vw' : '20vw', borderBottom: '1px solid #dee2e6', borderRight: '1px solid #dee2e6' }}>
+                    <div style={{
+                        zIndex: 90,
+                        background: '#fff',
+                        position: isSmallScreen ? 'absolute' : 'sticky',
+                        top: isSmallScreen ? undefined : '75px',
+                        alignSelf: isSmallScreen ? undefined : 'flex-start',
+                        width: isSmallScreen ? '60vw' : '20vw',
+                        maxHeight: isSmallScreen ? '80vh' : 'calc(100vh - 90px)',
+                        overflowY: 'auto',
+                        borderBottom: '1px solid #dee2e6',
+                        borderRight: '1px solid #dee2e6'
+                    }}>
                         <div style={{ marginLeft: isSmallScreen ? '30px' : '10px' }}>
                             {navItems.map((item, index) => (
                                 <Button

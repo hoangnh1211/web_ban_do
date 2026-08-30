@@ -304,6 +304,7 @@ function QuyHoachKhac() {
                         </Box>) : (
                         <div className='pa_content' dangerouslySetInnerHTML={{ __html: currentTinh?.phuong_an }} />
                     )}
+{/* 
                     <p style={{ fontWeight: 700, fontSize: '16px' }}>2. Danh mục các công trình ưu tiên đầu tư</p>
                     {!loadingCongtrinhUuTien ? (
                         <Box
@@ -376,6 +377,7 @@ function QuyHoachKhac() {
                                     ))}
                                 </TableBody>
                             </Table>)}
+                             */}
                     <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
                         <div>
                             <button className="download" style={{ marginRight: '20px' }} onClick={downloadPDF}>Download pdf</button>

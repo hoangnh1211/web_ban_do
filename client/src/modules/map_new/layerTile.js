@@ -749,20 +749,20 @@ const Kenh_SongHong = new TileLayer({
     visible: false,
 })
 
-const PhanKhuThuyLoi_SongHong = new TileLayer({
-    source: new TileWMS({
-        ratio: 1, tileSize: tileSize, serverType: 'geoserver', tilePixelRatio: 1,
-        url: urlConfig,
-        params: {
-            'FORMAT': format, 'TILED': true,
-            'VERSION': '1.1.1',
-            "STYLES": '',
-            "LAYERS": 'SongHong:PhanKhuThuyLoi',
-            "exceptions": 'application/vnd.ogc.se_inimage',
-        },
-    }),
-    visible: false,
-})
+// const PhanKhuThuyLoi_SongHong = new TileLayer({
+//     source: new TileWMS({
+//         ratio: 1, tileSize: tileSize, serverType: 'geoserver', tilePixelRatio: 1,
+//         url: urlConfig,
+//         params: {
+//             'FORMAT': format, 'TILED': true,
+//             'VERSION': '1.1.1',
+//             "STYLES": '',
+//             "LAYERS": 'SongHong:PhanKhuThuyLoi',
+//             "exceptions": 'application/vnd.ogc.se_inimage',
+//         },
+//     }),
+//     visible: false,
+// })
 
 const PhanVungThuyLoi_SongHong = new TileLayer({
     source: new TileWMS({
@@ -878,6 +878,21 @@ const BoVung_SongCuuLong = new TileLayer({
             'VERSION': '1.1.1',
             "STYLES": '',
             "LAYERS": 'cuulong:BoVung_SCL',
+            "exceptions": 'application/vnd.ogc.se_inimage',
+        },
+    }),
+    visible: false,
+})
+
+const ctht_cuulong = new TileLayer({
+    source: new TileWMS({
+        ratio: 1, tileSize: tileSize, serverType: 'geoserver', tilePixelRatio: 1,
+        url: urlConfig,
+        params: {
+            'FORMAT': format, 'TILED': true,
+            'VERSION': '1.1.1',
+            "STYLES": '',
+            "LAYERS": 'cuulong:HienTrang_CuuLong',
             "exceptions": 'application/vnd.ogc.se_inimage',
         },
     }),
@@ -1080,13 +1095,17 @@ export const ListLayer = [
         layer: ctht_songhong,
     },
     {
+        id: 'ctht_cuulong',
+        layer: ctht_cuulong,
+    },
+    {
         id: 'PhanVungThuyLoi_SongHong',
         layer: PhanVungThuyLoi_SongHong,
     },
-    {
-        id: 'PhanKhuThuyLoi_SongHong',
-        layer: PhanKhuThuyLoi_SongHong,
-    },
+    // {
+    //     id: 'PhanKhuThuyLoi_SongHong',
+    //     layer: PhanKhuThuyLoi_SongHong,
+    // },
 
     {
         id: 'Kenh_SongHong',
@@ -1145,7 +1164,7 @@ export const ListLayer = [
 
 export const listLayer = ListLayer.map((data) => { return data.layer })
 export const countLayer = listLayer.length
-export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, CTQH_SongHong, CTQH_SongCuuLong, congTrinhQuyHoach, ctht_songhuong, ctht_songba, ctht_songhong, CTNC_songhuong, CTNC_SongBa_1, CTNC_SongHong, CTNC_SongCuuLong, NaoVet_SongCuuLong, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach, heThongThuyLoiNangCap
+export const listLayerData = [CTQH_songhuong, CTQH_SongBa_V2, CTQH_SongHong, CTQH_SongCuuLong, congTrinhQuyHoach, ctht_songhuong, ctht_songba, ctht_songhong, ctht_cuulong, CTNC_songhuong, CTNC_SongBa_1, CTNC_SongHong, CTNC_SongCuuLong, NaoVet_SongCuuLong, congTrinhNangCap, tuyenchuyennuoc_SongBa, tuyenChuyenNuoc, naovettructieu_songba_v1, danhMucQuyHoach, heThongThuyLoiNangCap
     // ,thuyDien
     // , tramBom, cong, dapHoChuaLon
     , congtrinh_ht_toanQuoc

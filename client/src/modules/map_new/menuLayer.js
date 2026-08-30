@@ -106,7 +106,7 @@ function MenuLayer(props) {
         show: true,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "congTrinhNangCap")],
         check: false,
         show: true,
@@ -147,7 +147,7 @@ function MenuLayer(props) {
         show: false,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_SongBa_1")],
         check: false,
         show: false,
@@ -185,7 +185,7 @@ function MenuLayer(props) {
         show: false,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_songhuong")],
         check: false,
         show: false,
@@ -251,7 +251,7 @@ function MenuLayer(props) {
         show: true,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_SongHong")],
         check: false,
         show: true,
@@ -299,7 +299,7 @@ function MenuLayer(props) {
         show: true,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_SongCuuLong")],
         check: false,
         show: true,
@@ -319,6 +319,18 @@ function MenuLayer(props) {
       {
         value: "Đê biển",
         index: [ListLayer.findIndex((value) => value.id === "DeBien_SongCuuLong")],
+        check: false,
+        show: true,
+      },
+    ],
+    show: false,
+    class: "fa-solid fa-caret-right",
+  });
+  const [listSongCuuLongHienTrang, setListSongCuuLongHienTrang] = useState({
+    data: [
+      {
+        value: "Công trình hiện trạng",
+        index: [ListLayer.findIndex((value) => value.id === "ctht_cuulong")],
         check: false,
         show: true,
       },
@@ -369,6 +381,7 @@ function MenuLayer(props) {
   const [showQuyHoachSongHong, setShowQuyHoachSongHong] = useState(false);
   const [showQuyHoachSongCuuLong, setShowQuyHoachSongCuuLong] = useState(false);
   const [showSongCuuLong, setShowSongCuuLong] = useState(false);
+  const [showSongCuuLongHienTrang, setShowSongCuuLongHienTrang] = useState(false);
   const [showSongBa, setShowSongBa] = useState(false);
   const [showSongHuong, setShowSongHuong] = useState(false);
   const [showSongHong, setShowSongHong] = useState(false);
@@ -391,7 +404,7 @@ function MenuLayer(props) {
         show: false,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_SongBa_1")],
         check: false,
         show: false,
@@ -445,7 +458,7 @@ function MenuLayer(props) {
         show: false,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_songhuong")],
         check: false,
         show: false,
@@ -602,7 +615,7 @@ function MenuLayer(props) {
         show: true,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_SongHong")],
         check: false,
         show: true,
@@ -634,12 +647,12 @@ function MenuLayer(props) {
         check: check,
         show: true,
       },
-      {
-        value: "Phân khu thuỷ lợi",
-        index: [ListLayer.findIndex((value) => value.id === "PhanKhuThuyLoi_SongHong")],
-        check: false,
-        show: true,
-      },
+      // {
+      //   value: "Phân khu thuỷ lợi",
+      //   index: [ListLayer.findIndex((value) => value.id === "PhanKhuThuyLoi_SongHong")],
+      //   check: false,
+      //   show: true,
+      // },
       {
         value: "Phân vùng thuỷ lợi",
         index: [ListLayer.findIndex((value) => value.id === "PhanVungThuyLoi_SongHong")],
@@ -690,7 +703,7 @@ function MenuLayer(props) {
         show: true,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "CTNC_SongCuuLong")],
         check: false,
         show: true,
@@ -725,9 +738,32 @@ function MenuLayer(props) {
     setShowSongCuuLong(check);
   };
 
+  const showAllSongCuuLongHienTrang = (check1 = null) => {
+    let check = (check1 !== null) ? check1 : !showSongCuuLongHienTrang;
+    let data = [
+      {
+        value: "Công trình hiện trạng",
+        index: [ListLayer.findIndex((value) => value.id === "ctht_cuulong")],
+        check: check,
+        show: true,
+      },
+    ];
+    setListSongCuuLongHienTrang({ data, show: true, class: "fa-solid fa-caret-down" });
+    data.forEach((value) => {
+      if (value.check) {
+        value.index.forEach(element => { props.ShowLayersVisibility(element); });
+      } else {
+        value.index.forEach(element => { props.HideLayersVisibility(element); });
+      }
+    });
+    setShowSongCuuLongHienTrang(check);
+  };
+
   const showAllQuyHoachSongCuuLong = (flag, click = false) => {
     showAllSongCuuLong(flag);
     setShowSongCuuLong(flag);
+    showAllSongCuuLongHienTrang(flag);
+    setShowSongCuuLongHienTrang(flag);
     setShowQuyHoachSongCuuLong(flag);
     setListQuyHoachSongCuuLong({ show: true, class: "fa-solid fa-caret-down" });
     if (flag) {
@@ -842,7 +878,7 @@ function MenuLayer(props) {
         show: true,
       },
       {
-        value: "Công trình nâng cấp",
+        value: "Nâng cấp: Công trình",
         index: [ListLayer.findIndex((value) => value.id === "congTrinhNangCap")],
         check: false,
         show: true,
@@ -1500,6 +1536,34 @@ function MenuLayer(props) {
                           {listSongCuuLong.show && (
                             <ul className={"dropdown__list " + "dropdown__list--active"}>
                               {renderOptions(listSongCuuLong, setListSongCuuLong)}
+                            </ul>
+                          )}
+                          <div className="dropdown__toggle dropdown__list-item">
+                            <b>
+                              <i
+                                className={listSongCuuLongHienTrang.class}
+                                onClick={() => { setListSongCuuLongHienTrang({ ...listSongCuuLongHienTrang, show: !listSongCuuLongHienTrang.show, class: !listSongCuuLongHienTrang.show ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right" }); }}
+                              ></i>
+                              <span className="icon-layer">
+                                <input
+                                  style={{ marginLeft: "5px" }}
+                                  type="checkbox"
+                                  value=""
+                                  checked={showSongCuuLongHienTrang}
+                                  onChange={() => showAllSongCuuLongHienTrang()}
+                                />
+                              </span>
+                              <span
+                                style={{ marginLeft: "5px", fontSize: "16px" }}
+                                onClick={() => { setListSongCuuLongHienTrang({ ...listSongCuuLongHienTrang, show: !listSongCuuLongHienTrang.show, class: !listSongCuuLongHienTrang.show ? "fa-solid fa-caret-down" : "fa-solid fa-caret-right" }); }}
+                              >
+                                Dữ liệu hiện trạng
+                              </span>
+                            </b>
+                          </div>
+                          {listSongCuuLongHienTrang.show && (
+                            <ul className={"dropdown__list " + "dropdown__list--active"}>
+                              {renderOptions(listSongCuuLongHienTrang, setListSongCuuLongHienTrang)}
                             </ul>
                           )}
                         </ul>

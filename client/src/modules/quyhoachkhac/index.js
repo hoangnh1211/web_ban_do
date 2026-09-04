@@ -191,7 +191,7 @@ function QuyHoachKhac() {
         const toggleNav = () => setNavOpen(!navOpen);
         const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     return (
-        <div className="main-content">
+        <div className="main-content" style={{ overflow: 'visible' }}>
             {isSmallScreen &&
             <div style={{zIndex:"100", padding:"10px"}}>
                 
@@ -199,7 +199,7 @@ function QuyHoachKhac() {
             </div>}
             {navOpen &&
                 <>
-            <nav className="navbar">
+            <nav className="navbar" style={isSmallScreen ? {} : { position: 'sticky', top: '75px', alignSelf: 'flex-start', maxHeight: 'calc(100vh - 90px)' }}>
                 <p style={{ width: '100%', textAlign: 'center', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>DANH MỤC DỮ LIỆU</p>
                 <p style={{ paddingLeft: '10px', paddingRight: '10px', marginBottom: '5px', marginTop: '11px', fontWeight: 700, fontSize: '16px' }}>  A. P/a Thuỷ lợi trong quy hoạch tỉnh</p>
                 <div style={{ width: '100%' }}>

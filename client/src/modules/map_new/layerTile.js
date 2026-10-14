@@ -235,7 +235,7 @@ const nendiahinh = new TileLayer({
     source: new XYZ({
         url: 'http://map.vbeta.net/gvWMS.ashx?t=_dem&x={x}&y={y}&z={z}'
     }),
-    visible: true,
+    visible: false,
 });
 
 const nenhanhchinh = new TileLayer({
@@ -263,7 +263,7 @@ const googleterriar = new TileLayer({
     source: new XYZ({
         url: 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'
     }),
-    visible: false,
+    visible: true,
 });
 
 const bandohanhchinh_vnsdi = new TileLayer({

@@ -273,6 +273,14 @@ const bandohanhchinh_vnsdi = new TileLayer({
     visible: false,
 });
 
+// Lớp nền VNSDI từ cổng kịch bản BĐKH (thứ tự URL là z/y/x)
+const nen_kichban_bdkh = new TileLayer({
+    source: new XYZ({
+        url: 'https://kichbanbdkhvn.mae.gov.vn/api/vnsdi-tile/{z}/{y}/{x}'
+    }),
+    visible: false,
+});
+
 // export const danhMucQuyHoach = new TileLayer({
 //     source: new TileWMS({
 //         ratio: 1,tileSize: 256,serverType: 'geoserver',tilePixelRatio: 1,
@@ -923,6 +931,10 @@ export const ListLayer = [
     {
         id: 'bandohanhchinh_vnsdi',
         layer: bandohanhchinh_vnsdi
+    },
+    {
+        id: 'nen_kichban_bdkh',
+        layer: nen_kichban_bdkh
     },
     {
         id: 'sudungdat_vn',

@@ -238,13 +238,6 @@ const nendiahinh = new TileLayer({
     visible: false,
 });
 
-const nenhanhchinh = new TileLayer({
-    source: new XYZ({
-        url: 'http://map.vbeta.net/gvWMS.ashx?x={x}&y={y}&z={z}'
-    }),
-    visible: false,
-});
-
 const googlemap = new TileLayer({
     source: new XYZ({
         url: 'http://mt1.google.com/vt/lyrs=r&hl=en&x={x}&y={y}&z={z}'
@@ -911,10 +904,6 @@ export const ListLayer = [
     {
         id: 'nendiahinh',
         layer: nendiahinh
-    },
-    {
-        id: 'nenhanhchinh',
-        layer: nenhanhchinh
     },
     {
         id: 'googlemap',

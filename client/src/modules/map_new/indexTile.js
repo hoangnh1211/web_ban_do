@@ -15,6 +15,17 @@ import { listLayer, listLayerData, danhMucQuyHoach } from './layerTile'
 import Info from './info';
 import VectorSource from 'ol/source/Vector';
 import TileWMS from 'ol/source/TileWMS';
+import BaseLayerSwitcher from './baseLayerSwitcher';
+
+// Lớp nền: 6 lớp đầu trong listLayer (cùng thứ tự index với toggleLayersNenVisibility)
+const BASE_LAYER_ITEMS = [
+    { title: 'Bản đồ địa hình', source: 'vbeta' },
+    { title: 'Google Map', source: 'Google' },
+    { title: 'Google vệ tinh', source: 'Google' },
+    { title: 'Google địa hình', source: 'Google' },
+    { title: 'Hành chính Việt Nam', source: 'VNSDI' },
+    { title: 'Nền VNSDI (Kịch bản BĐKH)', source: 'VNSDI' },
+].map((item, index) => ({ ...item, layer: listLayer[index] }));
 
 const searchNormalStyle = function (feature, resolution) {
     const stroke = new olStyle.Stroke({
@@ -202,7 +213,7 @@ function MapNew() {
     };
     const toggleLayersNenVisibility = (index) => {
         listLayer[index].setVisible(true);
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < BASE_LAYER_ITEMS.length; i++) {
             if (i !== index)
                 listLayer[i].setVisible(false)
         };
@@ -232,11 +243,13 @@ function MapNew() {
 
         data.setStyle(searchHighlightStyle);
     };
+    // Chiều cao header cố định (AppBar); bản đồ chiếm phần còn lại để trang không bị cuộn
+    const headerHeight = windowWidth <= 768 ? 56 : 70;
     return (
-        <div style={{ marginTop: windowWidth <= 768 ? 56 : 70 }}>
+        <div style={{ marginTop: headerHeight }}>
             {/* <Header title ="Hệ thống thông tin quy hoạch thủy lợi trực tuyến"/> */}
             <MenuLayer setDataCheck={setDataCheck} getData={getData} handleSearch={handleSearch} handleMapFit={handleMapFit} toggleLayersVisibility={toggleLayersVisibility} ShowLayersVisibility={ShowLayersVisibility} HideLayersVisibility={HideLayersVisibility} />
-            <div style={{ height: '100vh', width: '100%' }} ref={mapElement} className="map-container"></div>
+            <div style={{ height: `calc(100vh - ${headerHeight}px)`, width: '100%' }} ref={mapElement} className="map-container"></div>
             <div id="popup" className="ol-popup">
                 <button type="button" id="popup-closer" className="ol-popup-closer"></button>
                 {dataMap && <Table data={dataMap.data} setInfo={setShowInfo} />}
@@ -246,26 +259,7 @@ function MapNew() {
             </div>
             {showInfo && dataMap && <Info data={dataMap.data} setInfo={setShowInfo} />}
             <div id="toolRight">
-                <div className="toolgroup">
-                    <div className="UI-DROP show" id="layerBases" display="name" style={{ float: 'right', height: '34px', position: "relative" }}>
-
-                        <div className="UI-DDL" data-toggle="dropdown" aria-expanded="true">
-                            <a className="" style={{ padding: '3px', color: "black" }}>
-                                <span style={{ fontSize: '27px' }} data-toggle="tooltip" data-placement="left" title="" aria-describedby="ui-id-1"><i className="fas fa-layer-group"></i></span>
-                            </a>
-                        </div>
-
-                        <ul className="dropdown-menu dropdown-menu-right" id="ulBaseMaps" x-placement="bottom-end" style={{ position: "absolute", transform: "translate3d(-275px, 40px, 0px)", top: '0px;', left: '0px', willChange: 'transform' }}>
-                            <li value="TILEMAP" layerid="ae5b8" onClick={() => toggleLayersNenVisibility(0)}> <span>Bản đồ địa hình</span></li>
-                            <li value="TILEMAP" layerid="ad4ec" onClick={() => toggleLayersNenVisibility(1)}> <span>Bản đồ nền hành chính</span></li>
-                            <li value="GOOGLE" layerid="googlemap" onClick={() => toggleLayersNenVisibility(2)}> <span>Bản đồ Google Map</span></li>
-                            <li value="GOOGLE" layerid="googlemap" onClick={() => toggleLayersNenVisibility(3)}> <span>Bản đồ Google satellite</span></li>
-                            <li value="GOOGLE" layerid="googlemap" onClick={() => toggleLayersNenVisibility(4)}> <span>Bản đồ Google terrian</span></li>
-                            <li value="VNSDI" layerid="bandohanhchinh_vnsdi" onClick={() => toggleLayersNenVisibility(5)}> <span>Bản đồ hành chính Việt Nam</span></li>
-                            <li value="VNSDI" layerid="nen_kichban_bdkh" onClick={() => toggleLayersNenVisibility(6)}> <span>Bản đồ nền VNSDI (Kịch bản BĐKH)</span></li>
-                        </ul>
-                    </div>
-                </div>
+                <BaseLayerSwitcher items={BASE_LAYER_ITEMS} onSelect={toggleLayersNenVisibility} />
                 {/* <div class="toolgroup" style={{marginTop:'10px'}}>
 
                 <a class="highlight liclick" data-toggle="tooltip" data-placement="left" title="Phóng toàn màn hình" key="zoomExtend">

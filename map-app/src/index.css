@@ -412,6 +412,21 @@ body,
   color: rgba(255, 255, 255, 0.8);
 }
 
+/* ===== Màn hình lớn (> 1440px): chữ trong menu to hơn 2px (menu rộng 400px, xem App.jsx) ===== */
+@media (min-width: 1441px) {
+  .layer-tab__label { font-size: 15px; }
+  .layer-tab__toolbar { font-size: 14px; }
+  .layer-group__caret { font-size: 11px; }
+  .layer-group__title,
+  .layer-leaf__title,
+  .choice-row__title { font-size: 15px; }
+  .choice-section__title { font-size: 14px; }
+  .choice-row__index { width: 22px; height: 22px; font-size: 12px; }
+  .choice-option { min-height: 52px; }
+  .choice-option__label { font-size: 14px; }
+  .choice-option__sub { font-size: 13px; }
+}
+
 /* ===== Chọn lớp nền (góc phải trên) ===== */
 .base-switcher {
   position: absolute;

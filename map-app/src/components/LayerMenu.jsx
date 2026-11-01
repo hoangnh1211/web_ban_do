@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons'
 import { DataLayers } from '../map/layerTile'
 import { LAYER_TREE } from '../map/layerTree'
+import useMediaQuery, { WIDE_SCREEN } from '../hooks/useMediaQuery'
 
 // Mỗi nhóm gốc trong LAYER_TREE là một tab
 const TAB_ICONS = {
@@ -210,6 +211,7 @@ function TabContent({ root, filtered, expanded, onToggleExpand, searching }) {
 
 export default function LayerMenu() {
   const [, refresh] = useReducer((x) => x + 1, 0)
+  const wide = useMediaQuery(WIDE_SCREEN)
   const [keyword, setKeyword] = useState('')
   const [activeTab, setActiveTab] = useState(LAYER_TREE[0].key)
   const [expanded, setExpanded] = useState(() => new Set())
@@ -257,6 +259,7 @@ export default function LayerMenu() {
     <div className="layer-menu">
       <div className="layer-menu__search">
         <Input
+          size={wide ? 'large' : 'middle'}
           allowClear
           placeholder="Tìm lớp bản đồ..."
           prefix={<SearchOutlined />}

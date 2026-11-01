@@ -4,6 +4,7 @@ import AppHeader from './components/AppHeader'
 import BaseLayerSwitcher from './components/BaseLayerSwitcher'
 import LayerMenu from './components/LayerMenu'
 import MapView from './components/MapView'
+import useMediaQuery, { WIDE_SCREEN } from './hooks/useMediaQuery'
 
 const theme = {
   token: {
@@ -13,13 +14,15 @@ const theme = {
 }
 
 export default function App() {
+  const wide = useMediaQuery(WIDE_SCREEN)
+
   return (
     <ConfigProvider locale={viVN} theme={theme}>
       <Layout className="app-layout">
         <AppHeader />
         <Layout className="app-body">
           <Layout.Sider
-            width={320}
+            width={wide ? 400 : 320}
             theme="light"
             breakpoint="md"
             collapsedWidth={0}

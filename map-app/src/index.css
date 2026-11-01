@@ -11,9 +11,81 @@ body,
   height: 100%;
 }
 
-/* ===== Layout ===== */
+/* ===== Layout: header trên cùng, bên dưới là menu + bản đồ ===== */
 .app-layout {
   height: 100vh;
+}
+
+.app-body {
+  flex: 1;
+  min-height: 0;
+}
+
+/* ===== Header ===== */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-shrink: 0;
+  z-index: 20;
+  padding: 8px 20px;
+  color: #fff;
+  background: linear-gradient(135deg, #1565c0 0%, #1e88e5 100%);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+}
+
+/* Logo giọt nước cao/hẹp, logo IWRP tròn: cân theo diện tích hiển thị để trông bằng nhau */
+.app-header__logo {
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.app-header__logo--drop {
+  height: 46px;
+}
+
+.app-header__logo--round {
+  width: 40px;
+  height: 40px;
+}
+
+.app-header__title {
+  min-width: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
+  letter-spacing: 0.01em;
+}
+
+/* Màn hình nhỏ: chữ nhỏ lại, tự xuống dòng */
+@media (max-width: 1100px) {
+  .app-header__title {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    gap: 10px;
+    padding: 6px 12px;
+  }
+
+  .app-header__title {
+    font-size: 13px;
+  }
+
+  .app-header__logo--drop {
+    height: 38px;
+  }
+
+  .app-header__logo--round {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .app-sider {
@@ -36,63 +108,6 @@ body,
   flex-direction: column;
   height: 100%;
   background: #fff;
-}
-
-.layer-menu__header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 12px 14px;
-  color: #fff;
-  background: linear-gradient(135deg, #1565c0 0%, #1e88e5 100%);
-}
-
-/* Hai logo cùng độ rộng ô để tiêu đề nằm chính giữa.
-   Logo giọt nước cao/hẹp (tỉ lệ ~0.59), logo IWRP tròn: cân theo diện tích hiển thị để trông bằng nhau */
-.layer-menu__logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 40px;
-  height: 44px;
-}
-
-.layer-menu__logo img {
-  object-fit: contain;
-}
-
-.layer-menu__logo--drop img {
-  height: 44px;
-}
-
-.layer-menu__logo--round img {
-  width: 38px;
-  height: 38px;
-}
-
-.layer-menu__heading {
-  flex: 1;
-  min-width: 0;
-  text-align: center;
-}
-
-/* Tiêu đề giữ trên một dòng (menu rộng 320px); quá dài thì cắt bằng "…" */
-.layer-menu__title.ant-typography {
-  margin: 0;
-  overflow: hidden;
-  font-size: 15px;
-  line-height: 1.4;
-  color: #fff;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.layer-menu__subtitle.ant-typography {
-  display: block;
-  margin-top: 2px;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.8);
 }
 
 .layer-menu__search {

@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react'
-import { Button, Empty, Input, Switch, Tabs, Typography } from 'antd'
+import { Button, Empty, Input, Switch, Tabs } from 'antd'
 import {
   CaretRightOutlined,
   DatabaseOutlined,
@@ -255,21 +255,6 @@ export default function LayerMenu() {
 
   return (
     <div className="layer-menu">
-      <div className="layer-menu__header">
-        <div className="layer-menu__logo layer-menu__logo--drop">
-          <img src="/image/logo.svg" alt="Logo" />
-        </div>
-        <div className="layer-menu__heading">
-          <Typography.Title level={5} className="layer-menu__title">
-            Bản đồ Hạ Thấp mực nước
-          </Typography.Title>
-          <Typography.Text className="layer-menu__subtitle">Quản lý lớp bản đồ</Typography.Text>
-        </div>
-        <div className="layer-menu__logo layer-menu__logo--round">
-          <img src="/image/image.png" alt="IWRP" />
-        </div>
-      </div>
-
       <div className="layer-menu__search">
         <Input
           allowClear

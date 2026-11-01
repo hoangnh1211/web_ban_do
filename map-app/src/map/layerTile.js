@@ -11,12 +11,16 @@ export const tileSize = 256
 const createXyzLayer = (url, visible = false) =>
   new TileLayer({ source: new XYZ({ url }), visible })
 
-const createWmsLayer = (layerName, visible = false) =>
+// info: cấu hình popup khi click vào đối tượng (xem FeaturePopup). Lớp không có info thì không click được.
+const createWmsLayer = (layerName, visible = false, info) =>
   new TileLayer({
+    properties: { info },
     source: new TileWMS({
       // hidpi: false — không nhân tile theo devicePixelRatio (màn hình scale 125% sẽ xin 320x320)
       tileSize, serverType: 'geoserver', hidpi: false,
       url: urlConfig,
+      // TILED=true: GeoServer lấy tile từ GeoWebCache nếu request khớp gridset (256px, EPSG:900913).
+      // Nếu tile layer trên GWC lệch cấu hình sẽ trả ảnh lỗi "GWC configuration seems to be out of synch".
       params: {
         FORMAT: format, TILED: true,
         VERSION: '1.1.1',
@@ -66,19 +70,42 @@ const DATA_LAYERS = [
   { id: 'D2_XaTD', name: 'HaThapMucNuoc:D2_XaTD' },
   { id: 'D1_XaTC_2N', name: 'HaThapMucNuoc:D1_XaTC_2N' },
   { id: 'D2_XaTC_2N', name: 'HaThapMucNuoc:D2_XaTC_2N' },
+  { id: 'D1_Dap_XaTT', name: 'HaThapMucNuoc:D1_Dap_XaTT' },
+  { id: 'D2_Dap_XaTT', name: 'HaThapMucNuoc:D2_Dap_XaTT' },
+  { id: 'D1_Dap_XaTC', name: 'HaThapMucNuoc:D1_Dap_XaTC' },
+  { id: 'D2_Dap_XaTC', name: 'HaThapMucNuoc:D2_Dap_XaTC' },
   // Dữ liệu nền
+  { id: 'SuDungDat', name: 'HaThapMucNuoc:SuDungDat' },
   { id: 'HTTL', name: 'HaThapMucNuoc:HTTL' },
   { id: 'ThuyHe_VNC', name: 'HaThapMucNuoc:ThuyHe_VNC' },
   { id: 'KenhMuong', name: 'HaThapMucNuoc:KenhMuong' },
   // Bờ vùng: luôn hiển thị, không có trong menu
   { id: 'BoVung2', name: 'HaThapMucNuoc:BoVung2', visible: true },
   { id: 'BoVung1', name: 'HaThapMucNuoc:BoVung1', visible: true },
-  { id: 'CTTL', name: 'HaThapMucNuoc:CTTL', visible: true },
+  {
+    id: 'CTTL',
+    name: 'HaThapMucNuoc:CTTL',
+    visible: true,
+    info: {
+      title: 'Công trình thủy lợi',
+      nameField: 'congtrinh', // Tên công trình — tiêu đề popup
+      tagFields: ['phanloai', 'hethong'], // Loại công trình, Hệ thống — nhãn dưới tiêu đề
+      fields: [
+        { key: 'song', label: 'Sông' },
+        { key: 'l_cuasong', label: 'Khoảng cách tới cửa sông', unit: 'km' },
+        { key: 'kt_cong', label: 'BxH cống', unit: 'm' },
+        { key: 'qtktb_m3s', label: 'Qtk', unit: 'm³/s' },
+        { key: 'zday_m', label: 'Z đáy', unit: 'm' },
+        { key: 'ztk_m', label: 'Mực nước thiết kế', unit: 'm' },
+        { key: 'ftuoi_ha', label: 'Diện tích tưới', unit: 'ha' },
+      ],
+    },
+  },
 ]
 
 // { [id]: TileLayer }
 export const DataLayers = Object.fromEntries(
-  DATA_LAYERS.map((item) => [item.id, createWmsLayer(item.name, item.visible)]),
+  DATA_LAYERS.map((item) => [item.id, createWmsLayer(item.name, item.visible, item.info)]),
 )
 
 // Toàn bộ lớp đưa vào bản đồ: lớp nền ở dưới, lớp dữ liệu ở trên

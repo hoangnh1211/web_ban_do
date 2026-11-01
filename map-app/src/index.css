@@ -256,6 +256,32 @@ body,
   padding: 4px 12px 12px;
 }
 
+.choice-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice-section + .choice-section {
+  margin-top: 6px;
+}
+
+.choice-section__title {
+  padding: 4px 2px 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #1e3a5f;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border-left: 3px solid #cbd5e1;
+}
+
+.choice-section__title--on {
+  color: #1565c0;
+  border-left-color: #1565c0;
+}
+
 .choice-row {
   padding: 10px 12px;
   border: 1px solid #e2e8f0;
@@ -453,77 +479,149 @@ body,
 }
 
 /* ===== Popup thông tin ===== */
-.ol-popup {
+.info-popup {
   position: absolute;
-  bottom: 12px;
-  left: -50px;
-  min-width: 280px;
-  padding: 15px;
+  bottom: 14px;
+  left: -40px;
+  width: 300px;
+  overflow: visible;
+  font-size: 13px;
   background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  filter: drop-shadow(0 8px 3px rgba(0, 0, 0, 0.4));
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25), 0 2px 6px rgba(15, 23, 42, 0.12);
+  animation: info-popup-in 0.18s ease-out;
 }
 
-.ol-popup::after,
-.ol-popup::before {
-  top: 100%;
-  left: 48px;
-  content: ' ';
+/* Mũi tên chỉ vào điểm click */
+.info-popup::after {
+  content: '';
   position: absolute;
-  border: solid transparent;
+  top: 100%;
+  left: 40px;
+  margin-left: -9px;
+  border: 9px solid transparent;
+  border-top-color: #fff;
   pointer-events: none;
 }
 
-.ol-popup::after {
-  border-top-color: #fff;
-  border-width: 10px;
-  margin-left: -10px;
+@keyframes info-popup-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }
 
-.ol-popup::before {
-  border-top-color: #ccc;
-  border-width: 11px;
-  margin-left: -11px;
-}
-
-.ol-popup-closer {
+.info-popup__close {
   position: absolute;
-  top: 2px;
+  top: 8px;
   right: 8px;
-  border: none;
-  background: none;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s;
 }
 
-.ol-popup-closer::after {
-  content: '✖';
+.info-popup__close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.28);
 }
 
-.popup-content {
-  max-height: 350px;
-  overflow: auto;
-  font-size: 14px;
+.info-popup__header {
+  padding: 12px 40px 12px 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #1565c0 0%, #1e88e5 100%);
+  border-radius: 12px 12px 0 0;
 }
 
-.popup-table {
-  width: 100%;
-  border-collapse: collapse;
+.info-popup__layer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.popup-table th,
-.popup-table td {
-  padding: 4px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-}
-
-.popup-table th {
-  color: #555;
+.info-popup__name {
+  margin-top: 2px;
+  font-size: 16px;
   font-weight: 600;
+  line-height: 1.3;
 }
 
-.popup-error {
+.info-popup__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.info-popup__tag {
+  padding: 1px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.info-popup__body {
+  max-height: 260px;
   margin: 0;
-  color: #c62828;
+  padding: 6px 14px 10px;
+  overflow-y: auto;
+}
+
+.info-popup__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.info-popup__row:last-child {
+  border-bottom: none;
+}
+
+.info-popup__row dt {
+  color: #64748b;
+}
+
+.info-popup__row dd {
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.info-popup__unit {
+  margin-left: 3px;
+  font-size: 11px;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+/* Lỗi: không có header xanh, nút đóng màu xám */
+.info-popup--error .info-popup__close {
+  color: #94a3b8;
+  background: none;
+}
+
+.info-popup__error {
+  display: flex;
+  gap: 8px;
+  padding: 14px 40px 14px 14px;
+  color: #b91c1c;
 }

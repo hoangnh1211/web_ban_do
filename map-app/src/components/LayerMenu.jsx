@@ -64,37 +64,57 @@ function LeafRow({ node }) {
   )
 }
 
-// Nhóm chọn một: mỗi nhóm con là một hàng, các lớp con là nút chọn nằm ngang
+// Hàng = nhóm chỉ chứa lớp (kịch bản → các đợt); còn lại là mục có tiêu đề (phương án)
+const isRow = (node) => node.layers || node.children.every((child) => child.layers)
+
+function ChoiceRow({ row, index }) {
+  const options = row.layers ? [row] : row.children
+  const rowOn = options.some(isLeafOn)
+  return (
+    <div className={`choice-row${rowOn ? ' choice-row--on' : ''}`}>
+      <div className="choice-row__title">
+        <span className="choice-row__index">{index + 1}</span>
+        <span>{row.title}</span>
+      </div>
+      <div className="choice-row__options">
+        {options.map((leaf) => {
+          const on = isLeafOn(leaf)
+          return (
+            <button
+              key={leaf.key}
+              type="button"
+              className={`choice-option${on ? ' choice-option--on' : ''}`}
+              onClick={() => selectExclusive(leaf, !on)}
+            >
+              {leaf.title}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// Nhóm chọn một: mỗi kịch bản là một hàng, các đợt là nút chọn nằm ngang; nhóm theo phương án
 function ExclusiveRows({ node }) {
   return (
     <div className="choice-list">
-      {node.children.map((row, index) => {
-        const options = row.layers ? [row] : getLeaves(row)
-        const rowOn = options.some(isLeafOn)
-        return (
-          <div key={row.key} className={`choice-row${rowOn ? ' choice-row--on' : ''}`}>
-            <div className="choice-row__title">
-              <span className="choice-row__index">{index + 1}</span>
-              <span>{row.title}</span>
+      {node.children.map((child, index) =>
+        isRow(child) ? (
+          <ChoiceRow key={child.key} row={child} index={index} />
+        ) : (
+          <section key={child.key} className="choice-section">
+            <div
+              className={`choice-section__title${getLeaves(child).some(isLeafOn) ? ' choice-section__title--on' : ''}`}
+            >
+              {child.title}
             </div>
-            <div className="choice-row__options">
-              {options.map((leaf) => {
-                const on = isLeafOn(leaf)
-                return (
-                  <button
-                    key={leaf.key}
-                    type="button"
-                    className={`choice-option${on ? ' choice-option--on' : ''}`}
-                    onClick={() => selectExclusive(leaf, !on)}
-                  >
-                    {leaf.title}
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        )
-      })}
+            {child.children.map((row, rowIndex) => (
+              <ChoiceRow key={row.key} row={row} index={rowIndex} />
+            ))}
+          </section>
+        ),
+      )}
     </div>
   )
 }

@@ -10,19 +10,20 @@ import axiosClient from '../api/axiosClient'
 // - Lớp WMS (TileWMS/ImageWMS): gọi GetFeatureInfo lên GeoServer.
 // - Lớp vector: lấy feature tại điểm click; nếu lớp có `infoUrl`
 //   (layer.set('infoUrl', '/congtrinh')) thì gọi API `${infoUrl}/${id}` để lấy chi tiết.
-// - Lớp nền XYZ bị bỏ qua.
+// - Chỉ xét lớp có cấu hình `info` (hiện chỉ có Công trình thủy lợi); lớp nền và lớp khác bị bỏ qua.
 export async function getFeatureInfo(map, evt) {
   const view = map.getView()
   const layers = map.getLayers().getArray().slice().reverse()
 
   for (const layer of layers) {
-    if (!layer.getVisible()) continue
+    if (!layer.getVisible() || !layer.get('info')) continue
     const source = layer.getSource()
 
     if (source instanceof TileWMS || source instanceof ImageWMS) {
+      // BUFFER: nới vùng bắt điểm (pixel) để dễ click trúng ký hiệu công trình
       const url = source.getFeatureInfoUrl(
         evt.coordinate, view.getResolution(), view.getProjection(),
-        { INFO_FORMAT: 'application/json' },
+        { INFO_FORMAT: 'application/json', FEATURE_COUNT: 1, BUFFER: 8 },
       )
       if (!url) continue
       const { data } = await axios.get(url)

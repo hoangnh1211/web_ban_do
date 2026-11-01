@@ -256,7 +256,7 @@ const googleterriar = new TileLayer({
     source: new XYZ({
         url: 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'
     }),
-    visible: true,
+    visible: false,
 });
 
 const bandohanhchinh_vnsdi = new TileLayer({
@@ -266,12 +266,12 @@ const bandohanhchinh_vnsdi = new TileLayer({
     visible: false,
 });
 
-// Lớp nền VNSDI từ cổng kịch bản BĐKH (thứ tự URL là z/y/x)
+// Lớp nền VNSDI từ cổng kịch bản BĐKH (thứ tự URL là z/y/x) — lớp nền mặc định
 const nen_kichban_bdkh = new TileLayer({
     source: new XYZ({
         url: 'https://kichbanbdkhvn.mae.gov.vn/api/vnsdi-tile/{z}/{y}/{x}'
     }),
-    visible: false,
+    visible: true,
 });
 
 // export const danhMucQuyHoach = new TileLayer({

@@ -67,6 +67,12 @@ function LeafRow({ node }) {
 // Hàng = nhóm chỉ chứa lớp (kịch bản → các đợt); còn lại là mục có tiêu đề (phương án)
 const isRow = (node) => node.layers || node.children.every((child) => child.layers)
 
+// "Thời kỳ tưới dưỡng (Tháng 3 - 5)" → ["Thời kỳ tưới dưỡng", "Tháng 3 - 5"]
+const splitLabel = (title) => {
+  const match = title.match(/^(.*?)\s*\((.*)\)\s*$/)
+  return match ? [match[1], match[2].replace(/\s+/g, ' ')] : [title, null]
+}
+
 function ChoiceRow({ row, index }) {
   const options = row.layers ? [row] : row.children
   const rowOn = options.some(isLeafOn)
@@ -79,6 +85,7 @@ function ChoiceRow({ row, index }) {
       <div className="choice-row__options">
         {options.map((leaf) => {
           const on = isLeafOn(leaf)
+          const [label, sub] = splitLabel(leaf.title)
           return (
             <button
               key={leaf.key}
@@ -86,7 +93,8 @@ function ChoiceRow({ row, index }) {
               className={`choice-option${on ? ' choice-option--on' : ''}`}
               onClick={() => selectExclusive(leaf, !on)}
             >
-              {leaf.title}
+              <span className="choice-option__label">{label}</span>
+              {sub && <span className="choice-option__sub">{sub}</span>}
             </button>
           )
         })}
@@ -253,7 +261,7 @@ export default function LayerMenu() {
         </div>
         <div className="layer-menu__heading">
           <Typography.Title level={5} className="layer-menu__title">
-            Bản đồ quy hoạch thuỷ lợi
+            Bản đồ Hạ Thấp mực nước
           </Typography.Title>
           <Typography.Text className="layer-menu__subtitle">Quản lý lớp bản đồ</Typography.Text>
         </div>

@@ -82,6 +82,7 @@ const DATA_LAYERS = [
   // Bờ vùng: luôn hiển thị, không có trong menu
   { id: 'BoVung2', name: 'HaThapMucNuoc:BoVung2', visible: true },
   { id: 'BoVung1', name: 'HaThapMucNuoc:BoVung1', visible: true },
+  { id: 'TramTV', name: 'HaThapMucNuoc:TramTV' },
   {
     id: 'CTTL',
     name: 'HaThapMucNuoc:CTTL',

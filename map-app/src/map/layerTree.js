@@ -61,6 +61,7 @@ export const LAYER_TREE = [
     title: 'Dữ liệu nền',
     children: [
       { key: 'cttl', title: 'Công trình thủy lợi', layers: ['CTTL'] },
+      { key: 'tram-tv', title: 'Trạm thủy văn', layers: ['TramTV'] },
       { key: 'kenh-truc', title: 'Hệ thống kênh trục', layers: ['KenhMuong'] },
       { key: 'khu-tuoi', title: 'Phạm vi khu tưới', layers: ['SuDungDat'] },
       { key: 'httl', title: 'Hệ thống thủy lợi', layers: ['HTTL'] },

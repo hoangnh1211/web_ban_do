@@ -82,7 +82,6 @@ function DisplayOptions({ leaf }) {
   const [label] = splitLabel(leaf.title)
   return (
     <div className="display-options">
-      <div className="display-options__title">Hiển thị – {label}</div>
       <div className="display-options__list">
         {RATIO_OPTIONS.map(({ key, label: ratioLabel, color }) => {
           const on = ratioKey === key

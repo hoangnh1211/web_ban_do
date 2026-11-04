@@ -31,11 +31,11 @@ const getActiveScenario = () => SCENARIO_LAYERS.find((item) => DataLayers[item.l
 // Biểu đồ tròn chọn trong menu (dưới giai đoạn đang bật): chọn 1 trong 2 hoặc không chọn
 export const RATIO_OPTIONS = [
   { key: 'ratioDesign', label: 'Tỷ lệ lấy nước theo thiết kế', color: '#1565c0' },
-  { key: 'ratioPossible', label: 'Tỷ lệ có thể lấy được nước', color: '#2e7d32' },
+  { key: 'ratioPossible', label: 'Tỷ lệ có thể lấy được nước', color: '#1565c0' },
 ]
-export const RATIO_COLOR_REST = '#ffb74d' // phần còn lại của hình tròn
-const SIZE = 26
-const R = 11
+export const RATIO_COLOR_REST = '#e53935' // phần còn lại của hình tròn
+const SIZE = 30
+const R = 13
 const C = SIZE / 2
 
 // Hình tròn: phần ratio (0–1) tô `color`, bắt đầu từ đỉnh, theo chiều kim đồng hồ

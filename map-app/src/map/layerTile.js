@@ -37,8 +37,8 @@ const BASE_LAYERS = [
   { id: 'nendiahinh', title: 'Nền địa hình', source: 'vbeta', url: 'http://map.vbeta.net/gvWMS.ashx?t=_dem&x={x}&y={y}&z={z}' },
   { id: 'nenhanhchinh', title: 'Nền hành chính', source: 'vbeta', url: 'http://map.vbeta.net/gvWMS.ashx?x={x}&y={y}&z={z}' },
   { id: 'googlemap', title: 'Google Map', source: 'Google', url: 'http://mt1.google.com/vt/lyrs=r&hl=en&x={x}&y={y}&z={z}' },
-  { id: 'googlesatellite', title: 'Google vệ tinh', source: 'Google', url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}' },
-  { id: 'googleterriar', title: 'Google địa hình', source: 'Google', url: 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', visible: true },
+  { id: 'googlesatellite', title: 'Google vệ tinh', source: 'Google', url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', visible: true },
+  { id: 'googleterriar', title: 'Google địa hình', source: 'Google', url: 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}' },
   { id: 'bandohanhchinh_vnsdi', title: 'Hành chính VNSDI', source: 'VNSDI', url: `https://quyhoachthuyloi.vn/vnsdi-proxy/{z}/{y}/{x}?token=${import.meta.env.VITE_VNSDI_TOKEN}` },
   // Lớp nền VNSDI từ cổng kịch bản BĐKH (thứ tự URL là z/y/x)
   { id: 'nen_kichban_bdkh', title: 'Nền kịch bản BĐKH', source: 'Bộ NN&MT', url: 'https://kichbanbdkhvn.mae.gov.vn/api/vnsdi-tile/{z}/{y}/{x}' },

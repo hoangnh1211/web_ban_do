@@ -5,6 +5,7 @@ import View from 'ol/View'
 import Overlay from 'ol/Overlay'
 import { transformExtent } from 'ol/proj'
 import { listLayer } from '../map/layerTile'
+import { analysisLayer } from '../map/analysisResult'
 import { getFeatureInfo } from '../map/featureInfo'
 import FeaturePopup from './FeaturePopup'
 import 'ol/ol.css'
@@ -28,7 +29,7 @@ export default function MapView({ extent = INITIAL_EXTENT }) {
 
     const map = new Map({
       target: mapRef.current,
-      layers: listLayer,
+      layers: [...listLayer, analysisLayer],
       overlays: [overlay],
       view: new View(),
     })

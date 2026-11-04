@@ -10,7 +10,8 @@ import axiosClient from '../api/axiosClient'
 // - Lớp WMS (TileWMS/ImageWMS): gọi GetFeatureInfo lên GeoServer.
 // - Lớp vector: lấy feature tại điểm click; nếu lớp có `infoUrl`
 //   (layer.set('infoUrl', '/congtrinh')) thì gọi API `${infoUrl}/${id}` để lấy chi tiết.
-// - Chỉ xét lớp có cấu hình `info` (hiện chỉ có Công trình thủy lợi); lớp nền và lớp khác bị bỏ qua.
+//   Nếu lớp có `info.getProperties(feature)` thì dùng kết quả của hàm đó (vd. lớp kết quả phân tích).
+// - Chỉ xét lớp có cấu hình `info` (Công trình thủy lợi, Kết quả phân tích); lớp nền và lớp khác bị bỏ qua.
 export async function getFeatureInfo(map, evt) {
   const view = map.getView()
   const layers = map.getLayers().getArray().slice().reverse()
@@ -35,14 +36,16 @@ export async function getFeatureInfo(map, evt) {
     if (layer instanceof VectorLayer) {
       const feature = map.forEachFeatureAtPixel(evt.pixel, (f) => f, {
         layerFilter: (l) => l === layer,
+        hitTolerance: 4,
       })
       if (!feature) continue
 
       const infoUrl = layer.get('infoUrl')
+      const { getProperties } = layer.get('info')
       // eslint-disable-next-line no-unused-vars
       const { geometry, ...properties } = infoUrl
         ? await axiosClient.get(`${infoUrl}/${feature.getId()}`)
-        : feature.getProperties()
+        : (getProperties?.(feature) ?? feature.getProperties())
       return [{ id: feature.getId(), layer, properties }]
     }
   }

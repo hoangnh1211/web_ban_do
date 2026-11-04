@@ -4,9 +4,11 @@ import {
   CaretRightOutlined,
   DatabaseOutlined,
   ExperimentOutlined,
+  PieChartOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
 import { DataLayers } from '../map/layerTile'
+import { analysisLayer, RATIO_OPTIONS, setRatioKey } from '../map/analysisResult'
 import { LAYER_TREE } from '../map/layerTree'
 import useMediaQuery, { WIDE_SCREEN } from '../hooks/useMediaQuery'
 
@@ -74,9 +76,37 @@ const splitLabel = (title) => {
   return match ? [match[1], match[2].replace(/\s+/g, ' ')] : [title, null]
 }
 
+// Biểu đồ tròn của giai đoạn đang bật: chọn 1 trong 2 hoặc không chọn
+function DisplayOptions({ leaf }) {
+  const ratioKey = analysisLayer.get('ratioKey')
+  const [label] = splitLabel(leaf.title)
+  return (
+    <div className="display-options">
+      <div className="display-options__title">Hiển thị – {label}</div>
+      <div className="display-options__list">
+        {RATIO_OPTIONS.map(({ key, label: ratioLabel, color }) => {
+          const on = ratioKey === key
+          return (
+            <button
+              key={key}
+              type="button"
+              className={`display-option${on ? ' display-option--on' : ''}`}
+              style={{ '--option-color': color }}
+              onClick={() => setRatioKey(on ? null : key)}
+            >
+              <PieChartOutlined /> {ratioLabel}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 function ChoiceRow({ row, index }) {
   const options = row.layers ? [row] : row.children
   const rowOn = options.some(isLeafOn)
+  const activeLeaf = options.find(isLeafOn)
   return (
     <div className={`choice-row${rowOn ? ' choice-row--on' : ''}`}>
       <div className="choice-row__title">
@@ -100,6 +130,7 @@ function ChoiceRow({ row, index }) {
           )
         })}
       </div>
+      {activeLeaf && <DisplayOptions leaf={activeLeaf} />}
     </div>
   )
 }
@@ -216,11 +247,15 @@ export default function LayerMenu() {
   const [activeTab, setActiveTab] = useState(LAYER_TREE[0].key)
   const [expanded, setExpanded] = useState(() => new Set())
 
-  // Vẽ lại menu khi lớp được bật/tắt (từ menu hoặc nơi khác)
+  // Vẽ lại menu khi lớp được bật/tắt hoặc đổi biểu đồ tròn (từ menu hoặc nơi khác)
   useEffect(() => {
     const layers = Object.values(DataLayers)
     layers.forEach((layer) => layer.on('change:visible', refresh))
-    return () => layers.forEach((layer) => layer.un('change:visible', refresh))
+    analysisLayer.on('change:ratioKey', refresh)
+    return () => {
+      layers.forEach((layer) => layer.un('change:visible', refresh))
+      analysisLayer.un('change:ratioKey', refresh)
+    }
   }, [])
 
   const text = normalize(keyword.trim())

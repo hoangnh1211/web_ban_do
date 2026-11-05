@@ -7,6 +7,18 @@ const hasValue = (value) => value != null && value !== ''
 const formatValue = (value) => (typeof value === 'number' ? value.toLocaleString('vi-VN') : String(value))
 const formatPercent = (ratio) => `${(ratio * 100).toLocaleString('vi-VN', { maximumFractionDigits: 1 })}%`
 
+// Số lẻ theo đơn vị (kết quả phân tích): mực nước (m) 2 số lẻ; độ mặn < 1‰ 2 số lẻ, ≥ 1‰ 1 số lẻ; giờ là số nguyên
+const decimalsByUnit = (value, unit) => {
+  if (unit === 'm') return 2
+  if (unit === '‰') return Math.abs(value) < 1 ? 2 : 1
+  return 0
+}
+const formatMeasure = (value, unit) => {
+  if (typeof value !== 'number') return value
+  const digits = decimalsByUnit(value, unit)
+  return value.toLocaleString('vi-VN', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+}
+
 // Kết quả phân tích: 2 tỷ lệ lấy nước hiển thị dạng thanh (cùng màu biểu đồ tròn), các chỉ tiêu còn lại dạng bảng
 const RATIO_FIELDS = ANALYSIS_FIELDS.filter((field) => field.unit === '%').map((field) => ({
   ...field,
@@ -63,10 +75,10 @@ function AnalysisCard({ feature }) {
             ))}
           </div>
           <dl className="info-popup__body">
-            <Row label="Zđáy" value={station.zd} unit="m" />
-            <Row label="Ztk" value={station.ztk} unit="m" />
+            <Row label="Zđáy" value={formatMeasure(station.zd, 'm')} unit="m" />
+            <Row label="Ztk" value={formatMeasure(station.ztk, 'm')} unit="m" />
             {VALUE_FIELDS.map(({ key, label, unit }) => (
-              <Row key={key} label={label} value={result[key]} unit={unit} />
+              <Row key={key} label={label} value={formatMeasure(result[key], unit)} unit={unit} />
             ))}
           </dl>
         </>

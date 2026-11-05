@@ -25,7 +25,7 @@ export const LAYER_TREE = [
           scenario('xa-ht-2024', 'Xả hiện trạng 2024, có tăng cường', 'D1_2024', 'D2_2024'),
           scenario('xa-ht-2025', 'Xả hiện trạng 2025, có tăng cường', 'D1_2025', 'D2_2025'),
           scenario('xa-tt', 'Xả tối thiểu theo quy trình', 'D1_XaTT', 'D2_XaTT'),
-          scenario('xa-tc', 'Xả tối thiểu theo quy trình 1928 và xả tăng cường 2027', 'D1_XaTC', 'D2_XaTC'),
+          scenario('xa-tc', 'Xả tối thiểu theo quy trình 1936 và xả tăng cường 2027', 'D1_XaTC', 'D2_XaTC'),
           scenario('xa-td', 'Xả theo phát điện 2025, không xả tăng cường', 'D1_XaTD', 'D2_XaTD'),
         ],
       },

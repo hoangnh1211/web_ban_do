@@ -2,7 +2,7 @@
   "source": "KQ_PhanTich/*_pt5.xlsx, sheet \"Jan-Feb Summary\" và \"Mar-May Summary\"",
   "periods": {
     "d1": {
-      "label": "Thời kỳ xả nước ĐX (Tháng 1 - 2)",
+      "label": "Thời kỳ xả nước gia tăng (Tháng 1 - 2)",
       "source": "Jan-Feb Summary"
     },
     "d2": {

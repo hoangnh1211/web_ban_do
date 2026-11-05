@@ -7,7 +7,7 @@ const scenario = (key, title, d1, d2) => ({
   key,
   title,
   children: [
-    { key: `${key}-d1`, title: 'Thời kỳ xả nước ĐX (Tháng 1 -  2)', layers: [d1] },
+    { key: `${key}-d1`, title: 'Thời kỳ xả nước gia tăng (Tháng 1 - 2)', layers: [d1] },
     { key: `${key}-d2`, title: 'Thời kỳ tưới dưỡng (Tháng 3 - 5)', layers: [d2] },
   ],
 })

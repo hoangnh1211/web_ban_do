@@ -495,6 +495,113 @@ body,
   z-index: 5;
 }
 
+/* ===== Chú giải (góc phải dưới) ===== */
+.map-legend {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  max-height: calc(100% - 120px);
+  overflow: hidden;
+  font-size: 12px;
+  color: #334155;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.2);
+}
+
+.map-legend--closed {
+  width: auto;
+}
+
+.map-legend__toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.map-legend__caret {
+  margin-left: auto;
+  font-size: 10px;
+  color: #94a3b8;
+  transition: transform 0.2s;
+}
+
+.map-legend--closed .map-legend__caret {
+  transform: rotate(180deg);
+}
+
+.map-legend__body {
+  padding: 0 12px 10px;
+  overflow-y: auto;
+  border-top: 1px solid #e2e8f0;
+}
+
+.map-legend__section {
+  margin: 10px 0 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.map-legend__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 3px 0;
+}
+
+.map-legend__row > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.map-legend__symbol {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+}
+
+.map-legend__symbol img {
+  width: 22px;
+  height: 22px;
+}
+
+.map-legend__swatch {
+  width: 36px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.map-legend__pie-num {
+  font: 700 12px sans-serif;
+  fill: #fff;
+}
+
+.map-legend__note {
+  line-height: 1.35;
+}
+
+@media (min-width: 1441px) {
+  .map-legend { width: 270px; font-size: 13px; }
+  .map-legend__toggle { font-size: 14px; }
+  .map-legend__section { font-size: 13px; }
+}
+
 .base-switcher__toggle {
   display: flex;
   flex-direction: column;

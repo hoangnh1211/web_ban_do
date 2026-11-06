@@ -51,6 +51,7 @@ export default function MapLegend() {
           <div className="map-legend__section">Công trình</div>
           <Row symbol={<img src="/image/legend/cong.png" alt="" />}>Cống</Row>
           <Row symbol={<img src="/image/legend/tram-bom.png" alt="" />}>Trạm bơm</Row>
+          <Row symbol={<img className="map-legend__icon--small" src="/image/legend/dap.png" alt="" />}>Đập dự kiến</Row>
           <Row symbol={<TriangleIcon />}>Trạm thủy văn</Row>
 
           <div className="map-legend__section">Phân bố mặn</div>

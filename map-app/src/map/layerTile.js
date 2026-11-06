@@ -65,7 +65,7 @@ const DATA_LAYERS = [
   { id: 'D1_XaTT', name: 'HaThapMucNuoc:D1_XaTT' },
   { id: 'D2_XaTT', name: 'HaThapMucNuoc:D2_XaTT' },
   { id: 'D1_XaTC', name: 'HaThapMucNuoc:D1_XaTC' },
-  { id: 'D2_XaTC', name: 'HaThapMucNuoc:D2_XaTC' },
+  { id: 'D2_XaTC', name: 'HaThapMucNuoc:D2_TuoiDuong' },
   { id: 'D1_XaTD', name: 'HaThapMucNuoc:D1_XaTD' },
   { id: 'D2_XaTD', name: 'HaThapMucNuoc:D2_XaTD' },
   { id: 'D1_XaTC_2N', name: 'HaThapMucNuoc:D1_XaTC_2N' },

@@ -581,6 +581,11 @@ body,
   height: 22px;
 }
 
+.map-legend__symbol img.map-legend__icon--small {
+  width: 16px;
+  height: 16px;
+}
+
 .map-legend__swatch {
   width: 36px;
   height: 14px;

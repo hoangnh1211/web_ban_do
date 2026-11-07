@@ -1,5 +1,8 @@
+import { useState } from 'react'
 import { BarChartOutlined, CloseOutlined, EnvironmentFilled, WarningOutlined } from '@ant-design/icons'
 import { ANALYSIS_FIELDS, RATIO_OPTIONS } from '../map/analysisResult'
+import WaterLevelModal from './WaterLevelModal'
+import { WATER_LEVEL_ICON } from './waterLevelLoader'
 
 // Hiển thị thông tin đối tượng theo cấu hình `info` của lớp (xem layerTile.js):
 // tiêu đề = nameField, nhãn = tagFields, bảng = fields (bỏ qua trường không có giá trị)
@@ -41,6 +44,7 @@ function Row({ label, value, unit }) {
 // Kết quả phân tích tại cống / trạm bơm theo kịch bản + giai đoạn đang bật (xem analysisResult.js)
 function AnalysisCard({ feature }) {
   const { station, scenario, result } = feature.properties
+  const [chartOpen, setChartOpen] = useState(false)
 
   return (
     <>
@@ -74,6 +78,16 @@ function AnalysisCard({ feature }) {
               </div>
             ))}
           </div>
+          <button type="button" className="info-popup__action" onClick={() => setChartOpen(true)}>
+            <img src={WATER_LEVEL_ICON} alt="" />
+            Diễn biến mực nước
+          </button>
+          <WaterLevelModal
+            open={chartOpen}
+            onClose={() => setChartOpen(false)}
+            station={station}
+            scenario={scenario}
+          />
           <dl className="info-popup__body">
             <Row label="Zđáy" value={formatMeasure(station.zd, 'm')} unit="m" />
             <Row label="Ztk" value={formatMeasure(station.ztk, 'm')} unit="m" />

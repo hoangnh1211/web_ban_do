@@ -8,6 +8,7 @@ import { listLayer } from '../map/layerTile'
 import { analysisLayer } from '../map/analysisResult'
 import { getFeatureInfo } from '../map/featureInfo'
 import FeaturePopup from './FeaturePopup'
+import WaterLevelModal from './WaterLevelModal'
 import 'ol/ol.css'
 
 // Khung ban đầu (EPSG:4326): vùng đồng bằng sông Hồng – Hà Nội, Nam Định, Hạ Long
@@ -19,6 +20,8 @@ export default function MapView({ extent = INITIAL_EXTENT }) {
   // OpenLayers tự di chuyển element của Overlay, nên React render vào đây qua portal
   const [popupElement] = useState(() => document.createElement('div'))
   const [info, setInfo] = useState(null)
+  // Biểu đồ mực nước mở thẳng khi click icon mực nước: { station, scenario }
+  const [chart, setChart] = useState(null)
 
   useEffect(() => {
     const overlay = new Overlay({
@@ -44,12 +47,24 @@ export default function MapView({ extent = INITIAL_EXTENT }) {
       try {
         const features = await getFeatureInfo(map, evt)
         if (clickId !== lastClick || features.length === 0) return
+        const { chartOnly, station, scenario } = features[0].properties
+        if (chartOnly) {
+          setChart({ station, scenario })
+          return
+        }
         setInfo({ features })
       } catch (error) {
         if (clickId !== lastClick) return
         setInfo({ error: error.message })
       }
       overlay.setPosition(evt.coordinate)
+    })
+
+    // Con trỏ bàn tay khi rê vào icon vị trí kết quả phân tích
+    map.on('pointermove', (evt) => {
+      if (evt.dragging) return
+      const hit = map.hasFeatureAtPixel(evt.pixel, { layerFilter: (l) => l === analysisLayer, hitTolerance: 4 })
+      map.getTargetElement().style.cursor = hit ? 'pointer' : ''
     })
 
     return () => map.setTarget(undefined)
@@ -64,6 +79,9 @@ export default function MapView({ extent = INITIAL_EXTENT }) {
     <>
       <div ref={mapRef} className="map" />
       {info && createPortal(<FeaturePopup info={info} onClose={closePopup} />, popupElement)}
+      {chart && (
+        <WaterLevelModal open onClose={() => setChart(null)} station={chart.station} scenario={chart.scenario} />
+      )}
     </>
   )
 }

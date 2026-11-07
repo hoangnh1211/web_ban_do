@@ -9,8 +9,9 @@ import { DataLayers } from './layerTile'
 import { LAYER_TREE } from './layerTree'
 
 // Vị trí có kết quả phân tích (cống / trạm bơm) — data/ketQuaPhanTich.json.
-// Chỉ hiện khi đang bật một giai đoạn của một phương án (lớp trong nhóm "Kịch bản") và đã chọn biểu đồ trong menu.
-// Icon hình tròn chia 2 phần theo tỷ lệ đã chọn (ratioDesign / ratioPossible) của kịch bản đang bật.
+// Chỉ hiện khi đang bật một giai đoạn của một phương án (lớp trong nhóm "Kịch bản") và đã chọn hiển thị trong menu:
+// - biểu đồ tròn → hình tròn chia 2 phần theo tỷ lệ đã chọn; click → popup kết quả
+// - diễn biến mực nước → icon mực nước; click → mở thẳng biểu đồ diễn biến mực nước (xem MapView.jsx)
 
 export const ANALYSIS_FIELDS = data.fields
 
@@ -28,11 +29,14 @@ const SCENARIO_LAYERS = LAYER_TREE.find((root) => root.key === 'kich-ban')
 
 const getActiveScenario = () => SCENARIO_LAYERS.find((item) => DataLayers[item.layerId].getVisible())
 
-// Biểu đồ tròn chọn trong menu (dưới giai đoạn đang bật): chọn 1 trong 2 hoặc không chọn
+// Biểu đồ tròn theo tỷ lệ
 export const RATIO_OPTIONS = [
   { key: 'ratioDesign', label: 'Tỷ lệ lấy nước theo thiết kế', color: '#1565c0' },
   { key: 'ratioPossible', label: 'Tỷ lệ có thể lấy được nước', color: '#1565c0' },
 ]
+export const WATER_LEVEL_OPTION = { key: 'waterLevel', label: 'Diễn biến mực nước', color: '#1565c0' }
+// Hiển thị chọn trong menu (dưới giai đoạn đang bật): chọn 1 trong 3 hoặc không chọn
+export const DISPLAY_OPTIONS = [...RATIO_OPTIONS, WATER_LEVEL_OPTION]
 export const RATIO_COLOR_REST = '#e53935' // phần còn lại của hình tròn
 const SIZE = 30
 const R = 13
@@ -69,6 +73,11 @@ const pieStyle = (option, ratio) => {
   return styleCache[key]
 }
 
+// Ảnh có viền trong suốt (vòng tròn chiếm ~86% ảnh) → 32px để vòng tròn to bằng biểu đồ tròn (2R + viền ≈ 28px)
+const waterLevelStyle = new Style({
+  image: new Icon({ src: '/image/muc-nuoc.png', width: 32 }),
+})
+
 export const analysisLayer = new VectorLayer({
   source: new VectorSource({
     features: data.stations.map((station) => {
@@ -78,15 +87,18 @@ export const analysisLayer = new VectorLayer({
     }),
   }),
   style: (feature) => {
-    const option = RATIO_OPTIONS.find((item) => item.key === analysisLayer.get('ratioKey'))
+    const displayKey = analysisLayer.get('displayKey')
     const active = getActiveScenario()
     const result = active && data.results[active.scenario]?.[active.period][feature.getId()]
-    return option && result ? pieStyle(option, result[option.key]) : null
+    if (!result) return null
+    if (displayKey === WATER_LEVEL_OPTION.key) return waterLevelStyle
+    const option = RATIO_OPTIONS.find((item) => item.key === displayKey)
+    return option ? pieStyle(option, result[option.key]) : null
   },
   zIndex: 10,
   properties: {
-    // Tỷ lệ đang vẽ: 'ratioDesign' | 'ratioPossible' | null (không vẽ biểu đồ)
-    ratioKey: null,
+    // Hiển thị đang chọn: key trong DISPLAY_OPTIONS | null (không hiện gì)
+    displayKey: null,
     // Click vào icon → popup kết quả (xem featureInfo.js, FeaturePopup.jsx)
     info: {
       type: 'analysis',
@@ -99,20 +111,22 @@ export const analysisLayer = new VectorLayer({
           station,
           scenario: active && { ...active, code: scenario?.code, periodLabel: data.periods[active.period].label },
           result: scenario?.[active.period][station.id],
+          // Đang hiện icon mực nước → mở thẳng biểu đồ, không mở popup
+          chartOnly: analysisLayer.get('displayKey') === WATER_LEVEL_OPTION.key,
         }
       },
     },
   },
 })
 
-// Chọn biểu đồ tròn: key trong RATIO_OPTIONS, hoặc null để không vẽ
-export const setRatioKey = (key) => analysisLayer.set('ratioKey', key)
+// Chọn hiển thị: key trong DISPLAY_OPTIONS, hoặc null để không hiện
+export const setDisplayKey = (key) => analysisLayer.set('displayKey', key)
 
-// Đổi kịch bản hoặc tỷ lệ → ẩn/hiện lớp và vẽ lại icon
+// Đổi kịch bản hoặc hiển thị → ẩn/hiện lớp và vẽ lại icon
 const sync = () => {
-  analysisLayer.setVisible(Boolean(getActiveScenario() && analysisLayer.get('ratioKey')))
+  analysisLayer.setVisible(Boolean(getActiveScenario() && analysisLayer.get('displayKey')))
   analysisLayer.changed()
 }
 SCENARIO_LAYERS.forEach((item) => DataLayers[item.layerId].on('change:visible', sync))
-analysisLayer.on('change:ratioKey', sync)
+analysisLayer.on('change:displayKey', sync)
 sync()

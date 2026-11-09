@@ -42,7 +42,7 @@ const buildOption = (data, stationId, period) => {
     grid: { left: 56, right: 24, top: 40, bottom: 80 },
     legend: {
       top: 4,
-      data: ['Mực nước', 'MN > Zđáy và độ mặn < 1‰'],
+      data: ['Thời gian không lấy được nước', 'Thời gian lấy được nước'],
     },
     tooltip: {
       trigger: 'axis',

@@ -75,7 +75,7 @@ const buildOption = (data, stationId, period) => {
     ],
     series: [
       {
-        name: 'Mực nước',
+        name: 'Thời gian không lấy được nước',
         type: 'line',
         showSymbol: false,
         lineStyle: { color: COLOR, width: 2, type: 'dotted' },
@@ -83,7 +83,7 @@ const buildOption = (data, stationId, period) => {
         data: times.map((t, i) => [t, wl[i]]),
       },
       {
-        name: 'MN > Zđáy và độ mặn < 1‰',
+        name: 'Thời gian lấy được nước',
         type: 'line',
         showSymbol: false,
         connectNulls: false,

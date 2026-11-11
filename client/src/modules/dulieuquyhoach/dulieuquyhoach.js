@@ -173,6 +173,16 @@ function Dulieu() {
             dongbangsong: false,
             toanquoc: false
         },
+        b4: {
+            trungdu: false,
+            dongbang: false,
+            bactrunbo: false,
+            namtrungbo: false,
+            taynguyen: false,
+            dongnambo: false,
+            dongbangsong: false,
+            toanquoc: false
+        },
     });
     const [statusVung1, setStatusVung1] = useState({
         trungdu: true,
@@ -193,6 +203,7 @@ function Dulieu() {
         b1: false,
         b2: false,
         b3: false,
+        b4: false,
     });
     const handleNavItemClick = (index) => {
         setActiveIndex(index);
@@ -839,6 +850,94 @@ function Dulieu() {
                                                 <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
                                                     {statusVung?.b3?.toanquoc && tinh.map((value, index) => {
                                                         if (value.khu_vuc === 'Toàn quốc' && value.giai_doan === 'B3. Giai đoạn 2021 - 2025')
+                                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.ten_tinh}</li>
+
+                                                    })}
+                                                </ul>
+                                            </div>
+                                        }
+                                        <div onClick={() => setGiaidoan({ ...giaidoan, b4: !giaidoan.b4 })} style={{
+                                            width: '100%', display: 'flex', justifyContent: 'space-between',
+                                            paddingRight: '10px'
+                                        }}>
+                                            <p style={{ width: '100%', textAlign: 'left', paddingLeft: "10px", fontWeight: 700, fontSize: '16px' }}>B4. Năm 2026</p>
+                                            <i className={giaidoan?.b4 ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                        </div>
+                                        {giaidoan?.b4 &&
+                                            <div style={{ width: '100%' }}>
+                                                <div onClick={() => changeStatus('b4', 'trungdu')} style={navCheck === 'B4. Năm 2026 Trung du và miền núi phía Bắc' ? styleCheck : styleNotCheck}>
+                                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>I. TDMN phía Bắc</p>
+                                                    <i className={statusVung?.b4?.trungdu ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                                </div>
+                                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                    {statusVung?.b4?.trungdu && tinh.map((value, index) => {
+                                                        if (value.khu_vuc === 'Trung du và miền núi phía Bắc' && value.giai_doan === 'B4. Năm 2026')
+                                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.ten_tinh}</li>
+
+                                                    })}
+                                                </ul>
+                                                <div onClick={() => changeStatus('b4', 'dongbang')} style={navCheck === 'B4. Năm 2026 Đồng Bằng Bắc Bộ' ? styleCheck : styleNotCheck}>
+                                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   II. Đồng Bằng Bắc Bộ</p>
+                                                    <i className={statusVung?.b4?.dongbang ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                                </div>
+                                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                    {statusVung?.b4?.dongbang && tinh.map((value, index) => {
+                                                        if (value.khu_vuc === 'Đồng Bằng Bắc Bộ' && value.giai_doan === 'B4. Năm 2026')
+                                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.ten_tinh}</li>
+
+                                                    })}
+                                                </ul>
+                                                <div onClick={() => changeStatus('b4', 'bactrunbo')} style={navCheck === 'B4. Năm 2026 Bắc Trung Bộ' ? styleCheck : styleNotCheck}>
+                                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   III. Bắc Trung Bộ</p>
+                                                    <i className={statusVung?.b4?.bactrunbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                                </div>
+                                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                    {statusVung?.b4?.bactrunbo && tinh.map((value, index) => {
+                                                        if (value.khu_vuc === 'Bắc Trung Bộ' && value.giai_doan === 'B4. Năm 2026')
+                                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.ten_tinh}</li>
+
+                                                    })}
+                                                </ul>
+                                                <div onClick={() => changeStatus('b4', 'namtrungbo')} style={(navCheck === 'B4. Năm 2026 Nam Trung Bộ' || navCheck === 'B4. Năm 2026 Tây Nguyên') ? styleCheck : styleNotCheck}>
+                                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>  IV. Nam Trung Bộ và Tây Nguyên</p>
+                                                    <i className={statusVung?.b4?.namtrungbo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                                </div>
+                                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                    {statusVung?.b4?.namtrungbo && tinh.map((value, index) => {
+                                                        if ((value.khu_vuc === 'Nam Trung Bộ' || value.khu_vuc === 'Tây Nguyên') && value.giai_doan === 'B4. Năm 2026')
+                                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.ten_tinh}</li>
+
+                                                    })}
+                                                </ul>
+                                                <div onClick={() => changeStatus('b4', 'dongnambo')} style={navCheck === 'B4. Năm 2026 Đông Nam Bộ' ? styleCheck : styleNotCheck}>
+                                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   V. Đông Nam Bộ</p>
+                                                    <i className={statusVung?.b4?.dongnambo ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                                </div>
+                                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                    {statusVung?.b4?.dongnambo && tinh.map((value, index) => {
+                                                        if (value.khu_vuc === 'Đông Nam Bộ' && value.giai_doan === 'B4. Năm 2026')
+                                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.ten_tinh}</li>
+
+                                                    })}
+                                                </ul>
+                                                <div onClick={() => changeStatus('b4', 'dongbangsong')} style={navCheck === 'B4. Năm 2026 Đồng bằng sông Cửu Long' ? styleCheck : styleNotCheck}>
+                                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VI. Đồng bằng sông Cửu Long</p>
+                                                    <i className={statusVung?.b4?.dongbangsong ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                                </div>
+                                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                    {statusVung?.b4?.dongbangsong && tinh.map((value, index) => {
+                                                        if (value.khu_vuc === 'Đồng bằng sông Cửu Long' && value.giai_doan === 'B4. Năm 2026')
+                                                            return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.ten_tinh}</li>
+
+                                                    })}
+                                                </ul>
+                                                <div onClick={() => changeStatus('b4', 'toanquoc')} style={navCheck === 'B4. Năm 2026 Toàn quốc' ? styleCheck : styleNotCheck}>
+                                                    <p style={{ fontWeight: 700, fontSize: '16px', marginBottom: '5px' }}>   VII. Toàn quốc</p>
+                                                    <i className={statusVung?.b4?.toanquoc ? 'fa-solid fa-caret-down' : 'fa-solid fa-caret-right'} style={{ marginTop: '4px' }}></i>
+                                                </div>
+                                                <ul style={{ listStyleType: 'none', paddingLeft: '0px' }}>
+                                                    {statusVung?.b4?.toanquoc && tinh.map((value, index) => {
+                                                        if (value.khu_vuc === 'Toàn quốc' && value.giai_doan === 'B4. Năm 2026')
                                                             return <li style={index === indexCheck ? { color: '#0703A4', background: '#B4DAF5', borderRadius: '10px' } : { borderBottom: '0.3px solid #e3e3e3', borderWidth: "0.5px" }} onClick={() => getTinh(value, index)}>{value.ten_tinh}</li>
 
                                                     })}

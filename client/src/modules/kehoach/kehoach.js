@@ -191,16 +191,15 @@ function Kehoach() {
 
     const toggleNav = () => setNavOpen(!navOpen);
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const isLapScreen = useMediaQuery((theme) => theme.breakpoints.down('maxwithnav'));
     return (
         <div className="main-content" style={{ minHeight: '60vh', overflow: 'visible' }}>
-            <div style={{ display: isSmallScreen ? 'contents' : 'flex', marginTop: '5px' }}>
+            <div style={{ display: isSmallScreen ? 'contents' : 'flex', flex: 1, minWidth: 0, marginTop: '5px' }}>
                 {isSmallScreen &&
                     <div style={{ zIndex: "100", padding: "10px", width: '30px' }}>
                         <i className="fas fa-bars" onClick={toggleNav} ></i>
                     </div>}
                 {navOpen &&
-                    <div style={{
+                    <div className="doc-sidebar" style={{
                         zIndex: 90,
                         background: '#fff',
                         position: isSmallScreen ? 'absolute' : 'sticky',
@@ -292,9 +291,9 @@ function Kehoach() {
                         )}
                     </div>
                 }
-                <div style={{ width: isSmallScreen ? '100vw' : '80vw' }}>
+                <div style={isSmallScreen ? { width: '100%' } : { flex: 1, minWidth: 0 }}>
                     {activeIndex === 'Kế hoạch' &&
-                        <div style={{ width: isSmallScreen ? '100vw' : isLapScreen ? '80vw' : '70vw' }}>
+                        <div style={isSmallScreen ? { width: '100%' } : { flex: 1, minWidth: 0 }}>
                             {!currentKeHoach ?
                                 <Box
                                     sx={{

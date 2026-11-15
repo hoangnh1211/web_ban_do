@@ -4,50 +4,38 @@ import React from 'react';
 import 'ol/ol.css';
 import "./table.css"
 import { configText, configDonvi } from './configText';
-import { Table as TableBootrap } from 'react-bootstrap';
+
+// Trường tên công trình → in đậm, màu xanh
+const NAME_FIELDS = ['ten_ct', 'ten', 'tenct', 'ten_tuyen', 'tenqhtl'];
 
 const Table = React.memo((props) => {
 
-    const showContent = (key_table, data, layer) => {
-        if (!configText[layer]) return null;
-        const key_table1 = Object.keys(configText[layer])
-        return (
-            key_table1.map(item => {
-                if (layer && data[item] && configText[layer] && configText[layer][item]) {
-                    return (
-                        <tr key={item}>
-                            <td style={{ padding: '0.25rem' }}>
-                                <p style={{ marginBottom: 0, fontSize: '14px' }}>
-                                    <span className="slabel">{configText[layer][item]}</span>: <span style={item === 'diadanh' ? { fontWeight: 'bold' } : item === 'ten_ct' ? { color: '#1565C0', fontWeight: 'bold' } : {}}>{data[item]} {configDonvi[layer][item]}</span>
-                                </p>
-                            </td>
-                        </tr>
-                    )
-                }
-            })
-        )
-    }
-
-    const showAllTable = (data) => {
-        return (
-            data.map((value, index) => {
-                const key_table = Object.keys(value.properties)
-                let layer = value?.id.split(".")[0];
-                return (
-                    <tbody key={value.id ?? index}>
-                        {showContent(key_table, value.properties, layer)}
-                    </tbody>
-                )
-            })
-        )
+    const showContent = (data, layer) => {
+        const labels = configText[layer];
+        if (!labels) return null;
+        return Object.keys(labels).map(item => {
+            if (!data[item]) return null;
+            const unit = configDonvi[layer]?.[item];
+            return (
+                <div className="info-row" key={item}>
+                    <span className="info-row__label">{labels[item]}</span>
+                    <span className={NAME_FIELDS.includes(item) ? 'info-row__value info-row__value--name' : 'info-row__value'}>
+                        {data[item]}{unit ? <span className="info-row__unit"> {unit}</span> : null}
+                    </span>
+                </div>
+            )
+        })
     }
 
     return (
         <div id="popup-content">
-            {props.data &&
-                <TableBootrap striped hover className="striped-table">
-                    {showAllTable(props.data)}
-                </TableBootrap>}
+            <div className="info-body">
+                {props.data?.map((value, index) => (
+                    <div className="info-group" key={value.id ?? index}>
+                        {showContent(value.properties, value?.id?.split(".")[0])}
+                    </div>
+                ))}
+            </div>
         </div>
     )
 });

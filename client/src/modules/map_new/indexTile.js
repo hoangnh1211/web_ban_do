@@ -254,7 +254,7 @@ function MapNew() {
                 <button type="button" id="popup-closer" className="ol-popup-closer"></button>
                 {dataMap && <Table data={dataMap.data} setInfo={setShowInfo} />}
             </div>
-            <div id="coord-display" style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: open ? (windowWidth <= 1440 ? 260 : 360) : 105, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }}>
+            <div id="coord-display" style={{ fontSize: 12, color: '#374151', position: 'fixed', bottom: 12, right: open ? (windowWidth <= 1440 ? 284 : 384) : 132, backgroundColor: 'rgba(255,255,255,0.92)', padding: '5px 10px', borderRadius: 999, boxShadow: '0 2px 8px rgba(15, 40, 80, 0.18)', fontVariantNumeric: 'tabular-nums' }}>
                 Tọa độ: -
             </div>
             {showInfo && dataMap && <Info data={dataMap.data} setInfo={setShowInfo} />}
@@ -286,10 +286,16 @@ function MapNew() {
                 id="chugiai"
                 style={{
                     position: "fixed",
-                    bottom: 0,
-                    right: 0,
+                    bottom: 12,
+                    right: 12,
                     width: windowWidth <= 1440 ? 260 : 360,
                     zIndex: 9999,
+                    ...(open && {
+                        background: "#fff",
+                        borderRadius: 12,
+                        overflow: "hidden",
+                        boxShadow: "0 4px 18px rgba(15, 40, 80, 0.22)",
+                    }),
                 }}
             >
                 {/* Close icon */}
@@ -310,6 +316,9 @@ function MapNew() {
                                 cursor: "pointer",
                                 fontSize: 18,
                                 lineHeight: "28px",
+                                background: "#eef2f7",
+                                color: "#5f6b7a",
+                                zIndex: 1,
                             }}
                         >
                             ×
@@ -318,12 +327,12 @@ function MapNew() {
                         <img
                             src="image/Chugiai2.png"
                             alt="Chú giải"
-                            style={{ width: "100%", display: "block" }}
+                            style={{ width: "calc(100% + 6px)", margin: -3, display: "block" /* cắt viền đen của ảnh */ }}
                         />
                     </>
                 }
-                {!open && <button style={{ fontSize: "12px", position: 'fixed', bottom: 0, right: 0, width: 100, backgroundColor: 'white', padding: '2px', border: '1px solid #ddd' }} onClick={() => setOpen(true)}>
-                    Chú giải
+                {!open && <button style={{ fontSize: 13, fontWeight: 600, color: '#1565c0', position: 'fixed', bottom: 12, right: 12, padding: '8px 14px', backgroundColor: 'white', border: 'none', borderRadius: 999, boxShadow: '0 2px 10px rgba(15, 40, 80, 0.2)', cursor: 'pointer' }} onClick={() => setOpen(true)}>
+                    <i className="fa-solid fa-list" style={{ marginRight: 6 }} />Chú giải
                 </button>}
             </div>
         </div>

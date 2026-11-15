@@ -44,6 +44,120 @@
     font-size: 0.9em;
 }
 
+/* ===== Popup thông tin đối tượng khi click bản đồ (table.js) ===== */
+#popup.ol-popup {
+    padding: 0;
+    width: 340px;
+    min-width: 0;
+    max-width: calc(100vw - 32px);
+    border: none;
+    border-radius: 12px;
+    filter: drop-shadow(0 6px 16px rgba(15, 40, 80, 0.25));
+    font-family: inherit;
+}
+
+#popup .ol-popup-closer {
+    display: block;
+    top: 7px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #eef2f7;
+    color: #5f6b7a;
+    font-size: 11px;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+    transition: background 0.15s, color 0.15s;
+}
+
+#popup .ol-popup-closer:hover {
+    background: #e53935;
+    color: #fff;
+}
+
+/* chừa chỗ cho nút đóng ở dòng đầu tiên */
+#popup .info-group:first-child .info-row:first-child {
+    padding-right: 40px;
+}
+
+/* map.css có `div#popup-content { max-height: 350px; overflow: auto }` → phải ghi đè mạnh hơn, chỉ cho .info-body cuộn */
+#popup div#popup-content {
+    max-height: none;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+#popup .info-body {
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 6px 0;
+}
+
+#popup .info-group + .info-group {
+    border-top: 6px solid #eef3fa;
+}
+
+#popup .info-row {
+    display: grid;
+    grid-template-columns: 42% 1fr;
+    gap: 10px;
+    padding: 7px 14px;
+    font-size: 13.5px;
+    line-height: 1.4;
+}
+
+#popup .info-row:nth-child(even) {
+    background: #f5f8fc;
+}
+
+#popup .info-row__label {
+    color: #5f6b7a;
+}
+
+#popup .info-row__value {
+    color: #1f2937;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+#popup .info-row__value--name {
+    color: #1565c0;
+}
+
+#popup .info-row__unit {
+    color: #5f6b7a;
+    font-weight: 400;
+}
+
+/* Thanh cuộn mảnh, không có mũi tên */
+#popup .info-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+#popup .info-body::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 36px 0 8px; /* chừa chỗ nút đóng ở góc trên */
+}
+
+#popup .info-body::-webkit-scrollbar-thumb {
+    background: #c5d3e6;
+    border-radius: 3px;
+}
+
+#popup .info-body::-webkit-scrollbar-thumb:hover {
+    background: #9fb3cf;
+}
+
+#popup .info-body::-webkit-scrollbar-button {
+    display: none;
+    height: 0;
+}
+
 .striped-table tbody tr:nth-of-type(odd) {
     background-color: #e0edf9; /* Màu sắc cho các dòng lẻ */
   }

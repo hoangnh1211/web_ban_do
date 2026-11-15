@@ -187,3 +187,165 @@
 #contentToPrint .pa_content tfoot {
   display: table-footer-group;
 }
+
+/* =====================================================================
+   Làm đẹp giao diện chung cho các trang tài liệu
+   (Quy hoạch, Kế hoạch, Quy hoạch khác, Chiến lược, Đánh giá quy hoạch)
+   ===================================================================== */
+.main-content {
+  background: #f3f6fa;
+  min-height: calc(100vh - 70px);
+  gap: 0;
+}
+
+/* ---- Thanh danh mục bên trái ---- */
+.main-content .navbar {
+  display: block;
+  margin: 0 0 12px 12px;
+  padding: 8px 10px 12px;
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(15, 40, 80, 0.08), 0 4px 14px rgba(15, 40, 80, 0.06);
+}
+
+.main-content .navbar li,
+.navbar1 li,
+.navbar1 > div > div {
+  cursor: pointer;
+  line-height: 1.45;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.main-content .navbar li:hover,
+.navbar1 li:hover {
+  color: #0d47a1;
+  background: #e3effc;
+  border-radius: 8px;
+}
+
+.navbar1 > div > div:hover {
+  color: #0d47a1;
+}
+
+.navbar::-webkit-scrollbar,
+.navbar1::-webkit-scrollbar {
+  width: 6px;
+}
+
+.navbar::-webkit-scrollbar-thumb {
+  background: #c5d3e6;
+  border-radius: 3px;
+}
+
+/* ---- Vùng nội dung bên phải ---- */
+.content {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0 16px 24px 0;
+  padding: 24px 4%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(15, 40, 80, 0.08), 0 4px 14px rgba(15, 40, 80, 0.06);
+  color: #1f2937;
+  line-height: 1.65;
+}
+
+.content .pa_content {
+  overflow-x: auto;
+}
+
+/* Bảng trong nội dung: viền nhạt, tiêu đề nền xanh nhạt */
+.content table {
+  border-collapse: collapse;
+  max-width: 100%;
+}
+
+.content td,
+.content th {
+  border: 1px solid #c9d4e2 !important;
+  vertical-align: middle;
+}
+
+.main-content .content th,
+.main-content .content td {
+  padding: 8px 10px;
+}
+
+.content thead th,
+.content thead td,
+.content table tr:first-child th {
+  background: #eaf2fb;
+  color: #0d3b78;
+}
+
+.content tbody tr:hover td {
+  background: #f7faff;
+}
+
+/* ---- Nút tải về ---- */
+.download {
+  height: 40px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #1e88e5 0%, #1565c0 100%);
+  box-shadow: 0 2px 6px rgba(21, 101, 192, 0.3);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.download:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.35);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    gap: 0;
+  }
+  .main-content .navbar {
+    margin: 0;
+    border-radius: 0 0 12px 0;
+  }
+  .content {
+    margin: 8px;
+    padding: 16px;
+  }
+}
+
+/* Thanh bên trái dạng tab (Kế hoạch, Quy hoạch) — ghi đè style inline */
+@media (min-width: 600px) {
+  .doc-sidebar {
+    margin: 0 0 12px 12px;
+    padding: 6px 4px 10px;
+    border: none !important;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(15, 40, 80, 0.08), 0 4px 14px rgba(15, 40, 80, 0.06);
+  }
+}
+
+.doc-sidebar .navbar1 {
+  border-top-color: #e8edf3 !important;
+  padding-right: 6px;
+}
+
+.doc-sidebar .navbar1 > div > div {
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.doc-sidebar .navbar1 > div > div:hover {
+  background: #e3effc;
+}
+
+.doc-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.doc-sidebar::-webkit-scrollbar-thumb {
+  background: #c5d3e6;
+  border-radius: 3px;
+}

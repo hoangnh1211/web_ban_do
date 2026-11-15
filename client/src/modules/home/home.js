@@ -214,7 +214,17 @@ function Home() {
                     {quyhoachThucHien && quyhoachThucHien?.length > 0 &&
                         quyhoachThucHien.map(quyhoach => {
                             return <Grid item xs={12} lg={6}>
-                                <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none', '&:hover': { border: '3px solid #3A5BFF', } }}>
+                                <Card sx={{ display: 'flex', flexDirection: isSmallScreen ? 'column' : 'row', padding: '10px', borderRadius: '16px', backgroundColor: '#e0f7fa', boxShadow: 'none',
+                                    // Hover: nổi lên + viền sáng bằng box-shadow (không chiếm chỗ nên layout không bị xô lệch như border)
+                                    transition: 'transform .25s ease, box-shadow .25s ease, background-color .25s ease',
+                                    '&:hover': {
+                                        transform: 'translateY(-4px)',
+                                        backgroundColor: '#d4f3f8',
+                                        boxShadow: '0 0 0 2px #3A5BFF, 0 12px 28px rgba(11, 71, 162, 0.18)',
+                                    },
+                                    '& img': { transition: 'transform .35s ease' },
+                                    '&:hover img': { transform: 'scale(1.03)' },
+                                }}>
                                     <CardMedia
                                         component="img"
                                         sx={{ width: isSmallScreen ? '100%' : isbigScreen ? 370 : 200, height: isbigScreen ? 250 : 200, borderRadius: '16px' }}

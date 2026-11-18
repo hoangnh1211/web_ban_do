@@ -446,16 +446,16 @@
           "wlMax": 1.507,
           "wlMin": -0.289,
           "wlAvg": 0.548,
-          "salMax": 4.489,
+          "salMax": 0,
           "hWlZdZtk": 1016,
           "hWlGtZtk": 423,
-          "hSalGt1": 14,
-          "hSalLt1": 1425,
-          "hWlGtZtkSalLt1": 420,
-          "hWlZdZtkSalLt1": 1005,
-          "hWlGtZdSalGe1": 14,
-          "ratioDesign": 0.2919,
-          "ratioPossible": 0.9903
+          "hSalGt1": 0,
+          "hSalLt1": 1439,
+          "hWlGtZtkSalLt1": 424,
+          "hWlZdZtkSalLt1": 1015,
+          "hWlGtZdSalGe1": 0,
+          "ratioDesign": 0.2946,
+          "ratioPossible": 1
         },
         "nham-trang": {
           "totalHours": 1439,
@@ -704,16 +704,16 @@
           "wlMax": 1.262,
           "wlMin": -0.333,
           "wlAvg": 0.399,
-          "salMax": 19.681,
+          "salMax": 0,
           "hWlZdZtk": 616,
           "hWlGtZtk": 122,
-          "hSalGt1": 247,
-          "hSalLt1": 493,
-          "hWlGtZtkSalLt1": 66,
-          "hWlZdZtkSalLt1": 425,
-          "hWlGtZdSalGe1": 247,
-          "ratioDesign": 0.0892,
-          "ratioPossible": 0.6635
+          "hSalGt1": 0,
+          "hSalLt1": 740,
+          "hWlGtZtkSalLt1": 122,
+          "hWlZdZtkSalLt1": 616,
+          "hWlGtZdSalGe1": 0,
+          "ratioDesign": 0.1649,
+          "ratioPossible": 0.9973
         },
         "nham-trang": {
           "totalHours": 740,
@@ -966,7 +966,7 @@
           "wlMax": 1.719,
           "wlMin": -0.249,
           "wlAvg": 0.592,
-          "salMax": 0.1,
+          "salMax": 0,
           "hWlZdZtk": 945,
           "hWlGtZtk": 470,
           "hSalGt1": 0,
@@ -1486,7 +1486,7 @@
           "wlMax": 1.655,
           "wlMin": -0.257,
           "wlAvg": 0.523,
-          "salMax": 0.1,
+          "salMax": 0,
           "hWlZdZtk": 1052,
           "hWlGtZtk": 379,
           "hSalGt1": 0,
@@ -1560,8 +1560,8 @@
           "hWlGtZtkSalLt1": 0,
           "hWlZdZtkSalLt1": 2192,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.0,
-          "ratioPossible": 1.0
+          "ratioDesign": 0,
+          "ratioPossible": 1
         },
         "cau-xe": {
           "totalHours": 2192,
@@ -1624,8 +1624,8 @@
           "hWlGtZtkSalLt1": 2192,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 1.0,
-          "ratioPossible": 1.0
+          "ratioDesign": 1,
+          "ratioPossible": 1
         },
         "chanh-chu": {
           "totalHours": 2192,
@@ -1641,7 +1641,7 @@
           "hWlZdZtkSalLt1": 1795,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.1811,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "trung-trang": {
           "totalHours": 2192,
@@ -1657,7 +1657,7 @@
           "hWlZdZtkSalLt1": 1815,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.172,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "he": {
           "totalHours": 2192,
@@ -1689,7 +1689,7 @@
           "hWlZdZtkSalLt1": 798,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.6359,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "duc-duong": {
           "totalHours": 2192,
@@ -1705,7 +1705,7 @@
           "hWlZdZtkSalLt1": 115,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.9475,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "nguyet-lam": {
           "totalHours": 2192,
@@ -1736,24 +1736,24 @@
           "hWlGtZtkSalLt1": 2192,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 1.0,
-          "ratioPossible": 1.0
+          "ratioDesign": 1,
+          "ratioPossible": 1
         },
         "coc-thanh": {
           "totalHours": 2192,
           "wlMax": 1.379,
           "wlMin": -0.289,
           "wlAvg": 0.461,
-          "salMax": 6.397,
+          "salMax": 0,
           "hWlZdZtk": 1688,
           "hWlGtZtk": 504,
-          "hSalGt1": 81,
-          "hSalLt1": 2111,
-          "hWlGtZtkSalLt1": 488,
-          "hWlZdZtkSalLt1": 1623,
-          "hWlGtZdSalGe1": 81,
-          "ratioDesign": 0.2226,
-          "ratioPossible": 0.963
+          "hSalGt1": 0,
+          "hSalLt1": 2192,
+          "hWlGtZtkSalLt1": 507,
+          "hWlZdZtkSalLt1": 1685,
+          "hWlGtZdSalGe1": 0,
+          "ratioDesign": 0.2313,
+          "ratioPossible": 1
         },
         "nham-trang": {
           "totalHours": 2192,
@@ -1769,7 +1769,7 @@
           "hWlZdZtkSalLt1": 1876,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.1442,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "ngo-dong": {
           "totalHours": 2192,
@@ -1784,8 +1784,8 @@
           "hWlGtZtkSalLt1": 0,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 2192,
-          "ratioDesign": 0.0,
-          "ratioPossible": 0.0
+          "ratioDesign": 0,
+          "ratioPossible": 0
         },
         "muc": {
           "totalHours": 2192,
@@ -1810,260 +1810,260 @@
       "group": "pa1",
       "d1": {
         "xuan-quan": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 2.046,
           "wlMin": 0.083,
-          "wlAvg": 0.915,
+          "wlAvg": 0.91,
           "salMax": 0.101,
-          "hWlZdZtk": 1363,
+          "hWlZdZtk": 1379,
           "hWlGtZtk": 52,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
+          "hSalLt1": 1431,
           "hWlGtZtkSalLt1": 52,
-          "hWlZdZtkSalLt1": 1363,
+          "hWlZdZtkSalLt1": 1379,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.0367,
+          "ratioDesign": 0.0363,
           "ratioPossible": 1
         },
         "cau-xe": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.935,
           "wlMin": -0.63,
-          "wlAvg": 0.418,
+          "wlAvg": 0.416,
           "salMax": 2.944,
-          "hWlZdZtk": 1230,
+          "hWlZdZtk": 1246,
           "hWlGtZtk": 185,
           "hSalGt1": 49,
-          "hSalLt1": 1366,
+          "hSalLt1": 1382,
           "hWlGtZtkSalLt1": 144,
-          "hWlZdZtkSalLt1": 1222,
+          "hWlZdZtkSalLt1": 1238,
           "hWlGtZdSalGe1": 49,
-          "ratioDesign": 0.1018,
-          "ratioPossible": 0.9654
+          "ratioDesign": 0.1006,
+          "ratioPossible": 0.9658
         },
         "an-tho": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.936,
           "wlMin": -0.573,
-          "wlAvg": 0.464,
+          "wlAvg": 0.462,
           "salMax": 3.181,
-          "hWlZdZtk": 1212,
+          "hWlZdZtk": 1228,
           "hWlGtZtk": 203,
           "hSalGt1": 33,
-          "hSalLt1": 1382,
+          "hSalLt1": 1398,
           "hWlGtZtkSalLt1": 172,
-          "hWlZdZtkSalLt1": 1210,
+          "hWlZdZtkSalLt1": 1226,
           "hWlGtZdSalGe1": 33,
-          "ratioDesign": 0.1216,
-          "ratioPossible": 0.9767
+          "ratioDesign": 0.1202,
+          "ratioPossible": 0.9769
         },
         "ro-moi": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.947,
           "wlMin": -0.637,
-          "wlAvg": 0.436,
+          "wlAvg": 0.434,
           "salMax": 23.599,
-          "hWlZdZtk": 1131,
+          "hWlZdZtk": 1147,
           "hWlGtZtk": 284,
           "hSalGt1": 465,
-          "hSalLt1": 950,
+          "hSalLt1": 966,
           "hWlGtZtkSalLt1": 123,
-          "hWlZdZtkSalLt1": 827,
+          "hWlZdZtkSalLt1": 843,
           "hWlGtZdSalGe1": 465,
-          "ratioDesign": 0.0869,
-          "ratioPossible": 0.6714
+          "ratioDesign": 0.086,
+          "ratioPossible": 0.6751
         },
         "bang-lai": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.969,
           "wlMin": -0.555,
-          "wlAvg": 0.442,
+          "wlAvg": 0.439,
           "salMax": 0.104,
           "hWlZdZtk": 0,
-          "hWlGtZtk": 1415,
+          "hWlGtZtk": 1431,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
-          "hWlGtZtkSalLt1": 1415,
+          "hSalLt1": 1431,
+          "hWlGtZtkSalLt1": 1431,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 1,
           "ratioPossible": 1
         },
         "chanh-chu": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.98,
           "wlMin": -0.529,
-          "wlAvg": 0.495,
+          "wlAvg": 0.492,
           "salMax": 0.155,
-          "hWlZdZtk": 1110,
+          "hWlZdZtk": 1126,
           "hWlGtZtk": 305,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
+          "hSalLt1": 1431,
           "hWlGtZtkSalLt1": 305,
-          "hWlZdZtkSalLt1": 1110,
+          "hWlZdZtkSalLt1": 1126,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.2155,
+          "ratioDesign": 0.2131,
           "ratioPossible": 1
         },
         "trung-trang": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.951,
           "wlMin": -0.636,
-          "wlAvg": 0.419,
+          "wlAvg": 0.417,
           "salMax": 0.342,
-          "hWlZdZtk": 1152,
+          "hWlZdZtk": 1168,
           "hWlGtZtk": 263,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
+          "hSalLt1": 1431,
           "hWlGtZtkSalLt1": 264,
-          "hWlZdZtkSalLt1": 1151,
+          "hWlZdZtkSalLt1": 1167,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.1866,
+          "ratioDesign": 0.1845,
           "ratioPossible": 1
         },
         "he": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 2.006,
           "wlMin": -0.813,
-          "wlAvg": 0.447,
+          "wlAvg": 0.444,
           "salMax": 24.897,
-          "hWlZdZtk": 371,
-          "hWlGtZtk": 1044,
+          "hWlZdZtk": 373,
+          "hWlGtZtk": 1058,
           "hSalGt1": 472,
-          "hSalLt1": 943,
-          "hWlGtZtkSalLt1": 637,
-          "hWlZdZtkSalLt1": 306,
+          "hSalLt1": 959,
+          "hWlGtZtkSalLt1": 651,
+          "hWlZdZtkSalLt1": 308,
           "hWlGtZdSalGe1": 472,
-          "ratioDesign": 0.4502,
-          "ratioPossible": 0.6664
+          "ratioDesign": 0.4549,
+          "ratioPossible": 0.6702
         },
         "thuyen-quan": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 2.028,
           "wlMin": -0.589,
-          "wlAvg": 0.447,
+          "wlAvg": 0.444,
           "salMax": 0.105,
-          "hWlZdZtk": 425,
-          "hWlGtZtk": 990,
+          "hWlZdZtk": 433,
+          "hWlGtZtk": 998,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
-          "hWlGtZtkSalLt1": 991,
-          "hWlZdZtkSalLt1": 424,
+          "hSalLt1": 1431,
+          "hWlGtZtkSalLt1": 1000,
+          "hWlZdZtkSalLt1": 431,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.7004,
+          "ratioDesign": 0.6988,
           "ratioPossible": 1
         },
         "duc-duong": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 2.038,
           "wlMin": -0.62,
-          "wlAvg": 0.436,
+          "wlAvg": 0.433,
           "salMax": 0.105,
           "hWlZdZtk": 34,
-          "hWlGtZtk": 1381,
+          "hWlGtZtk": 1397,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
-          "hWlGtZtkSalLt1": 1381,
+          "hSalLt1": 1431,
+          "hWlGtZtkSalLt1": 1397,
           "hWlZdZtkSalLt1": 34,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.976,
+          "ratioDesign": 0.9762,
           "ratioPossible": 1
         },
         "nguyet-lam": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.945,
           "wlMin": -0.308,
-          "wlAvg": 0.609,
+          "wlAvg": 0.607,
           "salMax": 22.167,
           "hWlZdZtk": 204,
-          "hWlGtZtk": 1211,
-          "hSalGt1": 588,
+          "hWlGtZtk": 1227,
+          "hSalGt1": 604,
           "hSalLt1": 827,
           "hWlGtZtkSalLt1": 670,
           "hWlZdZtkSalLt1": 157,
-          "hWlGtZdSalGe1": 588,
-          "ratioDesign": 0.4735,
-          "ratioPossible": 0.5845
+          "hWlGtZdSalGe1": 604,
+          "ratioDesign": 0.4682,
+          "ratioPossible": 0.5779
         },
         "nhu-trac": {
-          "totalHours": 1415,
-          "wlMax": 6.713,
+          "totalHours": 1431,
+          "wlMax": 6.944,
           "wlMin": 5.618,
-          "wlAvg": 6.413,
+          "wlAvg": 6.419,
           "salMax": 0.104,
           "hWlZdZtk": 0,
-          "hWlGtZtk": 1415,
+          "hWlGtZtk": 1431,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
-          "hWlGtZtkSalLt1": 1415,
+          "hSalLt1": 1431,
+          "hWlGtZtkSalLt1": 1431,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 1,
           "ratioPossible": 1
         },
         "coc-thanh": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.655,
           "wlMin": -0.235,
-          "wlAvg": 0.578,
-          "salMax": 0.1,
-          "hWlZdZtk": 987,
+          "wlAvg": 0.574,
+          "salMax": 0,
+          "hWlZdZtk": 1003,
           "hWlGtZtk": 428,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
+          "hSalLt1": 1431,
           "hWlGtZtkSalLt1": 429,
-          "hWlZdZtkSalLt1": 986,
+          "hWlZdZtkSalLt1": 1002,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.3032,
+          "ratioDesign": 0.2998,
           "ratioPossible": 1
         },
         "nham-trang": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.638,
           "wlMin": 0.02,
-          "wlAvg": 0.752,
+          "wlAvg": 0.747,
           "salMax": 0.088,
-          "hWlZdZtk": 959,
+          "hWlZdZtk": 975,
           "hWlGtZtk": 456,
           "hSalGt1": 0,
-          "hSalLt1": 1415,
+          "hSalLt1": 1431,
           "hWlGtZtkSalLt1": 457,
-          "hWlZdZtkSalLt1": 958,
+          "hWlZdZtkSalLt1": 974,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.323,
+          "ratioDesign": 0.3194,
           "ratioPossible": 1
         },
         "ngo-dong": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.997,
           "wlMin": -0.394,
-          "wlAvg": 0.596,
+          "wlAvg": 0.594,
           "salMax": 23.809,
-          "hWlZdZtk": 638,
-          "hWlGtZtk": 777,
-          "hSalGt1": 702,
+          "hWlZdZtk": 649,
+          "hWlGtZtk": 782,
+          "hSalGt1": 718,
           "hSalLt1": 713,
           "hWlGtZtkSalLt1": 358,
           "hWlZdZtkSalLt1": 355,
-          "hWlGtZdSalGe1": 702,
-          "ratioDesign": 0.253,
-          "ratioPossible": 0.5039
+          "hWlGtZdSalGe1": 718,
+          "ratioDesign": 0.2502,
+          "ratioPossible": 0.4983
         },
         "muc": {
-          "totalHours": 1415,
+          "totalHours": 1431,
           "wlMax": 1.825,
           "wlMin": -0.396,
-          "wlAvg": 0.567,
+          "wlAvg": 0.564,
           "salMax": 4.009,
-          "hWlZdZtk": 1106,
+          "hWlZdZtk": 1122,
           "hWlGtZtk": 309,
           "hSalGt1": 83,
-          "hSalLt1": 1332,
+          "hSalLt1": 1348,
           "hWlGtZtkSalLt1": 278,
-          "hWlZdZtkSalLt1": 1054,
+          "hWlZdZtkSalLt1": 1070,
           "hWlGtZdSalGe1": 83,
-          "ratioDesign": 0.1965,
-          "ratioPossible": 0.9413
+          "ratioDesign": 0.1943,
+          "ratioPossible": 0.942
         }
       },
       "d2": {
@@ -2526,7 +2526,7 @@
           "wlMax": 1.714,
           "wlMin": -0.254,
           "wlAvg": 0.567,
-          "salMax": 0.1,
+          "salMax": 0,
           "hWlZdZtk": 964,
           "hWlGtZtk": 451,
           "hSalGt1": 0,
@@ -3046,7 +3046,7 @@
           "wlMax": 1.655,
           "wlMin": -0.235,
           "wlAvg": 0.557,
-          "salMax": 0.1,
+          "salMax": 0,
           "hWlZdZtk": 1019,
           "hWlGtZtk": 412,
           "hSalGt1": 0,
@@ -3120,8 +3120,8 @@
           "hWlGtZtkSalLt1": 0,
           "hWlZdZtkSalLt1": 2192,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 0.0,
-          "ratioPossible": 1.0
+          "ratioDesign": 0,
+          "ratioPossible": 1
         },
         "cau-xe": {
           "totalHours": 2192,
@@ -3184,8 +3184,8 @@
           "hWlGtZtkSalLt1": 2192,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 1.0,
-          "ratioPossible": 1.0
+          "ratioDesign": 1,
+          "ratioPossible": 1
         },
         "chanh-chu": {
           "totalHours": 2192,
@@ -3201,7 +3201,7 @@
           "hWlZdZtkSalLt1": 1795,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.1811,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "trung-trang": {
           "totalHours": 2192,
@@ -3217,7 +3217,7 @@
           "hWlZdZtkSalLt1": 1815,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.172,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "he": {
           "totalHours": 2192,
@@ -3249,7 +3249,7 @@
           "hWlZdZtkSalLt1": 798,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.6359,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "duc-duong": {
           "totalHours": 2192,
@@ -3265,7 +3265,7 @@
           "hWlZdZtkSalLt1": 115,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.9475,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "nguyet-lam": {
           "totalHours": 2192,
@@ -3296,24 +3296,24 @@
           "hWlGtZtkSalLt1": 2192,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 1.0,
-          "ratioPossible": 1.0
+          "ratioDesign": 1,
+          "ratioPossible": 1
         },
         "coc-thanh": {
           "totalHours": 2192,
           "wlMax": 1.379,
           "wlMin": -0.289,
           "wlAvg": 0.461,
-          "salMax": 2.601,
+          "salMax": 0,
           "hWlZdZtk": 1688,
           "hWlGtZtk": 504,
-          "hSalGt1": 26,
-          "hSalLt1": 2166,
+          "hSalGt1": 0,
+          "hSalLt1": 2192,
           "hWlGtZtkSalLt1": 507,
-          "hWlZdZtkSalLt1": 1659,
-          "hWlGtZdSalGe1": 26,
+          "hWlZdZtkSalLt1": 1685,
+          "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.2313,
-          "ratioPossible": 0.9881
+          "ratioPossible": 1
         },
         "nham-trang": {
           "totalHours": 2192,
@@ -3329,7 +3329,7 @@
           "hWlZdZtkSalLt1": 1876,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.1442,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "ngo-dong": {
           "totalHours": 2192,
@@ -3566,7 +3566,7 @@
           "wlMax": 1.617,
           "wlMin": -0.284,
           "wlAvg": 0.572,
-          "salMax": 0.1,
+          "salMax": 0,
           "hWlZdZtk": 960,
           "hWlGtZtk": 455,
           "hSalGt1": 0,
@@ -4086,7 +4086,7 @@
           "wlMax": 1.639,
           "wlMin": -0.345,
           "wlAvg": 0.577,
-          "salMax": 0.1,
+          "salMax": 0,
           "hWlZdZtk": 960,
           "hWlGtZtk": 454,
           "hSalGt1": 0,
@@ -4161,7 +4161,7 @@
           "hWlZdZtkSalLt1": 2155,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.0169,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "cau-xe": {
           "totalHours": 2192,
@@ -4224,8 +4224,8 @@
           "hWlGtZtkSalLt1": 2192,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 1.0,
-          "ratioPossible": 1.0
+          "ratioDesign": 1,
+          "ratioPossible": 1
         },
         "chanh-chu": {
           "totalHours": 2192,
@@ -4241,7 +4241,7 @@
           "hWlZdZtkSalLt1": 1687,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.2304,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "trung-trang": {
           "totalHours": 2192,
@@ -4257,7 +4257,7 @@
           "hWlZdZtkSalLt1": 1743,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.2048,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "he": {
           "totalHours": 2192,
@@ -4289,7 +4289,7 @@
           "hWlZdZtkSalLt1": 723,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.6702,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "duc-duong": {
           "totalHours": 2192,
@@ -4305,7 +4305,7 @@
           "hWlZdZtkSalLt1": 59,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.9731,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "nguyet-lam": {
           "totalHours": 2192,
@@ -4336,8 +4336,8 @@
           "hWlGtZtkSalLt1": 2192,
           "hWlZdZtkSalLt1": 0,
           "hWlGtZdSalGe1": 0,
-          "ratioDesign": 1.0,
-          "ratioPossible": 1.0
+          "ratioDesign": 1,
+          "ratioPossible": 1
         },
         "coc-thanh": {
           "totalHours": 2192,
@@ -4369,7 +4369,7 @@
           "hWlZdZtkSalLt1": 1774,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.1907,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         },
         "ngo-dong": {
           "totalHours": 2192,
@@ -4401,7 +4401,7 @@
           "hWlZdZtkSalLt1": 1737,
           "hWlGtZdSalGe1": 0,
           "ratioDesign": 0.2076,
-          "ratioPossible": 1.0
+          "ratioPossible": 1
         }
       }
     }

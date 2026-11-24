@@ -22,7 +22,7 @@ const formatMeasure = (value, unit) => {
   return value.toLocaleString('vi-VN', { minimumFractionDigits: digits, maximumFractionDigits: digits })
 }
 
-// Kết quả phân tích: 2 tỷ lệ lấy nước hiển thị dạng thanh (cùng màu biểu đồ tròn), các chỉ tiêu còn lại dạng bảng
+// Kết quả phân tích: tỷ lệ lấy nước hiển thị dạng thanh (cùng màu biểu đồ tròn), các chỉ tiêu còn lại dạng bảng
 const RATIO_FIELDS = ANALYSIS_FIELDS.filter((field) => field.unit === '%').map((field) => ({
   ...field,
   color: RATIO_COLOR,
@@ -89,8 +89,8 @@ function AnalysisCard({ feature }) {
             scenario={scenario}
           />
           <dl className="info-popup__body">
-            <Row label="Zđáy" value={formatMeasure(station.zd, 'm')} unit="m" />
-            <Row label="Ztk" value={formatMeasure(station.ztk, 'm')} unit="m" />
+            <Row label="Khoảng cách đến cửa sông" value={station.distanceKm} unit="km" />
+            <Row label="Zđồng" value={formatMeasure(station.zd, 'm')} unit="m" />
             {VALUE_FIELDS.map(({ key, label, unit }) => (
               <Row key={key} label={label} value={formatMeasure(result[key], unit)} unit={unit} />
             ))}

@@ -17,6 +17,8 @@ SCENARIOS = {
     'PA1.1': 'xa-ht-2024', 'PA1.2': 'xa-ht-2025', 'PA1.3': 'xa-tt', 'PA1.4': 'xa-tc',
     'PA1.5': 'xa-td', 'PA2': 'xa-tc-2n', 'PA3.1': 'dap-xa-tt', 'PA3.2': 'dap-xa-tc',
 }
+# PA1.4: thời kỳ tưới dưỡng (tháng 3-5) lấy theo file PA_Tuoiduong (tháng 1-2 giống hệt PA1.4_mucnuoc.xlsx)
+OVERRIDES = {'PA1.4': 'PA_Tuoiduong_mucnuoc.xlsx'}
 WL_COLS = range(CI('B') - 1, CI('Q'))
 SAL_TIME = CI('AI') - 1
 SAL_COLS = range(CI('AJ') - 1, CI('AY'))
@@ -32,7 +34,11 @@ def slug(text):
 result = {}
 for path in sorted(glob.glob(os.path.join(src_dir, '*_mucnuoc.xlsx'))):
     code = os.path.basename(path).split('_')[0]
+    if code not in SCENARIOS:
+        continue  # file thay thế (OVERRIDES), đọc thay cho file gốc bên dưới
     key = SCENARIOS[code]
+    if code in OVERRIDES:
+        path = os.path.join(src_dir, OVERRIDES[code])
     ws = openpyxl.load_workbook(path, data_only=True, read_only=True).worksheets[0]
     rows = list(ws.iter_rows(values_only=True))
     header = rows[1]

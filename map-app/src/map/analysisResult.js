@@ -30,12 +30,13 @@ const SCENARIO_LAYERS = LAYER_TREE.find((root) => root.key === 'kich-ban')
 const getActiveScenario = () => SCENARIO_LAYERS.find((item) => DataLayers[item.layerId].getVisible())
 
 // Biểu đồ tròn theo tỷ lệ
+// (Đã bỏ lựa chọn "Tỷ lệ lấy nước theo thiết kế" — ratioDesign — khỏi menu)
 export const RATIO_OPTIONS = [
-  { key: 'ratioDesign', label: 'Tỷ lệ lấy nước theo thiết kế', color: '#1565c0' },
   { key: 'ratioPossible', label: 'Tỷ lệ có thể lấy được nước', color: '#1565c0' },
 ]
+export const RATIO_COLOR = RATIO_OPTIONS[0].color
 export const WATER_LEVEL_OPTION = { key: 'waterLevel', label: 'Diễn biến mực nước', color: '#1565c0' }
-// Hiển thị chọn trong menu (dưới giai đoạn đang bật): chọn 1 trong 3 hoặc không chọn
+// Hiển thị chọn trong menu (dưới giai đoạn đang bật): chọn 1 trong các lựa chọn hoặc không chọn
 export const DISPLAY_OPTIONS = [...RATIO_OPTIONS, WATER_LEVEL_OPTION]
 export const RATIO_COLOR_REST = '#e53935' // phần còn lại của hình tròn
 const SIZE = 30

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BarChartOutlined, CloseOutlined, EnvironmentFilled, WarningOutlined } from '@ant-design/icons'
-import { ANALYSIS_FIELDS, RATIO_OPTIONS } from '../map/analysisResult'
+import { ANALYSIS_FIELDS, RATIO_COLOR } from '../map/analysisResult'
 import WaterLevelModal from './WaterLevelModal'
 import { WATER_LEVEL_ICON } from './waterLevelLoader'
 
@@ -25,7 +25,7 @@ const formatMeasure = (value, unit) => {
 // Kết quả phân tích: 2 tỷ lệ lấy nước hiển thị dạng thanh (cùng màu biểu đồ tròn), các chỉ tiêu còn lại dạng bảng
 const RATIO_FIELDS = ANALYSIS_FIELDS.filter((field) => field.unit === '%').map((field) => ({
   ...field,
-  color: RATIO_OPTIONS.find((option) => option.key === field.key)?.color,
+  color: RATIO_COLOR,
 }))
 const VALUE_FIELDS = ANALYSIS_FIELDS.filter((field) => field.unit !== '%')
 

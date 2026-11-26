@@ -1154,7 +1154,7 @@ function Dulieu() {
                                     </Grid>
                                 </Grid>
                                 <div className='d-flex justify-content-center mt-2' style={{ position: 'relative' }}>
-                                    <button className="download" style={{ position: 'absolute', left: '30px', paddingLeft: '14px', paddingRight: '14px', borderRadius: '9px', height: '40px' }} onClick={() => getDuLieuXayMoiExcel()}><i className="fas fa-download"></i></button>
+                                    {/* <button className="download" style={{ position: 'absolute', left: '30px', paddingLeft: '14px', paddingRight: '14px', borderRadius: '9px', height: '40px' }} onClick={() => getDuLieuXayMoiExcel()}><i className="fas fa-download"></i></button> */}
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -1407,7 +1407,7 @@ function Dulieu() {
                                 </Grid>
 
                                 <div className='d-flex justify-content-center mt-2' style={{ position: 'relative' }}>
-                                    <button className="download" style={{ position: 'absolute', left: '30px', paddingLeft: '14px', paddingRight: '14px', borderRadius: '9px', height: '40px' }} onClick={() => getDuLieuNangCapExcel()}><i className="fas fa-download"></i></button>
+                                    {/* <button className="download" style={{ position: 'absolute', left: '30px', paddingLeft: '14px', paddingRight: '14px', borderRadius: '9px', height: '40px' }} onClick={() => getDuLieuNangCapExcel()}><i className="fas fa-download"></i></button> */}
                                     <Button
                                         variant="contained"
                                         color="primary"

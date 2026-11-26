@@ -7,31 +7,61 @@ import { FormControl, InputLabel, Button, Select, MenuItem, CircularProgress, Bo
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
+import { COT_DU_LIEU_KE_HOACH, DU_LIEU_KE_HOACH } from './duLieuKeHoach';
 
+// Dữ liệu tra cứu cũ (năm cũ, lấy từ API /api/dulieukehoach) — thay bằng dữ liệu cố định trong duLieuKeHoach.js
+// const data = {
+//     du_lieu_ke_hoach: [
+//         { title: 'TT', field_data: 'stt' },
+//         { title: 'Danh mục dự án', field_data: 'danh_muc_du_an' },
+//         { title: 'Địa điểm XD', field_data: 'dia_diem_xd' },
+//         { title: 'Thời gian KC', field_data: 'thoi_gian_kc' },
+//         { title: 'Thời gian HT', field_data: 'thoi_gian_ht' },
+//         { title: 'Mã dự án', field_data: 'ma_du_an' },
+//         { title: 'Số quyết định', field_data: 'so_quyet_dinh' },
+//         { title: 'TMĐT', field_data: 'tmdt' },
+//         { title: 'Vốn NSTW', field_data: 'von_nstw' },
+//         { title: 'KH trước năm 2021', field_data: 'kh_truoc_2021' },
+//         { title: 'KH 2021 - 2025', field_data: 'kh_2021_2025' },
+//         { title: 'KH năm 2025', field_data: 'kh_2025' },
+//         { title: 'KH 2026 - 2030', field_data: 'kh_2026_2030' },
+//         { title: 'Ghi chú', field_data: 'ghi_chu' },
+//     ]
+// };
 const data = {
-    du_lieu_ke_hoach: [
-        { title: 'TT', field_data: 'stt' },
-        { title: 'Danh mục dự án', field_data: 'danh_muc_du_an' },
-        { title: 'Địa điểm XD', field_data: 'dia_diem_xd' },
-        { title: 'Thời gian KC', field_data: 'thoi_gian_kc' },
-        { title: 'Thời gian HT', field_data: 'thoi_gian_ht' },
-        { title: 'Mã dự án', field_data: 'ma_du_an' },
-        { title: 'Số quyết định', field_data: 'so_quyet_dinh' },
-        { title: 'TMĐT', field_data: 'tmdt' },
-        { title: 'Vốn NSTW', field_data: 'von_nstw' },
-        { title: 'KH trước năm 2021', field_data: 'kh_truoc_2021' },
-        { title: 'KH 2021 - 2025', field_data: 'kh_2021_2025' },
-        { title: 'KH năm 2025', field_data: 'kh_2025' },
-        { title: 'KH 2026 - 2030', field_data: 'kh_2026_2030' },
-        { title: 'Ghi chú', field_data: 'ghi_chu' },
-    ]
+    du_lieu_ke_hoach: COT_DU_LIEU_KE_HOACH
+};
+
+// Tra cứu: lọc + phân trang ngay trên dữ liệu cố định (thay cho API)
+const giaTriKhac = (key) => [...new Set(DU_LIEU_KE_HOACH.map(row => row[key]).filter(v => v != null && v !== ''))];
+const LIST_OPTION_KE_HOACH = {
+    listDiaDiem: giaTriKhac('dia_diem_xd').sort((a, b) => a.localeCompare(b, 'vi')),
+    listThoiGianKC: giaTriKhac('thoi_gian_kc').sort((a, b) => a - b).map(String),
+    listThoiGianHT: giaTriKhac('thoi_gian_ht').sort((a, b) => a - b).map(String),
+};
+// "1.200.000" (giá trị chọn TMĐT) → 1200000
+const docSo = (value) => (value === '' || value == null ? null : Number(String(value).replace(/\./g, '')));
+const dinhDangSo = (value) => (typeof value === 'number' ? value.toLocaleString('de-DE') : value);
+const locDuLieuKeHoach = (params) => {
+    const tuKhoa = (params.danh_muc_du_an || '').trim().toLowerCase();
+    const tmdtTu = docSo(params.tmdt_tu);
+    const tmdtDen = docSo(params.tmdt_den);
+    return DU_LIEU_KE_HOACH.filter(row =>
+        (!tuKhoa || row.danh_muc_du_an.toLowerCase().includes(tuKhoa)) &&
+        (!params.dia_diem_xd || row.dia_diem_xd === params.dia_diem_xd) &&
+        (!params.thoi_gian_kc || String(row.thoi_gian_kc) === String(params.thoi_gian_kc)) &&
+        (!params.thoi_gian_ht || String(row.thoi_gian_ht) === String(params.thoi_gian_ht)) &&
+        (tmdtTu == null || (row.tmdt != null && row.tmdt >= tmdtTu)) &&
+        (tmdtDen == null || (row.tmdt != null && row.tmdt <= tmdtDen))
+    );
 };
 
 function Kehoach() {
     const navigate = useNavigate();
     const [activeIndex, setActiveIndex] = useState('Kế hoạch');
     const [listKeHoach, setListKeHoach] = useState([]);
-    const [listOption, setListOption] = useState({});
+    // const [listOption, setListOption] = useState({});
+    const [listOption] = useState(LIST_OPTION_KE_HOACH);
     const [currentKeHoach, setCurrentKeHoach] = useState();
     const [loading, setLoading] = useState(false);
     const [currentDuLieu, setCurrentDuLieu] = useState([]);
@@ -92,31 +122,51 @@ function Kehoach() {
         navigate(`/ke-hoach?id=${currentKeHoach.id}`, { replace: true });
         setIndexCheckKeHoach(index)
     }
+    // Dữ liệu năm cũ lấy từ API — thay bằng dữ liệu cố định (duLieuKeHoach.js) bên dưới
+    // const getDuLieu = (params = searchDuLieu) => {
+    //     axios.get(`${process.env.REACT_APP_SERVER}/api/dulieukehoach`, {
+    //         params: params
+    //     })
+    //         .then(res => {
+    //             setCurrentDuLieu(res.data.data.data);
+    //             setListOption({
+    //                 listDanhMucDuAn: res.data.data.listDanhMucDuAn,
+    //                 listDiaDiem: res.data.data.listDiaDiem,
+    //                 listThoiGianKC: res.data.data.listThoiGianKC,
+    //                 listThoiGianHT: res.data.data.listThoiGianHT,
+    //                 listTmdt: res.data.data.listTmdt,
+    //                 listVonNstw: res.data.data.listVonNstw,
+    //             })
+    //             setLoading(false)
+    //         });
+    // }
+
+    // const getDuLieuExcel = () => {
+    //     axios.get(`${process.env.REACT_APP_SERVER}/api/dulieukehoach`, {
+    //         params: { ...searchDuLieu, page: 1, per_page: 5000 }
+    //     })
+    //         .then(res => {
+    //             downloadExcel(data.du_lieu_ke_hoach, res.data.data.data?.data ?? [], 'Dữ liệu kế hoạch');
+    //         });
+    // }
+
+    // Lọc + phân trang dữ liệu cố định, trả về cùng dạng { data, current_page, last_page } như API cũ
     const getDuLieu = (params = searchDuLieu) => {
-        axios.get(`${process.env.REACT_APP_SERVER}/api/dulieukehoach`, {
-            params: params
-        })
-            .then(res => {
-                setCurrentDuLieu(res.data.data.data);
-                setListOption({
-                    listDanhMucDuAn: res.data.data.listDanhMucDuAn,
-                    listDiaDiem: res.data.data.listDiaDiem,
-                    listThoiGianKC: res.data.data.listThoiGianKC,
-                    listThoiGianHT: res.data.data.listThoiGianHT,
-                    listTmdt: res.data.data.listTmdt,
-                    listVonNstw: res.data.data.listVonNstw,
-                })
-                setLoading(false)
-            });
+        const rows = locDuLieuKeHoach(params);
+        const perPage = Number(params.per_page) || 15;
+        const lastPage = Math.max(1, Math.ceil(rows.length / perPage));
+        const page = Math.min(Math.max(Number(params.page) || 1, 1), lastPage);
+        setCurrentDuLieu({
+            data: rows.slice((page - 1) * perPage, page * perPage),
+            current_page: page,
+            last_page: lastPage,
+            total: rows.length,
+        });
+        setLoading(false);
     }
 
     const getDuLieuExcel = () => {
-        axios.get(`${process.env.REACT_APP_SERVER}/api/dulieukehoach`, {
-            params: { ...searchDuLieu, page: 1, per_page: 5000 }
-        })
-            .then(res => {
-                downloadExcel(data.du_lieu_ke_hoach, res.data.data.data?.data ?? [], 'Dữ liệu kế hoạch');
-            });
+        downloadExcel(data.du_lieu_ke_hoach, locDuLieuKeHoach(searchDuLieu), 'Dữ liệu kế hoạch');
     }
 
     const handleChangeXayMoi = (e) => {
@@ -507,7 +557,7 @@ function Kehoach() {
                                                                     align="center"
                                                                     sx={{ borderRight: '1px solid #ddd', padding: '6px 3px', flex: 1, fontWeight: 500, fontSize: '14px', color: '#7A7676', width: 'auto' }}
                                                                 >
-                                                                    {row[value.field_data]}
+                                                                    {value.so ? dinhDangSo(row[value.field_data]) : row[value.field_data]}
                                                                 </TableCell>
                                                             )}
                                                         </TableRow>
